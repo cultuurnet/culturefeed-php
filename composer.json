@@ -1,0 +1,46 @@
+{
+  "name": "cultuurnet/culturefeed-php",
+  "description": "Culturefeed PHP library",
+  "license": "GPL-2.0",
+  "authors": [
+    {
+      "name": "Sven Houtmeyers",
+      "email": "sven.houtmeyers@cultuurnet.be"
+    },
+    {
+      "name": "Luk Dens",
+      "email": "luk.dens@cultuurnet.be"
+    },
+    {
+      "name": "Davy Van Den Bremt"
+    },
+    {
+      "name": "Jochen Stals"
+    },
+    {
+      "name": "Nils Destoop"
+    },
+    {
+      "name": "Kristof Coomans",
+      "email": "kristof@2dotstwice.be"
+    },
+    {
+      "name": "Hans Langouche",
+      "email": "hans@2dotstwice.be"
+    }
+  ],
+  "require": {
+    "cultuurnet/cdb": "~2.0"
+  },
+  "autoload": {
+    "classmap": [
+      "CultureFeed",
+      "OAuth"
+    ]
+  },
+  "extra": {
+    "branch-alias": {
+      "dev-master": "1.0.x-dev"
+    }
+  }
+}
