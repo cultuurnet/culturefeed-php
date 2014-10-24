@@ -1,0 +1,15 @@
+language: php
+php:
+  - 5.6
+  - 5.5
+  - 5.4
+  - 5.3
+before_script:
+  - composer install
+script: phpunit --bootstrap=CultureFeed/test/bootstrap.php CultureFeed/test
+notifications:
+  email:
+    recipients:
+      - kristof@2dotstwice.be
+      - hans@2dotstwice.be
+      - sven.houtmeyers@cultuurnet.be
