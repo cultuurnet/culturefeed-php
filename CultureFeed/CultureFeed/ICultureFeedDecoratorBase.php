@@ -421,4 +421,43 @@ abstract class CultureFeed_ICultureFeedDecoratorBase implements ICultureFeed
     {
         return $this->realCultureFeed->uploadUserDepiction($id, $file_data);
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function messages()
+    {
+        return $this->realCultureFeed->messages();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function pages()
+    {
+        return $this->realCultureFeed->pages();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function postToSocial(
+        $id,
+        $account_name,
+        $account_type,
+        $message,
+        $image = null,
+        $link = null
+    ) {
+        return $this->realCultureFeed->postToSocial(
+            $id,
+            $account_name,
+            $account_type,
+            $message,
+            $image,
+            $link
+        );
+    }
+
+
 } 

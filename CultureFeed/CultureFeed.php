@@ -611,25 +611,10 @@ class CultureFeed implements ICultureFeed {
   }
 
 
-  /**
-   * Post a message to social network.
-   *
-   * The object should be initialized with the consumer token and user access token of the user who is acted upon.
-   *
-   * @param int $id
-   *   ID of the user to push to his social account.
-   * @param string $accountName
-   *   ID of the social account
-   * @param string $accountType
-   *   type of social account (twitter/facebook)
-   * @param string $message
-   *   message to post to social account
-   * @param string $image
-   *   URL of an image (twitter ignore this parameter)
-   * @param string $link
-   *   Url to post
-   */
-  public function postToSocial($id, $account_name, $account_type, $message, $image, $link)  {
+    /**
+     * {@inheritdoc}
+     */
+  public function postToSocial($id, $account_name, $account_type, $message, $image = NULL, $link = NULL)  {
 
     $data = array(
       'accountName' => $account_name,
@@ -1709,9 +1694,7 @@ class CultureFeed implements ICultureFeed {
   }
 
   /**
-   * Returns the Pages object.
-   *
-   * @return CultureFeed_Pages
+   * {@inheritdoc}
    */
   public function pages() {
 
@@ -1724,9 +1707,7 @@ class CultureFeed implements ICultureFeed {
   }
 
   /**
-   * Returns the Messages object.
-   *
-   * @return CultureFeed_Messages_Default
+   * {@inheritdoc}
    */
   public function messages() {
 
