@@ -487,8 +487,8 @@ class CultureFeed implements ICultureFeed {
    *
    * @param string $id
    *   ID of the user to upload depiction for.
-   * @param string $file_data
-   *   Binary data of the file to upload.
+   * @param string|CultureFeed_FileUpload $file_data
+   *   Binary data of the file to upload, or a CultureFeed_FileUpload object.
    */
   public function uploadUserDepiction($id, $file_data) {
     $this->oauth_client->authenticatedPostAsXml('user/' . $id . '/upload_depiction', array('depiction' => $file_data), TRUE, TRUE);

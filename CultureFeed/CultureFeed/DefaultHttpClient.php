@@ -150,6 +150,13 @@ class CultureFeed_DefaultHttpClient implements CultureFeed_HttpClient, CultureFe
 
     // If the method is POST, configure CURL for it and set the post data.
     if ($method == 'POST') {
+      if (is_array($post_data)) {
+          foreach ($post_data as $key => $value) {
+              if (is_object($value) && method_exists($value, '__toString')) {
+                  $post_data[$key] = (string)$value;
+              }
+          }
+      }
       $curl_options[CURLOPT_POST] = TRUE;
       $curl_options[CURLOPT_POSTFIELDS] = $post_data;
     }
