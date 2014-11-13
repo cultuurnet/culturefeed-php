@@ -34,6 +34,20 @@ class CultureFeed_SavedSearches_Default implements CultureFeed_SavedSearches {
   /**
    * {@inheritdoc}
    */
+  public function unsubscribe($savedSearchId, $userId) {
+    $this->oauth_client->authenticatedPostAsXml('savedSearch/' . $savedSearchId . '/unsubscribe', array('userId' => $userId));
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function changeFrequency($savedSearchId, $frequency) {
+    $this->oauth_client->authenticatedPostAsXml('savedSearch/' . $savedSearchId . '/frequency', array('frequency' => $frequency));
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function getList($allConsumers = FALSE) {
 
     $result = $this->oauth_client->authenticatedGetAsXml('savedSearch/list', array('all' => $allConsumers ? 'true' : 'false'));
