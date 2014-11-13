@@ -14,6 +14,13 @@ class CultureFeed_SavedSearches_SavedSearch {
   const NEVER = 'NEVER';
 
   /**
+   * ID of the saved search.
+   *
+   * @var int
+   */
+  public $id;
+
+  /**
    * User id this search is of.
    * @var string
    */
