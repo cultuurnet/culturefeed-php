@@ -415,7 +415,7 @@ class CultureFeed implements ICultureFeed {
     else {
       $result = $this->oauth_client->consumerGetAsXml('user/' . $id, $query);
     }
-
+    
     try {
       $xml = new CultureFeed_SimpleXMLElement($result);
     }
@@ -1883,7 +1883,7 @@ class CultureFeed implements ICultureFeed {
       $page->setCategories($categories);
 
       $user_membership->page          = $page;
-
+      $user_membership->validated     = $membership->xpath_bool('validated');
       $user_membership->role          = $membership->xpath_str('role');
       $user_membership->relation      = $membership->xpath_str('relation');
       $user_membership->creationDate = $membership->xpath_time('creationDate');
