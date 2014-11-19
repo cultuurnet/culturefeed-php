@@ -46,4 +46,10 @@ interface CultureFeed_SavedSearches {
    */
   public function getList($allConsumers = FALSE);
 
+  /**
+   * Load a saved search by id.
+   * @param int $savedSearchId
+   */
+  public function getSavedSearch($savedSearchId);
+
 }

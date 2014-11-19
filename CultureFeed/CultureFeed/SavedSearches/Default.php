@@ -48,6 +48,23 @@ class CultureFeed_SavedSearches_Default implements CultureFeed_SavedSearches {
   /**
    * {@inheritdoc}
    */
+  public function getSavedSearch($savedSearchId) {
+
+    $result = $this->oauth_client->authenticatedGetAsXml('savedSearch/' . $savedSearchId);
+    try {
+      $xmlElement = new CultureFeed_SimpleXMLElement($result);
+    }
+    catch (Exception $e) {
+      throw new CultureFeed_ParseException($result);
+    }
+
+    return $this->parseSavedSearch($xmlElement->xpath('savedSearch'));
+
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function getList($allConsumers = FALSE) {
 
     $result = $this->oauth_client->authenticatedGetAsXml('savedSearch/list', array('all' => $allConsumers ? 'true' : 'false'));
@@ -62,18 +79,27 @@ class CultureFeed_SavedSearches_Default implements CultureFeed_SavedSearches {
 
     $searchElements = $xmlElement->xpath('/response/savedSearches/savedSearch');
     foreach ($searchElements as $searchElement) {
-
-      $search = new CultureFeed_SavedSearches_SavedSearch();
-      $search->id = $searchElement->xpath_int('id');
-      $search->frequency = $searchElement->xpath_str('frequency');
-      $search->name = $searchElement->xpath_str('name');
-      $search->query = $searchElement->xpath_str('query');
-
+      $search = $this->parseSavedSearch($searchElement);
       $savedSearches[$search->id] = $search;
-
     }
 
     return $savedSearches;
+
+  }
+
+  /**
+   * Parse a saved search.
+   * @param CultureFeed_SimpleXMLElement $xmlElement
+   */
+  private function parseSavedSearch($xmlElement) {
+
+    $search = new CultureFeed_SavedSearches_SavedSearch();
+    $search->id = $xmlElement->xpath_int('id');
+    $search->frequency = $xmlElement->xpath_str('frequency');
+    $search->name = $xmlElement->xpath_str('name');
+    $search->query = $xmlElement->xpath_str('query');
+
+    return $search;
 
   }
 
