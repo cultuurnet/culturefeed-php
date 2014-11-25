@@ -58,7 +58,8 @@ class CultureFeed_SavedSearches_Default implements CultureFeed_SavedSearches {
       throw new CultureFeed_ParseException($result);
     }
 
-    return $this->parseSavedSearch($xmlElement->xpath('savedSearch'));
+    $searchElement = $xmlElement->xpath('savedSearch');
+    return $this->parseSavedSearch($searchElement[0]);
 
   }
 
