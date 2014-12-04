@@ -1229,4 +1229,94 @@ class CultureFeed_Uitpas_Default implements CultureFeed_Uitpas {
 
     return $cardsystems;
   }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function generateFinancialOverviewReport(
+    DateTime $start_date,
+    DateTime $end_date,
+    $consumer_key_counter = NULL
+  ) {
+    $data = array(
+      'startDate' => $start_date->format(DateTime::W3C),
+      'endDate' => $end_date->format(DateTime::W3C),
+    );
+
+    if ($consumer_key_counter) {
+      $data['balieConsumerKey'] = $consumer_key_counter;
+    }
+
+    $result = $this->oauth_client->authenticatedPost(
+      'uitpas/report/financialoverview/organiser',
+      $data
+    );
+
+    $response = CultureFeed_Response::createFromResponseBody($result);
+
+    if ($response->getCode() !== 'ACTION_SUCCEEDED') {
+      throw new RuntimeException('Expected response code ACTION_SUCCEEDED, got ' . $response->getCode());
+    }
+
+    // Extract the reportId from the relative URL we get back.
+    // Example:
+    // /uitpas/report/financialoverview/organiser/19/status?balieConsumerKey=31413BDF-DFC7-7A9F-10403618C2816E44
+    if (1 === preg_match('@organiser/([^/]+)/status@', $response->getResource(), $matches)) {
+      $reportId = $matches[1];
+    }
+    else {
+      throw new RuntimeException('Unable to extract report ID from response');
+    }
+
+    return $reportId;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function financialOverviewReportStatus(
+    $report_id,
+    $consumer_key_counter = NULL
+  ) {
+    $params = array();
+
+    if ($consumer_key_counter) {
+      $params['balieConsumerKey'] = $consumer_key_counter;
+    }
+
+    $response_xml = $this->oauth_client->authenticatedGetAsXml(
+      "uitpas/report/financialoverview/organiser/{$report_id}/status",
+      $params
+    );
+
+    $response = CultureFeed_Response::createFromResponseBody($response_xml);
+
+    return CultureFeed_ReportStatus::createFromResponse($response);
+  }
+
+  /**
+   * @param string $report_id
+   * @param string|null $consumer_key_counter
+   *
+   * @return mixed
+   */
+  public function downloadFinancialOverviewReport(
+    $report_id,
+    $consumer_key_counter = NULL
+  ) {
+    $params = array();
+
+    if ($consumer_key_counter) {
+      $params['balieConsumerKey'] = $consumer_key_counter;
+    }
+
+    $response = $this->oauth_client->authenticatedGet(
+      "uitpas/report/financialoverview/organiser/{$report_id}/download",
+      $params
+    );
+
+    return $response;
+  }
+
+
 }
