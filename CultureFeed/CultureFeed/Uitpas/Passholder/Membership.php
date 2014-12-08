@@ -31,6 +31,21 @@ class CultureFeed_Uitpas_Passholder_Membership extends CultureFeed_Uitpas_ValueO
    * @var CultureFeed_Uitpas_Association
    */
   public $association;
+
+  /**
+   * @var boolean
+   */
+  public $renewable;
+
+  /**
+   * @var int
+   */
+  public $renewDate;
+
+  /**
+   * @var int
+   */
+  public $newEndDate;
   
   protected function manipulatePostData(&$data) {
     
@@ -46,6 +61,9 @@ class CultureFeed_Uitpas_Passholder_Membership extends CultureFeed_Uitpas_ValueO
     $membership->associationId = $object->xpath_str('association/id');
     $membership->name = $object->xpath_str('association/name');
     $membership->endDate = $object->xpath_time('endDate');
+    $membership->renewable = $object->xpath_bool('renewable');
+    $membership->newEndDate = $object->xpath_time('newEndDate');
+    $membership->renewDate = $object->xpath_time('renewDate');
 
     return $membership;
   }

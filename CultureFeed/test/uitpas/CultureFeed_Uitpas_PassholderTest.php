@@ -134,8 +134,11 @@ class CultureFeed_Uitpas_PassholderTest extends PHPUnit_Framework_TestCase {
     $membership = reset($passholder->memberships);
 
     $this->assertSame(1451602799, $membership->endDate);
+    $this->assertSame(TRUE, $membership->renewable);
+    $this->assertSame(1443653999, $membership->renewDate);
+    $this->assertSame(1514761199, $membership->newEndDate);
+
     $this->assertSame(1, $membership->association->id);
     $this->assertSame('Chiro Jongens', $membership->association->name);
-
   }
 }
