@@ -139,6 +139,15 @@ class CultureFeed_Uitpas_Error
         }
         break;
 
+      case 'uitpas/report/financialoverview/organiser':
+        if ($method == 'POST') {
+          $errors[] = self::UNKNOWN_BALIE_CONSUMERKEY;
+          $errors[] = self::ACCESS_DENIED;
+          $errors[] = self::MISSING_REQUIRED_FIELDS;
+          $errors[] = self::PARSE_INVALID_DATE;
+        }
+        break;
+
     }
 
     return $errors;
