@@ -118,4 +118,24 @@ class CultureFeed_Uitpas_PassholderTest extends PHPUnit_Framework_TestCase {
     $this->assertEquals('Frontend Tester', $passholder->uitIdUser->nick);
     $this->assertEquals(FALSE, $passholder->verified);
   }
+
+  public function testCreateFromXMLWithMemberships() {
+    $xml = file_get_contents(dirname(__FILE__) . '/data/passholder.memberships.xml');
+    $simple_xml = new CultureFeed_SimpleXMLElement($xml);
+
+    $passholder = CultureFeed_Uitpas_Passholder::createFromXML($simple_xml);
+
+    $this->assertInstanceOf('CultureFeed_Uitpas_Passholder', $passholder);
+
+    $this->assertInternalType('array', $passholder->memberships);
+    $this->assertCount(1, $passholder->memberships);
+
+    /** @var CultureFeed_Uitpas_Passholder_Membership $membership */
+    $membership = reset($passholder->memberships);
+
+    $this->assertSame(1451602799, $membership->endDate);
+    $this->assertSame(1, $membership->association->id);
+    $this->assertSame('Chiro Jongens', $membership->association->name);
+
+  }
 }
