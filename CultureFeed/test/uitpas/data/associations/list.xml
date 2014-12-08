@@ -8,6 +8,10 @@
                 <id>6</id>
                 <name>Testsysteem Paspartoe</name>
             </cardSystem>
+            <enddateCalculation>BASED_ON_REGISTRATION_DATE</enddateCalculation>
+            <enddateCalculationValidityTime>2</enddateCalculationValidityTime>
+            <permissionRead>true</permissionRead>
+            <permissionRegister>true</permissionRegister>
         </association>
         <association>
             <id>2</id>
@@ -16,6 +20,8 @@
                 <id>1</id>
                 <name>HELA</name>
             </cardSystem>
+            <permissionRead>false</permissionRead>
+            <permissionRegister>false</permissionRegister>
         </association>
     </associations>
     <total>2</total>

@@ -24,6 +24,20 @@ class CultureFeed_Uitpas_Association {
   public $cardSystem;
 
   /**
+   * If you have read permission on the association or not.
+   *
+   * @var boolean
+   */
+  public $permissionRead;
+
+  /**
+   * If you have register permission on the association or not.
+   *
+   * @var boolean
+   */
+  public $permissionRegister;
+
+  /**
    * @param CultureFeed_SimpleXMLElement $object
    *
    * @return static
@@ -33,6 +47,8 @@ class CultureFeed_Uitpas_Association {
     $instance->id = $object->xpath_int('id');
     $instance->name = $object->xpath_str('name');
     $instance->cardSystem = CultureFeed_Uitpas_CardSystem::createFromXML($object->xpath('cardSystem', FALSE));
+    $instance->permissionRead = $object->xpath_bool('permissionRead');
+    $instance->permissionRegister = $object->xpath_bool('permissionRegister');
 
     return $instance;
   }

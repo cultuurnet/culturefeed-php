@@ -39,6 +39,8 @@ class CultureFeed_Uitpas_AssociationAPITest extends PHPUnit_Framework_TestCase {
     $this->assertInstanceOf('CultureFeed_Uitpas_CardSystem', $association->cardSystem);
     $this->assertEquals(6, $association->cardSystem->id);
     $this->assertEquals('Testsysteem Paspartoe', $association->cardSystem->name);
+    $this->assertSame(TRUE, $association->permissionRead);
+    $this->assertSame(TRUE, $association->permissionRegister);
 
     $association = next($result->objects);
 
@@ -47,5 +49,7 @@ class CultureFeed_Uitpas_AssociationAPITest extends PHPUnit_Framework_TestCase {
     $this->assertInstanceOf('CultureFeed_Uitpas_CardSystem', $association->cardSystem);
     $this->assertEquals(1, $association->cardSystem->id);
     $this->assertEquals('HELA', $association->cardSystem->name);
+    $this->assertSame(FALSE, $association->permissionRead);
+    $this->assertSame(FALSE, $association->permissionRegister);
   }
 } 
