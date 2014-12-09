@@ -165,7 +165,7 @@ class CultureFeed_Uitpas_Default implements CultureFeed_Uitpas {
    */
   public function createMembershipForPassholder(CultureFeed_Uitpas_Passholder_Membership $membership) {
     $data = $membership->toPostData();
-    $result = $this->oauth_client->authenticatedPostAsXml('uitpas/passholder/createMembership', $data);
+    $result = $this->oauth_client->authenticatedPostAsXml('uitpas/passholder/membership', $data);
 
     try {
       $xml = new CultureFeed_SimpleXMLElement($result);
