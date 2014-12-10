@@ -1318,5 +1318,25 @@ class CultureFeed_Uitpas_Default implements CultureFeed_Uitpas {
     return $response;
   }
 
+  public function deleteMembership($uid, $assocationId, $consumer_key_counter = NULL) {
+    $data = array(
+      'uid' => $uid,
+      'assocationId' => $assocationId
+    );
+    if ($consumer_key_counter) {
+      $data['balieConsumerKey'] = $consumer_key_counter;
+    }
+    $result = $this->oauth_client->authenticatedPostAsXml('uitpas/passholder/membership/delete', $data);
+
+    try {
+      $xml = new CultureFeed_SimpleXMLElement($result);
+    }
+    catch (Exception $e) {
+      throw new CultureFeed_ParseException($result);
+    }
+
+    $response = CultureFeed_Uitpas_Response::createFromXML($xml->xpath('/response', false));
+    return $response;
+  }
 
 }

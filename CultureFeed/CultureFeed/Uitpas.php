@@ -374,4 +374,15 @@ interface CultureFeed_Uitpas {
     $report_id,
     $consumer_key_counter = NULL
   );
+
+  /**
+   * @param string $uid
+   * @param string $assocationId
+   * @param string|null $consumer_key_counter
+   * @return CultureFeed_Uitpas_Response
+   */
+  public function deleteMembership(
+    $uid,
+    $assocationId,
+    $consumer_key_counter = NULL);
 }
