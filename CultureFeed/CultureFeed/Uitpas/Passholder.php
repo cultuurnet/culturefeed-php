@@ -189,7 +189,7 @@ class CultureFeed_Uitpas_Passholder extends CultureFeed_Uitpas_ValueObject {
   /**
    * The memberships if the passholder
    *
-   * @var array
+   * @var CultureFeed_Uitpas_Passholder_Membership[]
    */
   public $memberships = array();
 
