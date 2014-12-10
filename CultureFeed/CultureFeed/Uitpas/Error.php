@@ -68,6 +68,10 @@ class CultureFeed_Uitpas_Error
 
   const INVALID_DATE_CONSTRAINTS = 'INVALID_DATE_CONSTRAINTS';
 
+  const UNKNOWN_PASSHOLDER_UID = 'UNKNOWN_PASSHOLDER_UID';
+
+  const UNKNOWN_ASSOCIATION_ID = 'UNKNOWN_ASSOCIATION_ID';
+
   public static function allRelevantFor($path, $method = 'POST') {
     $errors = array();
 
@@ -144,6 +148,19 @@ class CultureFeed_Uitpas_Error
           $errors[] = self::UNKNOWN_BALIE_CONSUMERKEY;
           $errors[] = self::ACCESS_DENIED;
           $errors[] = self::MISSING_REQUIRED_FIELDS;
+          $errors[] = self::PARSE_INVALID_DATE;
+        }
+        break;
+
+      case 'uitpas/passholder/membership':
+        if ($method == 'POST') {
+          $errors[] = self::ACCESS_DENIED;
+          $errors[] = self::ACTION_FAILED;
+          $errors[] = self::UNKNOWN_BALIE_CONSUMERKEY;
+          $errors[] = self::UNKNOWN_PASSHOLDER_UID;
+          $errors[] = self::UNKNOWN_ASSOCIATION_ID;
+          $errors[] = self::MISSING_REQUIRED_FIELDS;
+          $errors[] = self::INVALID_PARAMETERS;
           $errors[] = self::PARSE_INVALID_DATE;
         }
         break;
