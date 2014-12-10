@@ -183,6 +183,13 @@ class CultureFeed_Uitpas_Passholder_Query_SearchPassholdersOptions extends Cultu
    */
   public $includeBlocked;
 
+  /**
+   * Include users who are member of a particular association.
+   *
+   * @var integer
+   */
+  public $associationId;
+
 
 
   protected function manipulatePostData(&$data) {
