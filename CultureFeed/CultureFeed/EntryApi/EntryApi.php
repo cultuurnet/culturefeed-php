@@ -788,12 +788,21 @@ class CultureFeed_EntryApi implements CultureFeed_EntryApi_IEntryApi {
    *   Array of ids to check.
    */
   public function checkPermission($userid, $email, $ids) {
+  
+    $params = array(
+      'user' => $userid,
+      'email' => $email,
+      'ids' => $ids,  
+    );
 
-    $result = $this->oauth_client->authenticatedPostAsXml('../util/checkpermission?user=' . $userid . '&email=' .  $email, $ids);
-    
-    $xml = $this->validateResult($result, self::CODE_ITEM_CREATED);
-
-    return basename($xml->xpath_str('/rsp'));
+    $result = $this->oauth_client->authenticatedGetAsXml('event/checkpermission', $params);
+    try {
+      $object = new CultureFeed_SimpleXMLElement($result);
+    }
+    catch (Exception $e) {
+      throw new CultureFeed_ParseException($result);
+    }
+    return $object;
 
   }
 
