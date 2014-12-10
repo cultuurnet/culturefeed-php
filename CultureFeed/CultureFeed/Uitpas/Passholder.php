@@ -327,6 +327,11 @@ class CultureFeed_Uitpas_Passholder extends CultureFeed_Uitpas_ValueObject {
     $passholder->schoolConsumerKey = $object->xpath_str('schoolConsumerKey');
     $passholder->picture = $object->xpath_str('picture');
 
+    // Temporary workaround for wrongly structured output.
+    foreach ($object->xpath('memberships/association/..') as $membership) {
+      $passholder->memberships[] = CultureFeed_Uitpas_Passholder_Membership::createFromXML($membership);
+    }
+
     foreach ($object->xpath('memberships/membership') as $membership) {
       $passholder->memberships[] = CultureFeed_Uitpas_Passholder_Membership::createFromXML($membership);
     }

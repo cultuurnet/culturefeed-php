@@ -63,7 +63,16 @@ class CultureFeed_Uitpas_Association {
     $instance = new static();
     $instance->id = $object->xpath_int('id');
     $instance->name = $object->xpath_str('name');
-    $instance->cardSystem = CultureFeed_Uitpas_CardSystem::createFromXML($object->xpath('cardSystem', FALSE));
+
+    // Temporary workaround
+    if (count($object->xpath('cardSystems')) > 0) {
+      $instance->cardSystem = CultureFeed_Uitpas_CardSystem::createFromXML($object->xpath('cardSystems', FALSE));
+    }
+    else {
+      $instance->cardSystem = CultureFeed_Uitpas_CardSystem::createFromXML(
+        $object->xpath('cardSystem', FALSE)
+      );
+    }
     $instance->permissionRead = $object->xpath_bool('permissionRead');
     $instance->permissionRegister = $object->xpath_bool('permissionRegister');
     $instance->enddateCalculation = $object->xpath_str('enddateCalculation');
