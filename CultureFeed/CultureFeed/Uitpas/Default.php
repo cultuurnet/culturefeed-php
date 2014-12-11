@@ -1321,7 +1321,7 @@ class CultureFeed_Uitpas_Default implements CultureFeed_Uitpas {
   public function deleteMembership($uid, $assocationId, $consumer_key_counter = NULL) {
     $data = array(
       'uid' => $uid,
-      'assocationId' => $assocationId
+      'associationId' => $assocationId
     );
     if ($consumer_key_counter) {
       $data['balieConsumerKey'] = $consumer_key_counter;
