@@ -8,7 +8,10 @@ class CultureFeed_Uitpas_EndDateCalcultor_Free extends CultureFeed_Uitpas_EndDat
   public function endDate(
     CultureFeed_Uitpas_Passholder $passholder
   ) {
-    return new DateTime('@' . $this->association->enddateCalculationFreeDate);
+    return new CultureFeed_Uitpas_EndDate(
+      new DateTime('@' . $this->association->enddateCalculationFreeDate),
+      FALSE
+    );
   }
 
 }

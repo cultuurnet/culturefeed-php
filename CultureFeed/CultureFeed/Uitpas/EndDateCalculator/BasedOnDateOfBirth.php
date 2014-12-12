@@ -9,9 +9,15 @@ class CultureFeed_Uitpas_EndDateCalculator_BasedOnDateOfBirth extends CultureFee
    * @return DateTime
    */
   public function endDate(CultureFeed_Uitpas_Passholder $passholder) {
-    $dateOfBirth = new DateTime('@' . $passholder->dateOfBirth);
+    $endDate = null;
+    if ($passholder->dateOfBirth) {
+      $endDate = new DateTime('@' . $passholder->dateOfBirth);
+      $endDate->modify(
+        "+ {$this->association->enddateCalculationValidityTime} years"
+      );
+    }
 
-    $dateOfBirth->modify("+ {$this->association->enddateCalculationValidityTime} years");
+    return new CultureFeed_Uitpas_EndDate($endDate);
   }
 
 

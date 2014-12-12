@@ -10,6 +10,8 @@ class CultureFeed_Uitpas_EndDateCalculator_BasedOnRegistrationDate extends Cultu
    */
   public function endDate(CultureFeed_Uitpas_Passholder $passholder) {
     $now = new DateTime();
-    return $now->modify("+ {$this->association->enddateCalculationValidityTime} years");
+    return new CultureFeed_Uitpas_EndDate(
+      $now->modify("+ {$this->association->enddateCalculationValidityTime} years")
+    );
   }
 }
