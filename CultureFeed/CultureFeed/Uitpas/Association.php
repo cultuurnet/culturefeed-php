@@ -17,11 +17,11 @@ class CultureFeed_Uitpas_Association {
   public $name;
 
   /**
-   * Card system the association belongs to.
+   * Card systems the association belongs to.
    *
-   * @var CultureFeed_Uitpas_CardSystem
+   * @var CultureFeed_Uitpas_CardSystem[]
    */
-  public $cardSystem;
+  public $cardSystems;
 
   /**
    * If you have read permission on the association or not.
@@ -50,7 +50,9 @@ class CultureFeed_Uitpas_Association {
   public $enddateCalculationValidityTime;
 
   /**
-   * @var DateTime
+   * Unix timestamp.
+   *
+   * @var int
    */
   public $enddateCalculationFreeDate;
 
@@ -64,15 +66,10 @@ class CultureFeed_Uitpas_Association {
     $instance->id = $object->xpath_int('id');
     $instance->name = $object->xpath_str('name');
 
-    // Temporary workaround
-    if (count($object->xpath('cardSystems')) > 0) {
-      $instance->cardSystem = CultureFeed_Uitpas_CardSystem::createFromXML($object->xpath('cardSystems', FALSE));
+    foreach ($object->xpath('cardSystems/cardSystem') as $cardSystemNode) {
+      $instance->cardSystems[] = CultureFeed_Uitpas_CardSystem::createFromXML($cardSystemNode);
     }
-    else {
-      $instance->cardSystem = CultureFeed_Uitpas_CardSystem::createFromXML(
-        $object->xpath('cardSystem', FALSE)
-      );
-    }
+
     $instance->permissionRead = $object->xpath_bool('permissionRead');
     $instance->permissionRegister = $object->xpath_bool('permissionRegister');
     $instance->enddateCalculation = $object->xpath_str('enddateCalculation');
@@ -94,4 +91,18 @@ class CultureFeed_Uitpas_Association {
     return $instance;
   }
 
+  /**
+   * @param string $cardSystemId
+   *
+   * @return bool
+   */
+  public function inCardSystem($cardSystemId) {
+    foreach ($this->cardSystems as $cardSystem) {
+      if ($cardSystem->id == $cardSystemId) {
+        return TRUE;
+      }
+    }
+
+    return FALSE;
+  }
 }
