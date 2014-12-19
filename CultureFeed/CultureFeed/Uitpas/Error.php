@@ -72,6 +72,8 @@ class CultureFeed_Uitpas_Error
 
   const UNKNOWN_ASSOCIATION_ID = 'UNKNOWN_ASSOCIATION_ID';
 
+  const MEMBERSHIP_NOT_POSSIBLE_AGE_CONSTRAINT = 'MEMBERSHIP_NOT_POSSIBLE_AGE_CONSTRAINT';
+
   public static function allRelevantFor($path, $method = 'POST') {
     $errors = array();
 
@@ -162,6 +164,7 @@ class CultureFeed_Uitpas_Error
           $errors[] = self::MISSING_REQUIRED_FIELDS;
           $errors[] = self::INVALID_PARAMETERS;
           $errors[] = self::PARSE_INVALID_DATE;
+          $errors[] = self::MEMBERSHIP_NOT_POSSIBLE_AGE_CONSTRAINT;
         }
         break;
 
