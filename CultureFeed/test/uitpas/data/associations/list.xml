@@ -4,10 +4,12 @@
         <association>
             <id>1</id>
             <name>CJP</name>
-            <cardSystem>
-                <id>6</id>
-                <name>Testsysteem Paspartoe</name>
-            </cardSystem>
+            <cardSystems>
+                <cardSystem>
+                    <id>6</id>
+                    <name>Testsysteem Paspartoe</name>
+                </cardSystem>
+            </cardSystems>
             <permissionRead>true</permissionRead>
             <permissionRegister>true</permissionRegister>
             <enddateCalculation>FREE</enddateCalculation>
@@ -16,10 +18,12 @@
         <association>
             <id>2</id>
             <name>Okra</name>
-            <cardSystem>
-                <id>1</id>
-                <name>HELA</name>
-            </cardSystem>
+            <cardSystems>
+                <cardSystem>
+                    <id>1</id>
+                    <name>HELA</name>
+                </cardSystem>
+            </cardSystems>
             <permissionRead>false</permissionRead>
             <permissionRegister>false</permissionRegister>
             <enddateCalculation>BASED_ON_REGISTRATION_DATE</enddateCalculation>
@@ -28,10 +32,12 @@
         <association>
             <id>3</id>
             <name>Foo</name>
-            <cardSystem>
-                <id>1</id>
-                <name>HELA</name>
-            </cardSystem>
+            <cardSystems>
+                <cardSystem>
+                    <id>1</id>
+                    <name>HELA</name>
+                </cardSystem>
+            </cardSystems>
             <permissionRead>true</permissionRead>
             <permissionRegister>true</permissionRegister>
             <enddateCalculation>BASED_ON_DATE_OF_BIRTH</enddateCalculation>
