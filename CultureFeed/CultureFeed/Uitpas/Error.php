@@ -27,6 +27,18 @@ class CultureFeed_Uitpas_Error
   const INVALID_CARD = 'INVALID_CARD';
 
   const INVALID_CARD_STATUS = 'INVALID_CARD_STATUS';
+  
+  const INVALID_CARD_STATUS_BLOCKED = 'INVALID_CARD_STATUS_BLOCKED';
+
+  const INVALID_CARD_STATUS_LOCAL_STOCK = 'INVALID_CARD_STATUS_LOCAL_STOCK';
+
+  const INVALID_CARD_STATUS_DELETED = 'INVALID_CARD_STATUS_DELETED';
+
+  const INVALID_CARD_STATUS_STOCK = 'INVALID_CARD_STATUS_STOCK';
+
+  const INVALID_CARD_STATUS_PROVISIONED = 'INVALID_CARD_STATUS_PROVISIONED';
+
+  const INVALID_CARD_STATUS_SENT_TO_BALIE = 'INVALID_CARD_STATUS_SENT_TO_BALIE';
 
   const INVALID_VOUCHER_STATUS = 'INVALID_VOUCHER_STATUS';
 
@@ -84,6 +96,12 @@ class CultureFeed_Uitpas_Error
         $errors[] = self::INVALID_CARD;
         $errors[] = self::ACCESS_DENIED;
         $errors[] = self::INVALID_CARD_STATUS;
+        $errors[] = self::INVALID_CARD_STATUS_BLOCKED;
+        $errors[] = self::INVALID_CARD_STATUS_DELETED;
+        $errors[] = self::INVALID_CARD_STATUS_LOCAL_STOCK;
+        $errors[] = self::INVALID_CARD_STATUS_PROVISIONED;
+        $errors[] = self::INVALID_CARD_STATUS_SENT_TO_BALIE;
+        $errors[] = self::INVALID_CARD_STATUS_STOCK;
         $errors[] = self::INVALID_VOUCHER_STATUS;
         $errors[] = self::UNKNOWN_SCHOOL;
         $errors[] = self::PARSE_INVALID_CITY_NAME;
@@ -126,6 +144,13 @@ class CultureFeed_Uitpas_Error
           $errors[] = self::UNKNOWN_UITPASNUMBER;
           $errors[] = self::UNKNOWN_CHIPNUMBER;
           $errors[] = self::INVALID_CARD_STATUS;
+          $errors[] = self::INVALID_CARD_STATUS_BLOCKED;
+          $errors[] = self::INVALID_CARD_STATUS_DELETED;
+          $errors[] = self::INVALID_CARD_STATUS_LOCAL_STOCK;
+          $errors[] = self::INVALID_CARD_STATUS_PROVISIONED;
+          $errors[] = self::INVALID_CARD_STATUS_SENT_TO_BALIE;
+          $errors[] = self::INVALID_CARD_STATUS_STOCK;
+
         }
         else {
           // POST not yet implemented.
