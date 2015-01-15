@@ -217,6 +217,13 @@ class CultureFeed_User {
   public $openid;
 
   /**
+   * CalendarID for the user.
+   *
+   * @var string
+   */
+  public $calendarid;
+
+  /**
    * Online accounts (social services) the user is connected with.
    * Represented as an array of CultureFeed_OnlineAccount objects.
    *
