@@ -1024,6 +1024,96 @@ class CultureFeed implements ICultureFeed {
   }
 
   /**
+   * Get a template.
+   *
+   * The object should be initialized with the consumer token and user access token of the user who is acted upon.
+   *
+   * @param string $id
+   *   ID from the template to get.
+   *
+   * @return CultureFeed_Template
+   *   The template object.
+   *
+   * @throws CultureFeed_ParseException
+   *   If the result could not be parsed.
+   */
+  public function getTemplate($id) {
+// This method isn't implemented yet.
+
+//    $result = $this->oauth_client->authenticatedGetAsXml('mailing/v2/template/' . $id);
+//
+//    try {
+//      $xml = new CultureFeed_SimpleXMLElement($result);
+//    }
+//    catch (Exception $e) {
+//      throw new CultureFeed_ParseException($result);
+//    }
+//
+//    $object = $xml->xpath('/response/template');
+//
+//    return self::parseTemplate($object[0]);
+//
+//    throw new CultureFeed_ParseException($result);
+
+    // This is the alternative code.
+    // Get Templates, look for the ID and return the template.
+    
+  }
+
+  /**
+   * Create a new template.
+   *
+   * The object should be initialized with the consumer token and user access token of the user who is acted upon.
+   *
+   * @param CultureFeed_Template $template
+   *   The template to create.
+   *
+   * @return CultureFeed_Template
+   *   The new created template object.
+   *
+   * @throws CultureFeed_ParseException
+   *   If the result could not be parsed.
+   */
+  public function createTemplate(CultureFeed_Template $template) {
+    $data = $template->toPostData();
+
+    $result = $this->oauth_client->authenticatedPostAsXml('mailing/v2/template', $data);
+
+    try {
+      $xml = new CultureFeed_SimpleXMLElement($result);
+    }
+    catch (Exception $e) {
+      throw new CultureFeed_ParseException($result);
+    }
+
+    $object = $xml->xpath('/response/template');
+
+    return self::parseTemplate($object[0]);
+
+    throw new CultureFeed_ParseException($result);
+  }
+
+  /**
+   * Update an existing template.
+   *
+   * The object should be initialized with the consumer token and user access token of the user who is acted upon.
+   *
+   * @param CultureFeed_Template $template
+   *   The template to update. The template is identified by ID. Only fields that are set will be updated.
+   * @param array $fields
+   *   If this parameters is not empty, only the properties specified in this array will be updated on the API.
+   */
+  public function updateTemplate(CultureFeed_Template $template, $fields = array()) {
+    $data = $template->toPostData($fields);
+
+    $id = $data['id'];
+
+    unset($data['id']);
+
+    $this->oauth_client->authenticatedPostAsXml('mailing/v2/template' . $id, $data);
+  }
+
+  /**
    * Get a mailing.
    *
    * The object should be initialized with the consumer token and user access token of the user who is acted upon.
@@ -1039,7 +1129,7 @@ class CultureFeed implements ICultureFeed {
    */
   public function getMailing($id) {
 
-    $result = $this->oauth_client->authenticatedGetAsXml('mailing/' . $id);
+    $result = $this->oauth_client->authenticatedGetAsXml('mailing/v2/' . $id);
 
     try {
       $xml = new CultureFeed_SimpleXMLElement($result);
@@ -1072,7 +1162,7 @@ class CultureFeed implements ICultureFeed {
   public function createMailing(CultureFeed_Mailing $mailing) {
     $data = $mailing->toPostData();
 
-    $result = $this->oauth_client->authenticatedPostAsXml('mailing', $data);
+    $result = $this->oauth_client->authenticatedPostAsXml('mailing/v2', $data);
 
     try {
       $xml = new CultureFeed_SimpleXMLElement($result);
@@ -1105,7 +1195,7 @@ class CultureFeed implements ICultureFeed {
 
     unset($data['id']);
 
-    $this->oauth_client->authenticatedPostAsXml('mailing/' . $id, $data);
+    $this->oauth_client->authenticatedPostAsXml('mailing/v2/' . $id, $data);
   }
 
   /**
@@ -1117,7 +1207,7 @@ class CultureFeed implements ICultureFeed {
    *   ID of the mailing to disable.
    */
   public function disableMailing($id) {
-    $this->oauth_client->authenticatedPostAsXml('mailing/' . $id . '/disable');
+    $this->oauth_client->authenticatedPostAsXml('mailing/v2/' . $id . '/disable');
   }
 
   /**
@@ -1129,7 +1219,7 @@ class CultureFeed implements ICultureFeed {
    *   ID of the mailing to delete.
    */
   public function deleteMailing($id) {
-    $this->oauth_client->authenticatedPostAsXml('mailing/' . $id . '/delete');
+    $this->oauth_client->authenticatedPostAsXml('mailing/v2/' . $id . '/delete');
   }
 
   /**
@@ -1150,7 +1240,7 @@ class CultureFeed implements ICultureFeed {
 
     $data = $query->toPostData();
 
-    $result = $this->oauth_client->authenticatedGetAsXml('mailing/list', $data);
+    $result = $this->oauth_client->authenticatedGetAsXml('mailing/v2/list', $data);
 
     try {
       $xml = new CultureFeed_SimpleXMLElement($result);
@@ -1174,7 +1264,7 @@ class CultureFeed implements ICultureFeed {
    *   ID of the mailing to subscribe to.
    */
   public function sendTestMailing($user_id, $mailing_id) {
-    $this->oauth_client->authenticatedPostAsXml('mailing/' . $mailing_id . '/test', array('userId' => $user_id));
+    $this->oauth_client->authenticatedPostAsXml('mailing/v2/' . $mailing_id . '/test', array('userId' => $user_id));
   }
 
   /**
@@ -1186,7 +1276,7 @@ class CultureFeed implements ICultureFeed {
    *   ID of the mailing to send.
    */
   public function sendMailing($id) {
-    $this->oauth_client->authenticatedPostAsXml('mailing/' . $id . '/send');
+    $this->oauth_client->authenticatedPostAsXml('mailing/v2/' . $id . '/send');
   }
 
   /**
@@ -1207,7 +1297,7 @@ class CultureFeed implements ICultureFeed {
 
     $data = $query->toPostData();
 
-    $result = $this->oauth_client->authenticatedGetAsXml('mailing/search', $data);
+    $result = $this->oauth_client->authenticatedGetAsXml('mailing/v2/search', $data);
     try {
       $xml = new CultureFeed_SimpleXMLElement($result);
     }
@@ -1229,7 +1319,7 @@ class CultureFeed implements ICultureFeed {
    *   ID of the mailing to subscribe to.
    */
   public function subscribeToMailing($user_id, $mailing_id) {
-    $this->oauth_client->authenticatedPostAsXml('mailing/' . $mailing_id . '/subscribe', array('userId' => $user_id));
+    $this->oauth_client->authenticatedPostAsXml('mailing/v2/' . $mailing_id . '/subscribe', array('userId' => $user_id));
   }
 
   /**
@@ -1243,7 +1333,7 @@ class CultureFeed implements ICultureFeed {
    *   ID of the mailing to unsubscribe from.
    */
   public function unsubscribeFromMailing($user_id, $mailing_id) {
-    $this->oauth_client->authenticatedPostAsXml('mailing/' . $mailing_id . '/unsubscribe', array('userId' => $user_id));
+    $this->oauth_client->authenticatedPostAsXml('mailing/v2/' . $mailing_id . '/unsubscribe', array('userId' => $user_id));
   }
 
   /**
@@ -1260,7 +1350,7 @@ class CultureFeed implements ICultureFeed {
    */
   public function getMailingSubscriptions($user_id) {
 
-    $result = $this->oauth_client->authenticatedGetAsXml('mailing/subscriptions/' . $user_id);
+    $result = $this->oauth_client->authenticatedGetAsXml('mailing/v2/subscriptions/' . $user_id);
 
     try {
       $xml = new CultureFeed_SimpleXMLElement($result);
@@ -2136,35 +2226,53 @@ class CultureFeed implements ICultureFeed {
 
     $mailing = new CultureFeed_Mailing();
 
+    $mailing->enabled               = $element->xpath_bool('enabled');
     $mailing->id                    = $element->xpath_str('id');
     $mailing->name                  = $element->xpath_str('name');
     $mailing->description           = $element->xpath_str('description');
-    $mailing->template              = $element->xpath_str('template');
     $mailing->consumerKey           = $element->xpath_str('serviceConsumerKey');
-    $mailing->subject               = $element->xpath_str('subject');
-    $mailing->frequency             = $element->xpath_str('frequency');
-    $mailing->scheduledDate         = $element->xpath_str('scheduledDate');
-    $mailing->fromAddress           = $element->xpath_str('fromAddress');
-    $mailing->startDay              = $element->xpath_int('startDay');
-    $mailing->startDayOfWeek        = $element->xpath_int('startDayOfWeek');
-    $mailing->startHour             = $element->xpath_int('startHour');
-    $mailing->startMinute           = $element->xpath_int('startMinute');
-    $mailing->block1                = $element->xpath_str('htmlBlock1');
-    $mailing->block2                = $element->xpath_str('htmlBlock2');
-    $mailing->block3                = $element->xpath_str('htmlBlock3');
-    $mailing->block4                = $element->xpath_str('htmlBlock4');
-    $mailing->block5                = $element->xpath_str('htmlBlock5');
-    $mailing->block6                = $element->xpath_str('htmlBlock6');
-    $mailing->searchQuery           = $element->xpath_str('searchQuery');
-    $mailing->recommendationQuery   = $element->xpath_str('recommendationQuery');
-    $mailing->recommendationQuery   = $element->xpath_str('recommendationQuery');
-    $mailing->searchEnabled         = $element->xpath_bool('searchEnabled');
-    $mailing->recommendationEnabled = $element->xpath_bool('recommendationEnabled');
-    $mailing->sendEmptySearchResult = $element->xpath_bool('sendEmptySearchResult');
-    $mailing->sendEmptyRecommendationResult  = $element->xpath_bool('sendEmptyRecommendationResult');
-    $mailing->enabled              = $element->xpath_bool('enabled');
+
+    $template = $element->xpath('/template');
+    $mailing->template = self::parseTemplate($template);
 
     return $mailing;
+  }
+
+  /**
+   * Parse the SimpleXML element as a CultureFeed_Template.
+   *
+   * @param CultureFeed_SimpleXMLElement $element
+   *   XML to parse.
+   * @return CultureFeed_Template
+   */
+  protected static function parseTemplate(CultureFeed_SimpleXMLElement $element) {
+
+    $template = new CultureFeed_Template();
+
+    $template->template              = $element->xpath_str('template');
+    $template->subject               = $element->xpath_str('subject');
+    $template->frequency             = $element->xpath_str('frequency');
+    $template->scheduledDate         = $element->xpath_str('scheduledDate');
+    $template->fromAddress           = $element->xpath_str('fromAddress');
+    $template->startDay              = $element->xpath_int('startDay');
+    $template->startDayOfWeek        = $element->xpath_int('startDayOfWeek');
+    $template->startHour             = $element->xpath_int('startHour');
+    $template->startMinute           = $element->xpath_int('startMinute');
+    $template->block1                = $element->xpath_str('htmlBlock1');
+    $template->block2                = $element->xpath_str('htmlBlock2');
+    $template->block3                = $element->xpath_str('htmlBlock3');
+    $template->block4                = $element->xpath_str('htmlBlock4');
+    $template->block5                = $element->xpath_str('htmlBlock5');
+    $template->block6                = $element->xpath_str('htmlBlock6');
+    $template->searchQuery           = $element->xpath_str('searchQuery');
+    $template->recommendationQuery   = $element->xpath_str('recommendationQuery');
+    $template->recommendationQuery   = $element->xpath_str('recommendationQuery');
+    $template->searchEnabled         = $element->xpath_bool('searchEnabled');
+    $template->recommendationEnabled = $element->xpath_bool('recommendationEnabled');
+    $template->sendEmptySearchResult = $element->xpath_bool('sendEmptySearchResult');
+    $template->sendEmptyRecommendationResult  = $element->xpath_bool('sendEmptyRecommendationResult');
+
+    return $template;
   }
 
   /**
