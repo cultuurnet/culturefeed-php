@@ -221,7 +221,7 @@ class CultureFeed_User {
    *
    * @var string
    */
-  public $calendarid;
+  public $calendarId;
 
   /**
    * Online accounts (social services) the user is connected with.
@@ -265,6 +265,17 @@ class CultureFeed_User {
   public function toPostData($fields = array()) {
     // For most properties we can rely on get_object_vars.
     $data = get_object_vars($this);
+
+    // Unset data that shouldn't be posted.
+    if (isset($data['privacyConfig'])) {
+      unset($data['privacyConfig']);
+    }
+    if (isset($data['following'])) {
+      unset($data['following']);
+    }
+    if (isset($data['pageMemberships'])) {
+      unset($data['pageMemberships']);
+    }
 
     // Represent mboxVerified as a string (true/false);
     if (isset($data['mboxVerified'])) {
