@@ -1057,7 +1057,7 @@ class CultureFeed implements ICultureFeed {
 
     // This is the alternative code.
     // Get Templates, look for the ID and return the template.
-    
+
   }
 
   /**
@@ -1111,6 +1111,44 @@ class CultureFeed implements ICultureFeed {
     unset($data['id']);
 
     $this->oauth_client->authenticatedPostAsXml('mailing/v2/template' . $id, $data);
+  }
+
+  /**
+   * Get a list of templates
+   *
+   *  The object should be initialized with the consumer token and user access token of the user who is acted upon.
+   *
+   * @return CultureFeed_Template[]
+   *   List of templates.
+   *
+   * @throws CultureFeed_ParseException
+   *   If the result could not be parsed.
+   */
+  public function getTemplateList() {
+
+    $result = $this->oauth_client->authenticatedGetAsXml('mailing/v2/templates');
+
+    try {
+      $xml = new CultureFeed_SimpleXMLElement($result);
+    }
+    catch (Exception $e) {
+      throw new CultureFeed_ParseException($result);
+    }
+
+    return self::parseTemplates($xml);
+
+  }
+
+  /**
+   * Delete a template.
+   *
+   * The object should be initialized with the consumer token and user access token of the user who is acted upon.
+   *
+   * @param string $id
+   *   ID of the template to delete.
+   */
+  public function deleteTemplate($id) {
+    $this->oauth_client->authenticatedPostAsXml('mailing/v2/template/' . $id . '/delete');
   }
 
   /**
@@ -2273,6 +2311,28 @@ class CultureFeed implements ICultureFeed {
     $template->sendEmptyRecommendationResult  = $element->xpath_bool('sendEmptyRecommendationResult');
 
     return $template;
+  }
+
+  /**
+   * Parse the SimpleXML element as a CultureFeed_ResultSet.
+   *
+   * @param CultureFeed_SimpleXMLElement $element
+   *   XML to parse.
+   * @return CultureFeed_ResultSet
+   *   CultureFeed_ResultSet where the objects are of the CultureFeed_Template type.
+   */
+  protected static function parseTemplates(CultureFeed_SimpleXMLElement $element) {
+    $total = $element->xpath_int('/response/total');
+
+    $templates = array();
+
+    $objects = $element->xpath('/response/templates/template');
+
+    foreach ($objects as $object) {
+      $templates[] = self::parseTemplate($object);
+    }
+
+    return new CultureFeed_ResultSet($total, $templates);
   }
 
   /**
