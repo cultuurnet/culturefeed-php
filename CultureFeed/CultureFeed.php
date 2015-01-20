@@ -92,25 +92,31 @@ class CultureFeed implements ICultureFeed {
   protected $oauth_client;
 
   /**
-   * CultureFeed Uitpas instance
+   * CultureFeed Uitpas instance.
    *
    * @var CultureFeed_Uitpas
    */
   protected $uitpas;
 
   /**
-   * Culturefeed pages instance
+   * Culturefeed pages instance.
    *
    * @var CultureFeed_Pages
    */
   protected $pages;
 
   /**
-   * Culturefeed messages instance
+   * Culturefeed messages instance.
    *
    * @var CultureFeed_Messages
    */
   protected $messages;
+
+  /**
+   * Culturefeed saved searches instance.
+   * @var Culturefeed_SavedSearches
+   */
+  protected $savedSearches;
 
   /**
    * Get the consumer.
@@ -1735,6 +1741,21 @@ class CultureFeed implements ICultureFeed {
     }
 
     return $this->messages;
+
+  }
+
+  /**
+   * Returns the SavedSearches object.
+   *
+   * @return CultureFeed_SavedSearches_Default
+   */
+  public function savedSearches() {
+
+    if (!isset($this->savedSearches)) {
+      $this->savedSearches = new CultureFeed_SavedSearches_Default($this);
+    }
+
+    return $this->savedSearches;
 
   }
 
