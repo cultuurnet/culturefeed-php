@@ -92,25 +92,31 @@ class CultureFeed implements ICultureFeed {
   protected $oauth_client;
 
   /**
-   * CultureFeed Uitpas instance
+   * CultureFeed Uitpas instance.
    *
    * @var CultureFeed_Uitpas
    */
   protected $uitpas;
 
   /**
-   * Culturefeed pages instance
+   * Culturefeed pages instance.
    *
    * @var CultureFeed_Pages
    */
   protected $pages;
 
   /**
-   * Culturefeed messages instance
+   * Culturefeed messages instance.
    *
    * @var CultureFeed_Messages
    */
   protected $messages;
+
+  /**
+   * Culturefeed saved searches instance.
+   * @var Culturefeed_SavedSearches
+   */
+  protected $savedSearches;
 
   /**
    * Get the consumer.
@@ -415,7 +421,7 @@ class CultureFeed implements ICultureFeed {
     else {
       $result = $this->oauth_client->consumerGetAsXml('user/' . $id, $query);
     }
-
+    
     try {
       $xml = new CultureFeed_SimpleXMLElement($result);
     }
@@ -1739,6 +1745,21 @@ class CultureFeed implements ICultureFeed {
   }
 
   /**
+   * Returns the SavedSearches object.
+   *
+   * @return CultureFeed_SavedSearches_Default
+   */
+  public function savedSearches() {
+
+    if (!isset($this->savedSearches)) {
+      $this->savedSearches = new CultureFeed_SavedSearches_Default($this);
+    }
+
+    return $this->savedSearches;
+
+  }
+
+  /**
    * Returns the OAuth client.
    *
    * @return CultureFeed_OAuthClient
@@ -1883,7 +1904,7 @@ class CultureFeed implements ICultureFeed {
       $page->setCategories($categories);
 
       $user_membership->page          = $page;
-
+      $user_membership->validated     = $membership->xpath_bool('validated');
       $user_membership->role          = $membership->xpath_str('role');
       $user_membership->relation      = $membership->xpath_str('relation');
       $user_membership->creationDate = $membership->xpath_time('creationDate');
