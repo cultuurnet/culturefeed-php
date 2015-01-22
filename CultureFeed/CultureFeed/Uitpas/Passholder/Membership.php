@@ -3,6 +3,13 @@
 class CultureFeed_Uitpas_Passholder_Membership extends CultureFeed_Uitpas_ValueObject {
 
   /**
+   * ID of the membership.
+   *
+   * @var string
+   */
+  public $id;
+
+  /**
    * The id of the association the passholder is linked
    *
    * @var string
@@ -46,6 +53,11 @@ class CultureFeed_Uitpas_Passholder_Membership extends CultureFeed_Uitpas_ValueO
    * @var int
    */
   public $newEndDate;
+
+  /**
+   * @var bool
+   */
+  public $expired;
   
   protected function manipulatePostData(&$data) {
     
@@ -57,6 +69,7 @@ class CultureFeed_Uitpas_Passholder_Membership extends CultureFeed_Uitpas_ValueO
   public static function createFromXML(CultureFeed_SimpleXMLElement $object) {
 
     $membership = new CultureFeed_Uitpas_Passholder_Membership();
+    $membership->id = $object->xpath_str('id');
     $membership->association = CultureFeed_Uitpas_Association::createFromXML($object->xpath('association', false));
     $membership->associationId = $object->xpath_str('association/id');
     $membership->name = $object->xpath_str('association/name');
@@ -64,6 +77,7 @@ class CultureFeed_Uitpas_Passholder_Membership extends CultureFeed_Uitpas_ValueO
     $membership->renewable = $object->xpath_bool('renewable');
     $membership->newEndDate = $object->xpath_time('newEndDate');
     $membership->renewDate = $object->xpath_time('renewDate');
+    $membership->expired = $object->xpath_bool('expired');
 
     return $membership;
   }
