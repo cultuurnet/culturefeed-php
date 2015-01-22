@@ -266,15 +266,11 @@ class CultureFeed_User {
     // For most properties we can rely on get_object_vars.
     $data = get_object_vars($this);
 
-    // Unset data that shouldn't be posted.
-    if (isset($data['privacyConfig'])) {
-      unset($data['privacyConfig']);
-    }
-    if (isset($data['following'])) {
-      unset($data['following']);
-    }
-    if (isset($data['pageMemberships'])) {
-      unset($data['pageMemberships']);
+    // Objects can't be posted.
+    foreach ($data as $key => $item) {
+      if (is_object($item)) {
+        unset($data[$key]);
+      }
     }
 
     // Represent mboxVerified as a string (true/false);
