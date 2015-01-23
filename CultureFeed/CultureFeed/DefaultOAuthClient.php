@@ -401,6 +401,9 @@ class CultureFeed_DefaultOAuthClient implements CultureFeed_OAuthClient {
     foreach ($params as $key => $value) {
       if (is_array($value)) {
         foreach ($value as $value_part) {
+          if (is_object($value_part)) {
+            print_r($params);die();
+          }
           $parts[] = urlencode($key) . '=' . urlencode($value_part);
         }
       }
