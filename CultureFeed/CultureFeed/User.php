@@ -271,6 +271,13 @@ class CultureFeed_User {
       if (is_object($item)) {
         unset($data[$key]);
       }
+      // Check if it's an array of objects.
+      elseif (is_array($item)) {
+        $first_item = current($item);
+        if (is_object($first_item)) {
+          unset($data[$key]);
+        }
+      }
     }
 
     // Represent mboxVerified as a string (true/false);
