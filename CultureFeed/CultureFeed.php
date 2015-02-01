@@ -1822,6 +1822,7 @@ class CultureFeed implements ICultureFeed {
     $user->lifestyleProfile  = $element->xpath_str('/foaf:person/lifestyleProfile');
     $user->status            = $element->xpath_str('/foaf:person/status');
     $user->points            = $element->xpath_str('/foaf:person/points');
+    $user->calendarId        = $element->xpath_str('/foaf:person/calendarId');
     if ($user->status) {
       $user->status = strtolower($user->status);
     }
@@ -1862,7 +1863,7 @@ class CultureFeed implements ICultureFeed {
     if ($element->xpath_str('/foaf:person/privateNick') !== NULL) {
       $privacy_config = new CultureFeed_UserPrivacyConfig();
 
-      $vars = array('nick', 'givenName', 'familyName', 'mbox', 'gender', 'dob', 'depiction', 'bio', 'homeAddress', 'homeLocation', 'currentLocation', 'openId');
+      $vars = array('nick', 'givenName', 'familyName', 'mbox', 'gender', 'dob', 'depiction', 'bio', 'homeAddress', 'homeLocation', 'currentLocation', 'openId', 'calendarId');
 
       foreach ($vars as $var) {
         $privacy = $element->xpath_bool('/foaf:person/private' . ucfirst($var));
