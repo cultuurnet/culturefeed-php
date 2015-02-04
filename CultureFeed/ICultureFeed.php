@@ -162,17 +162,4 @@ interface ICultureFeed {
    */
   public function postToSocial($id, $account_name, $account_type, $message, $image = NULL, $link = NULL);
 
-  /**
-   * Returns the Pages object.
-   *
-   * @return CultureFeed_Pages
-   */
-  public function pages();
-
-  /**
-   * Returns the Messages object.
-   *
-   * @return CultureFeed_Messages
-   */
-  public function messages();
 }

@@ -459,5 +459,12 @@ abstract class CultureFeed_ICultureFeedDecoratorBase implements ICultureFeed
         );
     }
 
+    /**
+     * {@inheritdoc}
+     */
+    public function savedSearches()
+    {
+        return $this->realCultureFeed->savedSearches();
+    }
 
 } 
