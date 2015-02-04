@@ -125,6 +125,21 @@ interface ICultureFeed {
    */
   public function uitpas();
 
+  /**
+   * @return CultureFeed_Pages
+   */
+  public function pages();
+
+  /**
+   * @return CultureFeed_Messages
+   */
+  public function messages();
+
+  /**
+   * @return CultureFeed_SavedSearches
+   */
+  public function savedSearches();
+
   public function getClient();
 
   /**

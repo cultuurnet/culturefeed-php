@@ -27,6 +27,18 @@ class CultureFeed_Uitpas_Error
   const INVALID_CARD = 'INVALID_CARD';
 
   const INVALID_CARD_STATUS = 'INVALID_CARD_STATUS';
+  
+  const INVALID_CARD_STATUS_BLOCKED = 'INVALID_CARD_STATUS_BLOCKED';
+
+  const INVALID_CARD_STATUS_LOCAL_STOCK = 'INVALID_CARD_STATUS_LOCAL_STOCK';
+
+  const INVALID_CARD_STATUS_DELETED = 'INVALID_CARD_STATUS_DELETED';
+
+  const INVALID_CARD_STATUS_STOCK = 'INVALID_CARD_STATUS_STOCK';
+
+  const INVALID_CARD_STATUS_PROVISIONED = 'INVALID_CARD_STATUS_PROVISIONED';
+
+  const INVALID_CARD_STATUS_SENT_TO_BALIE = 'INVALID_CARD_STATUS_SENT_TO_BALIE';
 
   const INVALID_VOUCHER_STATUS = 'INVALID_VOUCHER_STATUS';
 
@@ -68,6 +80,12 @@ class CultureFeed_Uitpas_Error
 
   const INVALID_DATE_CONSTRAINTS = 'INVALID_DATE_CONSTRAINTS';
 
+  const UNKNOWN_PASSHOLDER_UID = 'UNKNOWN_PASSHOLDER_UID';
+
+  const UNKNOWN_ASSOCIATION_ID = 'UNKNOWN_ASSOCIATION_ID';
+
+  const MEMBERSHIP_NOT_POSSIBLE_AGE_CONSTRAINT = 'MEMBERSHIP_NOT_POSSIBLE_AGE_CONSTRAINT';
+
   public static function allRelevantFor($path, $method = 'POST') {
     $errors = array();
 
@@ -84,6 +102,12 @@ class CultureFeed_Uitpas_Error
         $errors[] = self::INVALID_CARD;
         $errors[] = self::ACCESS_DENIED;
         $errors[] = self::INVALID_CARD_STATUS;
+        $errors[] = self::INVALID_CARD_STATUS_BLOCKED;
+        $errors[] = self::INVALID_CARD_STATUS_DELETED;
+        $errors[] = self::INVALID_CARD_STATUS_LOCAL_STOCK;
+        $errors[] = self::INVALID_CARD_STATUS_PROVISIONED;
+        $errors[] = self::INVALID_CARD_STATUS_SENT_TO_BALIE;
+        $errors[] = self::INVALID_CARD_STATUS_STOCK;
         $errors[] = self::INVALID_VOUCHER_STATUS;
         $errors[] = self::UNKNOWN_SCHOOL;
         $errors[] = self::PARSE_INVALID_CITY_NAME;
@@ -126,6 +150,13 @@ class CultureFeed_Uitpas_Error
           $errors[] = self::UNKNOWN_UITPASNUMBER;
           $errors[] = self::UNKNOWN_CHIPNUMBER;
           $errors[] = self::INVALID_CARD_STATUS;
+          $errors[] = self::INVALID_CARD_STATUS_BLOCKED;
+          $errors[] = self::INVALID_CARD_STATUS_DELETED;
+          $errors[] = self::INVALID_CARD_STATUS_LOCAL_STOCK;
+          $errors[] = self::INVALID_CARD_STATUS_PROVISIONED;
+          $errors[] = self::INVALID_CARD_STATUS_SENT_TO_BALIE;
+          $errors[] = self::INVALID_CARD_STATUS_STOCK;
+
         }
         else {
           // POST not yet implemented.
@@ -136,6 +167,29 @@ class CultureFeed_Uitpas_Error
         if ($method == 'GET') {
           $errors[] = self::MISSING_REQUIRED_FIELDS;
           $errors[] = self::UNKNOWN_CHIPNUMBER;
+        }
+        break;
+
+      case 'uitpas/report/financialoverview/organiser':
+        if ($method == 'POST') {
+          $errors[] = self::UNKNOWN_BALIE_CONSUMERKEY;
+          $errors[] = self::ACCESS_DENIED;
+          $errors[] = self::MISSING_REQUIRED_FIELDS;
+          $errors[] = self::PARSE_INVALID_DATE;
+        }
+        break;
+
+      case 'uitpas/passholder/membership':
+        if ($method == 'POST') {
+          $errors[] = self::ACCESS_DENIED;
+          $errors[] = self::ACTION_FAILED;
+          $errors[] = self::UNKNOWN_BALIE_CONSUMERKEY;
+          $errors[] = self::UNKNOWN_PASSHOLDER_UID;
+          $errors[] = self::UNKNOWN_ASSOCIATION_ID;
+          $errors[] = self::MISSING_REQUIRED_FIELDS;
+          $errors[] = self::INVALID_PARAMETERS;
+          $errors[] = self::PARSE_INVALID_DATE;
+          $errors[] = self::MEMBERSHIP_NOT_POSSIBLE_AGE_CONSTRAINT;
         }
         break;
 

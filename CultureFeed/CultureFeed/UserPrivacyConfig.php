@@ -112,6 +112,14 @@ class CultureFeed_UserPrivacyConfig {
   public $openId;
 
   /**
+   * Privacy status of the user's calendar.
+   * Possible values are represented in the PUBLIC_* constants.
+   *
+   * @var string
+   */
+  public $calendarId;
+
+  /**
    * Convert a CultureFeed_UserPrivacyConfig object to an array that can be used as data in POST requests that expect search user query info.
    *
    * @return array

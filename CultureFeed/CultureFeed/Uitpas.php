@@ -343,4 +343,46 @@ interface CultureFeed_Uitpas {
    * @return CultureFeed_Uitpas_CardSystem[]
    */
   public function getCardSystems();
+
+  /**
+   * @param DateTime $start_date
+   * @param DateTime $end_date
+   * @param string|null $consumer_key_counter
+   *
+   * @return string reportId
+   */
+  public function generateFinancialOverviewReport(DateTime $start_date, DateTime $end_date, $consumer_key_counter = NULL);
+
+  /**
+   * @param string $report_id
+   * @param string|null $consumer_key_counter
+   *
+   * @return CultureFeed_ReportStatus
+   */
+  public function financialOverviewReportStatus(
+    $report_id,
+    $consumer_key_counter = NULL
+  );
+
+  /**
+   * @param string $report_id
+   * @param string|null $consumer_key_counter
+   *
+   * @return mixed
+   */
+  public function downloadFinancialOverviewReport(
+    $report_id,
+    $consumer_key_counter = NULL
+  );
+
+  /**
+   * @param string $uid
+   * @param string $assocationId
+   * @param string|null $consumer_key_counter
+   * @return CultureFeed_Uitpas_Response
+   */
+  public function deleteMembership(
+    $uid,
+    $assocationId,
+    $consumer_key_counter = NULL);
 }

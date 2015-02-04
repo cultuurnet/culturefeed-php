@@ -12,6 +12,10 @@ class CultureFeed_Uitpas_Passholder_Query_SearchPassholdersOptions extends Cultu
   const ORDER_ASC = "ASC";
   const ORDER_DESC = "DESC";
 
+  const MEMBERSHIP_STATUS_ACTIVE = 'ACTIVE';
+  const MEMBERSHIP_STATUS_EXPIRED = 'EXPIRED';
+  const MEMBERSHIP_STATUS_ANY = 'BOTH';
+
   /**
    * The INSZ number of the passholder.
    *
@@ -183,7 +187,22 @@ class CultureFeed_Uitpas_Passholder_Query_SearchPassholdersOptions extends Cultu
    */
   public $includeBlocked;
 
+  /**
+   * Include users who are member of a particular association.
+   *
+   * @var integer
+   */
+  public $associationId;
 
+  /**
+   * Wether to include only active memberships, only expired memberships, or
+   * both.
+   *
+   * $associationId should be set for this parameter to take effect.
+   *
+   * @var string
+   */
+  public $expiredMemberships;
 
   protected function manipulatePostData(&$data) {
     if (isset($data['dob'])) {

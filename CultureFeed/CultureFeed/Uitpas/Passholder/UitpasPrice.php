@@ -81,6 +81,8 @@ class CultureFeed_Uitpas_Passholder_UitpasPrice extends CultureFeed_Uitpas_Value
     
     $voucherType = $object->xpath('voucherType', FALSE);
     if ($voucherType) {
+      $price->voucherType = new CultureFeed_Uitpas_Passholder_VoucherType();
+
       $name = $voucherType->xpath_str('name', FALSE);
       if ($name) {
         $price->voucherType->name = $name;

@@ -92,25 +92,31 @@ class CultureFeed implements ICultureFeed {
   protected $oauth_client;
 
   /**
-   * CultureFeed Uitpas instance
+   * CultureFeed Uitpas instance.
    *
    * @var CultureFeed_Uitpas
    */
   protected $uitpas;
 
   /**
-   * Culturefeed pages instance
+   * Culturefeed pages instance.
    *
    * @var CultureFeed_Pages
    */
   protected $pages;
 
   /**
-   * Culturefeed messages instance
+   * Culturefeed messages instance.
    *
    * @var CultureFeed_Messages
    */
   protected $messages;
+
+  /**
+   * Culturefeed saved searches instance.
+   * @var Culturefeed_SavedSearches
+   */
+  protected $savedSearches;
 
   /**
    * Get the consumer.
@@ -415,7 +421,7 @@ class CultureFeed implements ICultureFeed {
     else {
       $result = $this->oauth_client->consumerGetAsXml('user/' . $id, $query);
     }
-
+    
     try {
       $xml = new CultureFeed_SimpleXMLElement($result);
     }
@@ -487,8 +493,8 @@ class CultureFeed implements ICultureFeed {
    *
    * @param string $id
    *   ID of the user to upload depiction for.
-   * @param string $file_data
-   *   Binary data of the file to upload.
+   * @param string|CultureFeed_FileUpload $file_data
+   *   Binary data of the file to upload, or a CultureFeed_FileUpload object.
    */
   public function uploadUserDepiction($id, $file_data) {
     $this->oauth_client->authenticatedPostAsXml('user/' . $id . '/upload_depiction', array('depiction' => $file_data), TRUE, TRUE);
@@ -1720,6 +1726,21 @@ class CultureFeed implements ICultureFeed {
   }
 
   /**
+   * Returns the SavedSearches object.
+   *
+   * @return CultureFeed_SavedSearches_Default
+   */
+  public function savedSearches() {
+
+    if (!isset($this->savedSearches)) {
+      $this->savedSearches = new CultureFeed_SavedSearches_Default($this);
+    }
+
+    return $this->savedSearches;
+
+  }
+
+  /**
    * Returns the OAuth client.
    *
    * @return CultureFeed_OAuthClient
@@ -1782,6 +1803,7 @@ class CultureFeed implements ICultureFeed {
     $user->lifestyleProfile  = $element->xpath_str('/foaf:person/lifestyleProfile');
     $user->status            = $element->xpath_str('/foaf:person/status');
     $user->points            = $element->xpath_str('/foaf:person/points');
+    $user->calendarId        = $element->xpath_str('/foaf:person/calendarId');
     if ($user->status) {
       $user->status = strtolower($user->status);
     }
@@ -1822,7 +1844,7 @@ class CultureFeed implements ICultureFeed {
     if ($element->xpath_str('/foaf:person/privateNick') !== NULL) {
       $privacy_config = new CultureFeed_UserPrivacyConfig();
 
-      $vars = array('nick', 'givenName', 'familyName', 'mbox', 'gender', 'dob', 'depiction', 'bio', 'homeAddress', 'homeLocation', 'currentLocation', 'openId');
+      $vars = array('nick', 'givenName', 'familyName', 'mbox', 'gender', 'dob', 'depiction', 'bio', 'homeAddress', 'homeLocation', 'currentLocation', 'openId', 'calendarId');
 
       foreach ($vars as $var) {
         $privacy = $element->xpath_bool('/foaf:person/private' . ucfirst($var));
@@ -1864,7 +1886,7 @@ class CultureFeed implements ICultureFeed {
       $page->setCategories($categories);
 
       $user_membership->page          = $page;
-
+      $user_membership->validated     = $membership->xpath_bool('validated');
       $user_membership->role          = $membership->xpath_str('role');
       $user_membership->relation      = $membership->xpath_str('relation');
       $user_membership->creationDate = $membership->xpath_time('creationDate');

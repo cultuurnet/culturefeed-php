@@ -217,6 +217,13 @@ class CultureFeed_User {
   public $openid;
 
   /**
+   * CalendarID for the user.
+   *
+   * @var string
+   */
+  public $calendarId;
+
+  /**
    * Online accounts (social services) the user is connected with.
    * Represented as an array of CultureFeed_OnlineAccount objects.
    *
@@ -258,6 +265,20 @@ class CultureFeed_User {
   public function toPostData($fields = array()) {
     // For most properties we can rely on get_object_vars.
     $data = get_object_vars($this);
+
+    // Objects can't be posted.
+    foreach ($data as $key => $item) {
+      if (is_object($item)) {
+        unset($data[$key]);
+      }
+      // Check if it's an array of objects.
+      elseif (is_array($item)) {
+        $first_item = current($item);
+        if (is_object($first_item)) {
+          unset($data[$key]);
+        }
+      }
+    }
 
     // Represent mboxVerified as a string (true/false);
     if (isset($data['mboxVerified'])) {
