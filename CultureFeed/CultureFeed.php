@@ -1038,25 +1038,18 @@ class CultureFeed implements ICultureFeed {
    *   If the result could not be parsed.
    */
   public function getTemplate($id) {
-// This method isn't implemented yet.
+    $result = $this->oauth_client->authenticatedGetAsXml('mailing/v2/template/' . $id);
 
-//    $result = $this->oauth_client->authenticatedGetAsXml('mailing/v2/template/' . $id);
-//
-//    try {
-//      $xml = new CultureFeed_SimpleXMLElement($result);
-//    }
-//    catch (Exception $e) {
-//      throw new CultureFeed_ParseException($result);
-//    }
-//
-//    $object = $xml->xpath('/response/template');
-//
-//    return self::parseTemplate($object[0]);
-//
-//    throw new CultureFeed_ParseException($result);
+    try {
+      $xml = new CultureFeed_SimpleXMLElement($result);
+    }
+    catch (Exception $e) {
+      throw new CultureFeed_ParseException($result);
+    }
 
-    // This is the alternative code.
-    // Get Templates, look for the ID and return the template.
+    $object = $xml->xpath('/response/template');
+
+    return self::parseTemplate($object[0]);
 
   }
 
@@ -1824,6 +1817,28 @@ class CultureFeed implements ICultureFeed {
   }
 
   /**
+   * Get An existing service consumer.
+   *
+   * @param string $consumerKey
+   * @return \CultureFeed_Consumer
+   * @throws \CultureFeed_ParseException
+   */
+  public function getServiceConsumer($consumerKey) {
+    $result = $this->oauth_client->consumerGetAsXML('serviceconsumer/' . $consumerKey);
+
+    try {
+      $xml = new CultureFeed_SimpleXMLElement($result);
+    }
+    catch (Exception $e) {
+      throw new CultureFeed_ParseException($result);
+    }
+
+    $element = $xml->xpath('/consumer');
+
+    return $this->parseServiceConsumer($element[0]);
+  }
+
+  /**
    * Returns the Uitpas object.
    *
    * @return CultureFeed_Uitpas
@@ -2270,8 +2285,11 @@ class CultureFeed implements ICultureFeed {
     $mailing->description           = $element->xpath_str('description');
     $mailing->consumerKey           = $element->xpath_str('serviceConsumerKey');
 
-    $template = $element->xpath('/template');
-    $mailing->template = self::parseTemplate($template);
+    $template = $element->xpath('template');
+
+    if (isset($template[0])) {
+      $mailing->template = self::parseTemplate($template[0]);
+    }
 
     return $mailing;
   }
@@ -2287,6 +2305,9 @@ class CultureFeed implements ICultureFeed {
 
     $template = new CultureFeed_Template();
 
+    $template->id                    = $element->xpath_str('id');
+    $template->name                  = $element->xpath_str('name');
+    $template->consumerKey           = $element->xpath_str('serviceConsumerKey');
     $template->template              = $element->xpath_str('template');
     $template->subject               = $element->xpath_str('subject');
     $template->frequency             = $element->xpath_str('frequency');

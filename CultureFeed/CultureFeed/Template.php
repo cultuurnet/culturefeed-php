@@ -208,4 +208,3 @@ class CultureFeed_Template {
   }
 
 }
-
