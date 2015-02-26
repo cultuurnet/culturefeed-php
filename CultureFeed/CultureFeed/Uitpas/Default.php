@@ -448,7 +448,7 @@ class CultureFeed_Uitpas_Default implements CultureFeed_Uitpas {
     }
 
     $promotions = array();
-    $objects = $xml->xpath('/response/cashedPromotions/cachedPromotion');
+    $objects = $xml->xpath('/response/cashedPromotions/cashedPromotion');
     $total = $xml->xpath_int('/response/total');
 
     foreach ($objects as $object) {
@@ -834,7 +834,7 @@ class CultureFeed_Uitpas_Default implements CultureFeed_Uitpas {
 
     return new CultureFeed_ResultSet($total, $checkins);
   }
-  
+
   /**
    * Search for checkins
    *
@@ -860,7 +860,7 @@ class CultureFeed_Uitpas_Default implements CultureFeed_Uitpas {
     }
 
     return new CultureFeed_ResultSet($total, $checkins);
-  }  
+  }
 
   /**
    * {@inheritdoc}
