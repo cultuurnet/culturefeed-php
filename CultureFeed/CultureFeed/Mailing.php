@@ -18,6 +18,12 @@ class CultureFeed_Mailing {
   public $name;
 
   /**
+   * Template id of the associated template.
+   * @var int
+   */
+  public $template_id;
+
+  /**
    * The template associated with the mailing.
    * @var CultureFeed_Template
    */

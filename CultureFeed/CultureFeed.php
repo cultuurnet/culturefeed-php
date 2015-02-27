@@ -1103,7 +1103,7 @@ class CultureFeed implements ICultureFeed {
 
     unset($data['id']);
 
-    $this->oauth_client->authenticatedPostAsXml('mailing/v2/template' . $id, $data);
+    $this->oauth_client->authenticatedPostAsXml('mailing/v2/template/' . $id, $data);
   }
 
   /**
@@ -1191,6 +1191,8 @@ class CultureFeed implements ICultureFeed {
    *   If the result could not be parsed.
    */
   public function createMailing(CultureFeed_Mailing $mailing) {
+    $mailing->template = $mailing->template_id;
+    unset($mailing->template_id);
     $data = $mailing->toPostData();
 
     $result = $this->oauth_client->authenticatedPostAsXml('mailing/v2', $data);
@@ -1223,8 +1225,9 @@ class CultureFeed implements ICultureFeed {
     $data = $mailing->toPostData($fields);
 
     $id = $data['id'];
-
     unset($data['id']);
+    $data['template'] = $data['template_id'];
+    unset($data['template_id']);
 
     $this->oauth_client->authenticatedPostAsXml('mailing/v2/' . $id, $data);
   }
@@ -2285,9 +2288,11 @@ class CultureFeed implements ICultureFeed {
     $mailing->description           = $element->xpath_str('description');
     $mailing->consumerKey           = $element->xpath_str('serviceConsumerKey');
 
+
     $template = $element->xpath('template');
 
     if (isset($template[0])) {
+      $mailing->template_id = $template[0];
       $mailing->template = self::parseTemplate($template[0]);
     }
 
