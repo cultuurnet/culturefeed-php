@@ -340,9 +340,10 @@ interface CultureFeed_Uitpas {
   public function registerEvent(CultureFeed_Uitpas_Event_CultureEvent $event);
 
   /**
+	 * @param string $permanent if permanent only permanent card systems need to be sent over.
    * @return CultureFeed_Uitpas_CardSystem[]
    */
-  public function getCardSystems();
+  public function getCardSystems($permanent);
 
   /**
    * @param DateTime $start_date

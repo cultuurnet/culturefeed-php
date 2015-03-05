@@ -834,7 +834,7 @@ class CultureFeed_Uitpas_Default implements CultureFeed_Uitpas {
 
     return new CultureFeed_ResultSet($total, $checkins);
   }
-  
+
   /**
    * Search for checkins
    *
@@ -860,7 +860,7 @@ class CultureFeed_Uitpas_Default implements CultureFeed_Uitpas {
     }
 
     return new CultureFeed_ResultSet($total, $checkins);
-  }  
+  }
 
   /**
    * {@inheritdoc}
@@ -1211,8 +1211,13 @@ class CultureFeed_Uitpas_Default implements CultureFeed_Uitpas {
     return $promotion;
   }
 
-  public function getCardSystems() {
-    $result = $this->oauth_client->consumerGetAsXml('uitpas/cardsystem');
+  public function getCardSystems($permanent = NULL) {
+    if ($permanent == 'permanent') {
+			$result = $this->oauth_client->consumerGetAsXml('uitpas/cardsystem?permanent=true');
+		}
+		else {
+			$result = $this->oauth_client->consumerGetAsXml('uitpas/cardsystem');
+		}
 
     try {
       $xml = new CultureFeed_SimpleXMLElement($result);
