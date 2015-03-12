@@ -21,6 +21,15 @@ class CultureFeed_Uitpas_CardSystem
   public $distributionKeys = array();
 
   /**
+   * @param int|null $id
+   * @param string|null $name
+   */
+  public function __construct($id = NULL, $name = NULL) {
+    $this->id = $id;
+    $this->name = $name;
+  }
+
+  /**
 
    * @param CultureFeed_SimpleXMLElement $object
    *
