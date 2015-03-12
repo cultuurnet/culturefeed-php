@@ -386,4 +386,8 @@ interface CultureFeed_Uitpas {
     $uid,
     $assocationId,
     $consumer_key_counter = NULL);
+
+  public function getPassholderEventActions(CultureFeed_Uitpas_Passholder_Query_EventActions $query);
+
+  public function postPassholderEventActions(CultureFeed_Uitpas_Passholder_Query_ExecuteEventActions $eventActions);
 }

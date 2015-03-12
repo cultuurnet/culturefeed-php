@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<response xmlns:ns2="http://www.w3.org/1999/02/22-rdf-syntax-ns" xmlns:ns3="http://xmlns.com/foaf/0.1/">
+    <passHolder>
+        <cardSystemSpecific>
+            <cardSystem>
+                <id>1</id>
+                <name>UiTPAS Regio Aalst</name>
+            </cardSystem>
+            <currentCard>
+                <kansenpas>false</kansenpas>
+                <status>ACTIVE</status>
+                <uitpasNumber>
+                    <uitpasNumber>0942000000885</uitpasNumber>
+                </uitpasNumber>
+            </currentCard>
+            <emailPreference>ALL_MAILS</emailPreference>
+            <kansenStatuut>false</kansenStatuut>
+            <kansenStatuutExpired>false</kansenStatuutExpired>
+            <kansenStatuutInGracePeriod>false</kansenStatuutInGracePeriod>
+            <lastActivationMailNumber>0</lastActivationMailNumber>
+            <smsPreference>NO_SMS</smsPreference>
+            <status>ACTIVE</status>
+        </cardSystemSpecific>
+        <city>Aalst</city>
+        <dateOfBirth>1986-05-06T02:00:00+02:00</dateOfBirth>
+        <firstName>fatru</firstName>
+        <gender>MALE</gender>
+        <gsm>0485/55.62.24</gsm>
+        <inszNumberHash>f29f5e1a8289e6453fdfa6a51a01778a71adf70e</inszNumberHash>
+        <memberships/>
+        <name>ryopl</name>
+        <nationality>ituliexhul</nationality>
+        <numberOfCheckins>4</numberOfCheckins>
+        <points>10.000</points>
+        <postalCode>9300</postalCode>
+        <registrationBalieConsumerKey>47B6FA21-ACB1-EA8F-2C231182C7DD0A19</registrationBalieConsumerKey>
+        <street>umrop 8</street>
+        <uitIdUser>
+            <ns2:id>eb0cc9fa-bf36-4898-8fce-a20ad040f3df</ns2:id>
+        </uitIdUser>
+        <verified>false</verified>
+    </passHolder>
+    <actions>
+        <action>
+            <actionType>CASHIN_WELCOMEADVANTAGE</actionType>
+            <welcomeAdvantageResponse>
+                <code>ACTION_SUCCEEDED</code>
+                <promotion>
+                    <applicableCardSystems>
+                        <cardsystem>
+                            <id>1</id>
+                            <name>UiTPAS Regio Aalst</name>
+                        </cardsystem>
+                    </applicableCardSystems>
+                    <balies>
+                        <balie>
+                            <name>CC De Werf </name>
+                            <id>31413BDF-DFC7-7A9F-10403618C2816E44</id>
+                            <visible>false</visible>
+                        </balie>
+                        <balie>
+                            <name>Openbare Bibliotheek Lede</name>
+                            <id>7B3D9697-FD79-7DE9-5FA4D6EB9EA1726D</id>
+                            <visible>false</visible>
+                        </balie>
+                        <balie>
+                            <name>CultuurNet Vlaanderen</name>
+                            <id>47B6FA21-ACB1-EA8F-2C231182C7DD0A19</id>
+                            <visible>false</visible>
+                        </balie>
+                        <balie>
+                            <name>Gemeentehuis Lede</name>
+                            <id>71969d26e70b309de51addba97c2f064</id>
+                            <visible>false</visible>
+                        </balie>
+                    </balies>
+                    <cashedIn>true</cashedIn>
+                    <cashingDate>2015-03-12T12:57:09.252+01:00</cashingDate>
+                    <id>109</id>
+                    <inSpotlight>false</inSpotlight>
+                    <owningCardSystem>
+                        <id>1</id>
+                        <name>UiTPAS Regio Aalst</name>
+                    </owningCardSystem>
+                    <points>0</points>
+                    <title>poster Sterkendries</title>
+                </promotion>
+            </welcomeAdvantageResponse>
+        </action>
+        <action>
+            <actionType>CASHIN_POINTSPROMOTION</actionType>
+            <pointsPromotionsResponse>
+                <code>ACTION_SUCCEEDED</code>
+                <promotion>
+                    <applicableCardSystems/>
+                    <balies>
+                        <balie>
+                            <name>CC De Werf </name>
+                            <id>31413BDF-DFC7-7A9F-10403618C2816E44</id>
+                            <visible>false</visible>
+                        </balie>
+                    </balies>
+                    <cashedIn>true</cashedIn>
+                    <id>480</id>
+                    <inSpotlight>false</inSpotlight>
+                    <points>1</points>
+                    <title>gratis koffie bij statik</title>
+                </promotion>
+            </pointsPromotionsResponse>
+        </action>
+        <action>
+            <actionType>CHECKIN</actionType>
+            <checkinResponse>
+                <code>ACTION_SUCCEEDED</code>
+                <points>10.000</points>
+            </checkinResponse>
+        </action>
+    </actions>
+</response>
