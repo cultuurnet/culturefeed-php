@@ -19,12 +19,12 @@ class Culturefeed_Uitpas_Passholder_ExecuteEventActionsResultAction {
   public $actionType;
 
   /**
-   * @var CultureFeed_Uitpas_Passholder_ExecuteEventActionsResult_WelcomeAdvantageResponse
+   * @var CultureFeed_Uitpas_Passholder_ExecuteEventActionsResult_WelcomeAdvantageResponse|null
    */
   public $welcomeAdvantageResponse;
 
   /**
-   * @var CultureFeed_Uitpas_Passholder_ExecuteEventActionsResult_PointsPromotionsResponse
+   * @var CultureFeed_Uitpas_Passholder_ExecuteEventActionsResult_PointsPromotionsResponse|null
    */
   public $pointsPromotionsResponse;
 
@@ -34,7 +34,7 @@ class Culturefeed_Uitpas_Passholder_ExecuteEventActionsResultAction {
   public $buyTicketResponse;
 
   /**
-   * @var
+   * @var CultureFeed_Uitpas_Passholder_ExecuteEventActionsResult_CheckinResponse|null
    */
   public $checkinResponse;
 
@@ -49,7 +49,9 @@ class Culturefeed_Uitpas_Passholder_ExecuteEventActionsResultAction {
 
     switch ($action->actionType) {
       case self::TYPE_CHECKIN:
-
+        $action->checkinResponse = CultureFeed_Uitpas_Passholder_ExecuteEventActionsResult_CheckinResponse::createFromXML(
+          $xml->xpath('checkinResponse', false)
+        );
         break;
 
       case self::TYPE_BUYTICKET:

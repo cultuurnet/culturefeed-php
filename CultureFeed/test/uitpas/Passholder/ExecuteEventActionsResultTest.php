@@ -107,6 +107,10 @@ class CultureFeed_Uitpas_Passholder_ExecuteEventActionsResultTest extends PHPUni
     $expectedActions[2] = new Culturefeed_Uitpas_Passholder_ExecuteEventActionsResultAction();
     $expectedActions[2]->actionType = Culturefeed_Uitpas_Passholder_ExecuteEventActionsResultAction::TYPE_CHECKIN;
 
+    $expectedActions[2]->checkinResponse = new CultureFeed_Uitpas_Passholder_ExecuteEventActionsResult_CheckinResponse();
+    $expectedActions[2]->checkinResponse->code = 'ACTION_SUCCEEDED';
+    $expectedActions[2]->checkinResponse->points = 10;
+
     $this->assertEquals($expectedActions, $result->actions);
   }
 }
