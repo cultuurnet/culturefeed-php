@@ -70,6 +70,24 @@ class CultureFeed_Uitpas_Passholder_ExecuteEventActionsResultTest extends PHPUni
 
     $expectedActions[0] = new Culturefeed_Uitpas_Passholder_ExecuteEventActionsResultAction();
     $expectedActions[0]->actionType = Culturefeed_Uitpas_Passholder_ExecuteEventActionsResultAction::TYPE_CASHIN_WELCOMEADVANTAGE;
+    $expectedActions[0]->welcomeAdvantageResponse = new CultureFeed_Uitpas_Passholder_ExecuteEventActionsResult_WelcomeAdvantageResponse();
+    $expectedActions[0]->welcomeAdvantageResponse->code = 'ACTION_SUCCEEDED';
+    $expectedActions[0]->welcomeAdvantageResponse->promotion = new CultureFeed_Uitpas_Passholder_WelcomeAdvantage();
+    $expectedActions[0]->welcomeAdvantageResponse->promotion->id = 109;
+    $expectedActions[0]->welcomeAdvantageResponse->promotion->title = 'poster Sterkendries';
+    $expectedActions[0]->welcomeAdvantageResponse->promotion->points = 0;
+    $expectedActions[0]->welcomeAdvantageResponse->promotion->cashedIn = true;
+    $expectedActions[0]->welcomeAdvantageResponse->promotion->cashingDate = 1426161429;
+    $expectedActions[0]->welcomeAdvantageResponse->promotion->owningCardSystem = new CultureFeed_Uitpas_CardSystem(1, 'UiTPAS Regio Aalst');
+    $expectedActions[0]->welcomeAdvantageResponse->promotion->applicableCardSystems = array(
+      new CultureFeed_Uitpas_CardSystem(1, 'UiTPAS Regio Aalst')
+    );
+    $expectedActions[0]->welcomeAdvantageResponse->promotion->counters = array(
+      new CultureFeed_Uitpas_Passholder_Counter('31413BDF-DFC7-7A9F-10403618C2816E44', 'CC De Werf'),
+      new CultureFeed_Uitpas_Passholder_Counter('7B3D9697-FD79-7DE9-5FA4D6EB9EA1726D', 'Openbare Bibliotheek Lede'),
+      new CultureFeed_Uitpas_Passholder_Counter('47B6FA21-ACB1-EA8F-2C231182C7DD0A19', 'CultuurNet Vlaanderen'),
+      new CultureFeed_Uitpas_Passholder_Counter('71969d26e70b309de51addba97c2f064', 'Gemeentehuis Lede'),
+    );
 
     $expectedActions[1] = new Culturefeed_Uitpas_Passholder_ExecuteEventActionsResultAction();
     $expectedActions[1]->actionType = Culturefeed_Uitpas_Passholder_ExecuteEventActionsResultAction::TYPE_CASHIN_POINTSPROMOTION;
