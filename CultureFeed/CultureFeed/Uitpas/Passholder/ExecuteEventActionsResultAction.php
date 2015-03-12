@@ -24,9 +24,9 @@ class Culturefeed_Uitpas_Passholder_ExecuteEventActionsResultAction {
   public $welcomeAdvantageResponse;
 
   /**
-   * @var
+   * @var CultureFeed_Uitpas_Passholder_ExecuteEventActionsResult_PointsPromotionsResponse
    */
-  public $pointsPromotionResponse;
+  public $pointsPromotionsResponse;
 
   /**
    * @var
@@ -57,7 +57,9 @@ class Culturefeed_Uitpas_Passholder_ExecuteEventActionsResultAction {
         break;
 
       case self::TYPE_CASHIN_POINTSPROMOTION:
-
+        $action->pointsPromotionsResponse = CultureFeed_Uitpas_Passholder_ExecuteEventActionsResult_PointsPromotionsResponse::createFromXML(
+          $xml->xpath('pointsPromotionsResponse', false)
+        );
         break;
 
       case self::TYPE_CASHIN_WELCOMEADVANTAGE:

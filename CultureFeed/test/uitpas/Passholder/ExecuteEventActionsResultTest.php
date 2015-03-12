@@ -91,6 +91,18 @@ class CultureFeed_Uitpas_Passholder_ExecuteEventActionsResultTest extends PHPUni
 
     $expectedActions[1] = new Culturefeed_Uitpas_Passholder_ExecuteEventActionsResultAction();
     $expectedActions[1]->actionType = Culturefeed_Uitpas_Passholder_ExecuteEventActionsResultAction::TYPE_CASHIN_POINTSPROMOTION;
+    $expectedActions[1]->pointsPromotionsResponse = new CultureFeed_Uitpas_Passholder_ExecuteEventActionsResult_PointsPromotionsResponse();
+    $expectedActions[1]->pointsPromotionsResponse->code = 'ACTION_SUCCEEDED';
+    $expectedActions[1]->pointsPromotionsResponse->promotion = new CultureFeed_Uitpas_Passholder_PointsPromotion(
+      480,
+      'gratis koffie bij statik',
+      1
+    );
+
+    $expectedActions[1]->pointsPromotionsResponse->promotion->cashedIn = TRUE;
+    $expectedActions[1]->pointsPromotionsResponse->promotion->counters = array(
+      new CultureFeed_Uitpas_Passholder_Counter('31413BDF-DFC7-7A9F-10403618C2816E44', 'CC De Werf'),
+    );
 
     $expectedActions[2] = new Culturefeed_Uitpas_Passholder_ExecuteEventActionsResultAction();
     $expectedActions[2]->actionType = Culturefeed_Uitpas_Passholder_ExecuteEventActionsResultAction::TYPE_CHECKIN;
