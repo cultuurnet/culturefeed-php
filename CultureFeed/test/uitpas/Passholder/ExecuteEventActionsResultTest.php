@@ -65,5 +65,18 @@ class CultureFeed_Uitpas_Passholder_ExecuteEventActionsResultTest extends PHPUni
     );
 
     $this->assertEquals($expectedPassholder, $result->passholder);
+
+    $expectedActions = array();
+
+    $expectedActions[0] = new Culturefeed_Uitpas_Passholder_ExecuteEventActionsResultAction();
+    $expectedActions[0]->actionType = Culturefeed_Uitpas_Passholder_ExecuteEventActionsResultAction::TYPE_CASHIN_WELCOMEADVANTAGE;
+
+    $expectedActions[1] = new Culturefeed_Uitpas_Passholder_ExecuteEventActionsResultAction();
+    $expectedActions[1]->actionType = Culturefeed_Uitpas_Passholder_ExecuteEventActionsResultAction::TYPE_CASHIN_POINTSPROMOTION;
+
+    $expectedActions[2] = new Culturefeed_Uitpas_Passholder_ExecuteEventActionsResultAction();
+    $expectedActions[2]->actionType = Culturefeed_Uitpas_Passholder_ExecuteEventActionsResultAction::TYPE_CHECKIN;
+
+    $this->assertEquals($expectedActions, $result->actions);
   }
 }
