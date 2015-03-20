@@ -183,6 +183,10 @@ abstract class CultureFeed_ICultureFeedDecoratorBase implements ICultureFeed
     {
         return $this->realCultureFeed->getRequestToken($callback);
     }
+    
+    public function getServiceConsumer($consumerKey) {
+        return $this->realCultureFeed->getServiceConsumer($consumerKey);
+    }
 
     public function getServiceConsumers($start = 0, $max = null)
     {
