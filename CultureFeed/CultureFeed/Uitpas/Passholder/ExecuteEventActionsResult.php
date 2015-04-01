@@ -44,4 +44,52 @@ class CultureFeed_Uitpas_Passholder_ExecuteEventActionsResult {
     $this->actions[] =
       Culturefeed_Uitpas_Passholder_ExecuteEventActionsResultAction::createFromXML($xml);
   }
+
+  /**
+   * @return Culturefeed_Uitpas_Passholder_ExecuteEventActionsResultAction|null
+   */
+  public function getCheckinAction() {
+    foreach ($this->actions as $action) {
+      if ($action->actionType == $action::TYPE_CHECKIN) {
+        return $action;
+      }
+    }
+  }
+
+  /**
+   * @param int $id
+   * @return Culturefeed_Uitpas_Passholder_ExecuteEventActionsResultAction|null
+   */
+  public function getWelcomeAdvantageAction($id) {
+    foreach ($this->actions as $action) {
+      if ($action->actionType == $action::TYPE_CASHIN_WELCOMEADVANTAGE &&
+        $action->welcomeAdvantageResponse->promotion->id == $id) {
+        return $action;
+      }
+    }
+  }
+
+  /**
+   * @param $id
+   * @return Culturefeed_Uitpas_Passholder_ExecuteEventActionsResultAction|null
+   */
+  public function getPointsPromotionAction($id) {
+    foreach ($this->actions as $action) {
+      if ($action->actionType == $action::TYPE_CASHIN_POINTSPROMOTION &&
+          $action->pointsPromotionsResponse->promotion->id == $id) {
+        return $action;
+      }
+    }
+  }
+
+  /**
+   * @return Culturefeed_Uitpas_Passholder_ExecuteEventActionsResultAction|null
+   */
+  public function getBuyTicketAction() {
+    foreach ($this->actions as $action) {
+      if ($action->actionType == $action::TYPE_BUYTICKET) {
+        return $action;
+      }
+    }
+  }
 }

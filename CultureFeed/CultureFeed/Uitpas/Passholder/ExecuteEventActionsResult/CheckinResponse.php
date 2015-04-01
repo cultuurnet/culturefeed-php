@@ -3,7 +3,7 @@
  * @file
  */
 
-class CultureFeed_Uitpas_Passholder_ExecuteEventActionsResult_CheckinResponse {
+class CultureFeed_Uitpas_Passholder_ExecuteEventActionsResult_CheckinResponse implements CultureFeed_Uitpas_Passholder_ExecuteEventActionsResult_ResultInterface {
 
   /**
    * @var string
@@ -23,4 +23,18 @@ class CultureFeed_Uitpas_Passholder_ExecuteEventActionsResult_CheckinResponse {
 
     return $response;
   }
+
+  public function isSuccess()
+  {
+    return $this->code == 'ACTION_SUCCEEDED';
+  }
+
+  /**
+   * @return string
+   */
+  function getCode() {
+    return $this->code;
+  }
+
+
 }

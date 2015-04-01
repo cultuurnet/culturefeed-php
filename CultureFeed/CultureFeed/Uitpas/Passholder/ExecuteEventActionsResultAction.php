@@ -29,7 +29,7 @@ class Culturefeed_Uitpas_Passholder_ExecuteEventActionsResultAction {
   public $pointsPromotionsResponse;
 
   /**
-   * @var
+   * @var CultureFeed_Uitpas_Passholder_ExecuteEventActionsResult_BuyTicketResponse|null
    */
   public $buyTicketResponse;
 
@@ -55,7 +55,10 @@ class Culturefeed_Uitpas_Passholder_ExecuteEventActionsResultAction {
         break;
 
       case self::TYPE_BUYTICKET:
-
+        $action->buyTicketResponse =
+          CultureFeed_Uitpas_Passholder_ExecuteEventActionsResult_BuyTicketResponse::createFromXML(
+            $xml->xpath('buyTicketResponse')
+          );
         break;
 
       case self::TYPE_CASHIN_POINTSPROMOTION:

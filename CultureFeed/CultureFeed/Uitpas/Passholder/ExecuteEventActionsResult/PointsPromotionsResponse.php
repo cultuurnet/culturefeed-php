@@ -3,8 +3,7 @@
  * @file
  */
 
-class CultureFeed_Uitpas_Passholder_ExecuteEventActionsResult_PointsPromotionsResponse
-{
+class CultureFeed_Uitpas_Passholder_ExecuteEventActionsResult_PointsPromotionsResponse implements CultureFeed_Uitpas_Passholder_ExecuteEventActionsResult_ResultInterface {
   /**
    * @var string
    */
@@ -40,4 +39,17 @@ class CultureFeed_Uitpas_Passholder_ExecuteEventActionsResult_PointsPromotionsRe
     return $response;
   }
 
+  /**
+   * @return string
+   */
+  function getCode() {
+    return $this->code;
+  }
+
+  /**
+   * @return bool
+   */
+  function isSuccess() {
+    return $this->code === 'ACTION_SUCCEEDED';
+  }
 }
