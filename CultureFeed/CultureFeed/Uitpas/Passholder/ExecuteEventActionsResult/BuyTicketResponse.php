@@ -20,12 +20,18 @@ class CultureFeed_Uitpas_Passholder_ExecuteEventActionsResult_BuyTicketResponse 
    */
   public $id;
 
+  /**
+   * @var float
+   */
+  public $tariff;
+
   public static function createFromXML(CultureFeed_SimpleXMLElement $xml) {
     $response = new self();
 
     $response->code = $xml->xpath_str('code');
     $response->price = $xml->xpath_float('price');
     $response->id = $xml->xpath_str('id');
+    $response->tariff = $xml->xpath_float('tariff');
 
     return $response;
   }

@@ -42,6 +42,15 @@
     </passHolder>
     <actions>
         <action>
+            <actionType>BUYTICKET</actionType>
+            <buyTicketResponse>
+                <code>ACTION_SUCCEEDED</code>
+                <id>16978</id>
+                <price>10.0</price>
+                <tariff>1.5</tariff>
+            </buyTicketResponse>
+        </action>
+        <action>
             <actionType>CASHIN_WELCOMEADVANTAGE</actionType>
             <welcomeAdvantageResponse>
                 <code>ACTION_SUCCEEDED</code>

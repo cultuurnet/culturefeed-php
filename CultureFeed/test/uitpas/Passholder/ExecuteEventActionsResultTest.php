@@ -68,48 +68,67 @@ class CultureFeed_Uitpas_Passholder_ExecuteEventActionsResultTest extends PHPUni
 
     $expectedActions = array();
 
-    $expectedActions[0] = new Culturefeed_Uitpas_Passholder_ExecuteEventActionsResultAction();
-    $expectedActions[0]->actionType = Culturefeed_Uitpas_Passholder_ExecuteEventActionsResultAction::TYPE_CASHIN_WELCOMEADVANTAGE;
-    $expectedActions[0]->welcomeAdvantageResponse = new CultureFeed_Uitpas_Passholder_ExecuteEventActionsResult_WelcomeAdvantageResponse();
-    $expectedActions[0]->welcomeAdvantageResponse->code = 'ACTION_SUCCEEDED';
-    $expectedActions[0]->welcomeAdvantageResponse->promotion = new CultureFeed_Uitpas_Passholder_WelcomeAdvantage();
-    $expectedActions[0]->welcomeAdvantageResponse->promotion->id = 109;
-    $expectedActions[0]->welcomeAdvantageResponse->promotion->title = 'poster Sterkendries';
-    $expectedActions[0]->welcomeAdvantageResponse->promotion->points = 0;
-    $expectedActions[0]->welcomeAdvantageResponse->promotion->cashedIn = true;
-    $expectedActions[0]->welcomeAdvantageResponse->promotion->cashingDate = 1426161429;
-    $expectedActions[0]->welcomeAdvantageResponse->promotion->owningCardSystem = new CultureFeed_Uitpas_CardSystem(1, 'UiTPAS Regio Aalst');
-    $expectedActions[0]->welcomeAdvantageResponse->promotion->applicableCardSystems = array(
+    $expectedBuyTicketResultAction =
+      new CultureFeed_Uitpas_Passholder_ExecuteEventActionsResultAction();
+    $expectedBuyTicketResultAction->actionType =
+      $expectedBuyTicketResultAction::TYPE_BUYTICKET;
+    $expectedBuyTicketResultAction->buyTicketResponse =
+      new CultureFeed_Uitpas_Passholder_ExecuteEventActionsResult_BuyTicketResponse();
+    $expectedBuyTicketResultAction->buyTicketResponse->code =
+      'ACTION_SUCCEEDED';
+    $expectedBuyTicketResultAction->buyTicketResponse->price = 10.0;
+    $expectedBuyTicketResultAction->buyTicketResponse->tariff = 1.5;
+    $expectedBuyTicketResultAction->buyTicketResponse->id = '16978';
+    $expectedActions[] = $expectedBuyTicketResultAction;
+
+    $expectedWelcomeAdvantageResultAction = new Culturefeed_Uitpas_Passholder_ExecuteEventActionsResultAction();
+    $expectedWelcomeAdvantageResultAction->actionType = Culturefeed_Uitpas_Passholder_ExecuteEventActionsResultAction::TYPE_CASHIN_WELCOMEADVANTAGE;
+    $expectedWelcomeAdvantageResultAction->welcomeAdvantageResponse = new CultureFeed_Uitpas_Passholder_ExecuteEventActionsResult_WelcomeAdvantageResponse();
+    $expectedWelcomeAdvantageResultAction->welcomeAdvantageResponse->code = 'ACTION_SUCCEEDED';
+    $expectedWelcomeAdvantageResultAction->welcomeAdvantageResponse->promotion = new CultureFeed_Uitpas_Passholder_WelcomeAdvantage();
+    $expectedWelcomeAdvantageResultAction->welcomeAdvantageResponse->promotion->id = 109;
+    $expectedWelcomeAdvantageResultAction->welcomeAdvantageResponse->promotion->title = 'poster Sterkendries';
+    $expectedWelcomeAdvantageResultAction->welcomeAdvantageResponse->promotion->points = 0;
+    $expectedWelcomeAdvantageResultAction->welcomeAdvantageResponse->promotion->cashedIn = true;
+    $expectedWelcomeAdvantageResultAction->welcomeAdvantageResponse->promotion->cashingDate = 1426161429;
+    $expectedWelcomeAdvantageResultAction->welcomeAdvantageResponse->promotion->owningCardSystem = new CultureFeed_Uitpas_CardSystem(1, 'UiTPAS Regio Aalst');
+    $expectedWelcomeAdvantageResultAction->welcomeAdvantageResponse->promotion->applicableCardSystems = array(
       new CultureFeed_Uitpas_CardSystem(1, 'UiTPAS Regio Aalst')
     );
-    $expectedActions[0]->welcomeAdvantageResponse->promotion->counters = array(
+    $expectedWelcomeAdvantageResultAction->welcomeAdvantageResponse->promotion->counters = array(
       new CultureFeed_Uitpas_Passholder_Counter('31413BDF-DFC7-7A9F-10403618C2816E44', 'CC De Werf'),
       new CultureFeed_Uitpas_Passholder_Counter('7B3D9697-FD79-7DE9-5FA4D6EB9EA1726D', 'Openbare Bibliotheek Lede'),
       new CultureFeed_Uitpas_Passholder_Counter('47B6FA21-ACB1-EA8F-2C231182C7DD0A19', 'CultuurNet Vlaanderen'),
       new CultureFeed_Uitpas_Passholder_Counter('71969d26e70b309de51addba97c2f064', 'Gemeentehuis Lede'),
     );
 
-    $expectedActions[1] = new Culturefeed_Uitpas_Passholder_ExecuteEventActionsResultAction();
-    $expectedActions[1]->actionType = Culturefeed_Uitpas_Passholder_ExecuteEventActionsResultAction::TYPE_CASHIN_POINTSPROMOTION;
-    $expectedActions[1]->pointsPromotionsResponse = new CultureFeed_Uitpas_Passholder_ExecuteEventActionsResult_PointsPromotionsResponse();
-    $expectedActions[1]->pointsPromotionsResponse->code = 'ACTION_SUCCEEDED';
-    $expectedActions[1]->pointsPromotionsResponse->promotion = new CultureFeed_Uitpas_Passholder_PointsPromotion(
+    $expectedActions[] = $expectedWelcomeAdvantageResultAction;
+
+    $expectedPointsPromotionResultAction = new Culturefeed_Uitpas_Passholder_ExecuteEventActionsResultAction();
+    $expectedPointsPromotionResultAction->actionType = Culturefeed_Uitpas_Passholder_ExecuteEventActionsResultAction::TYPE_CASHIN_POINTSPROMOTION;
+    $expectedPointsPromotionResultAction->pointsPromotionsResponse = new CultureFeed_Uitpas_Passholder_ExecuteEventActionsResult_PointsPromotionsResponse();
+    $expectedPointsPromotionResultAction->pointsPromotionsResponse->code = 'ACTION_SUCCEEDED';
+    $expectedPointsPromotionResultAction->pointsPromotionsResponse->promotion = new CultureFeed_Uitpas_Passholder_PointsPromotion(
       480,
       'gratis koffie bij statik',
       1
     );
 
-    $expectedActions[1]->pointsPromotionsResponse->promotion->cashedIn = TRUE;
-    $expectedActions[1]->pointsPromotionsResponse->promotion->counters = array(
+    $expectedPointsPromotionResultAction->pointsPromotionsResponse->promotion->cashedIn = TRUE;
+    $expectedPointsPromotionResultAction->pointsPromotionsResponse->promotion->counters = array(
       new CultureFeed_Uitpas_Passholder_Counter('31413BDF-DFC7-7A9F-10403618C2816E44', 'CC De Werf'),
     );
 
-    $expectedActions[2] = new Culturefeed_Uitpas_Passholder_ExecuteEventActionsResultAction();
-    $expectedActions[2]->actionType = Culturefeed_Uitpas_Passholder_ExecuteEventActionsResultAction::TYPE_CHECKIN;
+    $expectedActions[] = $expectedPointsPromotionResultAction;
 
-    $expectedActions[2]->checkinResponse = new CultureFeed_Uitpas_Passholder_ExecuteEventActionsResult_CheckinResponse();
-    $expectedActions[2]->checkinResponse->code = 'ACTION_SUCCEEDED';
-    $expectedActions[2]->checkinResponse->points = 10;
+    $expectedCheckinResponseResultAction = new Culturefeed_Uitpas_Passholder_ExecuteEventActionsResultAction();
+    $expectedCheckinResponseResultAction->actionType = Culturefeed_Uitpas_Passholder_ExecuteEventActionsResultAction::TYPE_CHECKIN;
+
+    $expectedCheckinResponseResultAction->checkinResponse = new CultureFeed_Uitpas_Passholder_ExecuteEventActionsResult_CheckinResponse();
+    $expectedCheckinResponseResultAction->checkinResponse->code = 'ACTION_SUCCEEDED';
+    $expectedCheckinResponseResultAction->checkinResponse->points = 10;
+
+    $expectedActions[] = $expectedCheckinResponseResultAction;
 
     $this->assertEquals($expectedActions, $result->actions);
   }

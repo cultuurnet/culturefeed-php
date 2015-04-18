@@ -57,7 +57,7 @@ class Culturefeed_Uitpas_Passholder_ExecuteEventActionsResultAction {
       case self::TYPE_BUYTICKET:
         $action->buyTicketResponse =
           CultureFeed_Uitpas_Passholder_ExecuteEventActionsResult_BuyTicketResponse::createFromXML(
-            $xml->xpath('buyTicketResponse')
+            $xml->xpath('buyTicketResponse', false)
           );
         break;
 
