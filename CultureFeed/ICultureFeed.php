@@ -66,6 +66,16 @@ interface ICultureFeed {
 
   public function cashInPromotion($userId, array $promotionId, array $promotionCount);
 
+  public function getTemplate($id);
+
+  public function createTemplate(CultureFeed_Template $template);
+
+  public function updateTemplate(CultureFeed_Template $template, $fields = array());
+
+  public function getTemplateList();
+
+  public function deleteTemplate($id);
+
   public function getMailing($id);
 
   public function createMailing(CultureFeed_Mailing $mailing);
@@ -119,6 +129,8 @@ interface ICultureFeed {
   public function createServiceConsumer(CultureFeed_Consumer $consumer);
 
   public function updateServiceConsumer(CultureFeed_Consumer $consumer);
+
+  public function getServiceConsumer($consumerKey);
 
   /**
    * @return CultureFeed_Uitpas

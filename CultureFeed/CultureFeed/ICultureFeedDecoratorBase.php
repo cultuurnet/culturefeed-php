@@ -41,6 +41,10 @@ abstract class CultureFeed_ICultureFeedDecoratorBase implements ICultureFeed
     {
         return $this->realCultureFeed->createServiceConsumer($consumer);
     }
+    
+    public function createTemplate(CultureFeed_Template $template) {
+        return $this->realCultureFeed->createTemplate($template);
+    }
 
     public function createUser(CultureFeed_User $user)
     {
@@ -55,6 +59,10 @@ abstract class CultureFeed_ICultureFeedDecoratorBase implements ICultureFeed
     public function deleteMailing($id)
     {
         return $this->realCultureFeed->deleteMailing($id);
+    }
+    
+    public function deleteTemplate($id) {
+        return $this->realCultureFeed->deleteTemplate($id);
     }
 
     public function deleteUser($id)
@@ -175,6 +183,10 @@ abstract class CultureFeed_ICultureFeedDecoratorBase implements ICultureFeed
     {
         return $this->realCultureFeed->getRequestToken($callback);
     }
+    
+    public function getServiceConsumer($consumerKey) {
+        return $this->realCultureFeed->getServiceConsumer($consumerKey);
+    }
 
     public function getServiceConsumers($start = 0, $max = null)
     {
@@ -184,6 +196,14 @@ abstract class CultureFeed_ICultureFeedDecoratorBase implements ICultureFeed
     public function getSimilarUsers($id)
     {
         return $this->realCultureFeed->getSimilarUsers($id);
+    }
+    
+    public function getTemplate($id) {
+        return $this->realCultureFeed->getTemplate($id);
+    }
+    
+    public function getTemplateList() {
+        return $this->realCultureFeed->getTemplateList();
     }
 
     public function getToken()
@@ -396,6 +416,10 @@ abstract class CultureFeed_ICultureFeedDecoratorBase implements ICultureFeed
     public function updateServiceConsumer(CultureFeed_Consumer $consumer)
     {
         return $this->realCultureFeed->updateServiceConsumer($consumer);
+    }
+    
+    public function updateTemplate(CultureFeed_Template $template, $fields = array()) {
+        return $this->realCultureFeed->updateTemplate($template, $fields);
     }
 
     public function updateUser(CultureFeed_User $user, $fields = array())

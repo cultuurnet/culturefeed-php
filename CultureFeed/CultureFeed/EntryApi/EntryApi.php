@@ -776,6 +776,35 @@ class CultureFeed_EntryApi implements CultureFeed_EntryApi_IEntryApi {
     $result = $this->oauth_client->authenticatedDeleteAsXml($type . '/' . $id . '/links', array('link' => $link));
     $xml = $this->validateResult($result, self::CODE_LINK_WITHDRAWN);
   }
+  
+  /**
+   * Check the permission of a user to edit one or more items.
+   *
+   * @param string $userid
+   *   User id of the user.
+   * @param string $email
+   *   Email address of that user
+   * @param Array $ids
+   *   Array of ids to check.
+   */
+  public function checkPermission($userid, $email, $ids) {
+  
+    $params = array(
+      'user' => $userid,
+      'email' => $email,
+      'ids' => $ids,  
+    );
+
+    $result = $this->oauth_client->authenticatedGetAsXml('event/checkpermission', $params);
+    try {
+      $object = new CultureFeed_SimpleXMLElement($result);
+    }
+    catch (Exception $e) {
+      throw new CultureFeed_ParseException($result);
+    }
+    return $object;
+
+  }
 
   /**
    * Validate the request result.
