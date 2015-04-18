@@ -86,6 +86,24 @@ class CultureFeed_Uitpas_Error
 
   const MEMBERSHIP_NOT_POSSIBLE_AGE_CONSTRAINT = 'MEMBERSHIP_NOT_POSSIBLE_AGE_CONSTRAINT';
 
+  const TICKETSALE_NOT_ALLOWED_FREE_EVENT = 'TICKETSALE_NOT_ALLOWED_FREE_EVENT';
+
+  const PASSHOLDER_NO_ACTIVE_CARDSYSTEMS = 'PASSHOLDER_NO_ACTIVE_CARDSYSTEMS';
+
+  const MAXIMUM_REACHED = 'MAXIMUM_REACHED';
+
+  const UNKNOWN_WELCOME_ADVANTAGE_ID = 'UNKNOWN_WELCOME_ADVANTAGE_ID';
+
+  const WELCOMEADVANTAGE_ALREADY_CASHED_IN = 'WELCOMEADVANTAGE_ALREADY_CASHED_IN';
+
+  const CHECKIN_CURRENTLY_NOT_ALLOWED = 'CHECKIN_CURRENTLY_NOT_ALLOWED';
+
+  const UNKNOWN_POINTS_PROMOTION_ID = 'UNKNOWN_POINTS_PROMOTION_ID';
+
+  const UNKNOWN_BALIE_ID = 'UNKNOWN_BALIE_ID';
+
+  const UNKNOWN_EVENT_CDBID = 'UNKNOWN_EVENT_CDBID';
+
   public static function allRelevantFor($path, $method = 'POST') {
     $errors = array();
 
@@ -156,10 +174,12 @@ class CultureFeed_Uitpas_Error
           $errors[] = self::INVALID_CARD_STATUS_PROVISIONED;
           $errors[] = self::INVALID_CARD_STATUS_SENT_TO_BALIE;
           $errors[] = self::INVALID_CARD_STATUS_STOCK;
-
         }
         else {
-          // POST not yet implemented.
+          $errors[] = self::UNKNOWN_BALIE_CONSUMERKEY;
+          $errors[] = self::PARSE_INVALID_UITPASNUMBER;
+          $errors[] = self::UNKNOWN_EVENT_CDBID;
+          $errors[] = self::UNKNOWN_UITPASNUMBER;
         }
         break;
 
@@ -193,6 +213,40 @@ class CultureFeed_Uitpas_Error
         }
         break;
 
+      case 'uitpas/cultureevent/{eventCdbid}/buy/{uitpasNumber}':
+        if ($method == 'POST') {
+          $errors[] = self::TICKETSALE_NOT_ALLOWED_FREE_EVENT;
+          $errors[] = self::INVALID_CARD_STATUS;
+          $errors[] = self::INVALID_CARD;
+          $errors[] = self::PASSHOLDER_NO_ACTIVE_CARDSYSTEMS;
+          $errors[] = self::MAXIMUM_REACHED;
+          $errors[] = self::INVALID_DATE_CONSTRAINTS;
+        }
+        break;
+
+      case 'uitpas/passholder/{uitpasNumber}/cashInWelcomeAdvantage':
+        if ($method == 'POST') {
+          $errors[] = self::UNKNOWN_CARD;
+          $errors[] = self::INVALID_CARD;
+          $errors[] = self::UNKNOWN_WELCOME_ADVANTAGE_ID;
+          $errors[] = self::WELCOMEADVANTAGE_ALREADY_CASHED_IN;
+        }
+        break;
+
+      case 'uitpas/passholder/{uitpasNumber}/cashInPointsPromotion':
+        if ($method == 'POST') {
+          $errors[] = self::ACTION_NOT_ALLOWED;
+          $errors[] = self::UNKNOWN_CARD;
+          $errors[] = self::UNKNOWN_POINTS_PROMOTION_ID;
+          $errors[] = self::UNKNOWN_BALIE_ID;
+        }
+        break;
+
+      case 'uitpas/passholder/checkin':
+        if ($method == 'POST') {
+          $errors[] = self::CHECKIN_CURRENTLY_NOT_ALLOWED;
+        }
+        break;
     }
 
     return $errors;
