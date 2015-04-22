@@ -80,22 +80,25 @@ class CultureFeed_SavedSearches_DefaultTest extends PHPUnit_Framework_TestCase {
     $saved_searches_default = new CultureFeed_SavedSearches_Default($this->cultureFeed);
     $result = $saved_searches_default->getList(TRUE);
 
-    $expected_xml = new CultureFeed_SimpleXMLElement($saved_search_list_xml);
-    $saved_search_elements = $expected_xml->xpath('/response/savedSearches/savedSearch');
-    foreach ($saved_search_elements as $saved_search_element) {
-      $id = $saved_search_element->xpath_int('id');
-      $frequency = $saved_search_element->xpath_str('frequency');
-      $name = $saved_search_element->xpath_str('name');
-      $query = $saved_search_element->xpath_str('query');
-      $userId = NULL;
+    $savedSearch2 = new CultureFeed_SavedSearches_SavedSearch();
+    $savedSearch2->id = 2;
+    $savedSearch2->name = 'Test+alert+1';
+    $savedSearch2->query = 'q%3Dzwembad';
+    $savedSearch2->frequency = $savedSearch2::ASAP;
 
-      $this->assertInstanceOf('CultureFeed_SavedSearches_SavedSearch', $result[$id]);
-      $this->assertEquals($id, $result[$id]->id);
-      $this->assertEquals($userId, $result[$id]->userId);
-      $this->assertEquals($name, $result[$id]->name);
-      $this->assertEquals($query, $result[$id]->query);
-      $this->assertEquals($frequency, $result[$id]->frequency);
-    }
+    $savedSearch3 = new CultureFeed_SavedSearches_SavedSearch();
+    $savedSearch3->id = 3;
+    $savedSearch3->name = 'UitAlert+2';
+    $savedSearch3->query = 'q%3Dtheater';
+    $savedSearch3->frequency = $savedSearch3::WEEKLY;
+
+    $this->assertEquals(
+      array(
+        $savedSearch2->id => $savedSearch2,
+        $savedSearch3->id => $savedSearch3,
+      ),
+      $result
+    );
   }
 
   public function testGetListWithoutXml() {
