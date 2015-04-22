@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit bootstrap="CultureFeed/test/bootstrap.php">
+    <testsuite name="all">
+        <directory>CultureFeed/test</directory>
+    </testsuite>
+    <logging>
+        <log type="coverage-clover" target="build/logs/clover.xml"/>
+    </logging>
+    <filter>
+        <whitelist processUncoveredFilesFromWhitelist="true">
+            <directory suffix=".php">./CultureFeed/CultureFeed</directory>
+            <file>./CultureFeed/CultureFeed.php</file>
+        </whitelist>
+    </filter>
+</phpunit>
+
