@@ -1,0 +1,1 @@
+[![Build Status](https://travis-ci.org/cultuurnet/culturefeed-php.svg?branch=feature%2FIII-291)](https://travis-ci.org/cultuurnet/culturefeed-php) [![Coverage Status](https://coveralls.io/repos/cultuurnet/culturefeed-php/badge.svg)](https://coveralls.io/r/cultuurnet/culturefeed-php)
