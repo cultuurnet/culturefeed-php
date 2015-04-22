@@ -11,11 +11,18 @@ class CultureFeed_SavedSearches_DefaultTest extends PHPUnit_Framework_TestCase {
    */
   protected $oauthClientStub;
 
+  /**
+   * @var CultureFeed_SavedSearches_Default
+   */
+  protected $savedSearches;
+
   public function setUp() {
     parent::setUp();
 
     $this->oauthClientStub = $this->getMock('CultureFeed_OAuthClient');
     $this->cultureFeed = new Culturefeed($this->oauthClientStub);
+
+    $this->savedSearches = new CultureFeed_SavedSearches_Default($this->cultureFeed);
   }
 
   public function testGetSavedSearch() {
@@ -26,8 +33,7 @@ class CultureFeed_SavedSearches_DefaultTest extends PHPUnit_Framework_TestCase {
       ->with('savedSearch/2')
       ->will($this->returnValue($saved_search_xml));
 
-    $saved_searches_default = new CultureFeed_SavedSearches_Default($this->cultureFeed);
-    $result = $saved_searches_default->getSavedSearch(2);
+    $result = $this->savedSearches->getSavedSearch(2);
 
     $this->assertInstanceOf('CultureFeed_SavedSearches_SavedSearch', $result);
     $this->assertEquals('2', $result->id);
@@ -45,10 +51,8 @@ class CultureFeed_SavedSearches_DefaultTest extends PHPUnit_Framework_TestCase {
       ->with('savedSearch/3')
       ->will($this->returnValue($not_xml));
 
-    $saved_searches_default = new CultureFeed_SavedSearches_Default($this->cultureFeed);
-
     $this->setExpectedException('CultureFeed_ParseException');
-    $result = $saved_searches_default->getSavedSearch(3);
+    $result = $this->savedSearches->getSavedSearch(3);
   }
 
   public function testGetSavedSearchWithIncorrectXml() {
@@ -58,10 +62,8 @@ class CultureFeed_SavedSearches_DefaultTest extends PHPUnit_Framework_TestCase {
       ->with('savedSearch/4')
       ->will($this->returnValue($incorrect_xml));
 
-    $saved_searches_default = new CultureFeed_SavedSearches_Default($this->cultureFeed);
-
     $this->setExpectedException('CultureFeed_ParseException');
-    $result = $saved_searches_default->getSavedSearch(4);
+    $result = $this->savedSearches->getSavedSearch(4);
   }
 
   public function testGetList() {
@@ -77,8 +79,7 @@ class CultureFeed_SavedSearches_DefaultTest extends PHPUnit_Framework_TestCase {
         )
       ->will($this->returnValue($saved_search_list_xml));
 
-    $saved_searches_default = new CultureFeed_SavedSearches_Default($this->cultureFeed);
-    $result = $saved_searches_default->getList(TRUE);
+    $result = $this->savedSearches->getList(TRUE);
 
     $savedSearch2 = new CultureFeed_SavedSearches_SavedSearch();
     $savedSearch2->id = 2;
@@ -114,10 +115,8 @@ class CultureFeed_SavedSearches_DefaultTest extends PHPUnit_Framework_TestCase {
       )
       ->will($this->returnValue($not_xml));
 
-    $saved_searches_default = new CultureFeed_SavedSearches_Default($this->cultureFeed);
-
     $this->setExpectedException('CultureFeed_ParseException');
-    $result = $saved_searches_default->getList(TRUE);
+    $result = $this->savedSearches->getList(TRUE);
   }
 
   public function testGetListWithIncorrectXml() {
@@ -133,10 +132,8 @@ class CultureFeed_SavedSearches_DefaultTest extends PHPUnit_Framework_TestCase {
       )
       ->will($this->returnValue($saved_search_list_xml));
 
-    $saved_searches_default = new CultureFeed_SavedSearches_Default($this->cultureFeed);
-
     $this->setExpectedException('CultureFeed_ParseException');
-    $result = $saved_searches_default->getList(TRUE);
+    $result = $this->savedSearches->getList(TRUE);
   }
 
 }
