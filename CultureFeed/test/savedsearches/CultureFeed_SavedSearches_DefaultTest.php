@@ -39,7 +39,7 @@ class CultureFeed_SavedSearches_DefaultTest extends PHPUnit_Framework_TestCase {
     $query = $saved_search_element->xpath_str('query');
     $userId = NULL;
 
-    $this->assertInstanceOf(CultureFeed_SavedSearches_SavedSearch::class, $result);
+    $this->assertInstanceOf('CultureFeed_SavedSearches_SavedSearch', $result);
     $this->assertEquals($id, $result->id);
     $this->assertEquals($userId, $result->userId);
     $this->assertEquals($name, $result->name);
@@ -56,7 +56,7 @@ class CultureFeed_SavedSearches_DefaultTest extends PHPUnit_Framework_TestCase {
 
     $saved_searches_default = new CultureFeed_SavedSearches_Default($this->cultureFeed);
 
-    $this->setExpectedException(CultureFeed_ParseException::class);
+    $this->setExpectedException('CultureFeed_ParseException');
     $result = $saved_searches_default->getSavedSearch(3);
   }
 
@@ -69,7 +69,7 @@ class CultureFeed_SavedSearches_DefaultTest extends PHPUnit_Framework_TestCase {
 
     $saved_searches_default = new CultureFeed_SavedSearches_Default($this->cultureFeed);
 
-    $this->setExpectedException(CultureFeed_ParseException::class);
+    $this->setExpectedException('CultureFeed_ParseException');
     $result = $saved_searches_default->getSavedSearch(4);
   }
 
@@ -98,7 +98,7 @@ class CultureFeed_SavedSearches_DefaultTest extends PHPUnit_Framework_TestCase {
       $query = $saved_search_element->xpath_str('query');
       $userId = NULL;
 
-      $this->assertInstanceOf(CultureFeed_SavedSearches_SavedSearch::class, $result[$id]);
+      $this->assertInstanceOf('CultureFeed_SavedSearches_SavedSearch', $result[$id]);
       $this->assertEquals($id, $result[$id]->id);
       $this->assertEquals($userId, $result[$id]->userId);
       $this->assertEquals($name, $result[$id]->name);
@@ -122,7 +122,7 @@ class CultureFeed_SavedSearches_DefaultTest extends PHPUnit_Framework_TestCase {
 
     $saved_searches_default = new CultureFeed_SavedSearches_Default($this->cultureFeed);
 
-    $this->setExpectedException(CultureFeed_ParseException::class);
+    $this->setExpectedException('CultureFeed_ParseException');
     $result = $saved_searches_default->getList(TRUE);
   }
 
@@ -141,7 +141,7 @@ class CultureFeed_SavedSearches_DefaultTest extends PHPUnit_Framework_TestCase {
 
     $saved_searches_default = new CultureFeed_SavedSearches_Default($this->cultureFeed);
 
-    $this->setExpectedException(CultureFeed_ParseException::class);
+    $this->setExpectedException('CultureFeed_ParseException');
     $result = $saved_searches_default->getList(TRUE);
   }
 
