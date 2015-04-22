@@ -59,6 +59,9 @@ class CultureFeed_SavedSearches_Default implements CultureFeed_SavedSearches {
     }
 
     $searchElement = $xmlElement->xpath('savedSearch');
+    if (empty($searchElement)) {
+      throw new CultureFeed_ParseException($result);
+    }
     return $this->parseSavedSearch($searchElement[0]);
 
   }
@@ -79,6 +82,9 @@ class CultureFeed_SavedSearches_Default implements CultureFeed_SavedSearches {
     $savedSearches = array();
 
     $searchElements = $xmlElement->xpath('/response/savedSearches/savedSearch');
+    if (empty($searchElements)) {
+      throw new CultureFeed_ParseException($result);
+    }
     foreach ($searchElements as $searchElement) {
       $search = $this->parseSavedSearch($searchElement);
       $savedSearches[$search->id] = $search;
