@@ -29,22 +29,13 @@ class CultureFeed_SavedSearches_DefaultTest extends PHPUnit_Framework_TestCase {
     $saved_searches_default = new CultureFeed_SavedSearches_Default($this->cultureFeed);
     $result = $saved_searches_default->getSavedSearch(2);
 
-    $expected_xml = new CultureFeed_SimpleXMLElement($saved_search_xml);
-    $saved_search_elements = $expected_xml->xpath('savedSearch');
-    $saved_search_element = $saved_search_elements[0];
-
-    $id = $saved_search_element->xpath_int('id');
-    $frequency = $saved_search_element->xpath_str('frequency');
-    $name = $saved_search_element->xpath_str('name');
-    $query = $saved_search_element->xpath_str('query');
-    $userId = NULL;
-
     $this->assertInstanceOf('CultureFeed_SavedSearches_SavedSearch', $result);
-    $this->assertEquals($id, $result->id);
-    $this->assertEquals($userId, $result->userId);
-    $this->assertEquals($name, $result->name);
-    $this->assertEquals($query, $result->query);
-    $this->assertEquals($frequency, $result->frequency);
+    $this->assertEquals('2', $result->id);
+    // @todo The user id currently doesn't get parsed.
+    // $this->assertEquals('4d177d4e-6810-404c-afe0-e7dba1765f7c', $result->userId);
+    $this->assertEquals('Test+alert+1', $result->name);
+    $this->assertEquals('q%3Dzwembad', $result->query);
+    $this->assertEquals(CultureFeed_SavedSearches_SavedSearch::ASAP, $result->frequency);
   }
 
   public function testGetSavedSearchWithoutXml() {
