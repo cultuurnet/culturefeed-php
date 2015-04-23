@@ -65,7 +65,7 @@ class CultureFeed_SavedSearches_DefaultTest extends PHPUnit_Framework_TestCase {
 
     // Build with an invalid frequency argument.
     $this->setExpectedException('InvalidArgumentException');
-    $error_saved_search = new CultureFeed_SavedSearches_SavedSearch(
+    new CultureFeed_SavedSearches_SavedSearch(
       'userId',
       'name',
       'query',
@@ -137,7 +137,47 @@ class CultureFeed_SavedSearches_DefaultTest extends PHPUnit_Framework_TestCase {
   }
 
   public function testUnsubscribe() {
+    $unsubscribe_xml = file_get_contents(dirname(__FILE__) . '/data/unsubscribe.xml');
 
+    $this->oauthClientStub->expects($this->once())
+      ->method('authenticatedPostAsXml')
+      ->with(
+        'savedSearch/' . $this->savedSearchStub->id . '/unsubscribe',
+        array('userId' => $this->savedSearchStub->userId)
+      )
+      ->will($this->returnValue($unsubscribe_xml));
+
+    $this->savedSearches->unsubscribe($this->savedSearchStub->id, $this->savedSearchStub->userId);
+  }
+
+  public function testUnsubscribeErrorUserNotFound() {
+    $unsubscribe_xml = file_get_contents(dirname(__FILE__) . '/data/savedsearch_error_user_not_found.xml');
+
+    $this->oauthClientStub->expects($this->once())
+      ->method('authenticatedPostAsXml')
+      ->with(
+        'savedSearch/' . $this->savedSearchStub->id . '/unsubscribe',
+        array('userId' => $this->savedSearchStub->userId)
+      )
+      ->will($this->returnValue($unsubscribe_xml));
+
+    $this->setExpectedException('CultureFeed_Exception', 'USER_NOT_FOUND');
+    $this->savedSearches->unsubscribe($this->savedSearchStub->id, $this->savedSearchStub->userId);
+  }
+
+  public function testUnsubscribeErrorInvalidParameters() {
+    $unsubscribe_xml = file_get_contents(dirname(__FILE__) . '/data/savedsearch_error_invalid_parameters.xml');
+
+    $this->oauthClientStub->expects($this->once())
+      ->method('authenticatedPostAsXml')
+      ->with(
+        'savedSearch/' . $this->savedSearchStub->id . '/unsubscribe',
+        array('userId' => $this->savedSearchStub->userId)
+      )
+      ->will($this->returnValue($unsubscribe_xml));
+
+    $this->setExpectedException('CultureFeed_Exception', 'INVALID_PARAMETERS');
+    $this->savedSearches->unsubscribe($this->savedSearchStub->id, $this->savedSearchStub->userId);
   }
 
   public function testChangeFrequency() {
@@ -210,7 +250,7 @@ class CultureFeed_SavedSearches_DefaultTest extends PHPUnit_Framework_TestCase {
       ->will($this->returnValue($not_xml));
 
     $this->setExpectedException('CultureFeed_ParseException');
-    $result = $this->savedSearches->getSavedSearch(3);
+    $this->savedSearches->getSavedSearch(3);
   }
 
   public function testGetSavedSearchWithIncorrectXml() {
@@ -222,7 +262,7 @@ class CultureFeed_SavedSearches_DefaultTest extends PHPUnit_Framework_TestCase {
       ->will($this->returnValue($incorrect_xml));
 
     $this->setExpectedException('CultureFeed_ParseException');
-    $result = $this->savedSearches->getSavedSearch(4);
+    $this->savedSearches->getSavedSearch(4);
   }
 
   public function testGetList() {

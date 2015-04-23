@@ -13,8 +13,10 @@ interface CultureFeed_SavedSearches {
    *   SavedSearch to subscribe.
    * @return CultureFeed_SavedSearches_SavedSearch
    *   The saved search object.
-   * @throws CultureFeed_ParseException
+   * @throws \CultureFeed_ParseException
    *   If the result could not be parsed.
+   * @throws \CultureFeed_Exception
+   *   If the XML element contains an error code.
    */
   public function subscribe(CultureFeed_SavedSearches_SavedSearch $savedSearch);
 
@@ -25,6 +27,12 @@ interface CultureFeed_SavedSearches {
    *   Saved search id to unscribe from.
    * @param string $userId
    *   UserId to unsubscribe.
+   * @return string
+   *   A success message.
+   * @throws \CultureFeed_ParseException
+   *   If the result could not be parsed.
+   * @throws \CultureFeed_Exception
+   *   If the XML element contains an error code.
    */
   public function unsubscribe($savedSearchId, $userId);
 
@@ -37,8 +45,10 @@ interface CultureFeed_SavedSearches {
    *   New frequency to set.
    * @return CultureFeed_SavedSearches_SavedSearch
    *   The updated saved search object.
-   * @throws CultureFeed_ParseException
+   * @throws \CultureFeed_ParseException
    *   If the result could not be parsed.
+   * @throws \CultureFeed_Exception
+   *   If the XML element contains an error code.
    */
   public function changeFrequency($savedSearchId, $frequency);
 
@@ -49,8 +59,10 @@ interface CultureFeed_SavedSearches {
    *   Give a list of savedsearches in all consumers, or only on current consumer.
    * @return array
    *   List of savedSearches.
-   * @throws CultureFeed_ParseException
+   * @throws \CultureFeed_ParseException
    *   If the result could not be parsed.
+   * @throws \CultureFeed_Exception
+   *   If the XML element contains an error code.
    */
   public function getList($allConsumers = FALSE);
 
@@ -59,8 +71,10 @@ interface CultureFeed_SavedSearches {
    * @param int $savedSearchId
    * @return CultureFeed_SavedSearches_SavedSearch
    *   The requested saved search object.
-   * @throws CultureFeed_ParseException
+   * @throws \CultureFeed_ParseException
    *   If the result could not be parsed.
+   * @throws \CultureFeed_Exception
+   *   If the XML element contains an error code.
    */
   public function getSavedSearch($savedSearchId);
 

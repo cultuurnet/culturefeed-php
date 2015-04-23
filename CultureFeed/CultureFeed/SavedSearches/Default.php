@@ -44,7 +44,16 @@ class CultureFeed_SavedSearches_Default implements CultureFeed_SavedSearches {
    * {@inheritdoc}
    */
   public function unsubscribe($savedSearchId, $userId) {
-    $this->oauth_client->authenticatedPostAsXml('savedSearch/' . $savedSearchId . '/unsubscribe', array('userId' => $userId));
+    $result = $this->oauth_client->authenticatedPostAsXml('savedSearch/' . $savedSearchId . '/unsubscribe', array('userId' => $userId));
+    $xml_element = $this->getXmlElementFromXmlString($result);
+
+    $search_element = $xml_element->xpath('savedSearch');
+
+    if (empty($search_element)) {
+      $this->throwXmlElementException($xml_element, $result);
+    }
+
+    return $xml_element->xpath_str('message');
   }
 
   /**
