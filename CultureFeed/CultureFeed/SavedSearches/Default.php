@@ -29,18 +29,14 @@ class CultureFeed_SavedSearches_Default implements CultureFeed_SavedSearches {
    */
   public function subscribe(CultureFeed_SavedSearches_SavedSearch $savedSearch) {
     $result = $this->oauth_client->authenticatedPostAsXml('savedSearch/subscribe', $savedSearch->toPostData());
-
-    try {
-      $xml_element = new CultureFeed_SimpleXMLElement($result);
-    }
-    catch (Exception $e) {
-      throw new CultureFeed_ParseException($result);
-    }
+    $xml_element = $this->getXmlElementFromXmlString($result);
 
     $search_element = $xml_element->xpath('/response/savedSearch');
+
     if (empty($search_element)) {
-      throw new CultureFeed_ParseException($result);
+      $this->throwXmlElementException($xml_element, $result);
     }
+
     return $this->parseSavedSearch($search_element[0]);
   }
 
@@ -55,72 +51,104 @@ class CultureFeed_SavedSearches_Default implements CultureFeed_SavedSearches {
    * {@inheritdoc}
    */
   public function changeFrequency($savedSearchId, $frequency) {
-    $this->oauth_client->authenticatedPostAsXml('savedSearch/' . $savedSearchId . '/frequency', array('frequency' => $frequency));
+    $result = $this->oauth_client->authenticatedPostAsXml('savedSearch/' . $savedSearchId . '/frequency', array('frequency' => $frequency));
+    $xml_element = $this->getXmlElementFromXmlString($result);
+
+    $search_element = $xml_element->xpath('/response/savedSearch');
+
+    if (empty($search_element)) {
+      $this->throwXmlElementException($xml_element, $result);
+    }
+
+    return $this->parseSavedSearch($search_element[0]);
   }
 
   /**
    * {@inheritdoc}
    */
   public function getSavedSearch($savedSearchId) {
-
     $result = $this->oauth_client->authenticatedGetAsXml('savedSearch/' . $savedSearchId);
-    try {
-      $xmlElement = new CultureFeed_SimpleXMLElement($result);
-    }
-    catch (Exception $e) {
-      throw new CultureFeed_ParseException($result);
+    $xml_element = $this->getXmlElementFromXmlString($result);
+
+    $search_element = $xml_element->xpath('savedSearch');
+
+    if (empty($search_element)) {
+      $this->throwXmlElementException($xml_element, $result);
     }
 
-    $searchElement = $xmlElement->xpath('savedSearch');
-    if (empty($searchElement)) {
-      throw new CultureFeed_ParseException($result);
-    }
-    return $this->parseSavedSearch($searchElement[0]);
-
+    return $this->parseSavedSearch($search_element[0]);
   }
 
   /**
    * {@inheritdoc}
    */
   public function getList($allConsumers = FALSE) {
-
     $result = $this->oauth_client->authenticatedGetAsXml('savedSearch/list', array('all' => $allConsumers ? 'true' : 'false'));
-    try {
-      $xmlElement = new CultureFeed_SimpleXMLElement($result);
-    }
-    catch (Exception $e) {
-      throw new CultureFeed_ParseException($result);
-    }
+    $xml_element = $this->getXmlElementFromXmlString($result);
+    $saved_searches = array();
 
-    $savedSearches = array();
-
-    $searchElements = $xmlElement->xpath('/response/savedSearches/savedSearch');
-    if (empty($searchElements)) {
-      throw new CultureFeed_ParseException($result);
+    $search_elements = $xml_element->xpath('/response/savedSearches/savedSearch');
+    if (empty($search_elements)) {
+      $this->throwXmlElementException($xml_element, $result);
     }
-    foreach ($searchElements as $searchElement) {
-      $search = $this->parseSavedSearch($searchElement);
-      $savedSearches[$search->id] = $search;
+    foreach ($search_elements as $search_element) {
+      $search = $this->parseSavedSearch($search_element);
+      $saved_searches[$search->id] = $search;
     }
 
-    return $savedSearches;
-
+    return $saved_searches;
   }
 
   /**
    * Parse a saved search.
-   * @param CultureFeed_SimpleXMLElement $xmlElement
+   * @param CultureFeed_SimpleXMLElement $xml_element
+   * @return CultureFeed_SavedSearches_SavedSearch
    */
-  private function parseSavedSearch($xmlElement) {
-
+  private function parseSavedSearch($xml_element) {
     $search = new CultureFeed_SavedSearches_SavedSearch();
-    $search->id = $xmlElement->xpath_int('id');
-    $search->frequency = $xmlElement->xpath_str('frequency');
-    $search->name = $xmlElement->xpath_str('name');
-    $search->query = $xmlElement->xpath_str('query');
+    $search->id = $xml_element->xpath_int('id');
+    $search->frequency = $xml_element->xpath_str('frequency');
+    $search->name = $xml_element->xpath_str('name');
+    $search->query = $xml_element->xpath_str('query');
+    $search->userId = $xml_element->xpath_str('uitIdUser/rdf:id');
 
     return $search;
+  }
 
+  /**
+   * Create an XML element from a given XML string.
+   * @param string $data
+   *   A well-formed XML string.
+   * @return CultureFeed_SimpleXMLElement
+   * @throws CultureFeed_ParseException
+   *   If the data could not be parsed.
+   */
+  private function getXmlElementFromXmlString($data) {
+    try {
+      $xml_element = new CultureFeed_SimpleXMLElement($data);
+    }
+    catch (Exception $e) {
+      throw new CultureFeed_ParseException($data);
+    }
+
+    return$xml_element;
+  }
+
+  /**
+   * Throw an exception based on an xml element content.
+   * @param CultureFeed_SimpleXMLElement $xml_element
+   *   A parsed version of the result.
+   * @param string $result
+   *   The result from a callback to include in the exception message.
+   * @throws \CultureFeed_Exception
+   *   If the XML element contains an error code.
+   * @throws \CultureFeed_ParseException
+   */
+  private function throwXmlElementException($xml_element, $result) {
+    if ($error_code = $xml_element->xpath_str('code')) {
+      throw new CultureFeed_Exception($error_code, 0);
+    }
+    throw new CultureFeed_ParseException($result);
   }
 
 }

@@ -35,6 +35,10 @@ interface CultureFeed_SavedSearches {
    *   Saved search id to change.
    * @param string $frequency
    *   New frequency to set.
+   * @return CultureFeed_SavedSearches_SavedSearch
+   *   The updated saved search object.
+   * @throws CultureFeed_ParseException
+   *   If the result could not be parsed.
    */
   public function changeFrequency($savedSearchId, $frequency);
 

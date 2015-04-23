@@ -12,6 +12,11 @@ class CultureFeed_SavedSearches_DefaultTest extends PHPUnit_Framework_TestCase {
   protected $oauthClientStub;
 
   /**
+   * @var CultureFeed_SavedSearches_SavedSearch
+   */
+  protected $savedSearchStub;
+
+  /**
    * @var CultureFeed_SavedSearches_Default
    */
   protected $savedSearches;
@@ -22,18 +27,55 @@ class CultureFeed_SavedSearches_DefaultTest extends PHPUnit_Framework_TestCase {
     $this->oauthClientStub = $this->getMock('CultureFeed_OAuthClient');
     $this->cultureFeed = new Culturefeed($this->oauthClientStub);
 
-    $this->savedSearchStub = new CultureFeed_SavedSearches_SavedSearch();
-    $this->savedSearchStub->id = 4;
-    $this->savedSearchStub->userId = '4d177d4e-6810-404c-afe0-e7dba1765f7c';
-    $this->savedSearchStub->name = 'Alles';
-    $this->savedSearchStub->query = 'q=*&past=true&fq=type:event&group=true';
-    $this->savedSearchStub->frequency = CultureFeed_SavedSearches_SavedSearch::ASAP;
+    $this->savedSearchStub = new CultureFeed_SavedSearches_SavedSearch(
+      '4d177d4e-6810-404c-afe0-e7dba1765f7c',
+      'Test+alert+1',
+      'q%3Dzwembad',
+      CultureFeed_SavedSearches_SavedSearch::ASAP,
+      2
+    );
 
     $this->savedSearches = new CultureFeed_SavedSearches_Default($this->cultureFeed);
   }
 
+  public function testConstructorArguments() {
+    // Build without arguments.
+    $empty_saved_search = new CultureFeed_SavedSearches_SavedSearch();
+    $this->assertInstanceOf('CultureFeed_SavedSearches_SavedSearch', $empty_saved_search);
+    $this->assertEquals($empty_saved_search->id, null);
+    $this->assertEquals($empty_saved_search->userId, null);
+    $this->assertEquals($empty_saved_search->name, null);
+    $this->assertEquals($empty_saved_search->query, null);
+    $this->assertEquals($empty_saved_search->frequency, null);
+
+    // Build with arguments.
+    $filled_saved_search = new CultureFeed_SavedSearches_SavedSearch(
+      'userId',
+      'name',
+      'query',
+      CultureFeed_SavedSearches_SavedSearch::ASAP,
+      9
+    );
+    $this->assertInstanceOf('CultureFeed_SavedSearches_SavedSearch', $filled_saved_search);
+    $this->assertEquals($filled_saved_search->id, 9);
+    $this->assertEquals($filled_saved_search->userId, 'userId');
+    $this->assertEquals($filled_saved_search->name, 'name');
+    $this->assertEquals($filled_saved_search->query, 'query');
+    $this->assertEquals($filled_saved_search->frequency, CultureFeed_SavedSearches_SavedSearch::ASAP);
+
+    // Build with an invalid frequency argument.
+    $this->setExpectedException('InvalidArgumentException');
+    $error_saved_search = new CultureFeed_SavedSearches_SavedSearch(
+      'userId',
+      'name',
+      'query',
+      'wrong value',
+      9
+    );
+  }
+
   public function testSubscribe() {
-    $subscribe_xml = file_get_contents(dirname(__FILE__) . '/data/subscribe.xml');
+    $saved_search_xml = file_get_contents(dirname(__FILE__) . '/data/savedsearch.xml');
 
     $this->oauthClientStub->expects($this->once())
       ->method('authenticatedPostAsXml')
@@ -41,13 +83,16 @@ class CultureFeed_SavedSearches_DefaultTest extends PHPUnit_Framework_TestCase {
         'savedSearch/subscribe',
         $this->savedSearchStub->toPostData()
       )
-      ->will($this->returnValue($subscribe_xml));
+      ->will($this->returnValue($saved_search_xml));
 
-    $this->savedSearches->subscribe($this->savedSearchStub);
+    $result = $this->savedSearches->subscribe($this->savedSearchStub);
+
+    $this->assertInstanceOf('CultureFeed_SavedSearches_SavedSearch', $result);
+    $this->assertEquals($this->savedSearchStub, $result);
   }
 
   public function testSubscribeErrorUserNotFound() {
-    $subscribe_xml = file_get_contents(dirname(__FILE__) . '/data/subscribe_error_user_not_found.xml');
+    $subscribe_xml = file_get_contents(dirname(__FILE__) . '/data/savedsearch_error_user_not_found.xml');
 
     $this->oauthClientStub->expects($this->once())
       ->method('authenticatedPostAsXml')
@@ -57,12 +102,12 @@ class CultureFeed_SavedSearches_DefaultTest extends PHPUnit_Framework_TestCase {
       )
       ->will($this->returnValue($subscribe_xml));
 
-    $this->setExpectedException('CultureFeed_ParseException');
+    $this->setExpectedException('CultureFeed_Exception', 'USER_NOT_FOUND');
     $this->savedSearches->subscribe($this->savedSearchStub);
   }
 
   public function testSubscribeErrorMissingRequiredFields() {
-    $subscribe_xml = file_get_contents(dirname(__FILE__) . '/data/subscribe_error_missing_required_fields.xml');
+    $subscribe_xml = file_get_contents(dirname(__FILE__) . '/data/savedsearch_error_missing_required_fields.xml');
 
     $this->oauthClientStub->expects($this->once())
       ->method('authenticatedPostAsXml')
@@ -72,12 +117,12 @@ class CultureFeed_SavedSearches_DefaultTest extends PHPUnit_Framework_TestCase {
       )
       ->will($this->returnValue($subscribe_xml));
 
-    $this->setExpectedException('CultureFeed_ParseException');
+    $this->setExpectedException('CultureFeed_Exception', 'MISSING_REQUIRED_FIELDS');
     $this->savedSearches->subscribe($this->savedSearchStub);
   }
 
   public function testSubscribeErrorInvalidParameters() {
-    $subscribe_xml = file_get_contents(dirname(__FILE__) . '/data/subscribe_error_invalid_parameters.xml');
+    $subscribe_xml = file_get_contents(dirname(__FILE__) . '/data/savedsearch_error_invalid_parameters.xml');
 
     $this->oauthClientStub->expects($this->once())
       ->method('authenticatedPostAsXml')
@@ -87,8 +132,59 @@ class CultureFeed_SavedSearches_DefaultTest extends PHPUnit_Framework_TestCase {
       )
       ->will($this->returnValue($subscribe_xml));
 
-    $this->setExpectedException('CultureFeed_ParseException');
+    $this->setExpectedException('CultureFeed_Exception', 'INVALID_PARAMETERS');
     $this->savedSearches->subscribe($this->savedSearchStub);
+  }
+
+  public function testUnsubscribe() {
+
+  }
+
+  public function testChangeFrequency() {
+    $saved_search_xml = file_get_contents(dirname(__FILE__) . '/data/savedsearch.xml');
+
+    $this->oauthClientStub->expects($this->once())
+      ->method('authenticatedPostAsXml')
+      ->with(
+        'savedSearch/' . $this->savedSearchStub->id . '/frequency',
+        array('frequency' => $this->savedSearchStub->frequency)
+      )
+      ->will($this->returnValue($saved_search_xml));
+
+    $result = $this->savedSearches->changeFrequency($this->savedSearchStub->id, $this->savedSearchStub->frequency);
+
+    $this->assertInstanceOf('CultureFeed_SavedSearches_SavedSearch', $result);
+    $this->assertEquals($this->savedSearchStub, $result);
+  }
+
+  public function testChangeFrequencyErrorUserNotFound() {
+    $not_xml = file_get_contents(dirname(__FILE__) . '/data/savedsearch_error_user_not_found.xml');
+
+    $this->oauthClientStub->expects($this->once())
+      ->method('authenticatedPostAsXml')
+      ->with(
+        'savedSearch/' . $this->savedSearchStub->id . '/frequency',
+        array('frequency' => $this->savedSearchStub->frequency)
+      )
+      ->will($this->returnValue($not_xml));
+
+    $this->setExpectedException('CultureFeed_Exception', 'USER_NOT_FOUND');
+    $this->savedSearches->changeFrequency($this->savedSearchStub->id, $this->savedSearchStub->frequency);
+  }
+
+  public function testChangeFrequencyErrorInvalidParameters() {
+    $incorrect_xml = file_get_contents(dirname(__FILE__) . '/data/savedsearch_error_invalid_parameters.xml');
+
+    $this->oauthClientStub->expects($this->once())
+      ->method('authenticatedPostAsXml')
+      ->with(
+        'savedSearch/' . $this->savedSearchStub->id . '/frequency',
+        array('frequency' => $this->savedSearchStub->frequency)
+      )
+      ->will($this->returnValue($incorrect_xml));
+
+    $this->setExpectedException('CultureFeed_Exception', 'INVALID_PARAMETERS');
+    $this->savedSearches->changeFrequency($this->savedSearchStub->id, $this->savedSearchStub->frequency);
   }
 
   public function testGetSavedSearch() {
@@ -102,16 +198,12 @@ class CultureFeed_SavedSearches_DefaultTest extends PHPUnit_Framework_TestCase {
     $result = $this->savedSearches->getSavedSearch(2);
 
     $this->assertInstanceOf('CultureFeed_SavedSearches_SavedSearch', $result);
-    $this->assertEquals('2', $result->id);
-    // @todo The user id currently doesn't get parsed.
-    // $this->assertEquals('4d177d4e-6810-404c-afe0-e7dba1765f7c', $result->userId);
-    $this->assertEquals('Test+alert+1', $result->name);
-    $this->assertEquals('q%3Dzwembad', $result->query);
-    $this->assertEquals(CultureFeed_SavedSearches_SavedSearch::ASAP, $result->frequency);
+    $this->assertEquals($this->savedSearchStub, $result);
   }
 
   public function testGetSavedSearchWithoutXml() {
     $not_xml = file_get_contents(dirname(__FILE__) . '/data/not_xml.xml');
+
     $this->oauthClientStub->expects($this->once())
       ->method('authenticatedGetAsXml')
       ->with('savedSearch/3')
@@ -123,6 +215,7 @@ class CultureFeed_SavedSearches_DefaultTest extends PHPUnit_Framework_TestCase {
 
   public function testGetSavedSearchWithIncorrectXml() {
     $incorrect_xml = file_get_contents(dirname(__FILE__) . '/data/savedsearch_missing_parameter.xml');
+
     $this->oauthClientStub->expects($this->once())
       ->method('authenticatedGetAsXml')
       ->with('savedSearch/4')
@@ -147,17 +240,20 @@ class CultureFeed_SavedSearches_DefaultTest extends PHPUnit_Framework_TestCase {
 
     $result = $this->savedSearches->getList(TRUE);
 
-    $savedSearch2 = new CultureFeed_SavedSearches_SavedSearch();
-    $savedSearch2->id = 2;
-    $savedSearch2->name = 'Test+alert+1';
-    $savedSearch2->query = 'q%3Dzwembad';
-    $savedSearch2->frequency = $savedSearch2::ASAP;
-
-    $savedSearch3 = new CultureFeed_SavedSearches_SavedSearch();
-    $savedSearch3->id = 3;
-    $savedSearch3->name = 'UitAlert+2';
-    $savedSearch3->query = 'q%3Dtheater';
-    $savedSearch3->frequency = $savedSearch3::WEEKLY;
+    $savedSearch2 = new CultureFeed_SavedSearches_SavedSearch(
+      '4d177d4e-6810-404c-afe0-e7dba1765f7c',
+      'Test+alert+1',
+      'q%3Dzwembad',
+      CultureFeed_SavedSearches_SavedSearch::ASAP,
+      2
+    );
+    $savedSearch3 = new CultureFeed_SavedSearches_SavedSearch(
+      '4d177d4e-6810-404c-afe0-e7dba1765f7c',
+      'UitAlert+2',
+      'q%3Dtheater',
+      CultureFeed_SavedSearches_SavedSearch::WEEKLY,
+      3
+    );
 
     $this->assertEquals(
       array(
