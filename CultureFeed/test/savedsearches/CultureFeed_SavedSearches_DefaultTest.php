@@ -66,7 +66,7 @@ class CultureFeed_SavedSearches_DefaultTest extends PHPUnit_Framework_TestCase {
       )
       ->will($this->returnValue($subscribe_xml));
 
-    $this->setExpectedException('CultureFeed_Exception', 'USER_NOT_FOUND');
+    $this->setExpectedException('CultureFeed_Exception', 'The user is not found');
     $this->savedSearches->subscribe($this->savedSearchStub);
   }
 
@@ -81,7 +81,7 @@ class CultureFeed_SavedSearches_DefaultTest extends PHPUnit_Framework_TestCase {
       )
       ->will($this->returnValue($subscribe_xml));
 
-    $this->setExpectedException('CultureFeed_Exception', 'MISSING_REQUIRED_FIELDS');
+    $this->setExpectedException('CultureFeed_Exception', '\'name\' is a required parameter');
     $this->savedSearches->subscribe($this->savedSearchStub);
   }
 
@@ -96,7 +96,7 @@ class CultureFeed_SavedSearches_DefaultTest extends PHPUnit_Framework_TestCase {
       )
       ->will($this->returnValue($subscribe_xml));
 
-    $this->setExpectedException('CultureFeed_Exception', 'INVALID_PARAMETERS');
+    $this->setExpectedException('CultureFeed_Exception', '\'name\' is a required parameter');
     $this->savedSearches->subscribe($this->savedSearchStub);
   }
 
@@ -125,7 +125,7 @@ class CultureFeed_SavedSearches_DefaultTest extends PHPUnit_Framework_TestCase {
       )
       ->will($this->returnValue($unsubscribe_xml));
 
-    $this->setExpectedException('CultureFeed_Exception', 'USER_NOT_FOUND');
+    $this->setExpectedException('CultureFeed_Exception', 'The user is not found');
     $this->savedSearches->unsubscribe($this->savedSearchStub->id, $this->savedSearchStub->userId);
   }
 
@@ -140,7 +140,7 @@ class CultureFeed_SavedSearches_DefaultTest extends PHPUnit_Framework_TestCase {
       )
       ->will($this->returnValue($unsubscribe_xml));
 
-    $this->setExpectedException('CultureFeed_Exception', 'INVALID_PARAMETERS');
+    $this->setExpectedException('CultureFeed_Exception', '\'name\' is a required parameter');
     $this->savedSearches->unsubscribe($this->savedSearchStub->id, $this->savedSearchStub->userId);
   }
 
@@ -172,7 +172,7 @@ class CultureFeed_SavedSearches_DefaultTest extends PHPUnit_Framework_TestCase {
       )
       ->will($this->returnValue($not_xml));
 
-    $this->setExpectedException('CultureFeed_Exception', 'USER_NOT_FOUND');
+    $this->setExpectedException('CultureFeed_Exception', 'The user is not found');
     $this->savedSearches->changeFrequency($this->savedSearchStub->id, $this->savedSearchStub->frequency);
   }
 
@@ -187,7 +187,7 @@ class CultureFeed_SavedSearches_DefaultTest extends PHPUnit_Framework_TestCase {
       )
       ->will($this->returnValue($incorrect_xml));
 
-    $this->setExpectedException('CultureFeed_Exception', 'INVALID_PARAMETERS');
+    $this->setExpectedException('CultureFeed_Exception', '\'name\' is a required parameter');
     $this->savedSearches->changeFrequency($this->savedSearchStub->id, $this->savedSearchStub->frequency);
   }
 
