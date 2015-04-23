@@ -9,12 +9,12 @@ class CultureFeed_SavedSearches_DefaultTest extends PHPUnit_Framework_TestCase {
   /**
    * @var CultureFeed_OAuthClient|PHPUnit_Framework_MockObject_MockObject
    */
-  protected $oauthClientStub;
+  protected $oauthClient;
 
   /**
    * @var CultureFeed_SavedSearches_SavedSearch
    */
-  protected $savedSearchStub;
+  protected $savedSearch;
 
   /**
    * @var CultureFeed_SavedSearches_Default
@@ -24,10 +24,10 @@ class CultureFeed_SavedSearches_DefaultTest extends PHPUnit_Framework_TestCase {
   public function setUp() {
     parent::setUp();
 
-    $this->oauthClientStub = $this->getMock('CultureFeed_OAuthClient');
-    $this->cultureFeed = new Culturefeed($this->oauthClientStub);
+    $this->oauthClient = $this->getMock('CultureFeed_OAuthClient');
+    $this->cultureFeed = new Culturefeed($this->oauthClient);
 
-    $this->savedSearchStub = new CultureFeed_SavedSearches_SavedSearch(
+    $this->savedSearch = new CultureFeed_SavedSearches_SavedSearch(
       '4d177d4e-6810-404c-afe0-e7dba1765f7c',
       'Test+alert+1',
       'q%3Dzwembad',
@@ -41,160 +41,160 @@ class CultureFeed_SavedSearches_DefaultTest extends PHPUnit_Framework_TestCase {
   public function testSubscribe() {
     $saved_search_xml = file_get_contents(dirname(__FILE__) . '/data/savedsearch.xml');
 
-    $this->oauthClientStub->expects($this->once())
+    $this->oauthClient->expects($this->once())
       ->method('authenticatedPostAsXml')
       ->with(
         'savedSearch/subscribe',
-        $this->savedSearchStub->toPostData()
+        $this->savedSearch->toPostData()
       )
       ->will($this->returnValue($saved_search_xml));
 
-    $result = $this->savedSearches->subscribe($this->savedSearchStub);
+    $result = $this->savedSearches->subscribe($this->savedSearch);
 
     $this->assertInstanceOf('CultureFeed_SavedSearches_SavedSearch', $result);
-    $this->assertEquals($this->savedSearchStub, $result);
+    $this->assertEquals($this->savedSearch, $result);
   }
 
   public function testSubscribeErrorUserNotFound() {
     $subscribe_xml = file_get_contents(dirname(__FILE__) . '/data/savedsearch_error_user_not_found.xml');
 
-    $this->oauthClientStub->expects($this->once())
+    $this->oauthClient->expects($this->once())
       ->method('authenticatedPostAsXml')
       ->with(
         'savedSearch/subscribe',
-        $this->savedSearchStub->toPostData()
+        $this->savedSearch->toPostData()
       )
       ->will($this->returnValue($subscribe_xml));
 
     $this->setExpectedException('CultureFeed_Exception', 'The user is not found');
-    $this->savedSearches->subscribe($this->savedSearchStub);
+    $this->savedSearches->subscribe($this->savedSearch);
   }
 
   public function testSubscribeErrorMissingRequiredFields() {
     $subscribe_xml = file_get_contents(dirname(__FILE__) . '/data/savedsearch_error_missing_required_fields.xml');
 
-    $this->oauthClientStub->expects($this->once())
+    $this->oauthClient->expects($this->once())
       ->method('authenticatedPostAsXml')
       ->with(
         'savedSearch/subscribe',
-        $this->savedSearchStub->toPostData()
+        $this->savedSearch->toPostData()
       )
       ->will($this->returnValue($subscribe_xml));
 
     $this->setExpectedException('CultureFeed_Exception', '\'name\' is a required parameter');
-    $this->savedSearches->subscribe($this->savedSearchStub);
+    $this->savedSearches->subscribe($this->savedSearch);
   }
 
   public function testSubscribeErrorInvalidParameters() {
     $subscribe_xml = file_get_contents(dirname(__FILE__) . '/data/savedsearch_error_invalid_parameters.xml');
 
-    $this->oauthClientStub->expects($this->once())
+    $this->oauthClient->expects($this->once())
       ->method('authenticatedPostAsXml')
       ->with(
         'savedSearch/subscribe',
-        $this->savedSearchStub->toPostData()
+        $this->savedSearch->toPostData()
       )
       ->will($this->returnValue($subscribe_xml));
 
     $this->setExpectedException('CultureFeed_Exception', '\'name\' is a required parameter');
-    $this->savedSearches->subscribe($this->savedSearchStub);
+    $this->savedSearches->subscribe($this->savedSearch);
   }
 
   public function testUnsubscribe() {
     $unsubscribe_xml = file_get_contents(dirname(__FILE__) . '/data/unsubscribe.xml');
 
-    $this->oauthClientStub->expects($this->once())
+    $this->oauthClient->expects($this->once())
       ->method('authenticatedPostAsXml')
       ->with(
-        'savedSearch/' . $this->savedSearchStub->id . '/unsubscribe',
-        array('userId' => $this->savedSearchStub->userId)
+        'savedSearch/' . $this->savedSearch->id . '/unsubscribe',
+        array('userId' => $this->savedSearch->userId)
       )
       ->will($this->returnValue($unsubscribe_xml));
 
-    $this->savedSearches->unsubscribe($this->savedSearchStub->id, $this->savedSearchStub->userId);
+    $this->savedSearches->unsubscribe($this->savedSearch->id, $this->savedSearch->userId);
   }
 
   public function testUnsubscribeErrorUserNotFound() {
     $unsubscribe_xml = file_get_contents(dirname(__FILE__) . '/data/savedsearch_error_user_not_found.xml');
 
-    $this->oauthClientStub->expects($this->once())
+    $this->oauthClient->expects($this->once())
       ->method('authenticatedPostAsXml')
       ->with(
-        'savedSearch/' . $this->savedSearchStub->id . '/unsubscribe',
-        array('userId' => $this->savedSearchStub->userId)
+        'savedSearch/' . $this->savedSearch->id . '/unsubscribe',
+        array('userId' => $this->savedSearch->userId)
       )
       ->will($this->returnValue($unsubscribe_xml));
 
     $this->setExpectedException('CultureFeed_Exception', 'The user is not found');
-    $this->savedSearches->unsubscribe($this->savedSearchStub->id, $this->savedSearchStub->userId);
+    $this->savedSearches->unsubscribe($this->savedSearch->id, $this->savedSearch->userId);
   }
 
   public function testUnsubscribeErrorInvalidParameters() {
     $unsubscribe_xml = file_get_contents(dirname(__FILE__) . '/data/savedsearch_error_invalid_parameters.xml');
 
-    $this->oauthClientStub->expects($this->once())
+    $this->oauthClient->expects($this->once())
       ->method('authenticatedPostAsXml')
       ->with(
-        'savedSearch/' . $this->savedSearchStub->id . '/unsubscribe',
-        array('userId' => $this->savedSearchStub->userId)
+        'savedSearch/' . $this->savedSearch->id . '/unsubscribe',
+        array('userId' => $this->savedSearch->userId)
       )
       ->will($this->returnValue($unsubscribe_xml));
 
     $this->setExpectedException('CultureFeed_Exception', '\'name\' is a required parameter');
-    $this->savedSearches->unsubscribe($this->savedSearchStub->id, $this->savedSearchStub->userId);
+    $this->savedSearches->unsubscribe($this->savedSearch->id, $this->savedSearch->userId);
   }
 
   public function testChangeFrequency() {
     $saved_search_xml = file_get_contents(dirname(__FILE__) . '/data/savedsearch.xml');
 
-    $this->oauthClientStub->expects($this->once())
+    $this->oauthClient->expects($this->once())
       ->method('authenticatedPostAsXml')
       ->with(
-        'savedSearch/' . $this->savedSearchStub->id . '/frequency',
-        array('frequency' => $this->savedSearchStub->frequency)
+        'savedSearch/' . $this->savedSearch->id . '/frequency',
+        array('frequency' => $this->savedSearch->frequency)
       )
       ->will($this->returnValue($saved_search_xml));
 
-    $result = $this->savedSearches->changeFrequency($this->savedSearchStub->id, $this->savedSearchStub->frequency);
+    $result = $this->savedSearches->changeFrequency($this->savedSearch->id, $this->savedSearch->frequency);
 
     $this->assertInstanceOf('CultureFeed_SavedSearches_SavedSearch', $result);
-    $this->assertEquals($this->savedSearchStub, $result);
+    $this->assertEquals($this->savedSearch, $result);
   }
 
   public function testChangeFrequencyErrorUserNotFound() {
     $not_xml = file_get_contents(dirname(__FILE__) . '/data/savedsearch_error_user_not_found.xml');
 
-    $this->oauthClientStub->expects($this->once())
+    $this->oauthClient->expects($this->once())
       ->method('authenticatedPostAsXml')
       ->with(
-        'savedSearch/' . $this->savedSearchStub->id . '/frequency',
-        array('frequency' => $this->savedSearchStub->frequency)
+        'savedSearch/' . $this->savedSearch->id . '/frequency',
+        array('frequency' => $this->savedSearch->frequency)
       )
       ->will($this->returnValue($not_xml));
 
     $this->setExpectedException('CultureFeed_Exception', 'The user is not found');
-    $this->savedSearches->changeFrequency($this->savedSearchStub->id, $this->savedSearchStub->frequency);
+    $this->savedSearches->changeFrequency($this->savedSearch->id, $this->savedSearch->frequency);
   }
 
   public function testChangeFrequencyErrorInvalidParameters() {
     $incorrect_xml = file_get_contents(dirname(__FILE__) . '/data/savedsearch_error_invalid_parameters.xml');
 
-    $this->oauthClientStub->expects($this->once())
+    $this->oauthClient->expects($this->once())
       ->method('authenticatedPostAsXml')
       ->with(
-        'savedSearch/' . $this->savedSearchStub->id . '/frequency',
-        array('frequency' => $this->savedSearchStub->frequency)
+        'savedSearch/' . $this->savedSearch->id . '/frequency',
+        array('frequency' => $this->savedSearch->frequency)
       )
       ->will($this->returnValue($incorrect_xml));
 
     $this->setExpectedException('CultureFeed_Exception', '\'name\' is a required parameter');
-    $this->savedSearches->changeFrequency($this->savedSearchStub->id, $this->savedSearchStub->frequency);
+    $this->savedSearches->changeFrequency($this->savedSearch->id, $this->savedSearch->frequency);
   }
 
   public function testGetSavedSearch() {
     $saved_search_xml = file_get_contents(dirname(__FILE__) . '/data/savedsearch.xml');
 
-    $this->oauthClientStub->expects($this->once())
+    $this->oauthClient->expects($this->once())
       ->method('authenticatedGetAsXml')
       ->with('savedSearch/2')
       ->will($this->returnValue($saved_search_xml));
@@ -202,13 +202,13 @@ class CultureFeed_SavedSearches_DefaultTest extends PHPUnit_Framework_TestCase {
     $result = $this->savedSearches->getSavedSearch(2);
 
     $this->assertInstanceOf('CultureFeed_SavedSearches_SavedSearch', $result);
-    $this->assertEquals($this->savedSearchStub, $result);
+    $this->assertEquals($this->savedSearch, $result);
   }
 
   public function testGetSavedSearchWithoutXml() {
     $not_xml = file_get_contents(dirname(__FILE__) . '/data/not_xml.xml');
 
-    $this->oauthClientStub->expects($this->once())
+    $this->oauthClient->expects($this->once())
       ->method('authenticatedGetAsXml')
       ->with('savedSearch/3')
       ->will($this->returnValue($not_xml));
@@ -220,7 +220,7 @@ class CultureFeed_SavedSearches_DefaultTest extends PHPUnit_Framework_TestCase {
   public function testGetSavedSearchWithIncorrectXml() {
     $incorrect_xml = file_get_contents(dirname(__FILE__) . '/data/savedsearch_missing_parameter.xml');
 
-    $this->oauthClientStub->expects($this->once())
+    $this->oauthClient->expects($this->once())
       ->method('authenticatedGetAsXml')
       ->with('savedSearch/4')
       ->will($this->returnValue($incorrect_xml));
@@ -232,7 +232,7 @@ class CultureFeed_SavedSearches_DefaultTest extends PHPUnit_Framework_TestCase {
   public function testGetList() {
     $saved_search_list_xml = file_get_contents(dirname(__FILE__) . '/data/savedsearchlist.xml');
 
-    $this->oauthClientStub->expects($this->once())
+    $this->oauthClient->expects($this->once())
       ->method('authenticatedGetAsXml')
       ->with(
         $this->equalTo('savedSearch/list'),
@@ -271,7 +271,7 @@ class CultureFeed_SavedSearches_DefaultTest extends PHPUnit_Framework_TestCase {
   public function testGetListWithoutXml() {
     $not_xml = file_get_contents(dirname(__FILE__) . '/data/not_xml.xml');
 
-    $this->oauthClientStub->expects($this->once())
+    $this->oauthClient->expects($this->once())
       ->method('authenticatedGetAsXml')
       ->with(
         $this->equalTo('savedSearch/list'),
@@ -288,7 +288,7 @@ class CultureFeed_SavedSearches_DefaultTest extends PHPUnit_Framework_TestCase {
   public function testGetListWithIncorrectXml() {
     $saved_search_list_xml = file_get_contents(dirname(__FILE__) . '/data/savedsearchlist_missing_parameter.xml');
 
-    $this->oauthClientStub->expects($this->once())
+    $this->oauthClient->expects($this->once())
       ->method('authenticatedGetAsXml')
       ->with(
         $this->equalTo('savedSearch/list'),
