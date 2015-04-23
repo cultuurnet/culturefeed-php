@@ -11,6 +11,10 @@ interface CultureFeed_SavedSearches {
    *
    * @param CultureFeed_SavedSearches_SavedSearch $savedSearch
    *   SavedSearch to subscribe.
+   * @return CultureFeed_SavedSearches_SavedSearch
+   *   The saved search object.
+   * @throws CultureFeed_ParseException
+   *   If the result could not be parsed.
    */
   public function subscribe(CultureFeed_SavedSearches_SavedSearch $savedSearch);
 
@@ -49,6 +53,10 @@ interface CultureFeed_SavedSearches {
   /**
    * Load a saved search by id.
    * @param int $savedSearchId
+   * @return CultureFeed_SavedSearches_SavedSearch
+   *   The requested saved search object.
+   * @throws CultureFeed_ParseException
+   *   If the result could not be parsed.
    */
   public function getSavedSearch($savedSearchId);
 

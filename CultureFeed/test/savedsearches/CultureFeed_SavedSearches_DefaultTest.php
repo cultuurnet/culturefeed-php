@@ -22,7 +22,73 @@ class CultureFeed_SavedSearches_DefaultTest extends PHPUnit_Framework_TestCase {
     $this->oauthClientStub = $this->getMock('CultureFeed_OAuthClient');
     $this->cultureFeed = new Culturefeed($this->oauthClientStub);
 
+    $this->savedSearchStub = new CultureFeed_SavedSearches_SavedSearch();
+    $this->savedSearchStub->id = 4;
+    $this->savedSearchStub->userId = '4d177d4e-6810-404c-afe0-e7dba1765f7c';
+    $this->savedSearchStub->name = 'Alles';
+    $this->savedSearchStub->query = 'q=*&past=true&fq=type:event&group=true';
+    $this->savedSearchStub->frequency = CultureFeed_SavedSearches_SavedSearch::ASAP;
+
     $this->savedSearches = new CultureFeed_SavedSearches_Default($this->cultureFeed);
+  }
+
+  public function testSubscribe() {
+    $subscribe_xml = file_get_contents(dirname(__FILE__) . '/data/subscribe.xml');
+
+    $this->oauthClientStub->expects($this->once())
+      ->method('authenticatedPostAsXml')
+      ->with(
+        'savedSearch/subscribe',
+        $this->savedSearchStub->toPostData()
+      )
+      ->will($this->returnValue($subscribe_xml));
+
+    $this->savedSearches->subscribe($this->savedSearchStub);
+  }
+
+  public function testSubscribeErrorUserNotFound() {
+    $subscribe_xml = file_get_contents(dirname(__FILE__) . '/data/subscribe_error_user_not_found.xml');
+
+    $this->oauthClientStub->expects($this->once())
+      ->method('authenticatedPostAsXml')
+      ->with(
+        'savedSearch/subscribe',
+        $this->savedSearchStub->toPostData()
+      )
+      ->will($this->returnValue($subscribe_xml));
+
+    $this->setExpectedException('CultureFeed_ParseException');
+    $this->savedSearches->subscribe($this->savedSearchStub);
+  }
+
+  public function testSubscribeErrorMissingRequiredFields() {
+    $subscribe_xml = file_get_contents(dirname(__FILE__) . '/data/subscribe_error_missing_required_fields.xml');
+
+    $this->oauthClientStub->expects($this->once())
+      ->method('authenticatedPostAsXml')
+      ->with(
+        'savedSearch/subscribe',
+        $this->savedSearchStub->toPostData()
+      )
+      ->will($this->returnValue($subscribe_xml));
+
+    $this->setExpectedException('CultureFeed_ParseException');
+    $this->savedSearches->subscribe($this->savedSearchStub);
+  }
+
+  public function testSubscribeErrorInvalidParameters() {
+    $subscribe_xml = file_get_contents(dirname(__FILE__) . '/data/subscribe_error_invalid_parameters.xml');
+
+    $this->oauthClientStub->expects($this->once())
+      ->method('authenticatedPostAsXml')
+      ->with(
+        'savedSearch/subscribe',
+        $this->savedSearchStub->toPostData()
+      )
+      ->will($this->returnValue($subscribe_xml));
+
+    $this->setExpectedException('CultureFeed_ParseException');
+    $this->savedSearches->subscribe($this->savedSearchStub);
   }
 
   public function testGetSavedSearch() {

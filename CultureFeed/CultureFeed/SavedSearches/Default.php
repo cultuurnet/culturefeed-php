@@ -28,7 +28,20 @@ class CultureFeed_SavedSearches_Default implements CultureFeed_SavedSearches {
    * {@inheritdoc}
    */
   public function subscribe(CultureFeed_SavedSearches_SavedSearch $savedSearch) {
-    $this->oauth_client->authenticatedPostAsXml('savedSearch/subscribe', $savedSearch->toPostData());
+    $result = $this->oauth_client->authenticatedPostAsXml('savedSearch/subscribe', $savedSearch->toPostData());
+
+    try {
+      $xml_element = new CultureFeed_SimpleXMLElement($result);
+    }
+    catch (Exception $e) {
+      throw new CultureFeed_ParseException($result);
+    }
+
+    $search_element = $xml_element->xpath('/response/savedSearch');
+    if (empty($search_element)) {
+      throw new CultureFeed_ParseException($result);
+    }
+    return $this->parseSavedSearch($search_element[0]);
   }
 
   /**
