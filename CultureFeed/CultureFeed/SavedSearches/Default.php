@@ -140,7 +140,7 @@ class CultureFeed_SavedSearches_Default implements CultureFeed_SavedSearches {
       throw new CultureFeed_ParseException($data);
     }
 
-    return$xml_element;
+    return $xml_element;
   }
 
   /**
