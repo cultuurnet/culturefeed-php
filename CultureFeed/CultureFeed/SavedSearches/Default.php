@@ -44,7 +44,11 @@ class CultureFeed_SavedSearches_Default implements CultureFeed_SavedSearches {
    * {@inheritdoc}
    */
   public function unsubscribe($savedSearchId, $userId) {
-    $result = $this->oauth_client->authenticatedPostAsXml('savedSearch/' . $savedSearchId . '/unsubscribe', array('userId' => $userId));
+    $result = $this->oauth_client->authenticatedPostAsXml(
+      'savedSearch/' . $savedSearchId . '/unsubscribe',
+      ['userId' => $userId]
+    );
+
     $xml_element = $this->getXmlElementFromXmlString($result);
 
     $search_element = $xml_element->xpath('savedSearch');
@@ -60,7 +64,11 @@ class CultureFeed_SavedSearches_Default implements CultureFeed_SavedSearches {
    * {@inheritdoc}
    */
   public function changeFrequency($savedSearchId, $frequency) {
-    $result = $this->oauth_client->authenticatedPostAsXml('savedSearch/' . $savedSearchId . '/frequency', array('frequency' => $frequency));
+    $result = $this->oauth_client->authenticatedPostAsXml(
+      'savedSearch/' . $savedSearchId . '/frequency',
+      ['frequency' => $frequency]
+    );
+
     $xml_element = $this->getXmlElementFromXmlString($result);
 
     $search_element = $xml_element->xpath('/response/savedSearch');
@@ -91,8 +99,13 @@ class CultureFeed_SavedSearches_Default implements CultureFeed_SavedSearches {
   /**
    * {@inheritdoc}
    */
-  public function getList($allConsumers = FALSE) {
-    $result = $this->oauth_client->authenticatedGetAsXml('savedSearch/list', array('all' => $allConsumers ? 'true' : 'false'));
+  public function getList($allConsumers = false) {
+    $allConsumers = $allConsumers ? 'true' : 'false';
+    $result = $this->oauth_client->authenticatedGetAsXml(
+      'savedSearch/list',
+      ['all' => $allConsumers]
+    );
+
     $xml_element = $this->getXmlElementFromXmlString($result);
     $saved_searches = array();
 
@@ -157,8 +170,9 @@ class CultureFeed_SavedSearches_Default implements CultureFeed_SavedSearches {
   private function throwXmlElementException($xml_element, $result) {
     if ($error_code = $xml_element->xpath_str('code')) {
       throw new CultureFeed_Exception($error_code, 0);
+    } else {
+      throw new CultureFeed_ParseException($result);
     }
-    throw new CultureFeed_ParseException($result);
   }
 
 }
