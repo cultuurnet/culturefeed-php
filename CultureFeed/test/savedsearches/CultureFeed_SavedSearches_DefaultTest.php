@@ -38,42 +38,6 @@ class CultureFeed_SavedSearches_DefaultTest extends PHPUnit_Framework_TestCase {
     $this->savedSearches = new CultureFeed_SavedSearches_Default($this->cultureFeed);
   }
 
-  public function testConstructorArguments() {
-    // Build without arguments.
-    $empty_saved_search = new CultureFeed_SavedSearches_SavedSearch();
-    $this->assertInstanceOf('CultureFeed_SavedSearches_SavedSearch', $empty_saved_search);
-    $this->assertEquals($empty_saved_search->id, null);
-    $this->assertEquals($empty_saved_search->userId, null);
-    $this->assertEquals($empty_saved_search->name, null);
-    $this->assertEquals($empty_saved_search->query, null);
-    $this->assertEquals($empty_saved_search->frequency, null);
-
-    // Build with arguments.
-    $filled_saved_search = new CultureFeed_SavedSearches_SavedSearch(
-      'userId',
-      'name',
-      'query',
-      CultureFeed_SavedSearches_SavedSearch::ASAP,
-      9
-    );
-    $this->assertInstanceOf('CultureFeed_SavedSearches_SavedSearch', $filled_saved_search);
-    $this->assertEquals($filled_saved_search->id, 9);
-    $this->assertEquals($filled_saved_search->userId, 'userId');
-    $this->assertEquals($filled_saved_search->name, 'name');
-    $this->assertEquals($filled_saved_search->query, 'query');
-    $this->assertEquals($filled_saved_search->frequency, CultureFeed_SavedSearches_SavedSearch::ASAP);
-
-    // Build with an invalid frequency argument.
-    $this->setExpectedException('InvalidArgumentException');
-    new CultureFeed_SavedSearches_SavedSearch(
-      'userId',
-      'name',
-      'query',
-      'wrong value',
-      9
-    );
-  }
-
   public function testSubscribe() {
     $saved_search_xml = file_get_contents(dirname(__FILE__) . '/data/savedsearch.xml');
 
