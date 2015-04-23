@@ -152,6 +152,7 @@ class CultureFeed_SavedSearches_Default implements CultureFeed_SavedSearches {
    * @throws \CultureFeed_Exception
    *   If the XML element contains an error code.
    * @throws \CultureFeed_ParseException
+   *   If the XML element does not contain an error code.
    */
   private function throwXmlElementException($xml_element, $result) {
     if ($error_code = $xml_element->xpath_str('code')) {

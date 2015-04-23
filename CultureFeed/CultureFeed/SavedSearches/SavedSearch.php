@@ -69,7 +69,7 @@ class CultureFeed_SavedSearches_SavedSearch {
   }
 
   /**
-   * Sets the savd search frequency variable.
+   * Sets the saved search frequency variable.
    *
    * @param string $frequency
    *   The frequency value to set.
