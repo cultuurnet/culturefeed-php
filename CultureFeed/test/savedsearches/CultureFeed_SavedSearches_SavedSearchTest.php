@@ -71,4 +71,32 @@ class CultureFeed_SavedSearches_SavedSearchTest extends PHPUnit_Framework_TestCa
       9
     );
   }
+
+  public function testFrequencyValidation() {
+    // First test the validation method itself.
+    $validFrequencyConstant = SavedSearch::DAILY;
+    $this->assertTrue(SavedSearch::validateFrequency($validFrequencyConstant));
+
+    $validFrequencyString = 'ASAP';
+    $this->assertTrue(SavedSearch::validateFrequency($validFrequencyString));
+
+    $invalidFrequencyString = 'SOMETIMES';
+    $this->assertFalse(SavedSearch::validateFrequency($invalidFrequencyString));
+
+    $invalidFrequencyObject = new stdClass();
+    $this->assertFalse(SavedSearch::validateFrequency($invalidFrequencyObject));
+
+    // Next test the setting of a frequency.
+    $savedSearch = new SavedSearch();
+
+    // These should not throw an exception.
+    $savedSearch->setFrequency($validFrequencyConstant);
+    $savedSearch->setFrequency($validFrequencyString);
+
+    // These should throw exceptions.
+    $this->setExpectedException('InvalidArgumentException');
+    $savedSearch->setFrequency($invalidFrequencyString);
+    $this->setExpectedException('InvalidArgumentException');
+    $savedSearch->setFrequency($invalidFrequencyObject);
+  }
 }

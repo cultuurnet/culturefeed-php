@@ -77,18 +77,31 @@ class CultureFeed_SavedSearches_SavedSearch {
    *   When an invalid frequency value is given.
    */
   public function setFrequency($frequency) {
-    $allowed_frequency_values = array(
-      $this::ASAP,
-      $this::DAILY,
-      $this::WEEKLY,
-      $this::NEVER
-    );
-
-    if (!in_array($frequency, $allowed_frequency_values)) {
+    if (!self::validateFrequency($frequency)) {
       throw new InvalidArgumentException('Invalid value for frequency: ' . $frequency);
     }
 
     $this->frequency = $frequency;
+  }
+
+  /**
+   * @param string $frequency
+   * @return bool
+   */
+  public static function validateFrequency($frequency) {
+    return in_array($frequency, self::getValidFrequencies());
+  }
+
+  /**
+   * @return array
+   */
+  public static function getValidFrequencies() {
+    return array(
+      self::ASAP,
+      self::DAILY,
+      self::WEEKLY,
+      self::NEVER
+    );
   }
 
   /**
