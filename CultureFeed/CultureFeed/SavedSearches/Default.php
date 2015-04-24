@@ -46,7 +46,7 @@ class CultureFeed_SavedSearches_Default implements CultureFeed_SavedSearches {
   public function unsubscribe($savedSearchId, $userId) {
     $result = $this->oauth_client->authenticatedPostAsXml(
       'savedSearch/' . $savedSearchId . '/unsubscribe',
-      ['userId' => $userId]
+      array('userId' => $userId)
     );
 
     $xml_element = $this->getXmlElementFromXmlString($result);
@@ -66,7 +66,7 @@ class CultureFeed_SavedSearches_Default implements CultureFeed_SavedSearches {
   public function changeFrequency($savedSearchId, $frequency) {
     $result = $this->oauth_client->authenticatedPostAsXml(
       'savedSearch/' . $savedSearchId . '/frequency',
-      ['frequency' => $frequency]
+      array('frequency' => $frequency)
     );
 
     $xml_element = $this->getXmlElementFromXmlString($result);
@@ -103,7 +103,7 @@ class CultureFeed_SavedSearches_Default implements CultureFeed_SavedSearches {
     $allConsumers = $allConsumers ? 'true' : 'false';
     $result = $this->oauth_client->authenticatedGetAsXml(
       'savedSearch/list',
-      ['all' => $allConsumers]
+      array('all' => $allConsumers)
     );
 
     $xml_element = $this->getXmlElementFromXmlString($result);
