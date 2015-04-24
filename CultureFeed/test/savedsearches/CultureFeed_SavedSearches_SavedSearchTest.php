@@ -51,7 +51,7 @@ class CultureFeed_SavedSearches_SavedSearchTest extends PHPUnit_Framework_TestCa
       'userId',
       'name',
       'query',
-      CultureFeed_SavedSearches_SavedSearch::ASAP,
+      SavedSearch::ASAP,
       9
     );
     $this->assertInstanceOf('CultureFeed_SavedSearches_SavedSearch', $filled_saved_search);
@@ -59,7 +59,7 @@ class CultureFeed_SavedSearches_SavedSearchTest extends PHPUnit_Framework_TestCa
     $this->assertEquals($filled_saved_search->userId, 'userId');
     $this->assertEquals($filled_saved_search->name, 'name');
     $this->assertEquals($filled_saved_search->query, 'query');
-    $this->assertEquals($filled_saved_search->frequency, CultureFeed_SavedSearches_SavedSearch::ASAP);
+    $this->assertEquals($filled_saved_search->frequency, SavedSearch::ASAP);
 
     // Build with an invalid frequency argument.
     $this->setExpectedException('InvalidArgumentException');
