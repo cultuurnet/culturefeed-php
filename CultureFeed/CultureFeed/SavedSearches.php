@@ -53,12 +53,12 @@ interface CultureFeed_SavedSearches {
   public function changeFrequency($savedSearchId, $frequency);
 
   /**
-   * Get a list of all savedSearches for current user.
+   * Get a list of all saved searches for current user.
    *
    * @param bool $allConsumers
-   *   Give a list of savedsearches in all consumers, or only on current consumer.
-   * @return array
-   *   List of savedSearches.
+   *   Give a list of saved searches in all consumers, or only on current consumer.
+   * @return CultureFeed_SavedSearches_SavedSearch[]
+   *   List of saved searches.
    * @throws \CultureFeed_ParseException
    *   If the result could not be parsed.
    * @throws \CultureFeed_Exception
@@ -68,7 +68,9 @@ interface CultureFeed_SavedSearches {
 
   /**
    * Load a saved search by id.
+   *
    * @param int $savedSearchId
+   *   ID of the saved search.
    * @return CultureFeed_SavedSearches_SavedSearch
    *   The requested saved search object.
    * @throws \CultureFeed_ParseException
