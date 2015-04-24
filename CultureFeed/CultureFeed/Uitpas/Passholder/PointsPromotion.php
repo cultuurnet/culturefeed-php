@@ -70,7 +70,7 @@ class CultureFeed_Uitpas_Passholder_PointsPromotion extends CultureFeed_Uitpas_V
    *
    * @var array
    */
-  public $counters;
+  public $counters = array();
 
   /**
    * The creation date of the promotion
@@ -126,7 +126,7 @@ class CultureFeed_Uitpas_Passholder_PointsPromotion extends CultureFeed_Uitpas_V
    *
    * @var boolean
    */
-  public $inSpotlight;
+  public $inSpotlight = false;
 
   /*
    * The cash-in state of the welcome advantage
@@ -152,6 +152,17 @@ class CultureFeed_Uitpas_Passholder_PointsPromotion extends CultureFeed_Uitpas_V
   const CASHIN_NOT_POSSIBLE_USER_VOLUME_CONSTRAINT = 'NOT_POSSIBLE_USER_VOLUME_CONSTRAINT';
   const CASHIN_NOT_POSSIBLE_INVALID_CARD = 'NOT_POSSIBLE_INVALID_CARD';
 
+  /**
+   * @param int|null $id
+   * @param string|null $title
+   * @param int|null $points
+   */
+  public function __construct($id = NULL, $title = NULL, $points = NULL) {
+    $this->id = $id;
+    $this->title = $title;
+    $this->points = $points;
+  }
+
   public static function createFromXML(CultureFeed_SimpleXMLElement $object) {
     $promotion = new CultureFeed_Uitpas_Passholder_PointsPromotion();
     $promotion->id = $object->xpath_int('id');
@@ -160,6 +171,9 @@ class CultureFeed_Uitpas_Passholder_PointsPromotion extends CultureFeed_Uitpas_V
     $promotion->description1 = $object->xpath_str('description1');
     $promotion->description2 = $object->xpath_str('description2');   
     $promotion->pictures = $object->xpath_str('pictures/picture', TRUE);
+    if (NULL === $promotion->pictures) {
+      $promotion->pictures = array();
+    }
     $promotion->publicationPeriodBegin = $object->xpath_time('publicationPeriodBegin');
     $promotion->publicationPeriodEnd = $object->xpath_time('publicationPeriodEnd');
     $promotion->points = $object->xpath_int('points');
@@ -172,6 +186,9 @@ class CultureFeed_Uitpas_Passholder_PointsPromotion extends CultureFeed_Uitpas_V
     $promotion->cashingPeriodBegin = $object->xpath_time('cashingPeriodBegin');
     $promotion->cashingPeriodEnd = $object->xpath_time('cashingPeriodEnd');
     $promotion->validForCities = $object->xpath_str('validForCities/city', TRUE);
+    if (NULL === $promotion->validForCities) {
+      $promotion->validForCities = array();
+    }
     $promotion->maxAvailableUnits = $object->xpath_int('maxAvailableUnits');
     $promotion->unitsTaken = $object->xpath_int('unitsTaken');
     $promotion->cashInState = $object->xpath_str('cashInState');

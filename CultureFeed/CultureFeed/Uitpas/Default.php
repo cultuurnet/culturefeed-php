@@ -503,6 +503,22 @@ class CultureFeed_Uitpas_Default implements CultureFeed_Uitpas {
     return $eventActions;
   }
 
+  public function postPassholderEventActions(CultureFeed_Uitpas_Passholder_Query_ExecuteEventActions $eventActions) {
+    $data = $eventActions->toPostData();
+
+    $result = $this->oauth_client->authenticatedPostAsXml('uitpas/passholder/eventActions', $data);
+
+    try {
+      $xml = new CultureFeed_SimpleXMLElement($result);
+    }
+    catch (Exception $e) {
+      throw new CultureFeed_ParseException($result);
+    }
+
+    $eventActions = CultureFeed_Uitpas_Passholder_ExecuteEventActionsResult::createFromXML($xml);
+    return $eventActions;
+  }
+
   /**
    * Upload a picture for a given passholder.
    *
