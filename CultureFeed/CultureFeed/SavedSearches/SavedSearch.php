@@ -6,7 +6,7 @@
 class CultureFeed_SavedSearches_SavedSearch {
 
   /**
-   * Possible requency values.
+   * Possible frequency values.
    */
   const ASAP = 'ASAP';
   const DAILY = 'DAILY';
@@ -43,6 +43,66 @@ class CultureFeed_SavedSearches_SavedSearch {
    * @var string
    */
   public $frequency;
+
+  /**
+   * Constructor for a new CultureFeed_SavedSearches_SavedSearch instance.
+   *
+   * @param string $userId
+   *   The id of the user who saved the search.
+   * @param string $name
+   *   The name of the saved search.
+   * @param string $query
+   *   The query of the saved search.
+   * @param string $frequency
+   *   The frequency of the alerts of the saved search.
+   * @param int $id
+   *   The id of the saved search.
+   */
+  public function __construct($userId = null, $name = null, $query = null, $frequency = null, $id = null) {
+    $this->id = $id;
+    $this->userId = $userId;
+    $this->name = $name;
+    $this->query = $query;
+    if ($frequency !== null) {
+      $this->setFrequency($frequency);
+    }
+  }
+
+  /**
+   * Sets the saved search frequency variable.
+   *
+   * @param string $frequency
+   *   The frequency value to set.
+   * @throws InvalidArgumentException
+   *   When an invalid frequency value is given.
+   */
+  public function setFrequency($frequency) {
+    if (!self::validateFrequency($frequency)) {
+      throw new InvalidArgumentException('Invalid value for frequency: ' . $frequency);
+    }
+
+    $this->frequency = $frequency;
+  }
+
+  /**
+   * @param string $frequency
+   * @return bool
+   */
+  public static function validateFrequency($frequency) {
+    return in_array($frequency, self::getValidFrequencies());
+  }
+
+  /**
+   * @return array
+   */
+  public static function getValidFrequencies() {
+    return array(
+      self::ASAP,
+      self::DAILY,
+      self::WEEKLY,
+      self::NEVER
+    );
+  }
 
   /**
    * Convert a CultureFeed_SavedSearches_SavedSearch object to an array that can be used as data in POST requests.
