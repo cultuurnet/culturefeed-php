@@ -373,7 +373,7 @@ abstract class CultureFeed_ICultureFeedDecoratorBase implements ICultureFeed
 
     public function subscribeToMailing($user_id, $mailing_id)
     {
-        return $this->subscribeToMailing($user_id, $mailing_id);
+        return $this->realCultureFeed->subscribeToMailing($user_id, $mailing_id);
     }
 
     public function unFollowNode($contentType, $nodeId, $userId)
