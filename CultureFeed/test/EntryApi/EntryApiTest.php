@@ -29,7 +29,7 @@ class CultureFeed_EntryApiTest extends PHPUnit_Framework_TestCase {
     $this->event->setCdbId('xyz');
   }
 
-  public function testAddTagToEventWithStrings() {
+  public function testAddTagToEventWithKeywordsAsStrings() {
     $keywords = array(
       'foo',
       'bar',
