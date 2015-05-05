@@ -49,26 +49,6 @@ class CultureFeed_EntryApiTest extends PHPUnit_Framework_TestCase {
     $this->entry->addTagToEvent($this->event, $keywords);
   }
 
-  public function testAddTagToEventFailure() {
-    $keywords = array(
-      'foo',
-      'bar',
-      'yet another keyword',
-    );
-
-    $this->oauthClient->expects($this->once())
-      ->method('authenticatedPostAsXml')
-      ->with(
-        'event/xyz/keywords',
-        array(
-          'keywords' => 'foo;bar;yet another keyword'
-        )
-      )
-      ->willReturn($this->keywordsCreatedResponse());
-
-    $this->entry->addTagToEvent($this->event, $keywords);
-  }
-
   private function keywordsCreatedResponse() {
     return file_get_contents(__DIR__ . '/samples/rsp-keywords-created.xml');
   }
