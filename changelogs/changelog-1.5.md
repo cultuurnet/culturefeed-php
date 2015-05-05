@@ -9,3 +9,5 @@
   CultureFeed_SavedSearches_SavedSearch
 - Methods related to the Saved Searched API now actually process the HTTP
   response and return a proper value where available
+- Add unit tests for CultureFeed_EntryApi::addTagToEvent()
+- Updated dependency on cultuurnet/cdb to ~2.1
