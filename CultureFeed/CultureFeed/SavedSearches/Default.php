@@ -109,13 +109,18 @@ class CultureFeed_SavedSearches_Default implements CultureFeed_SavedSearches {
     $xml_element = $this->getXmlElementFromXmlString($result);
     $saved_searches = array();
 
-    $search_elements = $xml_element->xpath('/response/savedSearches/savedSearch');
-    if (empty($search_elements)) {
-      $this->throwXmlElementException($xml_element, $result);
+    $savedSearchesElement = $xml_element->xpath('/response/savedSearches', false);
+
+    if (!($savedSearchesElement instanceof SimpleXMLElement)) {
+        $this->throwXmlElementException($xml_element, $result);
     }
-    foreach ($search_elements as $search_element) {
-      $search = $this->parseSavedSearch($search_element);
-      $saved_searches[$search->id] = $search;
+
+    $search_elements = $savedSearchesElement->xpath('//savedSearch');
+    if (!empty($search_elements)) {
+      foreach ($search_elements as $search_element) {
+        $search = $this->parseSavedSearch($search_element);
+        $saved_searches[$search->id] = $search;
+      }
     }
 
     return $saved_searches;

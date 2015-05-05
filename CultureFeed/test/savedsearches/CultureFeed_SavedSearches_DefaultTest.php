@@ -285,6 +285,27 @@ class CultureFeed_SavedSearches_DefaultTest extends PHPUnit_Framework_TestCase {
     $result = $this->savedSearches->getList(TRUE);
   }
 
+  public function testGetEmptyList() {
+      $saved_search_list_xml = file_get_contents(
+          __DIR__ . '/data/savedsearchlist_empty.xml'
+      );
+
+      $this->oauthClient->expects($this->once())
+          ->method('authenticatedGetAsXml')
+          ->with(
+              $this->equalTo('savedSearch/list'),
+              $this->equalTo(array(
+                  'all' => 'true',
+              ))
+          )
+          ->will($this->returnValue($saved_search_list_xml));
+
+      $this->assertSame(
+          array(),
+          $this->savedSearches->getList(TRUE)
+      );
+  }
+
   public function testGetListWithIncorrectXml() {
     $saved_search_list_xml = file_get_contents(dirname(__FILE__) . '/data/savedsearchlist_missing_parameter.xml');
 
