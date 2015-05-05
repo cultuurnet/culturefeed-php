@@ -376,8 +376,9 @@ class CultureFeed_EntryApi implements CultureFeed_EntryApi_IEntryApi {
    *
    * @param CultureFeed_Cdb_Item_Event $event
    *   Event where the tags will be added to.
-   * @param array $keywords
-   *   Tags to add.
+   * @param string[]|CultureFeed_Cdb_Data_Keyword[] $keywords
+   *   Tags to add, each tag being either a scalar string or a
+   *   CultureFeed_Cdb_Data_Keyword object.
    */
   public function addTagToEvent(CultureFeed_Cdb_Item_Event $event, $keywords) {
     $this->addTags('event', $event->getCdbId(), $keywords);
@@ -675,12 +676,75 @@ class CultureFeed_EntryApi implements CultureFeed_EntryApi_IEntryApi {
    *   Type of item to update.
    * @param $id
    *   Id from the event / actor / production to add keywords for.
-   * @param array $keywords
+   * @param string[]|CultureFeed_Cdb_Data_Keyword[] $keywords
    *   Keywords to add.
    */
   private function addTags($type, $id, $keywords) {
-    $result = $this->oauth_client->authenticatedPostAsXml($type . '/' . $id . '/keywords', array('keywords' => implode(';', $keywords)));
+    $keywords = $this->keywordsAsObjects($keywords);
+
+    foreach ($keywords as $keyword) {
+      $values[] = $keyword->getValue();
+      $visibles[] = $keyword->isVisible() ? 'true' : 'false';
+    }
+
+    $params = array(
+      'keywords' => implode(';', $values),
+    );
+
+    // The default is true, so only add visibles if at least one is false.
+    if (in_array('false', $visibles)) {
+      $params['visibles'] = implode(';', $visibles);
+    }
+    $result = $this->oauth_client->authenticatedPostAsXml($type . '/' . $id . '/keywords', $params);
     $xml = $this->validateResult($result, self::CODE_KEYWORDS_CREATED);
+  }
+
+  /**
+   * Returns an array of CultureFeed_Cdb_Data_Keyword objects, based on an array
+   * of potentially mixed scalar string and CultureFeed_Cdb_Data_Keyword items.
+   *
+   * @param string[]|CultureFeed_Cdb_Data_Keyword[] $keywords
+   *
+   * @return CultureFeed_Cdb_Data_Keyword[]
+   */
+  private function keywordsAsObjects($keywords) {
+    return array_map(
+      array($this, 'keywordAsObject'),
+      $keywords
+    );
+  }
+
+  /**
+   * Ensures a given keyword is transformed to a CultureFeed_Cdb_Data_Keyword
+   * object.
+   *
+   * @param string|CultureFeed_Cdb_Data_Keyword $keyword
+   *
+   * @return CultureFeed_Cdb_Data_Keyword
+   */
+  private function keywordAsObject($keyword) {
+    $this->validateKeyword($keyword);
+
+    if (is_string($keyword)) {
+      $keyword = new CultureFeed_Cdb_Data_Keyword($keyword, TRUE);
+    }
+
+    return $keyword;
+  }
+
+  /**
+   * Validates that the keyword is of a proper type.
+   *
+   * @param string|CultureFeed_Cdb_Data_Keyword $keyword
+   *
+   * @return void
+   * @throws InvalidArgumentException
+   */
+  private function validateKeyword($keyword) {
+    if (!is_string($keyword) &&
+        !$keyword instanceof CultureFeed_Cdb_Data_Keyword) {
+      throw new InvalidArgumentException('Unexpected value for keyword, given: ' . gettype($keyword));
+    }
   }
 
   /**

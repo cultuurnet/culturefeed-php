@@ -11,3 +11,5 @@
   response and return a proper value where available
 - Add unit tests for CultureFeed_EntryApi::addTagToEvent()
 - Updated dependency on cultuurnet/cdb to ~2.1
+- CultureFeed_EntryApi::addTagToEvent() now also accepts keyword objects,
+  and handles their visible property
