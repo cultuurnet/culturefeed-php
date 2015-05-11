@@ -482,21 +482,55 @@ class CultureFeed_EntryApi implements CultureFeed_EntryApi_IEntryApi {
     $this->addLink('production', $production->getCdbId(), $link, $linktype, $lang);
   }
 
-  /**
-   * Add link to an event.
-   *
-   * @param CultureFeed_Cdb_Item_Event $event
-   *   Event where the link will be added to.
-   * @param String $link
-   *   Link to add.
-   * @param String $linktype
-   *   Link type.["video", "text", "imageweb", "webresource", "reservations"]
-   * @param String $lang
-   *   Language of the link ["NL", "FR", "DE", "EN"]
-   */
-  public function addLinkToEvent(CultureFeed_Cdb_Item_Event $event, $link, $linktype = '', $lang = '') {
-    $this->addLink('event', $event->getCdbId(), $link, $linktype, $lang);
-  }
+    /**
+     * Add link to an event.
+     *
+     * @param CultureFeed_Cdb_Item_Event $event
+     *   Event where the link will be added to.
+     * @param String $link
+     *   Link to add.
+     * @param String $linktype
+     *   Link type.["video", "text", "imageweb", "webresource", "reservations"]
+     * @param String $lang
+     *   Language of the link ["NL", "FR", "DE", "EN"]
+     * @param String $title
+     *   Title of the link.
+     * @param String $copyright
+     *   The image copyright (description).
+     * @param String $plaintext
+     *   The link text (description).
+     * @param String $subbrand
+     *   The consumer key.
+     * @param String $description
+     *   The description.
+     */
+    public function addLinkToEvent(
+        CultureFeed_Cdb_Item_Event $event,
+        $link = '',
+        $linktype = '',
+        $lang = '',
+        $title = '',
+        $copyright = '',
+        $plaintext = '',
+        $subbrand = '',
+        $description = ''
+    ) {
+
+        $this->addLink(
+            'event',
+            $event->getCdbId(),
+            $link,
+            $linktype,
+            $lang,
+            $title,
+            $copyright,
+            $plaintext,
+            $subbrand,
+            $description
+        );
+
+    }
+
 
   /**
    * Add link to an actor.
@@ -807,28 +841,56 @@ class CultureFeed_EntryApi implements CultureFeed_EntryApi_IEntryApi {
     $xml = $this->validateResult($result, self::CODE_TRANSLATION_WITHDRAWN);
   }
 
-  /**
-   * Add Link for an item.
-   *
-   * @param string $type
-   *   Type of item to translate.
-   * @param $id
-   *   Id of the CultureFeed_Cdb_Item_Base (E.g. event, actor, production) to update with a link.
-   * @param String $link
-   *   Link itself.
-   * @param String $linktype
-   *   Link type.
-   * @param String $lang
-   *   Language to add.
-   */
-  private function addLink($type, $id, $link, $linktype, $lang) {
-    $result = $this->oauth_client->authenticatedPostAsXml($type . '/' . $id . '/links', array(
-      'link' => $link,
-      'linktype' => $linktype,
-      'lang' => $lang,
-    ));
-    $xml = $this->validateResult($result, self::CODE_LINK_CREATED);
-  }
+    /**
+     * Add Link for an item.
+     *
+     * @param string $type
+     *   Type of item to translate.
+     * @param $id
+     *   Id of the CultureFeed_Cdb_Item_Base (E.g. event, actor, production) to update with a link.
+     * @param String $link
+     *   Link itself.
+     * @param String $linktype
+     *   Link type.
+     * @param String $lang
+     *   Language to add.
+     * @param String $title
+     *   Title of the link.
+     * @param String $copyright
+     *   The image copyright (description).
+     * @param String $plaintext
+     *   The link text (description).
+     * @param String $subbrand
+     *   The consumer key.
+     * @param String $description
+     *   The description.
+     */
+    private function addLink(
+        $type,
+        $id,
+        $link,
+        $linktype,
+        $lang,
+        $title = '',
+        $copyright = '',
+        $plaintext = '',
+        $subbrand = '',
+        $description = ''
+    ) {
+
+        $result = $this->oauth_client->authenticatedPostAsXml($type . '/' . $id . '/links', array(
+            'link' => $link,
+            'linktype' => $linktype,
+            'lang' => $lang,
+            'title' => $title,
+            'copyright' => $copyright,
+            'plaintext' => $plaintext,
+            'subbrand' => $subbrand,
+            'description' => $description
+        ));
+        $xml = $this->validateResult($result, self::CODE_LINK_CREATED);
+
+    }
 
   /**
    * Remove Link from an item.
