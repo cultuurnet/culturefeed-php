@@ -487,21 +487,21 @@ class CultureFeed_EntryApi implements CultureFeed_EntryApi_IEntryApi {
      *
      * @param CultureFeed_Cdb_Item_Event $event
      *   Event where the link will be added to.
-     * @param String $link
+     * @param string $link
      *   Link to add.
-     * @param String $linktype
+     * @param string $linktype
      *   Link type.["video", "text", "imageweb", "webresource", "reservations"]
-     * @param String $lang
+     * @param string $lang
      *   Language of the link ["NL", "FR", "DE", "EN"]
-     * @param String $title
+     * @param string $title
      *   Title of the link.
-     * @param String $copyright
+     * @param string $copyright
      *   The image copyright (description).
-     * @param String $plaintext
+     * @param string $plaintext
      *   The link text (description).
-     * @param String $subbrand
+     * @param string $subbrand
      *   The consumer key.
-     * @param String $description
+     * @param string $description
      *   The description.
      */
     public function addLinkToEvent(
@@ -868,7 +868,7 @@ class CultureFeed_EntryApi implements CultureFeed_EntryApi_IEntryApi {
     private function addLink(
         $type,
         $id,
-        $link,
+        $link = '',
         $linktype,
         $lang,
         $title = '',
