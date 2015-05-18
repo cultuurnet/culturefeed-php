@@ -94,7 +94,7 @@ class CultureFeed_EntryApiTest extends PHPUnit_Framework_TestCase {
     return file_get_contents(__DIR__ . '/samples/rsp-keywords-created.xml');
   }
 
-    public function testAddWebLinkToEvent() {
+    public function testAddLinkToEvent() {
 
         $lang = 'nl';
         $link = 'http://tools.uitdatabank.be';
@@ -110,16 +110,13 @@ class CultureFeed_EntryApiTest extends PHPUnit_Framework_TestCase {
                     'linktype' => $link_type,
                     'title' => '',
                     'copyright' => '',
-                    'plaintext' => '',
                     'subbrand' => '',
                     'description' => '',
                 )
             )
-            ->willReturn($this->linkCreatedResponse()
-        );
+            ->willReturn($this->linkCreatedResponse());
 
         $this->entry->addLinkToEvent($this->event, $link, $link_type, $lang);
-
     }
 
     public function testAddCollaborationLinkToEvent() {
@@ -127,7 +124,6 @@ class CultureFeed_EntryApiTest extends PHPUnit_Framework_TestCase {
         $copyright = 'copyright';
         $description = 'description';
         $lang = 'nl';
-        $link_type = CultureFeed_Cdb_Data_File::MEDIA_TYPE_ROADMAP;
         $plain_text = 'plaint text';
         $sub_brand = 'consumer key';
         $title = 'title';
@@ -138,8 +134,7 @@ class CultureFeed_EntryApiTest extends PHPUnit_Framework_TestCase {
                 'event/xyz/links',
                 array(
                     'lang' => $lang,
-                    'link' => '',
-                    'linktype' => $link_type,
+                    'linktype' => CultureFeed_Cdb_Data_File::MEDIA_TYPE_ROADMAP,
                     'title' => $title,
                     'copyright' => $copyright,
                     'plaintext' => $plain_text,
@@ -147,22 +142,12 @@ class CultureFeed_EntryApiTest extends PHPUnit_Framework_TestCase {
                     'description' => $description,
                 )
             )
-            ->willReturn($this->linkCreatedResponse()
-        );
+            ->willReturn($this->linkCreatedResponse());
 
-        $this->entry->addLinkToEvent($this->event, '', $link_type, $lang, $title, $copyright, $plain_text, $sub_brand, $description);
-
-    }
-
-    public function testAddLinkToEventWithIncompleteLink() {
-
-       $this->setExpectedException('InvalidArgumentException');
-       $this->entry->addLinkToEvent($this->event, '', CultureFeed_Cdb_Data_File::MEDIA_TYPE_WEBSITE, 'nl');
-
+        $this->entry->addCollaborationLinkToEvent($this->event, $lang, $plain_text, $title, $copyright, $sub_brand, $description);
     }
 
     private function linkCreatedResponse() {
         return file_get_contents(__DIR__ . '/samples/rsp-link-created.xml');
     }
-
 }
