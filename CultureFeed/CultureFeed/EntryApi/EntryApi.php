@@ -557,7 +557,6 @@ class CultureFeed_EntryApi implements CultureFeed_EntryApi_IEntryApi {
   }
 
   /**
-<<<<<<< HEAD
    * Remove tags from an production.
    *
    * @param CultureFeed_Cdb_Item_Production $production
