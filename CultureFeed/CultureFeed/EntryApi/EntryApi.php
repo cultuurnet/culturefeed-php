@@ -172,14 +172,12 @@ class CultureFeed_EntryApi implements CultureFeed_EntryApi_IEntryApi {
    *
    * @param CultureFeed_Cdb_Item_Event $event
    *   The event to create.
-   * @param string $cdb_schema_version
-   *   The cdb schema version.
    *
    * @return string
    *   The id from the newly created event.
    *
    */
-  public function createEvent(CultureFeed_Cdb_Item_Event $event, $cdb_schema_version = NULL) {
+  public function createEvent(CultureFeed_Cdb_Item_Event $event) {
 
     $cdb = new CultureFeed_Cdb_Default();
     $cdb->addItem($event);
@@ -197,10 +195,8 @@ class CultureFeed_EntryApi implements CultureFeed_EntryApi_IEntryApi {
    *
    * @param CultureFeed_Cdb_Item_Event $event
    *   The event to update.
-   * @param string $cdb_schema_version
-   *   The cdb schema version.
    */
-  public function updateEvent(CultureFeed_Cdb_Item_Event $event, $cdb_schema_version = NULL) {
+  public function updateEvent(CultureFeed_Cdb_Item_Event $event) {
 
     $cdb = new CultureFeed_Cdb_Default();
     $cdb->addItem($event);
