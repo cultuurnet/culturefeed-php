@@ -154,6 +154,9 @@ class CultureFeed_Uitpas_Passholder_WelcomeAdvantage extends CultureFeed_Uitpas_
     $welcome_advantage->description1 = $object->xpath_str('description1');
     $welcome_advantage->description2 = $object->xpath_str('description2');   
     $welcome_advantage->pictures = $object->xpath_str('pictures/picture', TRUE);
+    if (NULL === $welcome_advantage->pictures) {
+      $welcome_advantage->pictures = array();
+    }
     $welcome_advantage->publicationPeriodBegin = $object->xpath_time('publicationPeriodBegin');
     $welcome_advantage->publicationPeriodEnd = $object->xpath_time('publicationPeriodEnd');
     $welcome_advantage->points = $object->xpath_int('points');
@@ -169,6 +172,9 @@ class CultureFeed_Uitpas_Passholder_WelcomeAdvantage extends CultureFeed_Uitpas_
     $welcome_advantage->grantingPeriodEnd = $object->xpath_time('grantingPeriodEnd');
     $welcome_advantage->cashingPeriodBegin = $object->xpath_time('cashingPeriodBegin');
     $welcome_advantage->validForCities = $object->xpath_str('validForCities/city', true);
+    if (NULL === $welcome_advantage->validForCities) {
+      $welcome_advantage->validForCities = array();
+    }
     $welcome_advantage->maxAvailableUnits = $object->xpath_int('maxAvailableUnits');
     $welcome_advantage->unitsTaken = $object->xpath_int('unitsTaken');
 

@@ -30,10 +30,11 @@
     }
   ],
   "require": {
-    "cultuurnet/cdb": "~2.0"
+    "cultuurnet/cdb": "~2.1"
   },
   "require-dev": {
-    "phpunit/phpunit": "~4.4.0"
+    "phpunit/phpunit": "~4.4.0",
+    "satooshi/php-coveralls": "~0.7"
   },
   "autoload": {
     "classmap": [
@@ -45,5 +46,7 @@
     "branch-alias": {
       "dev-develop": "1.2.x-dev"
     }
-  }
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true
 }
