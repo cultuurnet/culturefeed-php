@@ -30,7 +30,7 @@
     }
   ],
   "require": {
-    "cultuurnet/cdb": "~2.0"
+    "cultuurnet/cdb": "~2.1"
   },
   "require-dev": {
     "phpunit/phpunit": "~4.4.0",
