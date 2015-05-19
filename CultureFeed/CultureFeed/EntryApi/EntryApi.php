@@ -68,14 +68,23 @@ class CultureFeed_EntryApi implements CultureFeed_EntryApi_IEntryApi {
   const CODE_KEYWORD_PRIVATE = 'PrivateKeyword';
 
   /**
+   * @var string
+   */
+  private $cdbXmlVersion;
+
+  /**
    * Constructor for a new CultureFeed_EntryApi instance.
    *
    * @param CultureFeed_OAuthClient $oauth_client
    *   A OAuth client to make requests.
    *
    */
-  public function __construct(CultureFeed_OAuthClient $oauth_client) {
+  public function __construct(
+    CultureFeed_OAuthClient $oauth_client,
+    $cdbXmlVersion = '3.2'
+  ) {
     $this->oauth_client = $oauth_client;
+    $this->cdbXmlVersion = $cdbXmlVersion;
   }
 
   /**
@@ -179,7 +188,7 @@ class CultureFeed_EntryApi implements CultureFeed_EntryApi_IEntryApi {
    */
   public function createEvent(CultureFeed_Cdb_Item_Event $event) {
 
-    $cdb = new CultureFeed_Cdb_Default();
+    $cdb = new CultureFeed_Cdb_Default($this->cdbXmlVersion);
     $cdb->addItem($event);
     $cdb_xml = $cdb->__toString();
 
@@ -198,7 +207,7 @@ class CultureFeed_EntryApi implements CultureFeed_EntryApi_IEntryApi {
    */
   public function updateEvent(CultureFeed_Cdb_Item_Event $event) {
 
-    $cdb = new CultureFeed_Cdb_Default();
+    $cdb = new CultureFeed_Cdb_Default($this->cdbXmlVersion);
     $cdb->addItem($event);
     $cdbXml = (string) $cdb;
 
@@ -260,7 +269,7 @@ class CultureFeed_EntryApi implements CultureFeed_EntryApi_IEntryApi {
    */
   public function createProduction(CultureFeed_Cdb_Item_Production $production) {
 
-    $cdb = new CultureFeed_Cdb_Default();
+    $cdb = new CultureFeed_Cdb_Default($this->cdbXmlVersion);
     $cdb->addItem($production);
     $cdb_xml = $cdb->__toString();
 
@@ -278,7 +287,7 @@ class CultureFeed_EntryApi implements CultureFeed_EntryApi_IEntryApi {
    *   The production to update.
    */
   public function updateProduction(CultureFeed_Cdb_Item_Production $production) {
-    $cdb = new CultureFeed_Cdb_Default();
+    $cdb = new CultureFeed_Cdb_Default($this->cdbXmlVersion);
     $cdb->addItem($production);
 
     $result = $this->oauth_client->authenticatedPostAsXml('production/' . $production->getCdbId(), array('raw_data' => $cdb->__toString()), TRUE);
@@ -335,7 +344,7 @@ class CultureFeed_EntryApi implements CultureFeed_EntryApi_IEntryApi {
    */
   public function createActor(CultureFeed_Cdb_Item_Actor $actor) {
 
-    $cdb = new CultureFeed_Cdb_Default();
+    $cdb = new CultureFeed_Cdb_Default($this->cdbXmlVersion);
     $cdb->addItem($actor);
     $cdb_xml = $cdb->__toString();
 
@@ -353,7 +362,7 @@ class CultureFeed_EntryApi implements CultureFeed_EntryApi_IEntryApi {
    *   The actor to update.
    */
   public function updateActor(CultureFeed_Cdb_Item_Actor $actor) {
-    $cdb = new CultureFeed_Cdb_Default();
+    $cdb = new CultureFeed_Cdb_Default($this->cdbXmlVersion);
     $cdb->addItem($actor);
 
     $result = $this->oauth_client->authenticatedPostAsXml('actor/' . $actor->getCdbId(), array('raw_data' => $cdb->__toString()), TRUE);
