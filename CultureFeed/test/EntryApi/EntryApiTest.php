@@ -134,7 +134,7 @@ class CultureFeed_EntryApiTest extends PHPUnit_Framework_TestCase {
                 'event/xyz/links',
                 array(
                     'lang' => $lang,
-                    'linktype' => CultureFeed_Cdb_Data_File::MEDIA_TYPE_ROADMAP,
+                    'linktype' => CultureFeed_Cdb_Data_File::MEDIA_TYPE_COLLABORATION,
                     'title' => $title,
                     'copyright' => $copyright,
                     'plaintext' => $plain_text,

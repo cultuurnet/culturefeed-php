@@ -1041,7 +1041,7 @@ class CultureFeed_EntryApi implements CultureFeed_EntryApi_IEntryApi {
     {
       $result = $this->oauth_client->authenticatedPostAsXml($type . '/' . $id . '/links', array(
         'plaintext' => $plainText,
-        'linktype' => 'roadmap',
+        'linktype' => 'collaboration',
         'lang' => $lang,
         'title' => $title,
         'copyright' => $copyright,
