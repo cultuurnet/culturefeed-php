@@ -6,7 +6,9 @@ php:
   - 5.3
 before_script:
   - composer install
-script: phpunit --bootstrap=CultureFeed/test/bootstrap.php CultureFeed/test
+script: ./vendor/bin/phpunit
+after_script:
+  - ./vendor/bin/coveralls -vvv
 notifications:
   email:
     recipients:

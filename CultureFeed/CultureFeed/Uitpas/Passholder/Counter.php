@@ -5,7 +5,7 @@ class CultureFeed_Uitpas_Passholder_Counter extends CultureFeed_Uitpas_ValueObje
   /**
    * The ID of the counter
    *
-   * @var integer
+   * @var string
    */
   public $id;
 
@@ -15,6 +15,15 @@ class CultureFeed_Uitpas_Passholder_Counter extends CultureFeed_Uitpas_ValueObje
    * @var string
    */
   public $name;
+
+  /**
+   * @param string|null $id
+   * @param string|null $name
+   */
+  public function __construct($id = NULL, $name = NULL) {
+    $this->id = $id;
+    $this->name = $name;
+  }
 
   public static function createFromXML(CultureFeed_SimpleXMLElement $object) {
     $counter = new CultureFeed_Uitpas_Passholder_Counter();

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rsp level="INFO" version="0.1">
+    <code>LinkCreated</code>
+    <link>http://www.uitdatabank.be/api/v2/event/{id}</link>
+</rsp>

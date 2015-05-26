@@ -68,14 +68,23 @@ class CultureFeed_EntryApi implements CultureFeed_EntryApi_IEntryApi {
   const CODE_KEYWORD_PRIVATE = 'PrivateKeyword';
 
   /**
+   * @var string
+   */
+  private $cdbXmlVersion;
+
+  /**
    * Constructor for a new CultureFeed_EntryApi instance.
    *
    * @param CultureFeed_OAuthClient $oauth_client
    *   A OAuth client to make requests.
    *
    */
-  public function __construct(CultureFeed_OAuthClient $oauth_client) {
+  public function __construct(
+    CultureFeed_OAuthClient $oauth_client,
+    $cdbXmlVersion = '3.2'
+  ) {
     $this->oauth_client = $oauth_client;
+    $this->cdbXmlVersion = $cdbXmlVersion;
   }
 
   /**
@@ -179,7 +188,7 @@ class CultureFeed_EntryApi implements CultureFeed_EntryApi_IEntryApi {
    */
   public function createEvent(CultureFeed_Cdb_Item_Event $event) {
 
-    $cdb = new CultureFeed_Cdb_Default();
+    $cdb = new CultureFeed_Cdb_Default($this->cdbXmlVersion);
     $cdb->addItem($event);
     $cdb_xml = $cdb->__toString();
 
@@ -198,7 +207,7 @@ class CultureFeed_EntryApi implements CultureFeed_EntryApi_IEntryApi {
    */
   public function updateEvent(CultureFeed_Cdb_Item_Event $event) {
 
-    $cdb = new CultureFeed_Cdb_Default();
+    $cdb = new CultureFeed_Cdb_Default($this->cdbXmlVersion);
     $cdb->addItem($event);
     $cdbXml = (string) $cdb;
 
@@ -260,7 +269,7 @@ class CultureFeed_EntryApi implements CultureFeed_EntryApi_IEntryApi {
    */
   public function createProduction(CultureFeed_Cdb_Item_Production $production) {
 
-    $cdb = new CultureFeed_Cdb_Default();
+    $cdb = new CultureFeed_Cdb_Default($this->cdbXmlVersion);
     $cdb->addItem($production);
     $cdb_xml = $cdb->__toString();
 
@@ -278,7 +287,7 @@ class CultureFeed_EntryApi implements CultureFeed_EntryApi_IEntryApi {
    *   The production to update.
    */
   public function updateProduction(CultureFeed_Cdb_Item_Production $production) {
-    $cdb = new CultureFeed_Cdb_Default();
+    $cdb = new CultureFeed_Cdb_Default($this->cdbXmlVersion);
     $cdb->addItem($production);
 
     $result = $this->oauth_client->authenticatedPostAsXml('production/' . $production->getCdbId(), array('raw_data' => $cdb->__toString()), TRUE);
@@ -335,7 +344,7 @@ class CultureFeed_EntryApi implements CultureFeed_EntryApi_IEntryApi {
    */
   public function createActor(CultureFeed_Cdb_Item_Actor $actor) {
 
-    $cdb = new CultureFeed_Cdb_Default();
+    $cdb = new CultureFeed_Cdb_Default($this->cdbXmlVersion);
     $cdb->addItem($actor);
     $cdb_xml = $cdb->__toString();
 
@@ -353,7 +362,7 @@ class CultureFeed_EntryApi implements CultureFeed_EntryApi_IEntryApi {
    *   The actor to update.
    */
   public function updateActor(CultureFeed_Cdb_Item_Actor $actor) {
-    $cdb = new CultureFeed_Cdb_Default();
+    $cdb = new CultureFeed_Cdb_Default($this->cdbXmlVersion);
     $cdb->addItem($actor);
 
     $result = $this->oauth_client->authenticatedPostAsXml('actor/' . $actor->getCdbId(), array('raw_data' => $cdb->__toString()), TRUE);
@@ -376,8 +385,9 @@ class CultureFeed_EntryApi implements CultureFeed_EntryApi_IEntryApi {
    *
    * @param CultureFeed_Cdb_Item_Event $event
    *   Event where the tags will be added to.
-   * @param array $keywords
-   *   Tags to add.
+   * @param string[]|CultureFeed_Cdb_Data_Keyword[] $keywords
+   *   Tags to add, each tag being either a scalar string or a
+   *   CultureFeed_Cdb_Data_Keyword object.
    */
   public function addTagToEvent(CultureFeed_Cdb_Item_Event $event, $keywords) {
     $this->addTags('event', $event->getCdbId(), $keywords);
@@ -404,7 +414,7 @@ class CultureFeed_EntryApi implements CultureFeed_EntryApi_IEntryApi {
    *   Tags to add.
    */
   public function addTagToActor(CultureFeed_Cdb_Item_Actor $actor, $keywords) {
-    $this->addTags('actor', $production->getCdbId(), $keywords);
+    $this->addTags('actor', $actor->getCdbId(), $keywords);
   }
 
   /**
@@ -468,45 +478,211 @@ class CultureFeed_EntryApi implements CultureFeed_EntryApi_IEntryApi {
    *   Production where the link will be added to.
    * @param String $link
    *   Link to add.
-   * @param String $linktype
+   * @param String $linkType
    *   Link type.["video", "text", "imageweb", "webresource", "reservations"]
    * @param String $lang
    *   Language of the link ["NL", "FR", "DE", "EN"]
+   * @param string $title
+   * @param string $copyright
+   * @param string $subBrand
+   * @param string $description
    */
-  public function addLinkToProduction(CultureFeed_Cdb_Item_Production $production, $link, $linktype = '', $lang = '') {
-    $this->addLink('production', $production->getCdbId(), $link, $linktype, $lang);
+  public function addLinkToProduction(
+    CultureFeed_Cdb_Item_Production $production,
+    $link,
+    $linkType = '',
+    $lang = '',
+    $title = '',
+    $copyright = '',
+    $subBrand = '',
+    $description = ''
+  ) {
+    $this->addLink(
+      'production',
+      $production->getCdbId(),
+      $link,
+      $linkType,
+      $lang,
+      $title,
+      $copyright,
+      $subBrand,
+      $description
+    );
   }
 
   /**
-   * Add link to an event.
-   *
-   * @param CultureFeed_Cdb_Item_Event $event
-   *   Event where the link will be added to.
-   * @param String $link
-   *   Link to add.
-   * @param String $linktype
-   *   Link type.["video", "text", "imageweb", "webresource", "reservations"]
-   * @param String $lang
-   *   Language of the link ["NL", "FR", "DE", "EN"]
+   * @param CultureFeed_Cdb_Item_Production $production
+   * @param string $lang
+   * @param string $plainText
+   * @param string $title
+   * @param string $copyright
+   * @param string $subBrand
+   * @param string $description
    */
-  public function addLinkToEvent(CultureFeed_Cdb_Item_Event $event, $link, $linktype = '', $lang = '') {
-    $this->addLink('event', $event->getCdbId(), $link, $linktype, $lang);
+  public function addCollaborationLinkToProduction(
+    CultureFeed_Cdb_Item_Production $production,
+    $lang,
+    $plainText,
+    $title = '',
+    $copyright = '',
+    $subBrand = '',
+    $description = ''
+  ) {
+    $this->addCollaborationLink(
+      'production',
+      $production->getCdbId(),
+      $lang,
+      $plainText,
+      $title,
+      $copyright,
+      $subBrand,
+      $description
+    );
   }
+
+    /**
+     * Add link to an event.
+     *
+     * @param CultureFeed_Cdb_Item_Event $event
+     *   Event where the link will be added to.
+     * @param string $link
+     *   Link to add.
+     * @param string $linkType
+     *   Link type.["video", "text", "imageweb", "webresource", "reservations"]
+     * @param string $lang
+     *   Language of the link ["NL", "FR", "DE", "EN"]
+     * @param string $title
+     *   Title of the link.
+     * @param string $copyright
+     *   The image copyright (description).
+     * @param string $subBrand
+     *   The consumer key.
+     * @param string $description
+     *   The description.
+     */
+    public function addLinkToEvent(
+        CultureFeed_Cdb_Item_Event $event,
+        $link,
+        $linkType = '',
+        $lang = '',
+        $title = '',
+        $copyright = '',
+        $subBrand = '',
+        $description = ''
+    ) {
+
+        $this->addLink(
+            'event',
+            $event->getCdbId(),
+            $link,
+            $linkType,
+            $lang,
+            $title,
+            $copyright,
+            $subBrand,
+            $description
+        );
+
+    }
+
+  /**
+   * @param CultureFeed_Cdb_Item_Event $event
+   * @param string $lang
+   * @param string $plainText
+   * @param string $title
+   * @param string $copyright
+   * @param string $subBrand
+   * @param string $description
+   */
+  public function addCollaborationLinkToEvent(
+    CultureFeed_Cdb_Item_Event $event,
+    $lang,
+    $plainText,
+    $title = '',
+    $copyright = '',
+    $subBrand = '',
+    $description = ''
+  ) {
+    $this->addCollaborationLink(
+      'event',
+      $event->getCdbId(),
+      $lang,
+      $plainText,
+      $title,
+      $copyright,
+      $subBrand,
+      $description
+    );
+  }
+
 
   /**
    * Add link to an actor.
    *
    * @param CultureFeed_Cdb_Item_Actor $actor
    *   Actor where the link will be added to.
-   * @param String $link
+   * @param string $link
    *   Link to add.
-   * @param String $linktype
+   * @param string $linkType
    *   Link type.["video", "text", "imageweb", "webresource", "reservations"]
-   * @param String $lang
+   * @param string $lang
    *   Language of the link ["NL", "FR", "DE", "EN"]
+   * @param string $title
+   * @param string $copyright
+   * @param string $subBrand
+   * @param string $description
    */
-  public function addLinkToActor(CultureFeed_Cdb_Item_Actor $actor, $link, $linktype = '', $lang = '') {
-    $this->addLink('actor', $actor->getCdbId(), $link, $linktype, $lang);
+  public function addLinkToActor(
+    CultureFeed_Cdb_Item_Actor $actor,
+    $link,
+    $linkType = '',
+    $lang = '',
+    $title = '',
+    $copyright = '',
+    $subBrand = '',
+    $description = ''
+  ) {
+    $this->addLink(
+      'actor',
+      $actor->getCdbId(),
+      $link,
+      $linkType,
+      $lang,
+      $title,
+      $copyright,
+      $subBrand,
+      $description
+    );
+  }
+
+  /**
+   * @param CultureFeed_Cdb_Item_Actor $actor
+   * @param string $lang
+   * @param string $plainText
+   * @param string $title
+   * @param string $copyright
+   * @param string $subBrand
+   * @param string $description
+   */
+  public function addCollaborationLinkToActor(
+    CultureFeed_Cdb_Item_Actor $actor,
+    $lang,
+    $plainText,
+    $title = '',
+    $copyright = '',
+    $subBrand = '',
+    $description = ''
+  ) {
+    $this->addCollaborationLink(
+      'actor',
+      $actor->getCdbId(),
+      $lang,
+      $plainText,
+      $title,
+      $copyright,
+      $subBrand,
+      $description
+    );
   }
 
   /**
@@ -522,7 +698,6 @@ class CultureFeed_EntryApi implements CultureFeed_EntryApi_IEntryApi {
   }
 
   /**
-<<<<<<< HEAD
    * Remove tags from an production.
    *
    * @param CultureFeed_Cdb_Item_Production $production
@@ -621,6 +796,7 @@ class CultureFeed_EntryApi implements CultureFeed_EntryApi_IEntryApi {
   /**
    * Search items on the entry api.
    *
+   * @param string $type
    * @param string $query
    *   Query to search.
    * @param int $page
@@ -633,6 +809,8 @@ class CultureFeed_EntryApi implements CultureFeed_EntryApi_IEntryApi {
    *   Correct ISO date format (yyyy-m-dTH): example 2012-12-20T12:21
    *
    * @return CultureFeed_Cdb_List_Results
+   *
+   * @throws CultureFeed_ParseException
    */
   private function search($type, $query, $page, $page_length, $sort, $updated_since) {
 
@@ -675,12 +853,77 @@ class CultureFeed_EntryApi implements CultureFeed_EntryApi_IEntryApi {
    *   Type of item to update.
    * @param $id
    *   Id from the event / actor / production to add keywords for.
-   * @param array $keywords
+   * @param string[]|CultureFeed_Cdb_Data_Keyword[] $keywords
    *   Keywords to add.
    */
   private function addTags($type, $id, $keywords) {
-    $result = $this->oauth_client->authenticatedPostAsXml($type . '/' . $id . '/keywords', array('keywords' => implode(';', $keywords)));
+    $keywords = $this->keywordsAsObjects($keywords);
+    $visibles = array();
+    $values = array();
+
+    foreach ($keywords as $keyword) {
+      $values[] = $keyword->getValue();
+      $visibles[] = $keyword->isVisible() ? 'true' : 'false';
+    }
+
+    $params = array(
+      'keywords' => implode(';', $values),
+    );
+
+    // The default is true, so only add visibles if at least one is false.
+    if (in_array('false', $visibles)) {
+      $params['visibles'] = implode(';', $visibles);
+    }
+    $result = $this->oauth_client->authenticatedPostAsXml($type . '/' . $id . '/keywords', $params);
     $xml = $this->validateResult($result, self::CODE_KEYWORDS_CREATED);
+  }
+
+  /**
+   * Returns an array of CultureFeed_Cdb_Data_Keyword objects, based on an array
+   * of potentially mixed scalar string and CultureFeed_Cdb_Data_Keyword items.
+   *
+   * @param string[]|CultureFeed_Cdb_Data_Keyword[] $keywords
+   *
+   * @return CultureFeed_Cdb_Data_Keyword[]
+   */
+  private function keywordsAsObjects($keywords) {
+    return array_map(
+      array($this, 'keywordAsObject'),
+      $keywords
+    );
+  }
+
+  /**
+   * Ensures a given keyword is transformed to a CultureFeed_Cdb_Data_Keyword
+   * object.
+   *
+   * @param string|CultureFeed_Cdb_Data_Keyword $keyword
+   *
+   * @return CultureFeed_Cdb_Data_Keyword
+   */
+  private function keywordAsObject($keyword) {
+    $this->validateKeyword($keyword);
+
+    if (is_string($keyword)) {
+      $keyword = new CultureFeed_Cdb_Data_Keyword($keyword, TRUE);
+    }
+
+    return $keyword;
+  }
+
+  /**
+   * Validates that the keyword is of a proper type.
+   *
+   * @param string|CultureFeed_Cdb_Data_Keyword $keyword
+   *
+   * @return void
+   * @throws InvalidArgumentException
+   */
+  private function validateKeyword($keyword) {
+    if (!is_string($keyword) &&
+        !$keyword instanceof CultureFeed_Cdb_Data_Keyword) {
+      throw new InvalidArgumentException('Unexpected value for keyword, given: ' . gettype($keyword));
+    }
   }
 
   /**
@@ -739,28 +982,74 @@ class CultureFeed_EntryApi implements CultureFeed_EntryApi_IEntryApi {
     $xml = $this->validateResult($result, self::CODE_TRANSLATION_WITHDRAWN);
   }
 
-  /**
-   * Add Link for an item.
-   *
-   * @param string $type
-   *   Type of item to translate.
-   * @param $id
-   *   Id of the CultureFeed_Cdb_Item_Base (E.g. event, actor, production) to update with a link.
-   * @param String $link
-   *   Link itself.
-   * @param String $linktype
-   *   Link type.
-   * @param String $lang
-   *   Language to add.
-   */
-  private function addLink($type, $id, $link, $linktype, $lang) {
-    $result = $this->oauth_client->authenticatedPostAsXml($type . '/' . $id . '/links', array(
-      'link' => $link,
-      'linktype' => $linktype,
-      'lang' => $lang,
-    ));
-    $xml = $this->validateResult($result, self::CODE_LINK_CREATED);
-  }
+    /**
+     * Add Link for an item.
+     *
+     * @param string $type
+     *   Type of item to translate.
+     * @param $id
+     *   Id of the CultureFeed_Cdb_Item_Base (E.g. event, actor, production) to update with a link.
+     * @param String $link
+     *   Link itself.
+     * @param String $linkType
+     *   Link type.
+     * @param String $lang
+     *   Language to add.
+     * @param String $title
+     *   Title of the link.
+     * @param String $copyright
+     *   The image copyright (description).
+     * @param String $subBrand
+     *   The consumer key.
+     * @param String $description
+     *   The description.
+     */
+    private function addLink(
+        $type,
+        $id,
+        $link,
+        $linkType,
+        $lang,
+        $title = '',
+        $copyright = '',
+        $subBrand = '',
+        $description = ''
+    ) {
+
+        $result = $this->oauth_client->authenticatedPostAsXml($type . '/' . $id . '/links', array(
+            'link' => $link,
+            'linktype' => $linkType,
+            'lang' => $lang,
+            'title' => $title,
+            'copyright' => $copyright,
+            'subbrand' => $subBrand,
+            'description' => $description
+        ));
+        $this->validateResult($result, self::CODE_LINK_CREATED);
+    }
+
+    private function addCollaborationLink(
+      $type,
+      $id,
+      $lang,
+      $plainText,
+      $title = '',
+      $copyright = '',
+      $subBrand = '',
+      $description = ''
+    )
+    {
+      $result = $this->oauth_client->authenticatedPostAsXml($type . '/' . $id . '/links', array(
+        'plaintext' => $plainText,
+        'linktype' => 'collaboration',
+        'lang' => $lang,
+        'title' => $title,
+        'copyright' => $copyright,
+        'subbrand' => $subBrand,
+        'description' => $description
+      ));
+      $this->validateResult($result, self::CODE_LINK_CREATED);
+    }
 
   /**
    * Remove Link from an item.
@@ -786,6 +1075,9 @@ class CultureFeed_EntryApi implements CultureFeed_EntryApi_IEntryApi {
    *   Email address of that user
    * @param Array $ids
    *   Array of ids to check.
+   * @return CultureFeed_SimpleXMLElement
+   *
+   * @throws CultureFeed_ParseException
    */
   public function checkPermission($userid, $email, $ids) {
   
