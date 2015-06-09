@@ -193,7 +193,7 @@ class CultureFeed_EntryApi implements CultureFeed_EntryApi_IEntryApi {
     $cdb_xml = $cdb->__toString();
 
     $result = $this->oauth_client->authenticatedPostAsXml('event', array('raw_data' => $cdb_xml), TRUE);
-    $xml = $this->validateResult($result, self::CODE_ITEM_CREATED);
+    $xml = $this->validateResult($result, array(self::CODE_ITEM_CREATED, self::CODE_ITEM_MODIFIED));
 
     return basename($xml->xpath_str('/rsp/link'));
 
@@ -1113,6 +1113,10 @@ class CultureFeed_EntryApi implements CultureFeed_EntryApi_IEntryApi {
    *   If no valid result status code.
    */
   private function validateResult($result, $valid_status_code) {
+  
+    if (!is_array($valid_status_code)) {
+      $valid_status_code = array($valid_status_code);
+    }
 
     try {
       $xml = new CultureFeed_SimpleXMLElement($result);
@@ -1130,7 +1134,7 @@ class CultureFeed_EntryApi implements CultureFeed_EntryApi_IEntryApi {
       $status_message = $xml->xpath_str('/rsp/message'); 
     }
     
-    if ($status_code == $valid_status_code) {
+    if (in_array($status_code, $valid_status_code)) {
       return $xml;
     }
 
