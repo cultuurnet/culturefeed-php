@@ -82,7 +82,7 @@ interface CultureFeed_Uitpas {
    *   The identification number. This can be either an UiTPAS number, chip-number, INSZ-number, or INSZ-barcode.
    * @param string $consumer_key_counter
    *   The consumer key of the counter from where the request originates
-   * @return mixed
+   * @return CultureFeed_Uitpas_Passholder
    */
   public function getPassholderByIdentificationNumber($identification_number, $consumer_key_counter = NULL);
 
