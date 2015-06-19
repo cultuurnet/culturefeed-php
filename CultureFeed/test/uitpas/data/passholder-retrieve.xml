@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<response xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:cdb="http://www.cultuurdatabank.com/XMLSchema/CdbXSD/3.1/FINAL">
+    <code>ACTION_SUCCEEDED</code>
+    <passholder>
+        <email>foo.bar.scarlet.be@mailinator.com</email>
+        <postalCode>8730</postalCode>
+        <gender>MALE</gender>
+        <uitIdUser>
+            <rdf:id>5797382b-ee1e-49a7-9092-b8f097643e62</rdf:id>
+        </uitIdUser>
+        <registrationBalieConsumerKey>39d138ab-1153-42c7-85d6-a398c9fc77c3</registrationBalieConsumerKey>
+        <numberOfCheckins>11</numberOfCheckins>
+        <verified>false</verified>
+        <points>3.000</points>
+        <cardSystemSpecific>
+            <cardSystem>
+                <id>2</id>
+                <name>Cirk!</name>
+            </cardSystem>
+            <currentCard>
+                <kansenpas>false</kansenpas>
+                <status>ACTIVE</status>
+                <uitpasNumber>
+                    <uitpasNumber>0100000099909</uitpasNumber>
+                </uitpasNumber>
+            </currentCard>
+            <emailPreference>ALL_MAILS</emailPreference>
+            <kansenStatuut>false</kansenStatuut>
+            <kansenStatuutExpired>false</kansenStatuutExpired>
+            <kansenStatuutInGracePeriod>false</kansenStatuutInGracePeriod>
+            <lastActivationMailNumber>1</lastActivationMailNumber>
+            <smsPreference>NO_SMS</smsPreference>
+            <status>ACTIVE</status>
+        </cardSystemSpecific>
+        <memberships/>
+    </passholder>
+</response>

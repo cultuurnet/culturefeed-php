@@ -62,10 +62,10 @@ class CultureFeed_Uitpas_PasHoudersAPITest extends PHPUnit_Framework_TestCase {
 
   public function testGetPassholderByIdentificationNumber()
   {
-    $passholder_xml = file_get_contents(dirname(__FILE__) . '/data/passholder.xml');
+    $passholder_xml = file_get_contents(dirname(__FILE__) . '/data/passholder-retrieve.xml');
 
     $data = array(
-      'identification' => '1000001500601',
+      'identification' => '0100000099909',
       'balieConsumerKey' => 'some-key',
     );
 
@@ -83,7 +83,7 @@ class CultureFeed_Uitpas_PasHoudersAPITest extends PHPUnit_Framework_TestCase {
     );
 
     $actualUitpasNumber = $passholder
-      ->cardSystemSpecific[6]
+      ->cardSystemSpecific[2]
       ->currentCard
       ->uitpasNumber;
 
