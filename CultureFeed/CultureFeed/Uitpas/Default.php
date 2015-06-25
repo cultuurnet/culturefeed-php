@@ -275,6 +275,38 @@ class CultureFeed_Uitpas_Default implements CultureFeed_Uitpas {
   }
 
   /**
+   * Get a passholder based on a identification number.
+   *
+   * @param string $identification_number
+   *   The identification number. This can be either an UiTPAS number, chip-number, INSZ-number, or INSZ-barcode.
+   * @param string $consumer_key_counter
+   *   The consumer key of the counter from where the request originates
+   * @return CultureFeed_Uitpas_Passholder
+   */
+  public function getPassholderByIdentificationNumber($identification_number, $consumer_key_counter = NULL) {
+    $data = array(
+      'identification' => $identification_number,
+    );
+
+    if ($consumer_key_counter) {
+      $data['balieConsumerKey'] = $consumer_key_counter;
+    }
+
+    $result = $this->oauth_client->authenticatedGetAsXml('uitpas/passholder/retrieve', $data);
+
+    try {
+      $xml = new CultureFeed_SimpleXMLElement($result);
+    }
+    catch (Exception $e) {
+      throw new CultureFeed_ParseException($result);
+    }
+
+    $object = $xml->xpath('/response/passholder', false);
+
+    return CultureFeed_Uitpas_Passholder::createFromXml($object);
+  }
+
+  /**
    * Get a passholder based on the user ID
    *
    * @param string $user_id The user ID

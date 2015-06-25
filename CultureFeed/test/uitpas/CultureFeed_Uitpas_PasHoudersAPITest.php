@@ -60,6 +60,50 @@ class CultureFeed_Uitpas_PasHoudersAPITest extends PHPUnit_Framework_TestCase {
     $this->assertEquals(self::UID, $uid);
   }
 
+  public function testGetPassholderByIdentificationNumber()
+  {
+    $passholder_xml = file_get_contents(dirname(__FILE__) . '/data/passholder-retrieve.xml');
+
+    $data = array(
+      'identification' => '0100000099909',
+      'balieConsumerKey' => 'some-key',
+    );
+
+    $oauth_client_stub = $this->getMock('CultureFeed_OAuthClient');
+    $oauth_client_stub->expects($this->any())
+      ->method('authenticatedGetAsXml')
+      ->with('uitpas/passholder/retrieve', $data)
+      ->will($this->returnValue($passholder_xml));
+
+    $cf = new CultureFeed($oauth_client_stub);
+
+    $passholder = $cf->uitpas()->getPassholderByIdentificationNumber(
+      $data['identification'],
+      $data['balieConsumerKey']
+    );
+
+    $actualUitpasNumber = $passholder
+      ->cardSystemSpecific[2]
+      ->currentCard
+      ->uitpasNumber;
+
+    $this->assertInstanceOf('CultureFeed_Uitpas_Passholder', $passholder);
+    $this->assertEquals($data['identification'], $actualUitpasNumber);
+  }
+
+  public function testGetPassholderByIdentificationNumberParseException()
+  {
+    $oauth_client_stub = $this->getMock('CultureFeed_OAuthClient');
+    $oauth_client_stub->expects($this->any())
+      ->method('authenticatedGetAsXml')
+      ->will($this->returnValue('<invalid></in_valid>'));
+
+    $cf = new CultureFeed($oauth_client_stub);
+
+    $this->setExpectedException('CultureFeed_ParseException');
+    $cf->uitpas()->getPassholderByIdentificationNumber('1000001500601');
+  }
+
   public function testGetWelcomeAdvantagesForPassholder() {
     $oauth_client_stub = $this->getMock('CultureFeed_OAuthClient');
 
