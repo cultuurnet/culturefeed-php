@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <response xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:cdb="http://www.cultuurdatabank.com/XMLSchema/CdbXSD/3.1/FINAL">
-    <code>ACTION_SUCCEEDED</code>
-    <passholder>
+    <passHolder>
         <email>foo.bar.scarlet.be@mailinator.com</email>
         <postalCode>8730</postalCode>
         <gender>MALE</gender>
@@ -33,5 +32,5 @@
             <status>ACTIVE</status>
         </cardSystemSpecific>
         <memberships/>
-    </passholder>
+    </passHolder>
 </response>

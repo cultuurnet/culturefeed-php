@@ -301,7 +301,7 @@ class CultureFeed_Uitpas_Default implements CultureFeed_Uitpas {
       throw new CultureFeed_ParseException($result);
     }
 
-    $object = $xml->xpath('/response/passholder', false);
+    $object = $xml->xpath('/response/passHolder', false);
 
     return CultureFeed_Uitpas_Passholder::createFromXml($object);
   }
