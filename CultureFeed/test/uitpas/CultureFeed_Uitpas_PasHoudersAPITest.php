@@ -406,4 +406,29 @@ class CultureFeed_Uitpas_PasHoudersAPITest extends PHPUnit_Framework_TestCase {
     $this->assertEquals('opubi 73', $passholder->street);
     $this->assertEquals(FALSE, $passholder->verified);
   }
+
+  public function testUpdate() {
+    $balieConsumerKey = 'b95d1bcf-533d-45ac-afcd-e015cfe86c84';
+
+    $passholder = new CultureFeed_Uitpas_Passholder();
+    $passholder->uitpasNumber = '1000001500601';
+    $passholder->name = 'Tester';
+
+    $oauth_client_stub = $this->getMock('CultureFeed_OAuthClient');
+
+    $path = 'uitpas/passholder/' . $passholder->uitpasNumber;
+
+    $data = $passholder->toPostData();
+    $data['balieConsumerKey'] = $balieConsumerKey;
+
+    $passholder_xml = file_get_contents(dirname(__FILE__) . '/data/passholder-retrieve.xml');
+
+    $oauth_client_stub->expects($this->any())
+      ->method('authenticatedPostAsXml')
+      ->with($path, $data)
+      ->willReturn($passholder_xml);
+
+    $cf = new CultureFeed($oauth_client_stub);
+    $cf->uitpas()->updatePassholder($passholder, $balieConsumerKey);
+  }
 }
