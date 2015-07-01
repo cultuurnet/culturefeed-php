@@ -244,6 +244,13 @@ class CultureFeed_Uitpas_Passholder extends CultureFeed_Uitpas_ValueObject {
   public $inszNumberHash;
 
   /**
+   * UiTPAS number.
+   *
+   * @var string
+   */
+  public $uitpasNumber;
+
+  /**
    * {@inheritdoc}
    */
   protected function manipulatePostData(&$data) {
