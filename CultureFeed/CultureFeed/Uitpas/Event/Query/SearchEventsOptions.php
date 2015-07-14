@@ -56,6 +56,8 @@ class CultureFeed_Uitpas_Event_Query_SearchEventsOptions extends CultureFeed_Uit
    * Sort field.
    *
    * @var string
+   *
+   * @deprecated use $sort instead
    */
   public $sortField;
 
@@ -63,6 +65,8 @@ class CultureFeed_Uitpas_Event_Query_SearchEventsOptions extends CultureFeed_Uit
    * Sort direction
    *
    * @var string
+   *
+   * @deprecated use $sort instead
    */
   public $sortOrder = self::ORDER_DESC;
 
@@ -100,6 +104,16 @@ class CultureFeed_Uitpas_Event_Query_SearchEventsOptions extends CultureFeed_Uit
    * @var string
    */
   public $cdbid;
+
+  /**
+   * @var string
+   */
+  public $dateType;
+
+  /**
+   * @var string
+   */
+  public $sort;
 
   protected function manipulatePostData(&$data) {
     if (isset($data['startDate']) && is_integer($data['startDate'])) {
