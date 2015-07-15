@@ -108,7 +108,7 @@ class CultureFeed_Uitpas_Event_Query_SearchEventsOptions extends CultureFeed_Uit
   /**
    * @var string
    */
-  public $dateType;
+  public $datetype;
 
   /**
    * @var string
