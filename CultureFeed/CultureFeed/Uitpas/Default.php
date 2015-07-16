@@ -292,7 +292,7 @@ class CultureFeed_Uitpas_Default implements CultureFeed_Uitpas {
       $data['balieConsumerKey'] = $consumer_key_counter;
     }
 
-    $result = $this->oauth_client->authenticatedGetAsXml('uitpas/passholder/retrieve', $data);
+    $result = $this->oauth_client->authenticatedGetAsXml('uitpas/retrieve', $data);
 
     try {
       $xml = new CultureFeed_SimpleXMLElement($result);
