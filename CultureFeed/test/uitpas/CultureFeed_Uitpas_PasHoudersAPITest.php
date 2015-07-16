@@ -72,7 +72,7 @@ class CultureFeed_Uitpas_PasHoudersAPITest extends PHPUnit_Framework_TestCase {
     $oauth_client_stub = $this->getMock('CultureFeed_OAuthClient');
     $oauth_client_stub->expects($this->any())
       ->method('authenticatedGetAsXml')
-      ->with('uitpas/passholder/retrieve', $data)
+      ->with('uitpas/retrieve', $data)
       ->will($this->returnValue($passholder_xml));
 
     $cf = new CultureFeed($oauth_client_stub);
