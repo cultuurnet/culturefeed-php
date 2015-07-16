@@ -275,6 +275,38 @@ class CultureFeed_Uitpas_Default implements CultureFeed_Uitpas {
   }
 
   /**
+   * Get a passholder based on a identification number.
+   *
+   * @param string $identification_number
+   *   The identification number. This can be either an UiTPAS number, chip-number, INSZ-number, or INSZ-barcode.
+   * @param string $consumer_key_counter
+   *   The consumer key of the counter from where the request originates
+   * @return CultureFeed_Uitpas_Passholder
+   */
+  public function getPassholderByIdentificationNumber($identification_number, $consumer_key_counter = NULL) {
+    $data = array(
+      'identification' => $identification_number,
+    );
+
+    if ($consumer_key_counter) {
+      $data['balieConsumerKey'] = $consumer_key_counter;
+    }
+
+    $result = $this->oauth_client->authenticatedGetAsXml('uitpas/passholder/retrieve', $data);
+
+    try {
+      $xml = new CultureFeed_SimpleXMLElement($result);
+    }
+    catch (Exception $e) {
+      throw new CultureFeed_ParseException($result);
+    }
+
+    $object = $xml->xpath('/response/passHolder', false);
+
+    return CultureFeed_Uitpas_Passholder::createFromXml($object);
+  }
+
+  /**
    * Get a passholder based on the user ID
    *
    * @param string $user_id The user ID
@@ -538,14 +570,22 @@ class CultureFeed_Uitpas_Default implements CultureFeed_Uitpas {
     $this->oauth_client->authenticatedPostAsXml('uitpas/passholder/' . $id . '/uploadPicture', $data, TRUE, TRUE);
   }
 
-  /**
-   * Update a passholder.
-   *
-   * @param CultureFeed_Uitpas_Passholder $passholder The passholder to update.
-   * 		The passholder is identified by ID. Only fields that are set will be updated.
-   */
-  public function updatePassholder(CultureFeed_Uitpas_Passholder $passholder) {
+    /**
+     * Update a passholder.
+     *
+     * @param CultureFeed_Uitpas_Passholder $passholder The passholder to update.
+     *     The passholder is identified by ID. Only fields that are set will be updated.
+     * @param null $consumer_key_counter
+     * @return \CultureFeed_Uitpas_Response
+     * @throws \CultureFeed_ParseException
+     */
+  public function updatePassholder(CultureFeed_Uitpas_Passholder $passholder, $consumer_key_counter = NULL) {
     $data = $passholder->toPostData();
+
+    if ($consumer_key_counter) {
+      $data['balieConsumerKey'] = $consumer_key_counter;
+    }
+
     $result = $this->oauth_client->authenticatedPostAsXml('uitpas/passholder/' . $passholder->uitpasNumber, $data);
 
     try {

@@ -244,6 +244,13 @@ class CultureFeed_Uitpas_Passholder extends CultureFeed_Uitpas_ValueObject {
   public $inszNumberHash;
 
   /**
+   * UiTPAS number.
+   *
+   * @var string
+   */
+  public $uitpasNumber;
+
+  /**
    * {@inheritdoc}
    */
   protected function manipulatePostData(&$data) {
@@ -293,6 +300,7 @@ class CultureFeed_Uitpas_Passholder extends CultureFeed_Uitpas_ValueObject {
     $passholder->emailPreference = $object->xpath_str('emailPreference');
     $passholder->smsPreference = $object->xpath_str('smsPreference');
     $passholder->inszNumberHash = $object->xpath_str('inszNumberHash');
+    $passholder->inszNumber = $object->xpath_str('inszNumber');
     $passholder->dateOfBirth = $object->xpath_time('dateOfBirth');
     $passholder->gender = $object->xpath_str('gender');
     $passholder->street = $object->xpath_str('street');
@@ -337,8 +345,6 @@ class CultureFeed_Uitpas_Passholder extends CultureFeed_Uitpas_ValueObject {
     }
 
     $passholder->numberOfCheckins = $object->xpath_int('numberOfCheckins');
-
-    $passholder->inszNumberHash = $object->xpath_str('inszNumberHash');
 
     return $passholder;
   }
