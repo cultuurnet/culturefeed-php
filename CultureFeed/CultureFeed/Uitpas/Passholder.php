@@ -25,6 +25,13 @@ class CultureFeed_Uitpas_Passholder extends CultureFeed_Uitpas_ValueObject {
   public $firstName;
 
   /**
+   * The second name of the passholder.
+   *
+   * @var string
+   */
+  public $secondName;
+
+  /**
    * The e-mail of the passholder.
    *
    * @var string
@@ -135,6 +142,13 @@ class CultureFeed_Uitpas_Passholder extends CultureFeed_Uitpas_ValueObject {
    * @var string
    */
   public $price;
+
+  /**
+   * The current card of the passholder.
+   *
+   * @var \CultureFeed_Uitpas_Passholder_Card
+   */
+  public $currentCard;
 
   /**
    * True if the passholder has a kansenstatuut.
@@ -296,6 +310,7 @@ class CultureFeed_Uitpas_Passholder extends CultureFeed_Uitpas_ValueObject {
     $passholder = new CultureFeed_Uitpas_Passholder();
     $passholder->name = $object->xpath_str('name');
     $passholder->firstName = $object->xpath_str('firstName');
+    $passholder->secondName = $object->xpath_str('secondName');
     $passholder->email = $object->xpath_str('email');
     $passholder->emailPreference = $object->xpath_str('emailPreference');
     $passholder->smsPreference = $object->xpath_str('smsPreference');
@@ -316,6 +331,11 @@ class CultureFeed_Uitpas_Passholder extends CultureFeed_Uitpas_ValueObject {
     $passholder->kansenStatuutEndDate = $object->xpath_time('kansenStatuutEndDate');
     $passholder->kansenStatuutExpired = $object->xpath_bool('kansenStatuutExpired');
     $passholder->kansenStatuutInGracePeriod = $object->xpath_bool('kansenStatuutInGracePeriod');
+
+    $currentCard = $object->xpath('currentCard', false);
+    if ($currentCard instanceof CultureFeed_SimpleXMLElement) {
+      $passholder->currentCard = CultureFeed_Uitpas_Passholder_Card::createFromXML($currentCard);
+    }
 
     foreach ($object->xpath('cardSystemSpecific') as $cardSystemSpecific) {
       $cardSystemId = $cardSystemSpecific->xpath_int('cardSystem/id', FALSE);

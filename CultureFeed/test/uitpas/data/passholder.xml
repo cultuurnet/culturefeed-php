@@ -35,6 +35,7 @@
     <city>BRUSSEL</city>
     <dateOfBirth>1982-01-01T01:00:00+01:00</dateOfBirth>
     <firstName>Frontend</firstName>
+    <secondName>Backend</secondName>
     <gender>FEMALE</gender>
     <inszNumberHash>
         62cb6cc2a58d1b23d85b5993894c2fcd2d55ed01c0f6ff1f4f0ee87ac2b83dd9
@@ -51,4 +52,12 @@
         <ns3:nick>Frontend Tester</ns3:nick>
     </uitIdUser>
     <verified>false</verified>
+    <currentCard>
+        <kansenpas>true</kansenpas>
+        <status>BLOCKED</status>
+        <city>LEUVEN</city>
+        <uitpasNumber>
+            <uitpasNumber>0930000237915</uitpasNumber>
+        </uitpasNumber>
+    </currentCard>
 </passHolder>
