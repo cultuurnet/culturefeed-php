@@ -52,12 +52,4 @@
         <ns3:nick>Frontend Tester</ns3:nick>
     </uitIdUser>
     <verified>false</verified>
-    <currentCard>
-        <kansenpas>true</kansenpas>
-        <status>BLOCKED</status>
-        <city>LEUVEN</city>
-        <uitpasNumber>
-            <uitpasNumber>0930000237915</uitpasNumber>
-        </uitpasNumber>
-    </currentCard>
 </passHolder>

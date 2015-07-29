@@ -144,13 +144,6 @@ class CultureFeed_Uitpas_Passholder extends CultureFeed_Uitpas_ValueObject {
   public $price;
 
   /**
-   * The current card of the passholder.
-   *
-   * @var \CultureFeed_Uitpas_Passholder_Card
-   */
-  public $currentCard;
-
-  /**
    * True if the passholder has a kansenstatuut.
    *
    * @var boolean
@@ -331,11 +324,6 @@ class CultureFeed_Uitpas_Passholder extends CultureFeed_Uitpas_ValueObject {
     $passholder->kansenStatuutEndDate = $object->xpath_time('kansenStatuutEndDate');
     $passholder->kansenStatuutExpired = $object->xpath_bool('kansenStatuutExpired');
     $passholder->kansenStatuutInGracePeriod = $object->xpath_bool('kansenStatuutInGracePeriod');
-
-    $currentCard = $object->xpath('currentCard', false);
-    if ($currentCard instanceof CultureFeed_SimpleXMLElement) {
-      $passholder->currentCard = CultureFeed_Uitpas_Passholder_Card::createFromXML($currentCard);
-    }
 
     foreach ($object->xpath('cardSystemSpecific') as $cardSystemSpecific) {
       $cardSystemId = $cardSystemSpecific->xpath_int('cardSystem/id', FALSE);

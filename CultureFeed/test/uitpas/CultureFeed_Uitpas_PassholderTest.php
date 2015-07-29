@@ -76,12 +76,6 @@ class CultureFeed_Uitpas_PassholderTest extends PHPUnit_Framework_TestCase {
 
     $this->assertInstanceOf('CultureFeed_Uitpas_Passholder', $passholder);
 
-    $this->assertInstanceOf('CultureFeed_Uitpas_Passholder_Card', $passholder->currentCard);
-    $this->assertEquals('0930000237915', $passholder->currentCard->uitpasNumber);
-    $this->assertTrue($passholder->currentCard->kansenpas);
-    $this->assertEquals('BLOCKED', $passholder->currentCard->status);
-    $this->assertEquals('LEUVEN', $passholder->currentCard->city);
-
     $this->assertInternalType('array', $passholder->cardSystemSpecific);
     $this->assertCount(2, $passholder->cardSystemSpecific);
 
