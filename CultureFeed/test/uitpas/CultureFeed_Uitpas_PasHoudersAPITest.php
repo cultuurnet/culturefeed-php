@@ -84,11 +84,11 @@ class CultureFeed_Uitpas_PasHoudersAPITest extends PHPUnit_Framework_TestCase {
 
     $this->assertInstanceOf('CultureFeed_Uitpas_Identity', $identity);
 
-    $this->assertInstanceOf('CultureFeed_Uitpas_CardInfo', $identity->card);
+    $this->assertInstanceOf('CultureFeed_Uitpas_Passholder_Card', $identity->card);
     $this->assertEquals($data['identification'], $identity->card->uitpasNumber);
     $this->assertEquals('ACTIVE', $identity->card->status);
-    $this->assertFalse($identity->card->kansenStatuut());
-    $this->assertNull($identity->card->cardSystem);
+    $this->assertFalse($identity->card->kansenpas);
+    $this->assertEmpty($identity->card->city);
 
     $this->assertInstanceOf('CultureFeed_Uitpas_Passholder', $identity->passHolder);
     $this->assertEquals('Boadu', $identity->passHolder->name);

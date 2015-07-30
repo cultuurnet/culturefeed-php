@@ -2,7 +2,7 @@
 
 class CultureFeed_Uitpas_Identity extends CultureFeed_Uitpas_ValueObject {
   /**
-   * @var \CultureFeed_Uitpas_CardInfo
+   * @var \CultureFeed_Uitpas_Passholder_Card
    */
   public $card;
 
@@ -19,7 +19,7 @@ class CultureFeed_Uitpas_Identity extends CultureFeed_Uitpas_ValueObject {
     $identity = new static();
 
     $cardXml = $object->xpath('card', false);
-    $identity->card = CultureFeed_Uitpas_CardInfo::createFromXml($cardXml);
+    $identity->card = CultureFeed_Uitpas_Passholder_Card::createFromXml($cardXml);
 
     $passHolderXml = $object->xpath('passHolder', false);
     if ($passHolderXml instanceof CultureFeed_SimpleXMLElement) {
