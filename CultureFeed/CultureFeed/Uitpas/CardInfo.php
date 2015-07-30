@@ -28,8 +28,16 @@ class CultureFeed_Uitpas_CardInfo {
   public static function createFromXml(CultureFeed_SimpleXMLElement $object) {
     $instance = new static();
 
-    $instance->cardSystem = CultureFeed_Uitpas_CardSystem::createFromXML($object->xpath('cardSystem', FALSE));
+    $cardSystemXml = $object->xpath('cardSystem', FALSE);
+    if ($cardSystemXml instanceof CultureFeed_SimpleXMLElement) {
+      $instance->cardSystem = CultureFeed_Uitpas_CardSystem::createFromXML($cardSystemXml);
+    }
+
     $instance->uitpasNumber = $object->xpath_str('uitpasNumber');
+    if (empty($instance->uitpasNumber)) {
+      $instance->uitpasNumber = $object->xpath_str('uitpasNumber/uitpasNumber');
+    }
+
     $instance->status = $object->xpath_str('status');
 
     return $instance;
