@@ -424,7 +424,7 @@ class CultureFeed_Uitpas_PasHoudersAPITest extends PHPUnit_Framework_TestCase {
     $data = $passholder->toPostData();
     $data['balieConsumerKey'] = $balieConsumerKey;
 
-    $passholder_xml = file_get_contents(dirname(__FILE__) . '/data/passholder-retrieve.xml');
+    $passholder_xml = file_get_contents(dirname(__FILE__) . '/data/passholder.update.succeeded.xml');
 
     $oauth_client_stub->expects($this->any())
       ->method('authenticatedPostAsXml')
