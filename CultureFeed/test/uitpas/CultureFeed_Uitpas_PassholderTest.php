@@ -103,6 +103,7 @@ class CultureFeed_Uitpas_PassholderTest extends PHPUnit_Framework_TestCase {
     $this->assertEquals('BRUSSEL', $passholder->city);
     $this->assertEquals(378691200, $passholder->dateOfBirth);
     $this->assertEquals('Frontend', $passholder->firstName);
+    $this->assertEquals('Backend', $passholder->secondName);
     $this->assertEquals('FEMALE', $passholder->gender);
     $this->assertEquals('62cb6cc2a58d1b23d85b5993894c2fcd2d55ed01c0f6ff1f4f0ee87ac2b83dd9', $passholder->inszNumberHash);
     $this->assertInternalType('array', $passholder->memberships);

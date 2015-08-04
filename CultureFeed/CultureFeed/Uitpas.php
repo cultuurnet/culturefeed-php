@@ -76,15 +76,15 @@ interface CultureFeed_Uitpas {
   public function getPassholderByUitpasNumber($uitpas_number, $consumer_key_counter = NULL);
 
   /**
-   * Get a passholder based on a identification number.
+   * Get a card, with optionally a passholder, or a group pass based on a identification number.
    *
    * @param string $identification_number
    *   The identification number. This can be either an UiTPAS number, chip-number, INSZ-number, or INSZ-barcode.
    * @param string $consumer_key_counter
    *   The consumer key of the counter from where the request originates
-   * @return CultureFeed_Uitpas_Passholder
+   * @return CultureFeed_Uitpas_Identity
    */
-  public function getPassholderByIdentificationNumber($identification_number, $consumer_key_counter = NULL);
+  public function identify($identification_number, $consumer_key_counter = NULL);
 
   /**
    * Get a passholder based on the user ID

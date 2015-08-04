@@ -275,15 +275,18 @@ class CultureFeed_Uitpas_Default implements CultureFeed_Uitpas {
   }
 
   /**
-   * Get a passholder based on a identification number.
+   * Get a card, with optionally a passholder, or a group pass based on a identification number.
    *
    * @param string $identification_number
    *   The identification number. This can be either an UiTPAS number, chip-number, INSZ-number, or INSZ-barcode.
    * @param string $consumer_key_counter
    *   The consumer key of the counter from where the request originates
-   * @return CultureFeed_Uitpas_Passholder
+   * @return CultureFeed_Uitpas_Identity
+   *
+   * @throws CultureFeed_ParseException
+   *   When the response XML could not be parsed.
    */
-  public function getPassholderByIdentificationNumber($identification_number, $consumer_key_counter = NULL) {
+  public function identify($identification_number, $consumer_key_counter = NULL) {
     $data = array(
       'identification' => $identification_number,
     );
@@ -301,9 +304,9 @@ class CultureFeed_Uitpas_Default implements CultureFeed_Uitpas {
       throw new CultureFeed_ParseException($result);
     }
 
-    $object = $xml->xpath('/response/passHolder', false);
+    $object = $xml->xpath('/response', false);
 
-    return CultureFeed_Uitpas_Passholder::createFromXml($object);
+    return CultureFeed_Uitpas_Identity::createFromXml($object);
   }
 
   /**

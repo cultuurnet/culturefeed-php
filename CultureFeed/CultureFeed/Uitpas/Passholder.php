@@ -25,6 +25,13 @@ class CultureFeed_Uitpas_Passholder extends CultureFeed_Uitpas_ValueObject {
   public $firstName;
 
   /**
+   * The second name of the passholder.
+   *
+   * @var string
+   */
+  public $secondName;
+
+  /**
    * The e-mail of the passholder.
    *
    * @var string
@@ -296,10 +303,12 @@ class CultureFeed_Uitpas_Passholder extends CultureFeed_Uitpas_ValueObject {
     $passholder = new CultureFeed_Uitpas_Passholder();
     $passholder->name = $object->xpath_str('name');
     $passholder->firstName = $object->xpath_str('firstName');
+    $passholder->secondName = $object->xpath_str('secondName');
     $passholder->email = $object->xpath_str('email');
     $passholder->emailPreference = $object->xpath_str('emailPreference');
     $passholder->smsPreference = $object->xpath_str('smsPreference');
     $passholder->inszNumberHash = $object->xpath_str('inszNumberHash');
+    $passholder->inszNumber = $object->xpath_str('inszNumber');
     $passholder->dateOfBirth = $object->xpath_time('dateOfBirth');
     $passholder->gender = $object->xpath_str('gender');
     $passholder->street = $object->xpath_str('street');
@@ -344,8 +353,6 @@ class CultureFeed_Uitpas_Passholder extends CultureFeed_Uitpas_ValueObject {
     }
 
     $passholder->numberOfCheckins = $object->xpath_int('numberOfCheckins');
-
-    $passholder->inszNumberHash = $object->xpath_str('inszNumberHash');
 
     return $passholder;
   }
