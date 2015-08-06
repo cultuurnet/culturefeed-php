@@ -60,12 +60,12 @@ class CultureFeed_Uitpas_PasHoudersAPITest extends PHPUnit_Framework_TestCase {
     $this->assertEquals(self::UID, $uid);
   }
 
-  public function testGetPassholderByIdentificationNumber()
+  public function testIndentify()
   {
-    $passholder_xml = file_get_contents(dirname(__FILE__) . '/data/passholder-retrieve.xml');
+    $passholder_xml = file_get_contents(dirname(__FILE__) . '/data/identity.xml');
 
     $data = array(
-      'identification' => '0100000099909',
+      'identification' => '0930000422202',
       'balieConsumerKey' => 'some-key',
     );
 
@@ -77,21 +77,24 @@ class CultureFeed_Uitpas_PasHoudersAPITest extends PHPUnit_Framework_TestCase {
 
     $cf = new CultureFeed($oauth_client_stub);
 
-    $passholder = $cf->uitpas()->getPassholderByIdentificationNumber(
+    $identity = $cf->uitpas()->identify(
       $data['identification'],
       $data['balieConsumerKey']
     );
 
-    $actualUitpasNumber = $passholder
-      ->cardSystemSpecific[2]
-      ->currentCard
-      ->uitpasNumber;
+    $this->assertInstanceOf('CultureFeed_Uitpas_Identity', $identity);
 
-    $this->assertInstanceOf('CultureFeed_Uitpas_Passholder', $passholder);
-    $this->assertEquals($data['identification'], $actualUitpasNumber);
+    $this->assertInstanceOf('CultureFeed_Uitpas_Passholder_Card', $identity->card);
+    $this->assertEquals($data['identification'], $identity->card->uitpasNumber);
+    $this->assertEquals('ACTIVE', $identity->card->status);
+    $this->assertFalse($identity->card->kansenpas);
+    $this->assertEmpty($identity->card->city);
+
+    $this->assertInstanceOf('CultureFeed_Uitpas_Passholder', $identity->passHolder);
+    $this->assertEquals('Boadu', $identity->passHolder->name);
   }
 
-  public function testGetPassholderByIdentificationNumberParseException()
+  public function testIdentifyParseException()
   {
     $oauth_client_stub = $this->getMock('CultureFeed_OAuthClient');
     $oauth_client_stub->expects($this->any())
@@ -101,7 +104,7 @@ class CultureFeed_Uitpas_PasHoudersAPITest extends PHPUnit_Framework_TestCase {
     $cf = new CultureFeed($oauth_client_stub);
 
     $this->setExpectedException('CultureFeed_ParseException');
-    $cf->uitpas()->getPassholderByIdentificationNumber('1000001500601');
+    $cf->uitpas()->identify('1000001500601');
   }
 
   public function testGetWelcomeAdvantagesForPassholder() {
@@ -421,7 +424,7 @@ class CultureFeed_Uitpas_PasHoudersAPITest extends PHPUnit_Framework_TestCase {
     $data = $passholder->toPostData();
     $data['balieConsumerKey'] = $balieConsumerKey;
 
-    $passholder_xml = file_get_contents(dirname(__FILE__) . '/data/passholder-retrieve.xml');
+    $passholder_xml = file_get_contents(dirname(__FILE__) . '/data/passholder.update.succeeded.xml');
 
     $oauth_client_stub->expects($this->any())
       ->method('authenticatedPostAsXml')
