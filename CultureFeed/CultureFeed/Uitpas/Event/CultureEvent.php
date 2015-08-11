@@ -165,14 +165,14 @@ class CultureFeed_Uitpas_Event_CultureEvent extends CultureFeed_Uitpas_ValueObje
   /**
    * The checkin start date.
    *
-   * @var string
+   * @var int
    */
   public $checkinStartDate;
 
   /**
    * The checkin end date.
    *
-   * @var string
+   * @var int
    */
   public $checkinEndDate;
 
@@ -280,8 +280,8 @@ class CultureFeed_Uitpas_Event_CultureEvent extends CultureFeed_Uitpas_ValueObje
     $event->checkinAllowed = $object->xpath_bool('checkinAllowed');
     $event->checkinConstraint = CultureFeed_Uitpas_Event_CheckinConstraint::createFromXml($object->xpath('checkinConstraint', false));
     $event->checkinConstraintReason = $object->xpath_str('checkinConstraintReason');
-    $event->checkinStartDate = $object->xpath_str('checkinStartDate');
-    $event->checkinEndDate = $object->xpath_str('checkinEndDate');
+    $event->checkinStartDate = $object->xpath_int('checkinStartDate');
+    $event->checkinEndDate = $object->xpath_int('checkinEndDate');
     $event->buyConstraintReason = $object->xpath_str('buyConstraintReason');
     $event->price = $object->xpath_float('price');
     $event->tariff = $object->xpath_float('tariff');
