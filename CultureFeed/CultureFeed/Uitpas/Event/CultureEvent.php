@@ -232,6 +232,13 @@ class CultureFeed_Uitpas_Event_CultureEvent extends CultureFeed_Uitpas_ValueObje
   public $cardSystems;
 
   /**
+   * The ticket sales.
+   *
+   * @var CultureFeed_Uitpas_Event_TicketSale_Opportunity[]
+   */
+  public $ticketSales;
+
+  /**
    * Modify an array of data for posting.
    */
   protected function manipulatePostData(&$data) {
@@ -296,6 +303,11 @@ class CultureFeed_Uitpas_Event_CultureEvent extends CultureFeed_Uitpas_ValueObje
     $event->cardSystems = array();
     foreach ($object->xpath('cardSystems/cardSystem') as $cardSystem) {
       $event->cardSystems[] = CultureFeed_Uitpas_CardSystem::createFromXML($cardSystem, FALSE);
+    }
+
+    $event->ticketSales = array();
+    foreach ($object->xpath('ticketSales/ticketSale') as $ticketSale) {
+      $event->ticketSales[] = CultureFeed_Uitpas_Event_TicketSale_Opportunity::createFromXML($ticketSale, FALSE);
     }
 
     return $event;
