@@ -163,6 +163,20 @@ class CultureFeed_Uitpas_Event_CultureEvent extends CultureFeed_Uitpas_ValueObje
   public $checkinConstraintReason;
 
   /**
+   * The checkin start date.
+   *
+   * @var int
+   */
+  public $checkinStartDate;
+
+  /**
+   * The checkin end date.
+   *
+   * @var int
+   */
+  public $checkinEndDate;
+
+  /**
    * The reason the passholder cannot buy tickets for the event
    *
    * @var string
@@ -266,6 +280,8 @@ class CultureFeed_Uitpas_Event_CultureEvent extends CultureFeed_Uitpas_ValueObje
     $event->checkinAllowed = $object->xpath_bool('checkinAllowed');
     $event->checkinConstraint = CultureFeed_Uitpas_Event_CheckinConstraint::createFromXml($object->xpath('checkinConstraint', false));
     $event->checkinConstraintReason = $object->xpath_str('checkinConstraintReason');
+    $event->checkinStartDate = $object->xpath_int('checkinStartDate');
+    $event->checkinEndDate = $object->xpath_int('checkinEndDate');
     $event->buyConstraintReason = $object->xpath_str('buyConstraintReason');
     $event->price = $object->xpath_float('price');
     $event->tariff = $object->xpath_float('tariff');
