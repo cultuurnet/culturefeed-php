@@ -12,7 +12,7 @@ class CultureFeed_Uitpas_Event_PriceClass extends CultureFeed_Uitpas_ValueObject
   public $price;
 
   /**
-   * @var float
+   * @var float|null
    */
   public $tariff;
 

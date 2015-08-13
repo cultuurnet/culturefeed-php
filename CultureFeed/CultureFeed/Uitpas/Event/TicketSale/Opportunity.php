@@ -56,8 +56,12 @@ class CultureFeed_Uitpas_Event_TicketSale_Opportunity extends CultureFeed_Uitpas
    */
   public static function createFromXml(CultureFeed_SimpleXMLElement $object) {
     $opportunity = new CultureFeed_Uitpas_Event_TicketSale_Opportunity();
+    $opportunity->type = CultureFeed_Uitpas_Event_TicketSale_Opportunity::TYPE_DEFAULT;
 
-    $opportunity->type = $object->xpath_str('type', FALSE);
+    if (isset($object['type'])) {
+      $opportunity->type = (string) $object['type'];
+    }
+
     $opportunity->buyConstraintReason = $object->xpath_str('buyConstraintReason', FALSE);
 
     foreach ($object->xpath('priceClasses/priceClass') as $priceClass) {
@@ -66,17 +70,17 @@ class CultureFeed_Uitpas_Event_TicketSale_Opportunity extends CultureFeed_Uitpas
 
     $couponElement = $object->xpath('ticketSaleCoupon', FALSE);
     if ($couponElement instanceof CultureFeed_SimpleXMLElement) {
-      $opportunity = CultureFeed_Uitpas_Event_TicketSale_Coupon::createFromXml($couponElement);
+      $opportunity->ticketSaleCoupon = CultureFeed_Uitpas_Event_TicketSale_Coupon::createFromXml($couponElement);
     }
 
     $remainingForEventElement = $object->xpath('remainingForEvent', FALSE);
     if ($remainingForEventElement instanceof CultureFeed_SimpleXMLElement) {
-      $opportunity = CultureFeed_Uitpas_PeriodConstraint::createFromXml($remainingForEventElement);
+      $opportunity->remainingForEvent = CultureFeed_Uitpas_PeriodConstraint::createFromXml($remainingForEventElement);
     }
 
     $remainingTotalElement = $object->xpath('remainingTotal', FALSE);
     if ($remainingTotalElement instanceof CultureFeed_SimpleXMLElement) {
-      $opportunity = CultureFeed_Uitpas_PeriodConstraint::createFromXml($remainingTotalElement);
+      $opportunity->remainingTotal = CultureFeed_Uitpas_PeriodConstraint::createFromXml($remainingTotalElement);
     }
 
     return $opportunity;
