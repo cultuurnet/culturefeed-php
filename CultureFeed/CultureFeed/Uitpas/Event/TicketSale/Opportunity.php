@@ -50,6 +50,10 @@ class CultureFeed_Uitpas_Event_TicketSale_Opportunity extends CultureFeed_Uitpas
    */
   public $remainingTotal;
 
+  public function __construct() {
+      $this->priceClasses = array();
+  }
+
   /**
    * @param CultureFeed_SimpleXMLElement $object
    * @return CultureFeed_Uitpas_Event_TicketSale_Opportunity
