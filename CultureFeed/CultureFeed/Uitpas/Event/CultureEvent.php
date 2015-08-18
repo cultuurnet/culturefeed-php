@@ -238,6 +238,10 @@ class CultureFeed_Uitpas_Event_CultureEvent extends CultureFeed_Uitpas_ValueObje
    */
   public $ticketSales;
 
+  public function __construct() {
+    $this->ticketSales = array();
+  }
+
   /**
    * Modify an array of data for posting.
    */
