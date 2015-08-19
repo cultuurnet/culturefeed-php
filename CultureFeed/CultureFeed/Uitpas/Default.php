@@ -807,13 +807,26 @@ class CultureFeed_Uitpas_Default implements CultureFeed_Uitpas {
    *
    * @param string $uitpas_number The UitPas number
    * @param string $cdbid The event CDBID
+   * @param int $amount_of_tickets The amount of ticket sales to register.
+   * @param float $ticket_sale_coupon_id The coupon id of the ticket sale.
    * @param string $consumer_key_counter The consumer key of the counter from where the request originates
+   *
+   * @return CultureFeed_Uitpas_Event_TicketSale
+   *
+   * @throws CultureFeed_ParseException
+   *   When the response could not be parsed.
    */
-  public function registerTicketSale($uitpas_number, $cdbid, $consumer_key_counter = NULL) {
-    $data = array();
+  public function registerTicketSale($uitpas_number, $cdbid, $amount_of_tickets = 1, $ticket_sale_coupon_id = null, $consumer_key_counter = NULL) {
+    $data = array(
+      'amountOfTickets' => $amount_of_tickets,
+    );
 
     if ($consumer_key_counter) {
       $data['balieConsumerKey'] = $consumer_key_counter;
+    }
+
+    if ($ticket_sale_coupon_id) {
+      $data['ticketSaleCouponId'] = $ticket_sale_coupon_id;
     }
 
     $result = $this->oauth_client->authenticatedPostAsXml('uitpas/cultureevent/' . $cdbid . '/buy/' . $uitpas_number, $data);
