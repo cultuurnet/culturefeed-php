@@ -807,10 +807,10 @@ class CultureFeed_Uitpas_Default implements CultureFeed_Uitpas {
    *
    * @param string $uitpas_number The UitPas number
    * @param string $cdbid The event CDBID
+   * @param string $consumer_key_counter The consumer key of the counter from where the request originates
    * @param string $price_class Price class used for the ticket sale.
    * @param string $ticket_sale_coupon_id The coupon id of the ticket sale.
    * @param int $amount_of_tickets The amount of ticket sales to register.
-   * @param string $consumer_key_counter The consumer key of the counter from where the request originates
    *
    * @return CultureFeed_Uitpas_Event_TicketSale
    *
@@ -820,7 +820,7 @@ class CultureFeed_Uitpas_Default implements CultureFeed_Uitpas {
    * @throws CultureFeed_Exception
    *   When the response was an error message instead of a TicketSale entity.
    */
-  public function registerTicketSale($uitpas_number, $cdbid, $price_class = NULL, $ticket_sale_coupon_id = NULL, $amount_of_tickets = NULL, $consumer_key_counter = NULL) {
+  public function registerTicketSale($uitpas_number, $cdbid, $consumer_key_counter = NULL, $price_class = NULL, $ticket_sale_coupon_id = NULL, $amount_of_tickets = NULL) {
     $data = array();
 
     if ($consumer_key_counter) {
