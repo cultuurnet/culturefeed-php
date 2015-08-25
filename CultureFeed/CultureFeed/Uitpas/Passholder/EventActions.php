@@ -44,7 +44,11 @@ class CultureFeed_Uitpas_Passholder_EventActions {
     $eventActions->pointsPromotions = CultureFeed_Uitpas_Passholder_PointsPromotionResultSet::createFromXML($xml->xpath('pointsPromotions', FALSE), 'pointsPromotion');
 
     $eventCheckin = $xml->xpath('eventCheckin', FALSE);
-    $eventActions->eventCheckin = CultureFeed_Uitpas_Passholder_EventCheckin::createFromXML($eventCheckin);
+    if ($eventCheckin instanceof CultureFeed_SimpleXMLElement) {
+      $eventActions->eventCheckin = CultureFeed_Uitpas_Passholder_EventCheckin::createFromXML(
+        $eventCheckin
+      );
+    }
     $eventBuyTicket = $xml->xpath('eventBuyTicket', FALSE);
     if ($eventBuyTicket instanceof CultureFeed_SimpleXMLElement) {
       $eventActions->eventBuyTicket = CultureFeed_Uitpas_Passholder_EventBuyTicket::createFromXML($eventBuyTicket);
