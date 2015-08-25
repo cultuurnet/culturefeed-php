@@ -134,10 +134,18 @@ class CultureFeed_Uitpas_Default implements CultureFeed_Uitpas {
    * Create a new UitPas passholder.
    *
    * @param CultureFeed_Uitpas_Passholder $passholder The new passholder
+   * @param null $consumer_key_counter
    * @return Passholder user ID
+   * @throws \CultureFeed_ParseException
+   * @throws \CultureFeed_Uitpas_PassholderException
    */
-  public function createPassholder(CultureFeed_Uitpas_Passholder $passholder) {
+  public function createPassholder(CultureFeed_Uitpas_Passholder $passholder, $consumer_key_counter = NULL) {
     $data = $passholder->toPostData();
+
+    if ($consumer_key_counter) {
+      $data['balieConsumerKey'] = $consumer_key_counter;
+    }
+
     $result = $this->oauth_client->authenticatedPostAsXml('uitpas/passholder/register', $data);
 
     try {

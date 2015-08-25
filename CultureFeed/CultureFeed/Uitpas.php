@@ -45,6 +45,9 @@ interface CultureFeed_Uitpas {
    * Create a new UitPas passholder.
    *
    * @param CultureFeed_Uitpas_Passholder $passholder The new passholder
+   *
+   * @return string uuid
+   *   The uuid for the new passholder.
    */
   public function createPassholder(CultureFeed_Uitpas_Passholder $passholder);
 
