@@ -17,6 +17,10 @@ class CultureFeed_Uitpas_EventsAPITest extends PHPUnit_Framework_TestCase {
 
     $oauth_client_stub->expects($this->any())
              ->method('authenticatedPostAsXml')
+             ->with(
+                 "uitpas/cultureevent/" . self::CDBID . "/buy/" . self::UITPAS_NUMBER,
+                 array('balieConsumerKey' => self::CONSUMER_KEY_COUNTER)
+             )
              ->will($this->returnValue($register_xml));
 
     $cf = new CultureFeed($oauth_client_stub);

@@ -87,8 +87,42 @@
                 </cdb:actor>
             </cdb:performer>
         </cdb:performers>
-        <price>0.0</price>
-        <tariff>0.0</tariff>
+        <price>27.0</price>
+        <tariff>27.0</tariff>
+        <ticketSales>
+            <ticketSale type="COUPON">
+                <ticketSaleCoupon>
+                    <buyConstraint>
+                        <periodType>ABSOLUTE</periodType>
+                        <periodVolume>6</periodVolume>
+                    </buyConstraint>
+                    <exchangeConstraint>
+                        <periodType>MONTH</periodType>
+                        <periodVolume>3</periodVolume>
+                    </exchangeConstraint>
+                    <id>18</id>
+                    <name>TEST-UITPAS1579</name>
+                </ticketSaleCoupon>
+                <remainingForEvent>
+                    <periodType>WEEK</periodType>
+                    <periodVolume>10</periodVolume>
+                </remainingForEvent>
+                <remainingTotal>
+                    <periodType>QUARTER</periodType>
+                    <periodVolume>50</periodVolume>
+                </remainingTotal>
+                <priceClasses>
+                    <priceClass>
+                        <name>Default prijsklasse</name>
+                        <price>27.0</price>
+                        <tariff>13.5</tariff>
+                    </priceClass>
+                </priceClasses>
+            </ticketSale>
+            <ticketSale type="DEFAULT">
+                <buyConstraintReason>INVALID_DATE_CONSTRAINTS</buyConstraintReason>
+            </ticketSale>
+        </ticketSales>
         <title>Korfbalinstuif voor meisjes en jongens van 5 tot 9 jaar</title>
     </event>
     <event>
@@ -115,8 +149,29 @@
         <numberOfPoints>1</numberOfPoints>
         <organiserId>6b4654fb-ffc3-4a07-b07a-5b808946a2e3</organiserId>
         <organiserName>Sociale Zaken </organiserName>
-        <price>27.0</price>
-        <tariff>27.0</tariff>
+        <price>28.0</price>
+        <tariff>28.0</tariff>
+        <ticketSales>
+            <ticketSale type="DEFAULT">
+                <priceClasses>
+                    <priceClass>
+                        <name>Rang 1</name>
+                        <price>28.0</price>
+                        <tariff>21.0</tariff>
+                    </priceClass>
+                    <priceClass>
+                        <name>Rang 2</name>
+                        <price>21.0</price>
+                        <tariff>14.0</tariff>
+                    </priceClass>
+                    <priceClass>
+                        <name>Rang 3+</name>
+                        <price>14.0</price>
+                        <tariff>7.0</tariff>
+                    </priceClass>
+                </priceClasses>
+            </ticketSale>
+        </ticketSales>
         <title>Gemeentereis 55-plussers naar het domein de grotten van Han</title>
     </event>
     <event>

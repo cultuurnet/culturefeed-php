@@ -808,12 +808,32 @@ class CultureFeed_Uitpas_Default implements CultureFeed_Uitpas {
    * @param string $uitpas_number The UitPas number
    * @param string $cdbid The event CDBID
    * @param string $consumer_key_counter The consumer key of the counter from where the request originates
+   * @param string $price_class Price class used for the ticket sale.
+   * @param string $ticket_sale_coupon_id The coupon id of the ticket sale.
+   * @param int $amount_of_tickets The amount of ticket sales to register.
+   *
+   * @return CultureFeed_Uitpas_Event_TicketSale
+   *
+   * @throws CultureFeed_ParseException
+   *   When the response could not be parsed.
+   *
+   * @throws CultureFeed_Exception
+   *   When the response was an error message instead of a TicketSale entity.
    */
-  public function registerTicketSale($uitpas_number, $cdbid, $consumer_key_counter = NULL) {
+  public function registerTicketSale($uitpas_number, $cdbid, $consumer_key_counter = NULL, $price_class = NULL, $ticket_sale_coupon_id = NULL, $amount_of_tickets = NULL) {
     $data = array();
 
     if ($consumer_key_counter) {
       $data['balieConsumerKey'] = $consumer_key_counter;
+    }
+    if ($ticket_sale_coupon_id) {
+      $data['ticketSaleCouponId'] = $ticket_sale_coupon_id;
+    }
+    if ($price_class) {
+      $data['priceClass'] = $price_class;
+    }
+    if ($amount_of_tickets) {
+      $data['amountOfTickets'] = (int) $amount_of_tickets;
     }
 
     $result = $this->oauth_client->authenticatedPostAsXml('uitpas/cultureevent/' . $cdbid . '/buy/' . $uitpas_number, $data);
@@ -823,6 +843,12 @@ class CultureFeed_Uitpas_Default implements CultureFeed_Uitpas {
     }
     catch (Exception $e) {
       throw new CultureFeed_ParseException($result);
+    }
+
+    $response = $xml->xpath('/response', false);
+    if ($response instanceof CultureFeed_SimpleXMLElement) {
+      $response = CultureFeed_Response::createFromResponseBody($response);
+      throw new CultureFeed_Exception($response->getMessage(), $response->getCode());
     }
 
     $ticket_sale = CultureFeed_Uitpas_Event_TicketSale::createFromXML($xml->xpath('/ticketSale', false));
