@@ -2,6 +2,7 @@
 
 class CultureFeed_Uitpas_Passholder_UitpasPrice extends CultureFeed_Uitpas_ValueObject {
 
+  const REASON_FIRST_CARD = 'FIRST_CARD';
   const REASON_LOSS_THEFT = 'LOSS_THEFT';
   const REASON_REMOVAL = 'REMOVAL';
   const REASON_LOSS_KANSENSTATUUT = 'LOSS_KANSENSTATUUT';
@@ -50,6 +51,11 @@ class CultureFeed_Uitpas_Passholder_UitpasPrice extends CultureFeed_Uitpas_Value
   public $cardSystem;
 
   /**
+   * @var string
+   */
+  public $cardType;
+
+  /**
    * @var CultureFeed_Uitpas_Passholder_VoucherType
    */
   public $voucherType;
@@ -64,6 +70,7 @@ class CultureFeed_Uitpas_Passholder_UitpasPrice extends CultureFeed_Uitpas_Value
     $price->reason = $object->xpath_str('reason');
     $price->kansenStatuut = $object->xpath_bool('kansenstatuut');
     $price->price = $object->xpath_float('price');
+    $price->cardType = $object->xpath_str('cardType');
 
     $ageRange = $object->xpath('ageRange', FALSE);
 
@@ -78,7 +85,7 @@ class CultureFeed_Uitpas_Passholder_UitpasPrice extends CultureFeed_Uitpas_Value
         $price->ageRange->ageTo = $ageTo;
       }
     }
-    
+
     $voucherType = $object->xpath('voucherType', FALSE);
     if ($voucherType) {
       $price->voucherType = new CultureFeed_Uitpas_Passholder_VoucherType();
