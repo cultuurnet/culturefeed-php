@@ -400,6 +400,20 @@ class CultureFeed_Uitpas_Passholder extends CultureFeed_Uitpas_ValueObject {
   }
 
   /**
+   * Specify if an empty secondName property needs to be kept when
+   * converting to POST data.
+   *
+   * @param bool $keep Wether to keep an empty-valued secondName property or not.
+   *
+   * @return $this
+   */
+  public function toPostDataKeepEmptySecondName($keep = TRUE) {
+    $this->toPostDataKeepEmptyProperty('secondName', $keep);
+
+    return $this;
+  }
+
+  /**
    * Specify if a certain property needs ot be kept when
    * converting to POST data.
    *
