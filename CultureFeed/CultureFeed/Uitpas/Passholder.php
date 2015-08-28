@@ -258,6 +258,11 @@ class CultureFeed_Uitpas_Passholder extends CultureFeed_Uitpas_ValueObject {
   public $uitpasNumber;
 
   /**
+   * @var string
+   */
+  public $voucherNumber;
+
+  /**
    * {@inheritdoc}
    */
   protected function manipulatePostData(&$data) {

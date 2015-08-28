@@ -35,12 +35,21 @@ class CultureFeed_Uitpas_Passholder_Card extends CultureFeed_Uitpas_ValueObject 
    */
   public $status;
 
+  /**
+   * The actual type of this card
+   * types discovered so far: CARD, STICKER and KEY
+   *
+   * @var string
+   */
+  public $type;
+
   public static function createFromXML(CultureFeed_SimpleXMLElement $object) {
     $card = new CultureFeed_Uitpas_Passholder_Card();
     $card->city = $object->xpath_str('city');
     $card->uitpasNumber = $object->xpath_str('uitpasNumber/uitpasNumber');
     $card->kansenpas = $object->xpath_bool('kansenpas');
     $card->status = $object->xpath_str('status');
+    $card->type = $object->xpath_str('cardType');
 
     return $card;
   }
