@@ -163,6 +163,7 @@ XML;
     $this->assertEquals('ACTIVE', $identity->card->status);
     $this->assertFalse($identity->card->kansenpas);
     $this->assertEmpty($identity->card->city);
+    $this->assertEquals(1, $identity->card->cardSystemId);
 
     $this->assertInstanceOf('CultureFeed_Uitpas_Passholder', $identity->passHolder);
     $this->assertEquals('Boadu', $identity->passHolder->name);

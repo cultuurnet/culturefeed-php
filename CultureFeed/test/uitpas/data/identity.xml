@@ -49,6 +49,7 @@
         <uitpasNumber>
             <uitpasNumber>0930000422202</uitpasNumber>
         </uitpasNumber>
+        <cardSystemId>1</cardSystemId>
     </card>
     <uitpasNumberOriginalRequest>0930000422202</uitpasNumberOriginalRequest>
 </response>
