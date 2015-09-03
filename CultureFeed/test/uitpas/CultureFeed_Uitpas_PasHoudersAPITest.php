@@ -134,8 +134,7 @@ XML;
     $cf->uitpas()->getPriceByUitpas($uitpas_number, $reason);
   }
 
-  public function testIndentify()
-  {
+  public function testIndentify() {
     $passholder_xml = file_get_contents(dirname(__FILE__) . '/data/identity.xml');
 
     $data = array(
@@ -163,14 +162,25 @@ XML;
     $this->assertEquals('ACTIVE', $identity->card->status);
     $this->assertFalse($identity->card->kansenpas);
     $this->assertEmpty($identity->card->city);
-    $this->assertEquals(1, $identity->card->cardSystemId);
+    $this->assertEquals(1, $identity->card->cardSystem->id);
+    $this->assertEquals('UiTPAS Regio Aalst', $identity->card->cardSystem->name);
 
     $this->assertInstanceOf('CultureFeed_Uitpas_Passholder', $identity->passHolder);
     $this->assertEquals('Boadu', $identity->passHolder->name);
   }
 
-  public function testIdentifyParseException()
-  {
+  public function testIdentityCardSystemIdFallback() {
+    $xml = file_get_contents(dirname(__FILE__) . '/data/identity.xml');
+    $xml_element = new CultureFeed_SimpleXMLElement($xml);
+    $response_xml_element = $xml_element->xpath('/response', false);
+
+    $identity = CultureFeed_Uitpas_Identity::createFromXml($response_xml_element);
+
+    $this->assertEquals(1, $identity->card->cardSystem->id);
+    $this->assertEquals('UiTPAS Regio Aalst', $identity->card->cardSystem->name);
+  }
+
+  public function testIdentifyParseException() {
     $oauth_client_stub = $this->getMock('CultureFeed_OAuthClient');
     $oauth_client_stub->expects($this->any())
       ->method('authenticatedGetAsXml')
