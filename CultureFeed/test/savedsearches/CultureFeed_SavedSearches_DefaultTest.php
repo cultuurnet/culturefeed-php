@@ -55,6 +55,23 @@ class CultureFeed_SavedSearches_DefaultTest extends PHPUnit_Framework_TestCase {
     $this->assertEquals($this->savedSearch, $result);
   }
 
+  public function testSubscribeConsumer() {
+    $saved_search_xml = file_get_contents(dirname(__FILE__) . '/data/savedsearch.xml');
+
+    $this->oauthClient->expects($this->once())
+      ->method('consumerPostAsXml')
+      ->with(
+        'savedSearch/subscribe',
+        $this->savedSearch->toPostData()
+      )
+      ->will($this->returnValue($saved_search_xml));
+
+    $result = $this->savedSearches->subscribe($this->savedSearch, FALSE);
+
+    $this->assertInstanceOf('CultureFeed_SavedSearches_SavedSearch', $result);
+    $this->assertEquals($this->savedSearch, $result);
+  }
+
   public function testSubscribeErrorUserNotFound() {
     $subscribe_xml = file_get_contents(dirname(__FILE__) . '/data/savedsearch_error_user_not_found.xml');
 
@@ -112,6 +129,20 @@ class CultureFeed_SavedSearches_DefaultTest extends PHPUnit_Framework_TestCase {
       ->will($this->returnValue($unsubscribe_xml));
 
     $this->savedSearches->unsubscribe($this->savedSearch->id, $this->savedSearch->userId);
+  }
+
+  public function testUnsubscribeConsumer() {
+    $unsubscribe_xml = file_get_contents(dirname(__FILE__) . '/data/unsubscribe.xml');
+
+    $this->oauthClient->expects($this->once())
+      ->method('consumerPostAsXml')
+      ->with(
+        'savedSearch/' . $this->savedSearch->id . '/unsubscribe',
+        array('userId' => $this->savedSearch->userId)
+      )
+      ->will($this->returnValue($unsubscribe_xml));
+
+    $this->savedSearches->unsubscribe($this->savedSearch->id, $this->savedSearch->userId, FALSE);
   }
 
   public function testUnsubscribeErrorUserNotFound() {

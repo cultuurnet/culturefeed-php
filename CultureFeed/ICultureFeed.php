@@ -24,6 +24,8 @@ interface ICultureFeed {
 
   public function getUser($id, $private = FALSE, $use_auth = TRUE);
 
+  public function getUserLightId($email, $home_zip = '');
+
   public function searchUsers(CultureFeed_SearchUsersQuery $query);
 
   public function getSimilarUsers($id);
@@ -94,9 +96,9 @@ interface ICultureFeed {
 
   public function searchMailings(CultureFeed_SearchMailingsQuery $query);
 
-  public function subscribeToMailing($user_id, $mailing_id);
+  public function subscribeToMailing($user_id, $mailing_id, $use_auth = TRUE);
 
-  public function unsubscribeFromMailing($user_id, $mailing_id);
+  public function unsubscribeFromMailing($user_id, $mailing_id, $use_auth = TRUE);
 
   public function getMailingSubscriptions($user_id);
 

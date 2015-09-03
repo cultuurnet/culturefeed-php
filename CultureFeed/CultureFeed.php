@@ -421,7 +421,7 @@ class CultureFeed implements ICultureFeed {
     else {
       $result = $this->oauth_client->consumerGetAsXml('user/' . $id, $query);
     }
-    
+
     try {
       $xml = new CultureFeed_SimpleXMLElement($result);
     }
@@ -430,6 +430,40 @@ class CultureFeed implements ICultureFeed {
     }
 
     return self::parseUser($xml);
+  }
+
+  /**
+   * Fetch the user light id from email.
+   * user/light is only available for a few consumers who have the ‘Use Light UiTID permission’
+   *
+   * @param string $email
+   *  The email address of the user.
+   * @param string $home_zip
+   *  Optional. The postal code of the user.
+   * @return int $uid.
+   *  The id of the user
+   *
+   * @throws CultureFeed_ParseException
+   *  If the result could not be parsed.
+   */
+  public function getUserLightId($email, $home_zip = '') {
+    $query = array('email' => $email, 'homeZip' => $home_zip);
+
+    $result = $this->oauth_client->consumerGetAsXml('user/light', $query);
+
+    try {
+      $xml = new CultureFeed_SimpleXMLElement($result);
+    }
+    catch (Exception $e) {
+      throw new CultureFeed_ParseException($result);
+    }
+
+    if ($uid = $xml->xpath_str('/response/uid')) {
+      return $uid;
+    }
+
+    throw new CultureFeed_ParseException($result);
+
   }
 
   /**
@@ -1342,9 +1376,16 @@ class CultureFeed implements ICultureFeed {
    *   ID from user that needs to be subscribed.
    * @param string
    *   ID of the mailing to subscribe to.
+   * @param bool $use_auth
+   *   Using a consumer request for this method is only available for a few consumers who have the ‘Use Light UiTID permission.
    */
-  public function subscribeToMailing($user_id, $mailing_id) {
-    $this->oauth_client->authenticatedPostAsXml('mailing/v2/' . $mailing_id . '/subscribe', array('userId' => $user_id));
+  public function subscribeToMailing($user_id, $mailing_id, $use_auth = TRUE) {
+    if ($use_auth) {
+      $this->oauth_client->authenticatedPostAsXml('mailing/v2/' . $mailing_id . '/subscribe', array('userId' => $user_id));
+    }
+    else {
+      $this->oauth_client->consumerPostAsXml('mailing/v2/' . $mailing_id . '/subscribe', array('userId' => $user_id));
+    }
   }
 
   /**
@@ -1356,9 +1397,16 @@ class CultureFeed implements ICultureFeed {
    *   ID from user that needs to be unsubscribed.
    * @param string
    *   ID of the mailing to unsubscribe from.
+   * @param bool $use_auth
+   *   Using a consumer request for this method is only available for a few consumers who have the ‘Use Light UiTID permission.
    */
-  public function unsubscribeFromMailing($user_id, $mailing_id) {
-    $this->oauth_client->authenticatedPostAsXml('mailing/v2/' . $mailing_id . '/unsubscribe', array('userId' => $user_id));
+  public function unsubscribeFromMailing($user_id, $mailing_id, $use_auth = TRUE) {
+    if ($use_auth) {
+      $this->oauth_client->authenticatedPostAsXml('mailing/v2/' . $mailing_id . '/unsubscribe', array('userId' => $user_id));
+    }
+    else {
+      $this->oauth_client->consumerPostAsXml('mailing/v2/' . $mailing_id . '/unsubscribe', array('userId' => $user_id));
+    }
   }
 
   /**
