@@ -43,6 +43,13 @@ class CultureFeed_Uitpas_Passholder_Card extends CultureFeed_Uitpas_ValueObject 
    */
   public $type;
 
+  /**
+   * CardSystem the card belongs to.
+   *
+   * @var \CultureFeed_Uitpas_CardSystem
+   */
+  public $cardSystem;
+
   public static function createFromXML(CultureFeed_SimpleXMLElement $object) {
     $card = new CultureFeed_Uitpas_Passholder_Card();
     $card->city = $object->xpath_str('city');
@@ -50,6 +57,15 @@ class CultureFeed_Uitpas_Passholder_Card extends CultureFeed_Uitpas_ValueObject 
     $card->kansenpas = $object->xpath_bool('kansenpas');
     $card->status = $object->xpath_str('status');
     $card->type = $object->xpath_str('cardType');
+
+    $cardSystemXml = $object->xpath('cardSystem', false);
+    if ($cardSystemXml instanceof CultureFeed_SimpleXMLElement) {
+      $card->cardSystem = CultureFeed_Uitpas_CardSystem::createFromXML($cardSystemXml);
+    } elseif (!is_null($object->xpath_int('cardSystemId'))) {
+      $card->cardSystem = new CultureFeed_Uitpas_CardSystem();
+      $card->cardSystem->id = $object->xpath_int('cardSystemId');
+      $card->cardSystem->name = '';
+    }
 
     return $card;
   }

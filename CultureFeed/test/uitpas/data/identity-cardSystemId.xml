@@ -49,10 +49,7 @@
         <uitpasNumber>
             <uitpasNumber>0930000422202</uitpasNumber>
         </uitpasNumber>
-        <cardSystem>
-            <id>1</id>
-            <name>UiTPAS Regio Aalst</name>
-        </cardSystem>
+        <cardSystemId>1</cardSystemId>
     </card>
     <uitpasNumberOriginalRequest>0930000422202</uitpasNumberOriginalRequest>
 </response>
