@@ -6,6 +6,8 @@
  */
 class CultureFeed_Messages_Default implements CultureFeed_Messages {
 
+  use \Culturefeed_ValidationTrait;
+
   /**
    * Status code when the call was succesfull
    * @var string
@@ -138,41 +140,6 @@ class CultureFeed_Messages_Default implements CultureFeed_Messages {
 
     $result = $this->oauth_client->authenticatedPostAsXml('message/' . $id . '/delete');
     $xmlElement = $this->validateResult($result, CultureFeed_Messages_Default::CODE_SUCCESS);
-
-  }
-
-  /**
-   * Validate the request result.
-   *
-   * @param string $result
-   *   Result from the request.
-   * @param string $valid_status_code
-   *   Status code if this is a valid request.
-   * @param string $status_xml_tag
-   *   Xml tag where the status code can be checked.
-   * @return CultureFeed_SimpleXMLElement The parsed xml.
-   *
-   * @throws CultureFeed_ParseException
-   *   If the result could not be parsed.
-   * @throws CultureFeed_InvalidCodeException
-   *   If no valid result status code.
-   */
-  private function validateResult($result, $valid_status_code, $status_xml_tag = 'code') {
-
-    try {
-      $xmlElement = new CultureFeed_SimpleXMLElement($result);
-    }
-    catch (Exception $e) {
-      throw new CultureFeed_ParseException($result);
-    }
-
-    $status_code = $xmlElement->xpath_str($status_xml_tag);
-
-    if ($status_code == $valid_status_code) {
-      return $xmlElement;
-    }
-
-    throw new CultureFeed_InvalidCodeException($xmlElement->xpath_str('message'), $status_code);
 
   }
 

@@ -1,9 +1,8 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * @file
+ * Testing methods for the culturefeed class.
  */
 
 class CultureFeed_CultureFeedTest extends PHPUnit_Framework_TestCase {
@@ -25,6 +24,9 @@ class CultureFeed_CultureFeedTest extends PHPUnit_Framework_TestCase {
     $this->cultureFeed = new CultureFeed($this->oauthClient);
   }
 
+  /**
+   * Test the handling of a succesfull user light call.
+   */
   public function testGetUserLightId() {
 
     $success_xml = file_get_contents(dirname(__FILE__) . '/data/user_light_success.xml');
@@ -43,6 +45,7 @@ class CultureFeed_CultureFeedTest extends PHPUnit_Framework_TestCase {
   }
 
   /**
+   * Test the handling of an empty xml when calling user light.
    * @expectedException Culturefeed_ParseException
    */
   public function testGetUserLightIdEmptyXmlParseException() {
@@ -62,6 +65,7 @@ class CultureFeed_CultureFeedTest extends PHPUnit_Framework_TestCase {
   }
 
   /**
+   * Test the handling of an invalid xml when calling user light.
    * @expectedException Culturefeed_ParseException
    */
   public function testGetUserLightInvalidXmlParseException() {
@@ -80,9 +84,12 @@ class CultureFeed_CultureFeedTest extends PHPUnit_Framework_TestCase {
 
   }
 
+  /**
+   * Test the subscribing to mailing when authenticated
+   */
   public function testSubscribeToMailingAuthenticated() {
 
-    $subscribe_to_mailing_xml = file_get_contents(dirname(__FILE__) . '/data/subscribe_to_mailing_xml.xml');
+    $subscribe_to_mailing_xml = file_get_contents(dirname(__FILE__) . '/data/subscribe_to_mailing_success.xml');
 
     $this->oauthClient->expects($this->once())
       ->method('authenticatedPostAsXml')
@@ -92,13 +99,16 @@ class CultureFeed_CultureFeedTest extends PHPUnit_Framework_TestCase {
       )
     ->will($this->returnValue($subscribe_to_mailing_xml));
 
-    $response = $this->cultureFeed->subscribeToMailing(1, 3);
+    $this->cultureFeed->subscribeToMailing(1, 3);
 
   }
 
+  /**
+   * Test the subscribing to mailing as anonymous user.
+   */
   public function testSubscribeToMailingConsumer() {
 
-    $subscribe_to_mailing_xml = file_get_contents(dirname(__FILE__) . '/data/subscribe_to_mailing_xml.xml');
+    $subscribe_to_mailing_xml = file_get_contents(dirname(__FILE__) . '/data/subscribe_to_mailing_success.xml');
 
     $this->oauthClient->expects($this->once())
       ->method('consumerPostAsXml')
@@ -108,12 +118,35 @@ class CultureFeed_CultureFeedTest extends PHPUnit_Framework_TestCase {
       )
     ->will($this->returnValue($subscribe_to_mailing_xml));
 
-    $response = $this->cultureFeed->subscribeToMailing(1, 3, FALSE);
+    $this->cultureFeed->subscribeToMailing(1, 3, FALSE);
   }
 
+  /**
+   * Test the error code handling
+   */
+  public function testSubscribeToMailingErrorCodeHandling() {
+
+    $subscribe_to_mailing_xml = file_get_contents(dirname(__FILE__) . '/data/subscribe_to_mailing_error.xml');
+
+    $this->oauthClient->expects($this->once())
+      ->method('authenticatedPostAsXml')
+      ->with(
+        'mailing/v2/3/subscribe',
+        array('userId' => 1)
+      )
+    ->will($this->returnValue($subscribe_to_mailing_xml));
+
+    $this->setExpectedException('CultureFeed_InvalidCodeException', 'errormessage');
+    $this->cultureFeed->subscribeToMailing(1, 3);
+
+  }
+
+  /**
+   * Test the unsubscribing of a mailing list as authenticated user.
+   */
   public function testUnSubscribeFromMailingAuthenticated() {
 
-    $unsubscribe_from_mailing_xml = file_get_contents(dirname(__FILE__) . '/data/unsubscribe_from_mailing_xml.xml');
+    $unsubscribe_from_mailing_xml = file_get_contents(dirname(__FILE__) . '/data/unsubscribe_from_mailing_success.xml');
 
     $this->oauthClient->expects($this->once())
       ->method('authenticatedPostAsXml')
@@ -123,12 +156,15 @@ class CultureFeed_CultureFeedTest extends PHPUnit_Framework_TestCase {
       )
       ->will($this->returnValue($unsubscribe_from_mailing_xml));
 
-    $response = $this->cultureFeed->unSubscribeFromMailing(1, 3);
+    $this->cultureFeed->unSubscribeFromMailing(1, 3);
   }
 
+  /**
+   * Test the unsubscribing of a mailing list as anonymous user.
+   */
   public function testUnSubscribeFromMailingConsumer() {
 
-    $unsubscribe_from_mailing_xml = file_get_contents(dirname(__FILE__) . '/data/unsubscribe_from_mailing_xml.xml');
+    $unsubscribe_from_mailing_xml = file_get_contents(dirname(__FILE__) . '/data/unsubscribe_from_mailing_success.xml');
 
     $this->oauthClient->expects($this->once())
       ->method('consumerPostAsXml')
@@ -138,7 +174,27 @@ class CultureFeed_CultureFeedTest extends PHPUnit_Framework_TestCase {
       )
       ->will($this->returnValue($unsubscribe_from_mailing_xml));
 
-    $response = $this->cultureFeed->unSubscribeFromMailing(1, 3, FALSE);
+    $this->cultureFeed->unSubscribeFromMailing(1, 3, FALSE);
+
+  }
+
+  /**
+   * Test the error code handling
+   */
+  public function testUnSubscribeFromMailingErrorCodeHandling() {
+
+    $subscribe_to_mailing_xml = file_get_contents(dirname(__FILE__) . '/data/subscribe_to_mailing_error.xml');
+
+    $this->oauthClient->expects($this->once())
+      ->method('authenticatedPostAsXml')
+      ->with(
+        'mailing/v2/3/unsubscribe',
+        array('userId' => 1)
+      )
+    ->will($this->returnValue($subscribe_to_mailing_xml));
+
+    $this->setExpectedException('CultureFeed_InvalidCodeException', 'errormessage');
+    $this->cultureFeed->unsubscribeFromMailing(1, 3);
 
   }
 

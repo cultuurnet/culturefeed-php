@@ -13,6 +13,8 @@
  */
 class CultureFeed implements ICultureFeed {
 
+  use \Culturefeed_ValidationTrait;
+
   /**
    * Privacy status 'public'.
    */
@@ -83,6 +85,12 @@ class CultureFeed implements ICultureFeed {
    */
   const NOTIFICATION_TYPE_NEW = 'NEW';
   const NOTIFICATION_TYPE_READ = 'READ';
+
+  /**
+   * Result codes
+   */
+  const CODE_MAILING_SUBSCRIBED = 'MailingSubscribed';
+  const CODE_MAILING_UNSUBSCRIBED = 'MailingUnSubscribed';
 
   /**
    * OAuth request object to do the request.
@@ -1381,11 +1389,14 @@ class CultureFeed implements ICultureFeed {
    */
   public function subscribeToMailing($user_id, $mailing_id, $use_auth = TRUE) {
     if ($use_auth) {
-      $this->oauth_client->authenticatedPostAsXml('mailing/v2/' . $mailing_id . '/subscribe', array('userId' => $user_id));
+      $result = $this->oauth_client->authenticatedPostAsXml('mailing/v2/' . $mailing_id . '/subscribe', array('userId' => $user_id));
     }
     else {
-      $this->oauth_client->consumerPostAsXml('mailing/v2/' . $mailing_id . '/subscribe', array('userId' => $user_id));
+      $result = $this->oauth_client->consumerPostAsXml('mailing/v2/' . $mailing_id . '/subscribe', array('userId' => $user_id));
     }
+
+    $this->validateResult($result, self::CODE_MAILING_SUBSCRIBED);
+
   }
 
   /**
@@ -1402,11 +1413,14 @@ class CultureFeed implements ICultureFeed {
    */
   public function unsubscribeFromMailing($user_id, $mailing_id, $use_auth = TRUE) {
     if ($use_auth) {
-      $this->oauth_client->authenticatedPostAsXml('mailing/v2/' . $mailing_id . '/unsubscribe', array('userId' => $user_id));
+      $result = $this->oauth_client->authenticatedPostAsXml('mailing/v2/' . $mailing_id . '/unsubscribe', array('userId' => $user_id));
     }
     else {
-      $this->oauth_client->consumerPostAsXml('mailing/v2/' . $mailing_id . '/unsubscribe', array('userId' => $user_id));
+      $result = $this->oauth_client->consumerPostAsXml('mailing/v2/' . $mailing_id . '/unsubscribe', array('userId' => $user_id));
     }
+
+    $this->validateResult($result, self::CODE_MAILING_UNSUBSCRIBED);
+
   }
 
   /**
