@@ -97,7 +97,7 @@ class CultureFeed_Uitpas_PassholderTest extends PHPUnit_Framework_TestCase {
       $this->assertArrayHasKey('email', $postData);
       $this->assertEquals($this->passholder->email, $postData['email']);
 
-      $this->passholder->toPostDataKeepEmptySecondName(FALSE);
+      $this->passholder->toPostDataKeepEmptyEmail(FALSE);
 
       $postData = $this->passholder->toPostData();
 
