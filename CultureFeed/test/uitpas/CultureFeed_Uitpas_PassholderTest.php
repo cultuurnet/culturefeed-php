@@ -86,6 +86,24 @@ class CultureFeed_Uitpas_PassholderTest extends PHPUnit_Framework_TestCase {
       $this->assertArrayNotHasKey('secondName', $postData);
   }
 
+  public function testKeepEmptyEmailWhenSpecified() {
+      $this->passholder->email = '';
+      $this->passholder->toPostDataKeepEmptyEmail();
+
+      $postData = $this->passholder->toPostData();
+
+      $this->assertArrayNotHasKey('postDataEmptyPropertiesToKeep', $postData);
+
+      $this->assertArrayHasKey('email', $postData);
+      $this->assertEquals($this->passholder->email, $postData['email']);
+
+      $this->passholder->toPostDataKeepEmptySecondName(FALSE);
+
+      $postData = $this->passholder->toPostData();
+
+      $this->assertArrayNotHasKey('email', $postData);
+  }
+
   public function testCreateFromXML() {
     $xml = file_get_contents(dirname(__FILE__) . '/data/passholder.xml');
     $simple_xml = new CultureFeed_SimpleXMLElement($xml);

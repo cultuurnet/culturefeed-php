@@ -414,6 +414,20 @@ class CultureFeed_Uitpas_Passholder extends CultureFeed_Uitpas_ValueObject {
   }
 
   /**
+   * Specify if an empty email property needs to be kept when
+   * converting to POST data.
+   *
+   * @param bool $keep Wether to keep an empty-valued email property or not.
+   *
+   * @return $this
+   */
+  public function toPostDataKeepEmptyEmail($keep = TRUE) {
+    $this->toPostDataKeepEmptyProperty('email', $keep);
+
+    return $this;
+  }
+
+  /**
    * Specify if a certain property needs ot be kept when
    * converting to POST data.
    *
