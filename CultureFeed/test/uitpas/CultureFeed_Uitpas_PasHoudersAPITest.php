@@ -169,6 +169,21 @@ XML;
     $this->assertEquals('Boadu', $identity->passHolder->name);
   }
 
+  public function testIndentifyGroup() {
+    $xml = file_get_contents(dirname(__FILE__) . '/data/identity-group.xml');
+    $xml_element = new CultureFeed_SimpleXMLElement($xml);
+    $response_xml_element = $xml_element->xpath('/response', false);
+
+    $identity = CultureFeed_Uitpas_Identity::createFromXml($response_xml_element);
+
+    $this->assertNull($identity->passHolder);
+
+    $expectedGroupPass = new CultureFeed_Uitpas_GroupPass();
+    $expectedGroupPass->name = 'test groepspas';
+    $expectedGroupPass->availableTickets = 10;
+    $this->assertEquals($expectedGroupPass, $identity->groupPass);
+  }
+
   public function testIdentityCardSystemIdFallback() {
     $xml = file_get_contents(dirname(__FILE__) . '/data/identity.xml');
     $xml_element = new CultureFeed_SimpleXMLElement($xml);
