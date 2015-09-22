@@ -348,7 +348,12 @@ interface CultureFeed_Uitpas {
    */
   public function searchCountersForMember($uid);
 
-  public function getDevices($consumer_key_counter = NULL);
+  /**
+   * @param null $consumer_key_counter
+   * @param bool $show_event
+   * @return CultureFeed_Uitpas_Counter_Device[]
+   */
+  public function getDevices($consumer_key_counter = NULL, $show_event = FALSE);
 
   public function getEventsForDevice($consumer_key_device, $consumer_key_counter = NULL);
 
