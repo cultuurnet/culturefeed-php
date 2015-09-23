@@ -12,6 +12,11 @@ class CultureFeed_Uitpas_Identity extends CultureFeed_Uitpas_ValueObject {
   public $passHolder;
 
   /**
+   * @var \CultureFeed_Uitpas_GroupPass
+   */
+  public $groupPass;
+
+  /**
    * @param CultureFeed_SimpleXMLElement $object
    * @return self
    */
@@ -24,6 +29,11 @@ class CultureFeed_Uitpas_Identity extends CultureFeed_Uitpas_ValueObject {
     $passHolderXml = $object->xpath('passHolder', false);
     if ($passHolderXml instanceof CultureFeed_SimpleXMLElement) {
       $identity->passHolder = CultureFeed_Uitpas_Passholder::createFromXML($passHolderXml);
+    }
+
+    $groupPassXml = $object->xpath('groupPass', false);
+    if ($groupPassXml instanceof CultureFeed_SimpleXMLElement) {
+        $identity->groupPass = CultureFeed_Uitpas_GroupPass::createFromXml($groupPassXml);
     }
 
     return $identity;

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<response>
+    <card>
+        <cardSystem>
+            <id>3</id>
+            <name>Paspartoe</name>
+        </cardSystem>
+        <cardType>CARD</cardType>
+        <kansenpas>true</kansenpas>
+        <status>ACTIVE</status>
+        <uitpasNumber>
+            <uitpasNumber>1000000022011</uitpasNumber>
+        </uitpasNumber>
+    </card>
+    <groupPass>
+        <id>53</id>
+        <name>test groepspas</name>
+        <endDate>2016-02-29T00:00:00+01:00</endDate>
+        <ticketsPerYear>10</ticketsPerYear>
+        <uuid>7ceca8ab-e250-4f6b-bb0f-03c008423754</uuid>
+        <availableTickets>10</availableTickets>
+    </groupPass>
+</response>
