@@ -1239,11 +1239,18 @@ class CultureFeed_Uitpas_Default implements CultureFeed_Uitpas {
     return new CultureFeed_ResultSet($total, $counters);
   }
 
-  public function getDevices($consumer_key_counter = NULL) {
+  /**
+   * @inheritdoc
+   */
+  public function getDevices($consumer_key_counter = NULL, $show_event = FALSE) {
     $data = array();
 
     if ($consumer_key_counter) {
       $data['balieConsumerKey'] = $consumer_key_counter;
+    }
+
+    if ($show_event) {
+      $data['showEvent'] = 'true';
     }
 
     $result = $this->oauth_client->authenticatedGetAsXml('uitpas/cid/list', $data);
