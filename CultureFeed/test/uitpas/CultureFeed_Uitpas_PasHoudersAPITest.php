@@ -437,6 +437,7 @@ XML;
     $this->assertInstanceOf('CultureFeed_Uitpas_CardSystem', $card->cardSystem);
     $this->assertEquals(6, $card->cardSystem->id);
     $this->assertEquals('Testsysteem Paspartoe', $card->cardSystem->name);
+    $this->assertEquals('CARD', $card->type);
   }
 
   public function testSearch() {

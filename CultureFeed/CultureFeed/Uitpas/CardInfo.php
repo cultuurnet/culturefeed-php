@@ -1,7 +1,4 @@
 <?php
-/**
- * @file
- */ 
 
 class CultureFeed_Uitpas_CardInfo {
 
@@ -21,6 +18,11 @@ class CultureFeed_Uitpas_CardInfo {
   public $status;
 
   /**
+   * @var string
+   */
+  public $type;
+
+  /**
    * @param CultureFeed_SimpleXMLElement $object
    *
    * @return self
@@ -31,6 +33,7 @@ class CultureFeed_Uitpas_CardInfo {
     $instance->cardSystem = CultureFeed_Uitpas_CardSystem::createFromXML($object->xpath('cardSystem', FALSE));
     $instance->uitpasNumber = $object->xpath_str('uitpasNumber');
     $instance->status = $object->xpath_str('status');
+    $instance->type = $object->xpath_str('cardType');
 
     return $instance;
   }
