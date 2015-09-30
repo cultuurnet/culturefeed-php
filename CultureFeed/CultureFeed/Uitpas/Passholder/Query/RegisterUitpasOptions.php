@@ -42,6 +42,11 @@ class CultureFeed_Uitpas_Passholder_Query_RegisterUitpasOptions extends CultureF
    */
   public $kansenStatuutEndDate;
 
+  /**
+   * @var string
+   */
+  public $voucherNumber;
+
   protected function manipulatePostData(&$data) {
     if (isset($data['kansenStatuutEndDate'])) {
       $data['kansenStatuutEndDate'] = date('c', $data['kansenStatuutEndDate']);
