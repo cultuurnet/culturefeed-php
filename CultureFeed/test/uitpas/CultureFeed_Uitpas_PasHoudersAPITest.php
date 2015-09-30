@@ -60,6 +60,153 @@ class CultureFeed_Uitpas_PasHoudersAPITest extends PHPUnit_Framework_TestCase {
     $this->assertEquals(self::UID, $uid);
   }
 
+  public function testGetPriceByUitpas() {
+    $reason = CultureFeed_Uitpas_Passholder_UitpasPrice::REASON_FIRST_CARD;
+    $uitpas_number = '0930000422202';
+    $date_of_birth = 672364800;
+    $postal_code = 3000;
+    $voucher_number = 666;
+    $balie_consumer_key = '36d72c6a679b5992c42238425d2632cd';
+
+    $post_data = array(
+      'reason' => 'FIRST_CARD',
+      'uitpasNumber' => '0930000422202',
+      'dateOfBirth' => '1991-04-23',
+      'postalCode' => 3000,
+      'voucherNumber' => 666,
+      'balieConsumerKey' => '36d72c6a679b5992c42238425d2632cd',
+    );
+
+    $xml = file_get_contents(dirname(__FILE__) . '/data/passholder/price.xml');
+
+    $expected = new CultureFeed_Uitpas_Passholder_UitpasPrice();
+    $expected->id = 148;
+    $expected->reason = CultureFeed_Uitpas_Passholder_UitpasPrice::REASON_FIRST_CARD;
+    $expected->cardType = 'CARD';
+    $expected->ageRange = new CultureFeed_Uitpas_Passholder_AgeRange();
+    $expected->ageRange->ageTo = 17;
+    $expected->kansenStatuut = FALSE;
+    $expected->price = 2;
+    $expected->cardSystem = new CultureFeed_Uitpas_CardSystem();
+    $expected->cardSystem->id = 1;
+    $expected->cardSystem->name = 'UiTPAS Regio Aalst';
+
+    /* @var CultureFeed_OAuthClient|PHPUnit_Framework_MockObject_MockObject $oauth_client_stub */
+    $oauth_client_stub = $this->getMock('CultureFeed_OAuthClient');
+    $oauth_client_stub->expects($this->any())
+      ->method('authenticatedGetAsXml')
+      ->with('uitpas/price', $post_data)
+      ->will($this->returnValue($xml));
+
+    $cf = new CultureFeed($oauth_client_stub);
+
+    $price = $cf->uitpas()->getPriceByUitpas(
+      $uitpas_number,
+      $reason,
+      $date_of_birth,
+      $postal_code,
+      $voucher_number,
+      $balie_consumer_key
+    );
+
+    $this->assertEquals($expected, $price);
+  }
+
+  public function testGetPriceByUitpasLogicException() {
+    $reason = CultureFeed_Uitpas_Passholder_UitpasPrice::REASON_FIRST_CARD;
+    $uitpas_number = '0930000422202';
+
+    $xml = <<<XML
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<response>
+</response>
+XML;
+
+    /* @var CultureFeed_OAuthClient|PHPUnit_Framework_MockObject_MockObject $oauth_client_stub */
+    $oauth_client_stub = $this->getMock('CultureFeed_OAuthClient');
+    $oauth_client_stub->expects($this->any())
+      ->method('authenticatedGetAsXml')
+      ->will($this->returnValue($xml));
+
+    $cf = new CultureFeed($oauth_client_stub);
+
+    $this->setExpectedException('LogicException');
+    $cf->uitpas()->getPriceByUitpas($uitpas_number, $reason);
+  }
+
+  public function testIndentify() {
+    $passholder_xml = file_get_contents(dirname(__FILE__) . '/data/identity.xml');
+
+    $data = array(
+      'identification' => '0930000422202',
+      'balieConsumerKey' => 'some-key',
+    );
+
+    $oauth_client_stub = $this->getMock('CultureFeed_OAuthClient');
+    $oauth_client_stub->expects($this->any())
+      ->method('authenticatedGetAsXml')
+      ->with('uitpas/retrieve', $data)
+      ->will($this->returnValue($passholder_xml));
+
+    $cf = new CultureFeed($oauth_client_stub);
+
+    $identity = $cf->uitpas()->identify(
+      $data['identification'],
+      $data['balieConsumerKey']
+    );
+
+    $this->assertInstanceOf('CultureFeed_Uitpas_Identity', $identity);
+
+    $this->assertInstanceOf('CultureFeed_Uitpas_Passholder_Card', $identity->card);
+    $this->assertEquals($data['identification'], $identity->card->uitpasNumber);
+    $this->assertEquals('ACTIVE', $identity->card->status);
+    $this->assertFalse($identity->card->kansenpas);
+    $this->assertEmpty($identity->card->city);
+    $this->assertEquals(1, $identity->card->cardSystem->id);
+    $this->assertEquals('UiTPAS Regio Aalst', $identity->card->cardSystem->name);
+
+    $this->assertInstanceOf('CultureFeed_Uitpas_Passholder', $identity->passHolder);
+    $this->assertEquals('Boadu', $identity->passHolder->name);
+  }
+
+  public function testIndentifyGroup() {
+    $xml = file_get_contents(dirname(__FILE__) . '/data/identity-group.xml');
+    $xml_element = new CultureFeed_SimpleXMLElement($xml);
+    $response_xml_element = $xml_element->xpath('/response', false);
+
+    $identity = CultureFeed_Uitpas_Identity::createFromXml($response_xml_element);
+
+    $this->assertNull($identity->passHolder);
+
+    $expectedGroupPass = new CultureFeed_Uitpas_GroupPass();
+    $expectedGroupPass->name = 'test groepspas';
+    $expectedGroupPass->availableTickets = 10;
+    $this->assertEquals($expectedGroupPass, $identity->groupPass);
+  }
+
+  public function testIdentityCardSystemIdFallback() {
+    $xml = file_get_contents(dirname(__FILE__) . '/data/identity.xml');
+    $xml_element = new CultureFeed_SimpleXMLElement($xml);
+    $response_xml_element = $xml_element->xpath('/response', false);
+
+    $identity = CultureFeed_Uitpas_Identity::createFromXml($response_xml_element);
+
+    $this->assertEquals(1, $identity->card->cardSystem->id);
+    $this->assertEquals('UiTPAS Regio Aalst', $identity->card->cardSystem->name);
+  }
+
+  public function testIdentifyParseException() {
+    $oauth_client_stub = $this->getMock('CultureFeed_OAuthClient');
+    $oauth_client_stub->expects($this->any())
+      ->method('authenticatedGetAsXml')
+      ->will($this->returnValue('<invalid></in_valid>'));
+
+    $cf = new CultureFeed($oauth_client_stub);
+
+    $this->setExpectedException('CultureFeed_ParseException');
+    $cf->uitpas()->identify('1000001500601');
+  }
+
   public function testGetWelcomeAdvantagesForPassholder() {
     $oauth_client_stub = $this->getMock('CultureFeed_OAuthClient');
 
@@ -290,6 +437,7 @@ class CultureFeed_Uitpas_PasHoudersAPITest extends PHPUnit_Framework_TestCase {
     $this->assertInstanceOf('CultureFeed_Uitpas_CardSystem', $card->cardSystem);
     $this->assertEquals(6, $card->cardSystem->id);
     $this->assertEquals('Testsysteem Paspartoe', $card->cardSystem->name);
+    $this->assertEquals('CARD', $card->type);
   }
 
   public function testSearch() {
@@ -361,5 +509,30 @@ class CultureFeed_Uitpas_PasHoudersAPITest extends PHPUnit_Framework_TestCase {
     $this->assertEquals('0717a28c-78be-40fc-9ad1-25bc45252f3a', $passholder->schoolConsumerKey);
     $this->assertEquals('opubi 73', $passholder->street);
     $this->assertEquals(FALSE, $passholder->verified);
+  }
+
+  public function testUpdate() {
+    $balieConsumerKey = 'b95d1bcf-533d-45ac-afcd-e015cfe86c84';
+
+    $passholder = new CultureFeed_Uitpas_Passholder();
+    $passholder->uitpasNumber = '1000001500601';
+    $passholder->name = 'Tester';
+
+    $oauth_client_stub = $this->getMock('CultureFeed_OAuthClient');
+
+    $path = 'uitpas/passholder/' . $passholder->uitpasNumber;
+
+    $data = $passholder->toPostData();
+    $data['balieConsumerKey'] = $balieConsumerKey;
+
+    $passholder_xml = file_get_contents(dirname(__FILE__) . '/data/passholder.update.succeeded.xml');
+
+    $oauth_client_stub->expects($this->any())
+      ->method('authenticatedPostAsXml')
+      ->with($path, $data)
+      ->willReturn($passholder_xml);
+
+    $cf = new CultureFeed($oauth_client_stub);
+    $cf->uitpas()->updatePassholder($passholder, $balieConsumerKey);
   }
 }

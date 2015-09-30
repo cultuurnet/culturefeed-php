@@ -42,9 +42,30 @@ interface CultureFeed_Uitpas {
   public function getPrice($consumer_key_counter = NULL);
 
   /**
+   * @param string $uitpas_number
+   * @param string $reason
+   * @param int $date_of_birth
+   * @param string $postal_code
+   * @param string $voucher_number
+   * @param string $consumer_key_counter
+   *
+   * @return CultureFeed_Uitpas_Passholder_UitpasPrice
+   *
+   * @throws CultureFeed_ParseException
+   *   When the response XML could not be parsed.
+   *
+   * @throws LogicException
+   *   When the response contains no uitpasPrice object.
+   */
+  public function getPriceByUitpas($uitpas_number, $reason, $date_of_birth = null, $postal_code = null, $voucher_number = null, $consumer_key_counter = NULL);
+
+  /**
    * Create a new UitPas passholder.
    *
    * @param CultureFeed_Uitpas_Passholder $passholder The new passholder
+   *
+   * @return string uuid
+   *   The uuid for the new passholder.
    */
   public function createPassholder(CultureFeed_Uitpas_Passholder $passholder);
 
@@ -74,6 +95,17 @@ interface CultureFeed_Uitpas {
    * @return CultureFeed_Uitpas_Passholder
    */
   public function getPassholderByUitpasNumber($uitpas_number, $consumer_key_counter = NULL);
+
+  /**
+   * Get a card, with optionally a passholder, or a group pass based on a identification number.
+   *
+   * @param string $identification_number
+   *   The identification number. This can be either an UiTPAS number, chip-number, INSZ-number, or INSZ-barcode.
+   * @param string $consumer_key_counter
+   *   The consumer key of the counter from where the request originates
+   * @return CultureFeed_Uitpas_Identity
+   */
+  public function identify($identification_number, $consumer_key_counter = NULL);
 
   /**
    * Get a passholder based on the user ID
@@ -225,8 +257,13 @@ interface CultureFeed_Uitpas {
    * @param string $uitpas_number The UitPas number
    * @param string $cdbid The event CDBID
    * @param string $consumer_key_counter The consumer key of the counter from where the request originates
+   * @param string $price_class Price class used for the ticket sale.
+   * @param string $ticket_sale_coupon_id The coupon id of the ticket sale.
+   * @param int $amount_of_tickets The amount of ticket sales to register.
+   *
+   * @return CultureFeed_Uitpas_Event_TicketSale
    */
-  public function registerTicketSale($uitpas_number, $cdbid, $consumer_key_counter = NULL);
+  public function registerTicketSale($uitpas_number, $cdbid, $consumer_key_counter = NULL, $price_class = NULL, $ticket_sale_coupon_id = NULL, $amount_of_tickets = NULL);
 
   /**
    * Register a new Uitpas
@@ -311,7 +348,12 @@ interface CultureFeed_Uitpas {
    */
   public function searchCountersForMember($uid);
 
-  public function getDevices($consumer_key_counter = NULL);
+  /**
+   * @param null $consumer_key_counter
+   * @param bool $show_event
+   * @return CultureFeed_Uitpas_Counter_Device[]
+   */
+  public function getDevices($consumer_key_counter = NULL, $show_event = FALSE);
 
   public function getEventsForDevice($consumer_key_device, $consumer_key_counter = NULL);
 

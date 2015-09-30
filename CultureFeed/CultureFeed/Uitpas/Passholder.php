@@ -25,6 +25,13 @@ class CultureFeed_Uitpas_Passholder extends CultureFeed_Uitpas_ValueObject {
   public $firstName;
 
   /**
+   * The second name of the passholder.
+   *
+   * @var string
+   */
+  public $secondName;
+
+  /**
    * The e-mail of the passholder.
    *
    * @var string
@@ -244,6 +251,18 @@ class CultureFeed_Uitpas_Passholder extends CultureFeed_Uitpas_ValueObject {
   public $inszNumberHash;
 
   /**
+   * UiTPAS number.
+   *
+   * @var string
+   */
+  public $uitpasNumber;
+
+  /**
+   * @var string
+   */
+  public $voucherNumber;
+
+  /**
    * {@inheritdoc}
    */
   protected function manipulatePostData(&$data) {
@@ -289,10 +308,12 @@ class CultureFeed_Uitpas_Passholder extends CultureFeed_Uitpas_ValueObject {
     $passholder = new CultureFeed_Uitpas_Passholder();
     $passholder->name = $object->xpath_str('name');
     $passholder->firstName = $object->xpath_str('firstName');
+    $passholder->secondName = $object->xpath_str('secondName');
     $passholder->email = $object->xpath_str('email');
     $passholder->emailPreference = $object->xpath_str('emailPreference');
     $passholder->smsPreference = $object->xpath_str('smsPreference');
     $passholder->inszNumberHash = $object->xpath_str('inszNumberHash');
+    $passholder->inszNumber = $object->xpath_str('inszNumber');
     $passholder->dateOfBirth = $object->xpath_time('dateOfBirth');
     $passholder->gender = $object->xpath_str('gender');
     $passholder->street = $object->xpath_str('street');
@@ -338,8 +359,6 @@ class CultureFeed_Uitpas_Passholder extends CultureFeed_Uitpas_ValueObject {
 
     $passholder->numberOfCheckins = $object->xpath_int('numberOfCheckins');
 
-    $passholder->inszNumberHash = $object->xpath_str('inszNumberHash');
-
     return $passholder;
   }
 
@@ -370,12 +389,54 @@ class CultureFeed_Uitpas_Passholder extends CultureFeed_Uitpas_ValueObject {
    * Specify if a empty schoolConsumerKey property needs to be kept when
    * converting to POST data.
    *
-   * @param bool $keep Wether to keep an empty-valued schoolConsumerKey property or not.
+   * @param bool $keep Whether to keep an empty-valued schoolConsumerKey property or not.
    *
    * @return $this
    */
   public function toPostDataKeepEmptySchoolConsumerKey($keep = TRUE) {
     $this->toPostDataKeepEmptyProperty('schoolConsumerKey', $keep);
+
+    return $this;
+  }
+
+  /**
+   * Specify if an empty secondName property needs to be kept when
+   * converting to POST data.
+   *
+   * @param bool $keep Wether to keep an empty-valued secondName property or not.
+   *
+   * @return $this
+   */
+  public function toPostDataKeepEmptySecondName($keep = TRUE) {
+    $this->toPostDataKeepEmptyProperty('secondName', $keep);
+
+    return $this;
+  }
+
+  /**
+   * Specify if an empty email property needs to be kept when
+   * converting to POST data.
+   *
+   * @param bool $keep Whether to keep an empty-valued email property or not.
+   *
+   * @return $this
+   */
+  public function toPostDataKeepEmptyEmail($keep = TRUE) {
+    $this->toPostDataKeepEmptyProperty('email', $keep);
+
+    return $this;
+  }
+
+  /**
+   * Specify if an empty 'more info' property needs to be kept when
+   * converting to POST data.
+   *
+   * @param bool $keep Whether to keep an empty-valued 'more info' property or not.
+   *
+   * @return $this
+   */
+  public function toPostDataKeepEmptyMoreInfo($keep = TRUE) {
+    $this->toPostDataKeepEmptyProperty('moreInfo', $keep);
 
     return $this;
   }

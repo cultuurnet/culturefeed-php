@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<response xmlns:geo="http://www.w3.org/2003/01/geo/wgs84_pos#"
+          xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns"
+          xmlns:foaf="http://xmlns.com/foaf/0.1/"
+          xmlns:cdb="http://www.cultuurdatabank.com/XMLSchema/CdbXSD/3.1/FINAL">
+    <passHolder>
+        <name>Boadu</name>
+        <firstName>Cassandra Ama</firstName>
+        <dateOfBirth>2003-12-06T01:00:00+01:00</dateOfBirth>
+        <street>Steenweg op Aalst 94</street>
+        <postalCode>9308</postalCode>
+        <city>Aalst</city>
+        <nationality>Belg</nationality>
+        <placeOfBirth>Sint-Agatha-Berchem</placeOfBirth>
+        <gender>FEMALE</gender>
+        <uitIdUser>
+            <rdf:id>ac343a2f-e181-411f-8a45-386121f0c80d</rdf:id>
+        </uitIdUser>
+        <registrationBalieConsumerKey>31413BDF-DFC7-7A9F-10403618C2816E44
+        </registrationBalieConsumerKey>
+        <numberOfCheckins>4</numberOfCheckins>
+        <verified>false</verified>
+        <points>4.000</points>
+        <cardSystemSpecific>
+            <cardSystem>
+                <id>1</id>
+                <name>UiTPAS Regio Aalst</name>
+            </cardSystem>
+            <currentCard>
+                <kansenpas>false</kansenpas>
+                <status>ACTIVE</status>
+                <uitpasNumber>
+                    <uitpasNumber>0930000422202</uitpasNumber>
+                </uitpasNumber>
+            </currentCard>
+            <emailPreference>ALL_MAILS</emailPreference>
+            <kansenStatuut>false</kansenStatuut>
+            <kansenStatuutExpired>false</kansenStatuutExpired>
+            <kansenStatuutInGracePeriod>false</kansenStatuutInGracePeriod>
+            <lastActivationMailNumber>0</lastActivationMailNumber>
+            <smsPreference>ALL_SMS</smsPreference>
+            <status>ACTIVE</status>
+        </cardSystemSpecific>
+        <memberships/>
+    </passHolder>
+    <card>
+        <kansenpas>false</kansenpas>
+        <status>ACTIVE</status>
+        <uitpasNumber>
+            <uitpasNumber>0930000422202</uitpasNumber>
+        </uitpasNumber>
+        <cardSystem>
+            <id>1</id>
+            <name>UiTPAS Regio Aalst</name>
+        </cardSystem>
+    </card>
+    <uitpasNumberOriginalRequest>0930000422202</uitpasNumberOriginalRequest>
+</response>
