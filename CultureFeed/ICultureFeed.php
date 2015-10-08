@@ -100,7 +100,7 @@ interface ICultureFeed {
 
   public function unsubscribeFromMailing($user_id, $mailing_id, $use_auth = TRUE);
 
-  public function getMailingSubscriptions($user_id);
+  public function getMailingSubscriptions($user_id, $use_auth = TRUE);
 
   public function getTopEvents($type, $max = 5);
 

@@ -21,7 +21,7 @@ class CultureFeed implements ICultureFeed {
   const PRIVACY_PUBLIC = 'public';
 
   /**
-   * Privacy status 'private'.
+   * Privacy status 'private'./
    */
   const PRIVACY_PRIVATE = 'private';
 
@@ -90,7 +90,8 @@ class CultureFeed implements ICultureFeed {
    * Result codes
    */
   const CODE_MAILING_SUBSCRIBED = 'MailingSubscribed';
-  const CODE_MAILING_UNSUBSCRIBED = 'MailingUnSubscribed';
+  const CODE_MAILING_UNSUBSCRIBED = 'MailingUnsubscribed';
+  const CODE_MAILING_ALREADY_SUBSCRIBED = 'UserAlreadySubscribed';
 
   /**
    * OAuth request object to do the request.
@@ -1428,6 +1429,8 @@ class CultureFeed implements ICultureFeed {
    *
    * @param string $user_id
    *   ID from user
+   * @param bool $use_auth
+   *   Using a consumer request for this method is only available for a few consumers who have the ‘Use Light UiTID permission.
    *
    * @return CultureFeed_Mailing[]
    *   List of mailings.
@@ -1435,9 +1438,14 @@ class CultureFeed implements ICultureFeed {
    * @throws CultureFeed_ParseException
    *   If the result could not be parsed.
    */
-  public function getMailingSubscriptions($user_id) {
+  public function getMailingSubscriptions($user_id, $use_auth = TRUE) {
 
-    $result = $this->oauth_client->authenticatedGetAsXml('mailing/v2/subscriptions/' . $user_id);
+    if ($use_auth) {
+      $result = $this->oauth_client->authenticatedGetAsXml('mailing/v2/subscriptions/' . $user_id);
+    }
+    else {
+      $result = $this->oauth_client->consumerGetAsXml('mailing/v2/subscriptions/' . $user_id);
+    }
 
     try {
       $xml = new CultureFeed_SimpleXMLElement($result);

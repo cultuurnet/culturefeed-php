@@ -138,9 +138,9 @@ abstract class CultureFeed_ICultureFeedDecoratorBase implements ICultureFeed
         return $this->realCultureFeed->getMailingList($query);
     }
 
-    public function getMailingSubscriptions($user_id)
+    public function getMailingSubscriptions($user_id, $use_auth = TRUE)
     {
-        return $this->realCultureFeed->getMailingSubscriptions($user_id);
+        return $this->realCultureFeed->getMailingSubscriptions($user_id, $use_auth);
     }
 
     public function getNodeStatus($contentType, $nodeId, $userId)
