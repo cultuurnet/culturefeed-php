@@ -85,6 +85,11 @@ class CultureFeed implements ICultureFeed {
   const NOTIFICATION_TYPE_READ = 'READ';
 
   /**
+   * Result codes
+   */
+  const CODE_DUPLICATE_MBOX = 'DuplicateMbox';
+
+  /**
    * OAuth request object to do the request.
    *
    * @var CultureFeed_OAuthClient
@@ -421,7 +426,7 @@ class CultureFeed implements ICultureFeed {
     else {
       $result = $this->oauth_client->consumerGetAsXml('user/' . $id, $query);
     }
-    
+
     try {
       $xml = new CultureFeed_SimpleXMLElement($result);
     }
