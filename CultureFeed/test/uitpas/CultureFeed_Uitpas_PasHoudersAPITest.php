@@ -445,24 +445,44 @@ XML;
 
     $search_xml = file_get_contents(dirname(__FILE__) . '/data/passholder/search.xml');
 
+    $uitpasNumbers = array(
+        '0930000479400',
+        '0930000479301',
+        '0930000476307',
+    );
+
     $oauth_client_stub
       ->expects($this->any())
       ->method('consumerGetAsXml')
-      ->with('uitpas/passholder/search', array('sort' => 'creationDate'))
+      ->with(
+        'uitpas/passholder/search',
+        array(
+          'sort' => 'creationDate',
+          'uitpasNumber' => $uitpasNumbers
+        )
+      )
       ->will($this->returnValue($search_xml));
 
     $cf = new CultureFeed($oauth_client_stub);
 
     $query = new CultureFeed_Uitpas_Passholder_Query_SearchPassholdersOptions();
+    $query->uitpasNumber = $uitpasNumbers;
 
     $results = $cf->uitpas()->searchPassholders($query);
 
-    $this->assertInstanceOf('CultureFeed_ResultSet', $results);
+    $this->assertInstanceOf('CultureFeed_Uitpas_Passholder_ResultSet', $results);
 
     $this->assertEquals(1851, $results->total);
 
     $this->assertInternalType('array', $results->objects);
     $this->assertCount(10, $results->objects);
+    $this->assertEquals(
+        array(
+            '0930000479400',
+            '0930000476307',
+        ),
+        $results->invalidUitpasNumbers
+    );
     $this->assertContainsOnly('CultureFeed_Uitpas_Passholder', $results->objects);
 
     /** @var CultureFeed_Uitpas_Passholder $passholder */
