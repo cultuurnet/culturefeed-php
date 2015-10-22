@@ -422,7 +422,9 @@ class CultureFeed_Uitpas_Default implements CultureFeed_Uitpas {
       $passholders[] = CultureFeed_Uitpas_Passholder::createFromXML($object);
     }
 
-    return new CultureFeed_ResultSet($total, $passholders);
+    $invalidUitpasNumbers = $xml->xpath_str('/response/invalidUitpasNumbers/invalidUitpasNumber', TRUE);
+
+    return new CultureFeed_Uitpas_Passholder_ResultSet($total, $passholders, $invalidUitpasNumbers);
   }
 
   /**
