@@ -442,6 +442,34 @@ class CultureFeed_Uitpas_Passholder extends CultureFeed_Uitpas_ValueObject {
   }
 
   /**
+   * Specify if an empty 'telephone' property needs to be kept when
+   * converting to POST data.
+   *
+   * @param bool $keep Whether to keep an empty-valued 'telephone' property or not.
+   *
+   * @return $this
+   */
+  public function toPostDataKeepEmptyTelephone($keep = TRUE) {
+    $this->toPostDataKeepEmptyProperty('telephone', $keep);
+
+    return $this;
+  }
+
+  /**
+   * Specify if an empty 'gsm' property needs to be kept when
+   * converting to POST data.
+   *
+   * @param bool $keep Whether to keep an empty-valued 'gsm' property or not.
+   *
+   * @return $this
+   */
+  public function toPostDataKeepEmptyGSM($keep = TRUE) {
+    $this->toPostDataKeepEmptyProperty('gsm', $keep);
+
+    return $this;
+  }
+
+  /**
    * Specify if a certain property needs ot be kept when
    * converting to POST data.
    *
