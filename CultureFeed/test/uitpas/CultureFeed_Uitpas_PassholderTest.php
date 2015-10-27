@@ -86,22 +86,34 @@ class CultureFeed_Uitpas_PassholderTest extends PHPUnit_Framework_TestCase {
       $this->assertArrayNotHasKey('secondName', $postData);
   }
 
-  public function testKeepEmptyEmailWhenSpecified() {
+  public function testKeepEmptyContactInformationWhenSpecified() {
       $this->passholder->email = '';
+      $this->passholder->telephone = '';
+      $this->passholder->gsm = '';
       $this->passholder->toPostDataKeepEmptyEmail();
+      $this->passholder->toPostDataKeepEmptyTelephone();
+      $this->passholder->toPostDataKeepEmptyGSM();
 
       $postData = $this->passholder->toPostData();
 
       $this->assertArrayNotHasKey('postDataEmptyPropertiesToKeep', $postData);
 
       $this->assertArrayHasKey('email', $postData);
-      $this->assertEquals($this->passholder->email, $postData['email']);
+      $this->assertArrayHasKey('telephone', $postData);
+      $this->assertArrayHasKey('gsm', $postData);
+      $this->assertEquals('', $postData['email']);
+      $this->assertEquals('', $postData['telephone']);
+      $this->assertEquals('', $postData['gsm']);
 
       $this->passholder->toPostDataKeepEmptyEmail(FALSE);
+      $this->passholder->toPostDataKeepEmptyTelephone(FALSE);
+      $this->passholder->toPostDataKeepEmptyGSM(FALSE);
 
       $postData = $this->passholder->toPostData();
 
       $this->assertArrayNotHasKey('email', $postData);
+      $this->assertArrayNotHasKey('telephone', $postData);
+      $this->assertArrayNotHasKey('gsm', $postData);
   }
 
   public function testKeepEmptyRemarksWhenSpecified() {
