@@ -51,8 +51,7 @@ class CultureFeed_Uitpas_Default implements CultureFeed_Uitpas {
         $data['registerPermission'] = $registerPermission ? 'true' : 'false';
       }
     }
-
-
+    
     $result = $this->oauth_client->authenticatedGetAsXML('uitpas/association/list', $data);
 
     try {
