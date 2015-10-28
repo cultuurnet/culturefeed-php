@@ -12,10 +12,12 @@ interface CultureFeed_Uitpas {
    * Get the associations.
    *
    * @param string $consumer_key_counter The consumer key of the counter from where the request originates
+   * @param boolean $readPermission Filter associations with read permission
+   * @param boolean $registerPermission Filter associations with register permission
    *
    * @return CultureFeed_ResultSet
    */
-  public function getAssociations($consumer_key_counter = NULL);
+  public function getAssociations($consumer_key_counter = NULL, $readPermission = false, $registerPermission = false);
 
   /**
    * Register a set of distribution keys for an organizer. The entire set (including existing)
