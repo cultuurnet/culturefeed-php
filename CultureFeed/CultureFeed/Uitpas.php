@@ -17,7 +17,7 @@ interface CultureFeed_Uitpas {
    *
    * @return CultureFeed_ResultSet
    */
-  public function getAssociations($consumer_key_counter = NULL, $readPermission = false, $registerPermission = false);
+  public function getAssociations($consumer_key_counter = NULL, $readPermission = NULL, $registerPermission = NULL);
 
   /**
    * Register a set of distribution keys for an organizer. The entire set (including existing)
