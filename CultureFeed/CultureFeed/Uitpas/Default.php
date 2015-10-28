@@ -37,21 +37,20 @@ class CultureFeed_Uitpas_Default implements CultureFeed_Uitpas {
 
     if ($consumer_key_counter) {
       $data['balieConsumerKey'] = $consumer_key_counter;
-
-      // The parameters reflect the existing UiTPAS API.
-      // You have to leave out permissions completely if you don't want to
-      // filter at all.
-      // Filter values should be strings, because booleans would be casted to 0
-      // or 1 and the API would not be able to parse those apparently.
-      if (!is_null($readPermission)) {
-        $data['readPermission'] = $readPermission ? 'true' : 'false';
-      }
-
-      if (!is_null($registerPermission)) {
-        $data['registerPermission'] = $registerPermission ? 'true' : 'false';
-      }
     }
-    
+
+    // The parameters reflect the existing UiTPAS API.
+    // You have to leave out permissions completely if you don't want to
+    // filter at all.
+    // Filter values should be strings, because booleans would be casted to 0
+    // or 1 and the API would not be able to parse those apparently.
+    if (!is_null($readPermission)) {
+      $data['readPermission'] = $readPermission ? 'true' : 'false';
+    }
+    if (!is_null($registerPermission)) {
+      $data['registerPermission'] = $registerPermission ? 'true' : 'false';
+    }
+
     $result = $this->oauth_client->authenticatedGetAsXML('uitpas/association/list', $data);
 
     try {
