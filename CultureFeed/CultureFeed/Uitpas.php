@@ -9,6 +9,16 @@ interface CultureFeed_Uitpas {
   const USER_ACCESS_TOKEN = 'UserAccessToken';
 
   /**
+   * @param $uitpas_number
+   * @param string $consumer_key_counter
+   * @param integer $max
+   * @param integer $start
+   *
+   * @return CultureFeed_ResultSet
+   */
+  public function getCouponsForPassholder($uitpas_number, $consumer_key_counter = NULL, $max = NULL, $start = NULL);
+
+  /**
    * Get the associations.
    *
    * @param string $consumer_key_counter The consumer key of the counter from where the request originates

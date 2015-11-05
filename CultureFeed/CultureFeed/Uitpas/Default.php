@@ -32,6 +32,45 @@ class CultureFeed_Uitpas_Default implements CultureFeed_Uitpas {
   /**
    * {@inheritdoc}
    */
+  public function getCouponsForPassholder($uitpas_number, $consumer_key_counter = NULL, $max = NULL, $start = NULL) {
+    $data = array();
+    $path = 'uitpas/passholder/' . $uitpas_number . '/coupons';
+
+    if ($consumer_key_counter) {
+      $data['balieConsumerKey'] = $consumer_key_counter;
+    }
+
+    if ($max) {
+      $data['max'] = $max;
+    }
+
+    if ($start) {
+      $data['start'] = $start;
+    }
+
+    $result = $this->oauth_client->authenticatedGetAsXML($path, $data);
+
+    try {
+      $xml = new CultureFeed_SimpleXMLElement($result);
+    }
+    catch (Exception $e) {
+      throw new CultureFeed_ParseException($result);
+    }
+
+    $coupons = array();
+    $objects = $xml->xpath('/ticketSaleCoupons/ticketSaleCoupon');
+    $total = count($objects);
+
+    foreach ($objects as $object) {
+      $coupons[] = CultureFeed_Uitpas_Event_TicketSale_Coupon::createFromXML($object);
+    }
+
+    return new CultureFeed_ResultSet($total, $coupons);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function getAssociations($consumer_key_counter = NULL, $readPermission = NULL, $registerPermission = NULL) {
     $data = array();
 
