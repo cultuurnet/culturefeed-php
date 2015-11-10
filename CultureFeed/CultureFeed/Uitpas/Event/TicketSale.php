@@ -101,6 +101,11 @@ class CultureFeed_Uitpas_Event_TicketSale extends CultureFeed_Uitpas_ValueObject
   public $uitpasNumber;
   public $status;
 
+  /**
+   * @var CultureFeed_Uitpas_Event_TicketSale_Coupon
+   */
+  public $ticketSaleCoupon;
+
   public static function createFromXML(CultureFeed_SimpleXMLElement $object) {
 
     //dpm( print_r( $object , true ) );
@@ -122,6 +127,10 @@ class CultureFeed_Uitpas_Event_TicketSale extends CultureFeed_Uitpas_ValueObject
     $ticket_sale->uitpasNumber = $object->xpath_str('uitpasNumber');
     $ticket_sale->status = $object->xpath_str('status');
 
+    $xmlTicketSaleCoupon = $object->xpath('ticketSaleCoupon', false);
+    if ($xmlTicketSaleCoupon instanceof SimpleXMLElement) {
+      $ticket_sale->ticketSaleCoupon = CultureFeed_Uitpas_Event_TicketSale_Coupon::createFromXML($xmlTicketSaleCoupon);
+    }
 
     return $ticket_sale;
   }
