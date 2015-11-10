@@ -278,6 +278,12 @@ interface CultureFeed_Uitpas {
   public function registerTicketSale($uitpas_number, $cdbid, $consumer_key_counter = NULL, $price_class = NULL, $ticket_sale_coupon_id = NULL, $amount_of_tickets = NULL);
 
   /**
+   * @param CultureFeed_Uitpas_Event_Query_SearchTicketSalesOptions $query
+   * @return CultureFeed_ResultSet
+   */
+  public function searchTicketSales(CultureFeed_Uitpas_Event_Query_SearchTicketSalesOptions $query);
+
+  /**
    * Register a new Uitpas
    *
    * @param CultureFeed_Uitpas_Passholder_Query_RegisterUitpasOptions $query The query
