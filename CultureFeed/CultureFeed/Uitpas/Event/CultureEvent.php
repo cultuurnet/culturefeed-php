@@ -163,6 +163,20 @@ class CultureFeed_Uitpas_Event_CultureEvent extends CultureFeed_Uitpas_ValueObje
   public $checkinConstraintReason;
 
   /**
+   * The checkin start date.
+   *
+   * @var int
+   */
+  public $checkinStartDate;
+
+  /**
+   * The checkin end date.
+   *
+   * @var int
+   */
+  public $checkinEndDate;
+
+  /**
    * The reason the passholder cannot buy tickets for the event
    *
    * @var string
@@ -218,6 +232,17 @@ class CultureFeed_Uitpas_Event_CultureEvent extends CultureFeed_Uitpas_ValueObje
   public $cardSystems;
 
   /**
+   * The ticket sales.
+   *
+   * @var CultureFeed_Uitpas_Event_TicketSale_Opportunity[]
+   */
+  public $ticketSales;
+
+  public function __construct() {
+    $this->ticketSales = array();
+  }
+
+  /**
    * Modify an array of data for posting.
    */
   protected function manipulatePostData(&$data) {
@@ -266,6 +291,8 @@ class CultureFeed_Uitpas_Event_CultureEvent extends CultureFeed_Uitpas_ValueObje
     $event->checkinAllowed = $object->xpath_bool('checkinAllowed');
     $event->checkinConstraint = CultureFeed_Uitpas_Event_CheckinConstraint::createFromXml($object->xpath('checkinConstraint', false));
     $event->checkinConstraintReason = $object->xpath_str('checkinConstraintReason');
+    $event->checkinStartDate = $object->xpath_time('checkinStartDate');
+    $event->checkinEndDate = $object->xpath_time('checkinEndDate');
     $event->buyConstraintReason = $object->xpath_str('buyConstraintReason');
     $event->price = $object->xpath_float('price');
     $event->tariff = $object->xpath_float('tariff');
@@ -280,6 +307,11 @@ class CultureFeed_Uitpas_Event_CultureEvent extends CultureFeed_Uitpas_ValueObje
     $event->cardSystems = array();
     foreach ($object->xpath('cardSystems/cardSystem') as $cardSystem) {
       $event->cardSystems[] = CultureFeed_Uitpas_CardSystem::createFromXML($cardSystem, FALSE);
+    }
+
+    $event->ticketSales = array();
+    foreach ($object->xpath('ticketSales/ticketSale') as $ticketSale) {
+      $event->ticketSales[] = CultureFeed_Uitpas_Event_TicketSale_Opportunity::createFromXML($ticketSale, FALSE);
     }
 
     return $event;

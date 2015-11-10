@@ -32,11 +32,62 @@ class CultureFeed_Uitpas_Default implements CultureFeed_Uitpas {
   /**
    * {@inheritdoc}
    */
-  public function getAssociations($consumer_key_counter = NULL) {
+  public function getCouponsForPassholder($uitpas_number, $consumer_key_counter = NULL, $max = NULL, $start = NULL) {
+    $data = array();
+    $path = 'uitpas/passholder/' . $uitpas_number . '/coupons';
+
+    if ($consumer_key_counter) {
+      $data['balieConsumerKey'] = $consumer_key_counter;
+    }
+
+    if ($max) {
+      $data['max'] = $max;
+    }
+
+    if ($start) {
+      $data['start'] = $start;
+    }
+
+    $result = $this->oauth_client->authenticatedGetAsXML($path, $data);
+
+    try {
+      $xml = new CultureFeed_SimpleXMLElement($result);
+    }
+    catch (Exception $e) {
+      throw new CultureFeed_ParseException($result);
+    }
+
+    $coupons = array();
+    $objects = $xml->xpath('/ticketSaleCoupons/ticketSaleCoupon');
+    $total = count($objects);
+
+    foreach ($objects as $object) {
+      $coupons[] = CultureFeed_Uitpas_Event_TicketSale_Coupon::createFromXML($object);
+    }
+
+    return new CultureFeed_ResultSet($total, $coupons);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getAssociations($consumer_key_counter = NULL, $readPermission = NULL, $registerPermission = NULL) {
     $data = array();
 
     if ($consumer_key_counter) {
       $data['balieConsumerKey'] = $consumer_key_counter;
+    }
+
+    // The parameters reflect the existing UiTPAS API.
+    // You have to leave out permissions completely if you don't want to
+    // filter at all.
+    // Filter values should be strings, because booleans would be casted to 0
+    // or 1 and the API would not be able to parse those apparently.
+    if (!is_null($readPermission)) {
+      $data['readPermission'] = $readPermission ? 'true' : 'false';
+    }
+    if (!is_null($registerPermission)) {
+      $data['registerPermission'] = $registerPermission ? 'true' : 'false';
     }
 
     $result = $this->oauth_client->authenticatedGetAsXML('uitpas/association/list', $data);
@@ -131,13 +182,73 @@ class CultureFeed_Uitpas_Default implements CultureFeed_Uitpas {
   }
 
   /**
+   * @param string $uitpas_number
+   * @param string $reason
+   * @param int $date_of_birth
+   * @param string $postal_code
+   * @param string $voucher_number
+   * @param string $consumer_key_counter
+   *
+   * @return CultureFeed_Uitpas_Passholder_UitpasPrice
+   *
+   * @throws CultureFeed_ParseException
+   *   When the response XML could not be parsed.
+   *
+   * @throws LogicException
+   *   When the response contains no uitpasPrice object.
+   */
+  public function getPriceByUitpas($uitpas_number, $reason, $date_of_birth = null, $postal_code = null, $voucher_number = null, $consumer_key_counter = NULL) {
+    $data = array(
+      'reason' => $reason,
+      'uitpasNumber' => $uitpas_number,
+    );
+
+    if (!is_null($date_of_birth)) {
+      $data['dateOfBirth'] = date('Y-m-d', $date_of_birth);
+    }
+    if (!is_null($postal_code)) {
+      $data['postalCode'] = $postal_code;
+    }
+    if (!is_null($voucher_number)) {
+      $data['voucherNumber'] = $voucher_number;
+    }
+    if (!is_null($consumer_key_counter)) {
+      $data['balieConsumerKey'] = $consumer_key_counter;
+    }
+
+    $result = $this->oauth_client->authenticatedGetAsXml('uitpas/price', $data);
+
+    try {
+      $xml = new CultureFeed_SimpleXMLElement($result);
+    }
+    catch (Exception $e) {
+      throw new CultureFeed_ParseException($result);
+    }
+
+    $price_xml = $xml->xpath('uitpasPrice', FALSE);
+    if (!($price_xml instanceof CultureFeed_SimpleXMLElement)) {
+      throw new LogicException('Could not find expected uitpasPrice tag in response XML.');
+    }
+
+    return CultureFeed_Uitpas_Passholder_UitpasPrice::createFromXML($price_xml);
+  }
+
+  /**
    * Create a new UitPas passholder.
    *
    * @param CultureFeed_Uitpas_Passholder $passholder The new passholder
+   * @param null $consumer_key_counter
    * @return Passholder user ID
+   * @throws \CultureFeed_ParseException
+   * @throws \CultureFeed_Uitpas_PassholderException
    */
-  public function createPassholder(CultureFeed_Uitpas_Passholder $passholder) {
+  public function createPassholder(CultureFeed_Uitpas_Passholder $passholder, $consumer_key_counter = NULL) {
     $data = $passholder->toPostData();
+
+    if ($consumer_key_counter) {
+      $data['balieConsumerKey'] = $consumer_key_counter;
+    }
+
     $result = $this->oauth_client->authenticatedPostAsXml('uitpas/passholder/register', $data);
 
     try {
@@ -275,6 +386,41 @@ class CultureFeed_Uitpas_Default implements CultureFeed_Uitpas {
   }
 
   /**
+   * Get a card, with optionally a passholder, or a group pass based on a identification number.
+   *
+   * @param string $identification_number
+   *   The identification number. This can be either an UiTPAS number, chip-number, INSZ-number, or INSZ-barcode.
+   * @param string $consumer_key_counter
+   *   The consumer key of the counter from where the request originates
+   * @return CultureFeed_Uitpas_Identity
+   *
+   * @throws CultureFeed_ParseException
+   *   When the response XML could not be parsed.
+   */
+  public function identify($identification_number, $consumer_key_counter = NULL) {
+    $data = array(
+      'identification' => $identification_number,
+    );
+
+    if ($consumer_key_counter) {
+      $data['balieConsumerKey'] = $consumer_key_counter;
+    }
+
+    $result = $this->oauth_client->authenticatedGetAsXml('uitpas/retrieve', $data);
+
+    try {
+      $xml = new CultureFeed_SimpleXMLElement($result);
+    }
+    catch (Exception $e) {
+      throw new CultureFeed_ParseException($result);
+    }
+
+    $object = $xml->xpath('/response', false);
+
+    return CultureFeed_Uitpas_Identity::createFromXml($object);
+  }
+
+  /**
    * Get a passholder based on the user ID
    *
    * @param string $user_id The user ID
@@ -327,7 +473,9 @@ class CultureFeed_Uitpas_Default implements CultureFeed_Uitpas {
       $passholders[] = CultureFeed_Uitpas_Passholder::createFromXML($object);
     }
 
-    return new CultureFeed_ResultSet($total, $passholders);
+    $invalidUitpasNumbers = $xml->xpath_str('/response/invalidUitpasNumbers/invalidUitpasNumber', TRUE);
+
+    return new CultureFeed_Uitpas_Passholder_ResultSet($total, $passholders, $invalidUitpasNumbers);
   }
 
   /**
@@ -538,14 +686,22 @@ class CultureFeed_Uitpas_Default implements CultureFeed_Uitpas {
     $this->oauth_client->authenticatedPostAsXml('uitpas/passholder/' . $id . '/uploadPicture', $data, TRUE, TRUE);
   }
 
-  /**
-   * Update a passholder.
-   *
-   * @param CultureFeed_Uitpas_Passholder $passholder The passholder to update.
-   * 		The passholder is identified by ID. Only fields that are set will be updated.
-   */
-  public function updatePassholder(CultureFeed_Uitpas_Passholder $passholder) {
+    /**
+     * Update a passholder.
+     *
+     * @param CultureFeed_Uitpas_Passholder $passholder The passholder to update.
+     *     The passholder is identified by ID. Only fields that are set will be updated.
+     * @param null $consumer_key_counter
+     * @return \CultureFeed_Uitpas_Response
+     * @throws \CultureFeed_ParseException
+     */
+  public function updatePassholder(CultureFeed_Uitpas_Passholder $passholder, $consumer_key_counter = NULL) {
     $data = $passholder->toPostData();
+
+    if ($consumer_key_counter) {
+      $data['balieConsumerKey'] = $consumer_key_counter;
+    }
+
     $result = $this->oauth_client->authenticatedPostAsXml('uitpas/passholder/' . $passholder->uitpasNumber, $data);
 
     try {
@@ -765,12 +921,32 @@ class CultureFeed_Uitpas_Default implements CultureFeed_Uitpas {
    * @param string $uitpas_number The UitPas number
    * @param string $cdbid The event CDBID
    * @param string $consumer_key_counter The consumer key of the counter from where the request originates
+   * @param string $price_class Price class used for the ticket sale.
+   * @param string $ticket_sale_coupon_id The coupon id of the ticket sale.
+   * @param int $amount_of_tickets The amount of ticket sales to register.
+   *
+   * @return CultureFeed_Uitpas_Event_TicketSale
+   *
+   * @throws CultureFeed_ParseException
+   *   When the response could not be parsed.
+   *
+   * @throws CultureFeed_Exception
+   *   When the response was an error message instead of a TicketSale entity.
    */
-  public function registerTicketSale($uitpas_number, $cdbid, $consumer_key_counter = NULL) {
+  public function registerTicketSale($uitpas_number, $cdbid, $consumer_key_counter = NULL, $price_class = NULL, $ticket_sale_coupon_id = NULL, $amount_of_tickets = NULL) {
     $data = array();
 
     if ($consumer_key_counter) {
       $data['balieConsumerKey'] = $consumer_key_counter;
+    }
+    if ($ticket_sale_coupon_id) {
+      $data['ticketSaleCouponId'] = $ticket_sale_coupon_id;
+    }
+    if ($price_class) {
+      $data['priceClass'] = $price_class;
+    }
+    if ($amount_of_tickets) {
+      $data['amountOfTickets'] = (int) $amount_of_tickets;
     }
 
     $result = $this->oauth_client->authenticatedPostAsXml('uitpas/cultureevent/' . $cdbid . '/buy/' . $uitpas_number, $data);
@@ -780,6 +956,12 @@ class CultureFeed_Uitpas_Default implements CultureFeed_Uitpas {
     }
     catch (Exception $e) {
       throw new CultureFeed_ParseException($result);
+    }
+
+    $response = $xml->xpath('/response', false);
+    if ($response instanceof CultureFeed_SimpleXMLElement) {
+      $response = CultureFeed_Response::createFromResponseBody($response);
+      throw new CultureFeed_Exception($response->getMessage(), $response->getCode());
     }
 
     $ticket_sale = CultureFeed_Uitpas_Event_TicketSale::createFromXML($xml->xpath('/ticketSale', false));
@@ -1110,11 +1292,18 @@ class CultureFeed_Uitpas_Default implements CultureFeed_Uitpas {
     return new CultureFeed_ResultSet($total, $counters);
   }
 
-  public function getDevices($consumer_key_counter = NULL) {
+  /**
+   * @inheritdoc
+   */
+  public function getDevices($consumer_key_counter = NULL, $show_event = FALSE) {
     $data = array();
 
     if ($consumer_key_counter) {
       $data['balieConsumerKey'] = $consumer_key_counter;
+    }
+
+    if ($show_event) {
+      $data['showEvent'] = 'true';
     }
 
     $result = $this->oauth_client->authenticatedGetAsXml('uitpas/cid/list', $data);
