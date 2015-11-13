@@ -121,12 +121,19 @@ class CultureFeed_Uitpas_Passholder_Query_SearchPromotionPointsOptions extends C
   public $filterOnUserPoints = false;
 
   /**
+   * Default: false. Indicates if the system must only show the pointspromotions for which the user has sufficient points
+   *
+   * @var boolean
+   */
+  public $published = false;
+
+  /**
    * Can be used to see which pointspromotions are possible if the user had e.g. 5 extra points.
    *
    * @var integer
    */
   public $simulatedExtraPoints;
-  
+
   /**
    * Default: false. Indicates that only unexpired points promotions are returned.
    *
@@ -174,6 +181,10 @@ class CultureFeed_Uitpas_Passholder_Query_SearchPromotionPointsOptions extends C
 
     if (isset($data['unexpired'])) {
       $data['unexpired'] = $data['unexpired'] ? "true" : "false";
+    }
+
+    if (isset($data['published'])) {
+      $data['published'] = $data['published'] ? "true" : "false";
     }
 
     if (isset($data['cashingPeriodBegin'])) {
