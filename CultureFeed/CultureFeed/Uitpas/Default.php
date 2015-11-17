@@ -991,7 +991,27 @@ class CultureFeed_Uitpas_Default implements CultureFeed_Uitpas {
     }
   }
 
-  public function getPassholderForTicketSale( CultureFeed_Uitpas_Event_TicketSale $ts, $consumer_key_counter = NULL ) {
+    /**
+     * {@inheritdoc}
+     */
+    public function cancelTicketSaleById($ticketId, $consumer_key_counter = NULL)
+    {
+        $data = array();
+
+        if ($consumer_key_counter) {
+            $data['balieConsumerKey'] = $consumer_key_counter;
+        }
+
+        try {
+            $this->oauth_client->authenticatedPostAsXml('uitpas/cultureevent/cancel/' . $ticketId, $data);
+            return true;
+        }
+        catch (Exception $e) {
+            return false;
+        }
+    }
+
+    public function getPassholderForTicketSale( CultureFeed_Uitpas_Event_TicketSale $ts, $consumer_key_counter = NULL ) {
     $user_id = $ts->userId;
     return $this->getPassholderByUser($user_id, $consumer_key_counter);
   }
