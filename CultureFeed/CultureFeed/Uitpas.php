@@ -313,7 +313,6 @@ interface CultureFeed_Uitpas {
      *
      * @param string $ticketId The ticket id
      * @param string $consumer_key_counter The consumer key of the counter from where the request originates
-     * @return boolean
      */
     public function cancelTicketSaleById($ticketId, $consumer_key_counter = NULL);
 
