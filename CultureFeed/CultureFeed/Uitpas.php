@@ -308,15 +308,15 @@ interface CultureFeed_Uitpas {
    */
   public function cancelTicketSale($uitpas_number, $cdbid, $consumer_key_counter = NULL);
 
-    /**
-     * Cancel a ticket sale for a passholder by ticket id.
-     *
-     * @param string $ticketId The ticket id
-     * @param string $consumer_key_counter The consumer key of the counter from where the request originates
-     */
-    public function cancelTicketSaleById($ticketId, $consumer_key_counter = NULL);
+  /**
+   * Cancel a ticket sale for a passholder by ticket id.
+   *
+   * @param string $ticketId The ticket id
+   * @param string $consumer_key_counter The consumer key of the counter from where the request originates
+   */
+  public function cancelTicketSaleById($ticketId, $consumer_key_counter = NULL);
 
-    /**
+  /**
    * Search for checkins
    *
    * @param CultureFeed_Uitpas_Event_Query_SearchCheckinsOptions $query The query
