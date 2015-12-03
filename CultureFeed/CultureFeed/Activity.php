@@ -102,6 +102,7 @@ class CultureFeed_Activity {
   const TYPE_MEDIA_VIDEO = 23;
   const TYPE_PAGE_CREATED = 24;
   const TYPE_NEWS = 25;
+  const TYPE_CASHIN = 26;
 
   /**
    * ID of the activity object.
