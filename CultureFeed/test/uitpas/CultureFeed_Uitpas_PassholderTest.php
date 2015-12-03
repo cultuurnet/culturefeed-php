@@ -68,6 +68,72 @@ class CultureFeed_Uitpas_PassholderTest extends PHPUnit_Framework_TestCase {
     $this->assertArrayNotHasKey('schoolConsumerKey', $postData);
   }
 
+  public function testKeepEmptySecondNameWhenSpecified() {
+      $this->passholder->secondName = '';
+      $this->passholder->toPostDataKeepEmptySecondName();
+
+      $postData = $this->passholder->toPostData();
+
+      $this->assertArrayNotHasKey('postDataEmptyPropertiesToKeep', $postData);
+
+      $this->assertArrayHasKey('secondName', $postData);
+      $this->assertEquals($this->passholder->secondName, $postData['secondName']);
+
+      $this->passholder->toPostDataKeepEmptySecondName(FALSE);
+
+      $postData = $this->passholder->toPostData();
+
+      $this->assertArrayNotHasKey('secondName', $postData);
+  }
+
+  public function testKeepEmptyContactInformationWhenSpecified() {
+      $this->passholder->email = '';
+      $this->passholder->telephone = '';
+      $this->passholder->gsm = '';
+      $this->passholder->toPostDataKeepEmptyEmail();
+      $this->passholder->toPostDataKeepEmptyTelephone();
+      $this->passholder->toPostDataKeepEmptyGSM();
+
+      $postData = $this->passholder->toPostData();
+
+      $this->assertArrayNotHasKey('postDataEmptyPropertiesToKeep', $postData);
+
+      $this->assertArrayHasKey('email', $postData);
+      $this->assertArrayHasKey('telephone', $postData);
+      $this->assertArrayHasKey('gsm', $postData);
+      $this->assertEquals('', $postData['email']);
+      $this->assertEquals('', $postData['telephone']);
+      $this->assertEquals('', $postData['gsm']);
+
+      $this->passholder->toPostDataKeepEmptyEmail(FALSE);
+      $this->passholder->toPostDataKeepEmptyTelephone(FALSE);
+      $this->passholder->toPostDataKeepEmptyGSM(FALSE);
+
+      $postData = $this->passholder->toPostData();
+
+      $this->assertArrayNotHasKey('email', $postData);
+      $this->assertArrayNotHasKey('telephone', $postData);
+      $this->assertArrayNotHasKey('gsm', $postData);
+  }
+
+  public function testKeepEmptyRemarksWhenSpecified() {
+      $this->passholder->moreInfo = '';
+      $this->passholder->toPostDataKeepEmptyMoreInfo();
+
+      $postData = $this->passholder->toPostData();
+
+      $this->assertArrayNotHasKey('postDataEmptyPropertiesToKeep', $postData);
+
+      $this->assertArrayHasKey('moreInfo', $postData);
+      $this->assertEquals($this->passholder->moreInfo, $postData['moreInfo']);
+
+      $this->passholder->toPostDataKeepEmptyMoreInfo(FALSE);
+
+      $postData = $this->passholder->toPostData();
+
+      $this->assertArrayNotHasKey('moreInfo', $postData);
+  }
+
   public function testCreateFromXML() {
     $xml = file_get_contents(dirname(__FILE__) . '/data/passholder.xml');
     $simple_xml = new CultureFeed_SimpleXMLElement($xml);
@@ -103,6 +169,7 @@ class CultureFeed_Uitpas_PassholderTest extends PHPUnit_Framework_TestCase {
     $this->assertEquals('BRUSSEL', $passholder->city);
     $this->assertEquals(378691200, $passholder->dateOfBirth);
     $this->assertEquals('Frontend', $passholder->firstName);
+    $this->assertEquals('Backend', $passholder->secondName);
     $this->assertEquals('FEMALE', $passholder->gender);
     $this->assertEquals('62cb6cc2a58d1b23d85b5993894c2fcd2d55ed01c0f6ff1f4f0ee87ac2b83dd9', $passholder->inszNumberHash);
     $this->assertInternalType('array', $passholder->memberships);

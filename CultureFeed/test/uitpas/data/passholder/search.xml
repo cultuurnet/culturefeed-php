@@ -452,4 +452,8 @@
         </passholder>
     </passholders>
     <total>1851</total>
+    <invalidUitpasNumbers>
+        <invalidUitpasNumber>0930000479400</invalidUitpasNumber>
+        <invalidUitpasNumber>0930000476307</invalidUitpasNumber>
+    </invalidUitpasNumbers>
 </response>
