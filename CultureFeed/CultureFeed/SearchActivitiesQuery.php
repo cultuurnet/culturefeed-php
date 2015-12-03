@@ -5,6 +5,10 @@
  */
 class CultureFeed_SearchActivitiesQuery {
 
+  const POINTS_FILTER_POSITIVE = 'positive';
+  const POINTS_FILTER_NEGATIVE = 'negative';
+  const POINTS_FILTER_ZERO = 'zero';
+
   /**
    * The type of content the activity handles.
    * Possible values are represented in the CultureFeed_Activity::CONTENT_TYPE_* constants.
@@ -88,6 +92,12 @@ class CultureFeed_SearchActivitiesQuery {
    * @var bool
    */
   public $skipCache = FALSE;
+
+  /**
+   * Filter on activity points.
+   * @var string
+   */
+  public $filterOnActivityPoints;
 
   /**
    * Convert a CultureFeed_SearchActivitiesQuery object to an array that can be used as data in POST requests that expect search user query info.
