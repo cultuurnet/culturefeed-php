@@ -2193,6 +2193,7 @@ class CultureFeed implements ICultureFeed {
       $activity->onBehalfOfDepiction = $object->xpath_str('onBehalfOfDepiction');
       $activity->parentActivity = $object->xpath_str('parentActivity');
       $activity->status         = $object->xpath_str('status');
+      $activity->calendarDate   = $object->xpath_time('calendarDate');
 
       // Parse the event / production details if there are any.
       if ($activity->contentType == CultureFeed_Activity::CONTENT_TYPE_EVENT) {
