@@ -253,6 +253,12 @@ class CultureFeed_Activity {
   public $contentDetails;
 
   /**
+   * The calendar date of this activity represented as a ISO 8601 date (2011-07-25T22:03Z).
+   * @var string
+   */
+  public $calendarDate;
+
+  /**
    * Helper method to get a string value for an ID.
    *
    * Requests to the /activities api will use the Integer values while requests
