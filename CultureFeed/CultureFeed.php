@@ -91,7 +91,7 @@ class CultureFeed implements ICultureFeed {
    */
   const CODE_DUPLICATE_MBOX = 'DuplicateMbox';
   const CODE_MAILING_SUBSCRIBED = 'MailingSubscribed';
-  const CODE_MAILING_UNSUBSCRIBED = 'MailingUnsubscribed';
+  const CODE_MAILING_UNSUBSCRIBED = 'MailingUnSubscribed';
   const CODE_MAILING_ALREADY_SUBSCRIBED = 'UserAlreadySubscribed';
 
   /**
