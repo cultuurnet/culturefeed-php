@@ -11,6 +11,8 @@ interface CultureFeed_SavedSearches {
    *
    * @param CultureFeed_SavedSearches_SavedSearch $savedSearch
    *   SavedSearch to subscribe.
+   * @param bool $use_auth
+   *   Using a consumer request for this method is only available for a few consumers who have the ‘Use Light UiTID permission.
    * @return CultureFeed_SavedSearches_SavedSearch
    *   The saved search object.
    * @throws \CultureFeed_ParseException
@@ -18,7 +20,7 @@ interface CultureFeed_SavedSearches {
    * @throws \CultureFeed_Exception
    *   If the XML element contains an error code.
    */
-  public function subscribe(CultureFeed_SavedSearches_SavedSearch $savedSearch);
+  public function subscribe(CultureFeed_SavedSearches_SavedSearch $savedSearch, $use_auth = TRUE);
 
   /**
    * Unsubscribe a user from a saved search.
@@ -27,6 +29,8 @@ interface CultureFeed_SavedSearches {
    *   Saved search id to unscribe from.
    * @param string $userId
    *   UserId to unsubscribe.
+   * @param bool $use_auth
+   *   Using a consumer request for this method is only available for a few consumers who have the ‘Use Light UiTID permission.
    * @return string
    *   A success message.
    * @throws \CultureFeed_ParseException
@@ -34,7 +38,7 @@ interface CultureFeed_SavedSearches {
    * @throws \CultureFeed_Exception
    *   If the XML element contains an error code.
    */
-  public function unsubscribe($savedSearchId, $userId);
+  public function unsubscribe($savedSearchId, $userId, $use_auth = TRUE);
 
   /**
    * Change the frequency of a saved search.

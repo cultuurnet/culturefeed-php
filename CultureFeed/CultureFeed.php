@@ -88,6 +88,9 @@ class CultureFeed implements ICultureFeed {
    * Result codes
    */
   const CODE_DUPLICATE_MBOX = 'DuplicateMbox';
+  const CODE_MAILING_SUBSCRIBED = 'MailingSubscribed';
+  const CODE_MAILING_UNSUBSCRIBED = 'MailingUnsubscribed';
+  const CODE_MAILING_ALREADY_SUBSCRIBED = 'UserAlreadySubscribed';
 
   /**
    * OAuth request object to do the request.

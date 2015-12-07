@@ -27,8 +27,14 @@ class CultureFeed_SavedSearches_Default implements CultureFeed_SavedSearches {
   /**
    * {@inheritdoc}
    */
-  public function subscribe(CultureFeed_SavedSearches_SavedSearch $savedSearch) {
-    $result = $this->oauth_client->authenticatedPostAsXml('savedSearch/subscribe', $savedSearch->toPostData());
+  public function subscribe(CultureFeed_SavedSearches_SavedSearch $savedSearch, $use_auth = TRUE) {
+    if ($use_auth) {
+      $result = $this->oauth_client->authenticatedPostAsXml('savedSearch/subscribe', $savedSearch->toPostData());
+    }
+    else {
+      $result = $this->oauth_client->consumerPostAsXml('savedSearch/subscribe', $savedSearch->toPostData());
+    }
+
     $xml_element = $this->getXmlElementFromXmlString($result);
 
     $search_element = $xml_element->xpath('/response/savedSearch');
@@ -43,11 +49,20 @@ class CultureFeed_SavedSearches_Default implements CultureFeed_SavedSearches {
   /**
    * {@inheritdoc}
    */
-  public function unsubscribe($savedSearchId, $userId) {
-    $result = $this->oauth_client->authenticatedPostAsXml(
-      'savedSearch/' . $savedSearchId . '/unsubscribe',
-      array('userId' => $userId)
-    );
+  public function unsubscribe($savedSearchId, $userId, $use_auth = TRUE) {
+    if ($use_auth) {
+      $result = $this->oauth_client->authenticatedPostAsXml(
+        'savedSearch/' . $savedSearchId . '/unsubscribe',
+        array('userId' => $userId)
+      );
+    }
+    else {
+      $result = $this->oauth_client->consumerPostAsXml(
+        'savedSearch/' . $savedSearchId . '/unsubscribe',
+        array('userId' => $userId)
+      );
+    }
+
 
     $xml_element = $this->getXmlElementFromXmlString($result);
 
