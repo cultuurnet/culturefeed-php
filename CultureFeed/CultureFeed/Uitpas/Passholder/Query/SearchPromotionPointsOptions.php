@@ -195,6 +195,10 @@ class CultureFeed_Uitpas_Passholder_Query_SearchPromotionPointsOptions extends C
       $data['cashingPeriodEnd'] = date('c', $data['cashingPeriodEnd']);
     }
 
+    if (isset($data['filterOnUserPoints'])) {
+      $data['filterOnUserPoints'] = $data['filterOnUserPoints'] ? "true" : "false";
+    }
+
     if (isset($data['grantingPeriodBegin'])) {
       $data['grantingPeriodBegin'] = date('c', $data['grantingPeriodBegin']);
     }
