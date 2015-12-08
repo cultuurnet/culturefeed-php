@@ -133,11 +133,18 @@ class CultureFeed_Activity {
   public $private;
 
   /**
-   * The service consumer id of the consumer where the activity was generated.
+   * The service consumer name of the consumer where the activity was generated.
    *
    * @var string
    */
   public $createdVia;
+
+  /**
+   * The service consumer id of the consumer where the activity was generated.
+   *
+   * @var string
+   */
+  public $createdViaId;
 
   /**
    * The points for this activity.

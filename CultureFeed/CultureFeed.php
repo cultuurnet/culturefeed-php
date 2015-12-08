@@ -2180,6 +2180,7 @@ class CultureFeed implements ICultureFeed {
       $activity->nodeTitle      = $object->xpath_str('nodeTitle');
       $activity->private        = $object->xpath_bool('private');
       $activity->createdVia     = $object->xpath_str('createdVia');
+      $activity->createdViaId   = $object->xpath_str('createdViaId');
       $activity->points         = $object->xpath_str('points');
       $activity->contentType    = $object->xpath_str('contentType');
       $activity->type           = $object->xpath_int('type');
