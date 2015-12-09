@@ -424,7 +424,7 @@ abstract class CultureFeed_ICultureFeedDecoratorBase implements ICultureFeed
 
     public function updateUser(CultureFeed_User $user, $fields = array())
     {
-        return $this->realCultureFeed->updateUser($user);
+        return $this->realCultureFeed->updateUser($user, $fields);
     }
 
     public function updateUserOnlineAccount(
