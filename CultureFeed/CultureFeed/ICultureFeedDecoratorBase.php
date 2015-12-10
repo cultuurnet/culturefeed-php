@@ -41,7 +41,7 @@ abstract class CultureFeed_ICultureFeedDecoratorBase implements ICultureFeed
     {
         return $this->realCultureFeed->createServiceConsumer($consumer);
     }
-    
+
     public function createTemplate(CultureFeed_Template $template) {
         return $this->realCultureFeed->createTemplate($template);
     }
@@ -60,7 +60,7 @@ abstract class CultureFeed_ICultureFeedDecoratorBase implements ICultureFeed
     {
         return $this->realCultureFeed->deleteMailing($id);
     }
-    
+
     public function deleteTemplate($id) {
         return $this->realCultureFeed->deleteTemplate($id);
     }
@@ -138,9 +138,9 @@ abstract class CultureFeed_ICultureFeedDecoratorBase implements ICultureFeed
         return $this->realCultureFeed->getMailingList($query);
     }
 
-    public function getMailingSubscriptions($user_id)
+    public function getMailingSubscriptions($user_id, $use_auth = TRUE)
     {
-        return $this->realCultureFeed->getMailingSubscriptions($user_id);
+        return $this->realCultureFeed->getMailingSubscriptions($user_id, $use_auth);
     }
 
     public function getNodeStatus($contentType, $nodeId, $userId)
@@ -183,7 +183,7 @@ abstract class CultureFeed_ICultureFeedDecoratorBase implements ICultureFeed
     {
         return $this->realCultureFeed->getRequestToken($callback);
     }
-    
+
     public function getServiceConsumer($consumerKey) {
         return $this->realCultureFeed->getServiceConsumer($consumerKey);
     }
@@ -197,11 +197,11 @@ abstract class CultureFeed_ICultureFeedDecoratorBase implements ICultureFeed
     {
         return $this->realCultureFeed->getSimilarUsers($id);
     }
-    
+
     public function getTemplate($id) {
         return $this->realCultureFeed->getTemplate($id);
     }
-    
+
     public function getTemplateList() {
         return $this->realCultureFeed->getTemplateList();
     }
@@ -292,6 +292,11 @@ abstract class CultureFeed_ICultureFeedDecoratorBase implements ICultureFeed
         );
     }
 
+    public function getUserLightId($email, $home_zip = '')
+    {
+        return $this->realCultureFeed->getUserLightId($email, $home_zip);
+    }
+
     public function getUserPreferences($uid)
     {
         return $this->realCultureFeed->getUserPreferences($uid);
@@ -371,9 +376,9 @@ abstract class CultureFeed_ICultureFeedDecoratorBase implements ICultureFeed
         );
     }
 
-    public function subscribeToMailing($user_id, $mailing_id)
+    public function subscribeToMailing($user_id, $mailing_id, $use_auth = TRUE)
     {
-        return $this->realCultureFeed->subscribeToMailing($user_id, $mailing_id);
+        return $this->realCultureFeed->subscribeToMailing($user_id, $mailing_id, $use_auth);
     }
 
     public function unFollowNode($contentType, $nodeId, $userId)
@@ -393,12 +398,9 @@ abstract class CultureFeed_ICultureFeedDecoratorBase implements ICultureFeed
         return $this->realCultureFeed->uitpas();
     }
 
-    public function unsubscribeFromMailing($user_id, $mailing_id)
+    public function unsubscribeFromMailing($user_id, $mailing_id, $use_auth = TRUE)
     {
-        return $this->realCultureFeed->unsubscribeFromMailing(
-            $user_id,
-            $mailing_id
-        );
+        return $this->realCultureFeed->unsubscribeFromMailing($user_id, $mailing_id, $use_auth);
     }
 
     public function updateActivity($id, $private)
@@ -417,7 +419,7 @@ abstract class CultureFeed_ICultureFeedDecoratorBase implements ICultureFeed
     {
         return $this->realCultureFeed->updateServiceConsumer($consumer);
     }
-    
+
     public function updateTemplate(CultureFeed_Template $template, $fields = array()) {
         return $this->realCultureFeed->updateTemplate($template, $fields);
     }
@@ -491,4 +493,4 @@ abstract class CultureFeed_ICultureFeedDecoratorBase implements ICultureFeed
         return $this->realCultureFeed->savedSearches();
     }
 
-} 
+}
