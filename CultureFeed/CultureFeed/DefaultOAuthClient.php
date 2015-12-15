@@ -356,7 +356,9 @@ class CultureFeed_DefaultOAuthClient implements CultureFeed_OAuthClient {
           $e = new CultureFeed_Exception($exception_message, $code);
         }
 
-        $e->setUserFriendlyMessage($message);
+        if (!empty($message)) {
+          $e->setUserFriendlyMessage($message);
+        }
 
         throw $e;
       }
