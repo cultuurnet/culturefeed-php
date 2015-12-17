@@ -86,6 +86,11 @@ class CultureFeed_Uitpas_Counter extends CultureFeed_Uitpas_ValueObject {
    */
   public $consumerKey;
 
+  /**
+   * @var CultureFeed_Uitpas_CardSystem[]
+   */
+  public $cardSystems = array();
+
   public static function createFromXML(CultureFeed_SimpleXMLElement $object) {
     $counter = new CultureFeed_Uitpas_Counter();
     $counter->id = $object->xpath_str('id');
@@ -100,6 +105,11 @@ class CultureFeed_Uitpas_Counter extends CultureFeed_Uitpas_ValueObject {
     $counter->telephoneNumber = $object->xpath_str('telephoneNumber');
     $counter->contactPerson = $object->xpath_str('contactPerson');
     $counter->consumerKey = $object->xpath_str('consumerKey');
+
+    foreach ($object->xpath('cardSystems/cardSystem') as $card_system) {
+      $cardSystem = CultureFeed_Uitpas_CardSystem::createFromXml($card_system);
+      $counter->cardSystems[$cardSystem->id] = $cardSystem;
+    }
 
     return $counter;
   }

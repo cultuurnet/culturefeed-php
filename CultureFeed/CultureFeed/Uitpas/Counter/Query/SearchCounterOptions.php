@@ -2,6 +2,9 @@
 
 class CultureFeed_Uitpas_Counter_Query_SearchCounterOptions extends CultureFeed_Uitpas_ValueObject {
 
+  const GROUP_NOT_AUTHORIZED = 'Niet-geauthorizeerde registratie balies';
+  const GROUP_AUTHORIZED = 'Geauthorizeerde registratie balies';
+
   /**
    * If TRUE, only search for "Point of Sale" counters
    *
@@ -62,7 +65,17 @@ class CultureFeed_Uitpas_Counter_Query_SearchCounterOptions extends CultureFeed_
    * @var integer
    */
   public $cardSystemId;
-  
+
+  /**
+   * @var boolean
+   */
+  public $visible;
+
+  /**
+   * @var string
+   */
+  public $groupName;
+
   protected function manipulatePostData(&$data) {
     if (isset($data['school'])) {
       $data['school'] = ($data['school'] ? "true" : "false");
