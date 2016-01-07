@@ -97,6 +97,7 @@ class CultureFeed_Activity {
   const TYPE_PAGE_MEMBER = 16;
   const TYPE_PAGE_ADMIN = 17;
   const TYPE_NEW_EVENT = 19;
+  const TYPE_CONNECT_CHANNEL = 20;
   const TYPE_REVIEW = 21;
   const TYPE_MEDIA_PHOTO = 22;
   const TYPE_MEDIA_VIDEO = 23;
