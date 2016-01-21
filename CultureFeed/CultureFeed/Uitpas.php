@@ -60,6 +60,7 @@ interface CultureFeed_Uitpas {
    * @param string $postal_code
    * @param string $voucher_number
    * @param string $consumer_key_counter
+   * @param string $card_system_id
    *
    * @return CultureFeed_Uitpas_Passholder_UitpasPrice
    *
@@ -69,7 +70,7 @@ interface CultureFeed_Uitpas {
    * @throws LogicException
    *   When the response contains no uitpasPrice object.
    */
-  public function getPriceByUitpas($uitpas_number, $reason, $date_of_birth = null, $postal_code = null, $voucher_number = null, $consumer_key_counter = NULL);
+  public function getPriceByUitpas($uitpas_number, $reason, $date_of_birth = null, $postal_code = null, $voucher_number = null, $consumer_key_counter = NULL, $card_system_id = NULL);
 
   /**
    * Create a new UitPas passholder.
