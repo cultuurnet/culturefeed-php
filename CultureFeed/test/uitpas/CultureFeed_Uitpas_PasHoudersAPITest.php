@@ -134,6 +134,113 @@ XML;
     $cf->uitpas()->getPriceByUitpas($uitpas_number, $reason);
   }
 
+  public function testGetPriceByUitpasForCardUpgrade() {
+    $reason = CultureFeed_Uitpas_Passholder_UitpasPrice::REASON_CARD_UPGRADE;
+    $uitpas_number = '0930000422202';
+    $date_of_birth = 672364800;
+    $postal_code = 3000;
+    $voucher_number = 666;
+    $balie_consumer_key = '36d72c6a679b5992c42238425d2632cd';
+    $card_system_id = 1;
+
+    $expected_post_data = array(
+        'reason' => 'CARD_UPGRADE',
+        'uitpasNumber' => '0930000422202',
+        'dateOfBirth' => '1991-04-23',
+        'postalCode' => 3000,
+        'voucherNumber' => 666,
+        'balieConsumerKey' => '36d72c6a679b5992c42238425d2632cd',
+        'cardSystemId' => $card_system_id,
+    );
+
+    $xml = file_get_contents(dirname(__FILE__) . '/data/passholder/price.xml');
+
+    $expected = new CultureFeed_Uitpas_Passholder_UitpasPrice();
+    $expected->id = 148;
+    $expected->reason = CultureFeed_Uitpas_Passholder_UitpasPrice::REASON_FIRST_CARD;
+    $expected->cardType = 'CARD';
+    $expected->ageRange = new CultureFeed_Uitpas_Passholder_AgeRange();
+    $expected->ageRange->ageTo = 17;
+    $expected->kansenStatuut = FALSE;
+    $expected->price = 2;
+    $expected->cardSystem = new CultureFeed_Uitpas_CardSystem();
+    $expected->cardSystem->id = $card_system_id;
+    $expected->cardSystem->name = 'UiTPAS Regio Aalst';
+
+    /* @var CultureFeed_OAuthClient|PHPUnit_Framework_MockObject_MockObject $oauth_client_stub */
+    $oauth_client_stub = $this->getMock('CultureFeed_OAuthClient');
+    $oauth_client_stub->expects($this->any())
+        ->method('authenticatedGetAsXml')
+        ->with('uitpas/price', $expected_post_data)
+        ->will($this->returnValue($xml));
+
+    $cf = new CultureFeed($oauth_client_stub);
+
+    $price = $cf->uitpas()->getPriceByUitpas(
+        $uitpas_number,
+        $reason,
+        $date_of_birth,
+        $postal_code,
+        $voucher_number,
+        $balie_consumer_key,
+        $card_system_id
+    );
+
+    $this->assertEquals($expected, $price);
+  }
+
+  public function testGetPriceByUitpasForCardUpgradeWithoutCardSystemId() {
+    $reason = CultureFeed_Uitpas_Passholder_UitpasPrice::REASON_CARD_UPGRADE;
+    $uitpas_number = '0930000422202';
+    $date_of_birth = 672364800;
+    $postal_code = 3000;
+    $voucher_number = 666;
+    $balie_consumer_key = '36d72c6a679b5992c42238425d2632cd';
+
+    /* @var CultureFeed_OAuthClient|PHPUnit_Framework_MockObject_MockObject $oauth_client_stub */
+    $oauth_client_stub = $this->getMock('CultureFeed_OAuthClient');
+
+    $cf = new CultureFeed($oauth_client_stub);
+
+    $this->setExpectedException('InvalidArgumentException', 'A value for argument $card_system_id is required when reason is CARD_UPGRADE.');
+
+    $cf->uitpas()->getPriceByUitpas(
+        $uitpas_number,
+        $reason,
+        $date_of_birth,
+        $postal_code,
+        $voucher_number,
+        $balie_consumer_key
+    );
+  }
+
+  public function testGetPriceByUitpasWithCardSystemIdForReasonOtherThanUpgrade() {
+    $reason = CultureFeed_Uitpas_Passholder_UitpasPrice::REASON_FIRST_CARD;
+    $uitpas_number = '0930000422202';
+    $date_of_birth = 672364800;
+    $postal_code = 3000;
+    $voucher_number = 666;
+    $balie_consumer_key = '36d72c6a679b5992c42238425d2632cd';
+    $card_system_id = 1;
+
+    /* @var CultureFeed_OAuthClient|PHPUnit_Framework_MockObject_MockObject $oauth_client_stub */
+    $oauth_client_stub = $this->getMock('CultureFeed_OAuthClient');
+
+    $cf = new CultureFeed($oauth_client_stub);
+
+    $this->setExpectedException('InvalidArgumentException', 'A value for argument $card_system_id should not be provided when reason is not CARD_UPGRADE.');
+
+    $cf->uitpas()->getPriceByUitpas(
+        $uitpas_number,
+        $reason,
+        $date_of_birth,
+        $postal_code,
+        $voucher_number,
+        $balie_consumer_key,
+        $card_system_id
+    );
+  }
+
   public function testIndentify() {
     $passholder_xml = file_get_contents(dirname(__FILE__) . '/data/identity.xml');
 
