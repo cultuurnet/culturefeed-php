@@ -203,17 +203,6 @@ class CultureFeed_Uitpas_Default implements CultureFeed_Uitpas {
       $data['balieConsumerKey'] = $consumer_key_counter;
     }
 
-    if (CultureFeed_Uitpas_Passholder_UitpasPrice::REASON_CARD_UPGRADE === $reason) {
-      if (empty($card_system_id)) {
-        throw new InvalidArgumentException('A value for argument $card_system_id is required when reason is CARD_UPGRADE.');
-      }
-
-      $data['cardSystemId'] = $card_system_id;
-    }
-    elseif (!empty($card_system_id)) {
-      throw new InvalidArgumentException('A value for argument $card_system_id should not be provided when reason is not CARD_UPGRADE.');
-    }
-
     $result = $this->oauth_client->authenticatedGetAsXml('uitpas/price', $data);
 
     try {
