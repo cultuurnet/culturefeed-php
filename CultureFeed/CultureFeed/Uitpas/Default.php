@@ -182,9 +182,22 @@ class CultureFeed_Uitpas_Default implements CultureFeed_Uitpas {
   }
 
   /**
-   * @inheritdoc
+   * @param string $uitpas_number
+   * @param string $reason
+   * @param int $date_of_birth
+   * @param string $postal_code
+   * @param string $voucher_number
+   * @param string $consumer_key_counter
+   *
+   * @return CultureFeed_Uitpas_Passholder_UitpasPrice
+   *
+   * @throws CultureFeed_ParseException
+   *   When the response XML could not be parsed.
+   *
+   * @throws LogicException
+   *   When the response contains no uitpasPrice object.
    */
-  public function getPriceByUitpas($uitpas_number, $reason, $date_of_birth = null, $postal_code = null, $voucher_number = null, $consumer_key_counter = NULL, $card_system_id = NULL) {
+  public function getPriceByUitpas($uitpas_number, $reason, $date_of_birth = null, $postal_code = null, $voucher_number = null, $consumer_key_counter = NULL) {
     $data = array(
       'reason' => $reason,
       'uitpasNumber' => $uitpas_number,
