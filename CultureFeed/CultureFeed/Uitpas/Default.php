@@ -208,9 +208,17 @@ class CultureFeed_Uitpas_Default implements CultureFeed_Uitpas {
   }
 
   /**
-   * @param $data
+   * @param array $data
+   * @param int|null $date_of_birth
+   * @param string|null $postal_code
+   * @param string|null $voucher_number
+   * @param string|null $consumer_key_counter
+   *
+   * @return CultureFeed_Uitpas_Passholder_UitpasPrice
+   *
+   * @throws CultureFeed_ParseException
    */
-  private function requestPrice($data, $date_of_birth = null, $postal_code = null, $voucher_number = null, $consumer_key_counter = null) {
+  private function requestPrice(array $data, $date_of_birth = null, $postal_code = null, $voucher_number = null, $consumer_key_counter = null) {
     if (!is_null($date_of_birth)) {
       $data['dateOfBirth'] = date('Y-m-d', $date_of_birth);
     }
