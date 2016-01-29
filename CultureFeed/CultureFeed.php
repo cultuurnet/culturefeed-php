@@ -2216,6 +2216,7 @@ class CultureFeed implements ICultureFeed {
       $consumer->name         = $object->xpath_str('name');
       $consumer->description  = $object->xpath_str('description');
       $consumer->logo         = $object->xpath_str('logo');
+      $consumer->domain       = $object->xpath_str('domain');
 
       $consumers[] = $consumer;
     }
