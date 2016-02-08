@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<response>
+    <uitpasPrice>
+        <id>148</id>
+        <reason>CARD_UPGRADE</reason>
+        <cardType>CARD</cardType>
+        <ageRange>
+            <ageTo>17</ageTo>
+        </ageRange>
+        <kansenstatuut>false</kansenstatuut>
+        <price>2.00</price>
+        <cardSystem>
+            <id>1</id>
+            <name>UiTPAS Regio Aalst</name>
+        </cardSystem>
+    </uitpasPrice>
+</response>

@@ -112,6 +112,56 @@ class CultureFeed_Uitpas_PasHoudersAPITest extends PHPUnit_Framework_TestCase {
     $this->assertEquals($expected, $price);
   }
 
+  public function testGetPriceForUpgrade() {
+    $card_system_id = 1;
+    $date_of_birth = 672364800;
+    $postal_code = 3000;
+    $voucher_number = 666;
+    $balie_consumer_key = '36d72c6a679b5992c42238425d2632cd';
+
+    $post_data = array(
+        'reason' => 'CARD_UPGRADE',
+        'cardSystemId' => $card_system_id,
+        'dateOfBirth' => '1991-04-23',
+        'postalCode' => $postal_code,
+        'voucherNumber' => $voucher_number,
+        'balieConsumerKey' => $balie_consumer_key,
+    );
+
+    $xml = file_get_contents(dirname(__FILE__) . '/data/passholder/price_upgrade.xml');
+
+    $expected = new CultureFeed_Uitpas_Passholder_UitpasPrice();
+    $expected->id = 148;
+    $expected->reason = CultureFeed_Uitpas_Passholder_UitpasPrice::REASON_CARD_UPGRADE;
+    $expected->cardType = 'CARD';
+    $expected->ageRange = new CultureFeed_Uitpas_Passholder_AgeRange();
+    $expected->ageRange->ageTo = 17;
+    $expected->kansenStatuut = FALSE;
+    $expected->price = 2;
+    $expected->cardSystem = new CultureFeed_Uitpas_CardSystem();
+    $expected->cardSystem->id = 1;
+    $expected->cardSystem->name = 'UiTPAS Regio Aalst';
+
+    /* @var CultureFeed_OAuthClient|PHPUnit_Framework_MockObject_MockObject $oauth_client_stub */
+    $oauth_client_stub = $this->getMock('CultureFeed_OAuthClient');
+    $oauth_client_stub->expects($this->any())
+        ->method('authenticatedGetAsXml')
+        ->with('uitpas/price', $post_data)
+        ->will($this->returnValue($xml));
+
+    $cf = new CultureFeed($oauth_client_stub);
+
+    $price = $cf->uitpas()->getPriceForUpgrade(
+        $card_system_id,
+        $date_of_birth,
+        $postal_code,
+        $voucher_number,
+        $balie_consumer_key
+    );
+
+    $this->assertEquals($expected, $price);
+  }
+
   public function testGetPriceByUitpasLogicException() {
     $reason = CultureFeed_Uitpas_Passholder_UitpasPrice::REASON_FIRST_CARD;
     $uitpas_number = '0930000422202';
