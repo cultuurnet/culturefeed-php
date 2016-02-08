@@ -182,7 +182,20 @@ class CultureFeed_Uitpas_Default implements CultureFeed_Uitpas {
   }
 
   /**
-   * @inheritdoc
+   * @param string $uitpas_number
+   * @param string $reason
+   * @param int $date_of_birth
+   * @param string $postal_code
+   * @param string $voucher_number
+   * @param string $consumer_key_counter
+   *
+   * @return CultureFeed_Uitpas_Passholder_UitpasPrice
+   *
+   * @throws CultureFeed_ParseException
+   *   When the response XML could not be parsed.
+   *
+   * @throws LogicException
+   *   When the response contains no uitpasPrice object.
    */
   public function getPriceByUitpas($uitpas_number, $reason, $date_of_birth = null, $postal_code = null, $voucher_number = null, $consumer_key_counter = NULL) {
     $data = array(
@@ -190,35 +203,6 @@ class CultureFeed_Uitpas_Default implements CultureFeed_Uitpas {
       'uitpasNumber' => $uitpas_number,
     );
 
-    return $this->requestPrice($data, $date_of_birth, $postal_code, $voucher_number, $consumer_key_counter);
-  }
-
-  /**
-   * @inheritdoc
-   */
-  public function getPriceForUpgrade($card_system_id, $date_of_birth = null, $postal_code = null, $voucher_number = null, $consumer_key_counter = null) {
-    $reason = CultureFeed_Uitpas_Passholder_UitpasPrice::REASON_CARD_UPGRADE;
-
-    $data = array(
-      'reason' => $reason,
-      'cardSystemId' => $card_system_id
-    );
-
-    return $this->requestPrice($data, $date_of_birth, $postal_code, $voucher_number, $consumer_key_counter);
-  }
-
-  /**
-   * @param array $data
-   * @param int|null $date_of_birth
-   * @param string|null $postal_code
-   * @param string|null $voucher_number
-   * @param string|null $consumer_key_counter
-   *
-   * @return CultureFeed_Uitpas_Passholder_UitpasPrice
-   *
-   * @throws CultureFeed_ParseException
-   */
-  private function requestPrice(array $data, $date_of_birth = null, $postal_code = null, $voucher_number = null, $consumer_key_counter = null) {
     if (!is_null($date_of_birth)) {
       $data['dateOfBirth'] = date('Y-m-d', $date_of_birth);
     }
@@ -248,7 +232,6 @@ class CultureFeed_Uitpas_Default implements CultureFeed_Uitpas {
 
     return CultureFeed_Uitpas_Passholder_UitpasPrice::createFromXML($price_xml);
   }
-
 
   /**
    * Create a new UitPas passholder.
