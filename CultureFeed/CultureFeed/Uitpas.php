@@ -72,6 +72,23 @@ interface CultureFeed_Uitpas {
   public function getPriceByUitpas($uitpas_number, $reason, $date_of_birth = null, $postal_code = null, $voucher_number = null, $consumer_key_counter = NULL);
 
   /**
+   * @param string $card_system_id
+   * @param int $date_of_birth
+   * @param string|null $postal_code
+   * @param string|null $voucher_number
+   * @param string|null $consumer_key_counter
+   *
+   * @return CultureFeed_Uitpas_Passholder_UitpasPrice
+   *
+   * @throws CultureFeed_ParseException
+   *   When the response XML could not be parsed.
+   *
+   * @throws LogicException
+   *   When the response contains no uitpasPrice object.
+   */
+  public function getPriceForUpgrade($card_system_id, $date_of_birth, $postal_code = null, $voucher_number = null, $consumer_key_counter = null);
+
+  /**
    * Create a new UitPas passholder.
    *
    * @param CultureFeed_Uitpas_Passholder $passholder The new passholder
