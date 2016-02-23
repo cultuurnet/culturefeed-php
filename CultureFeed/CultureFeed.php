@@ -2368,7 +2368,6 @@ class CultureFeed implements ICultureFeed {
     $template = $element->xpath('template');
 
     if (isset($template[0])) {
-      $mailing->template_id = $template[0];
       $mailing->template = self::parseTemplate($template[0]);
     }
 
