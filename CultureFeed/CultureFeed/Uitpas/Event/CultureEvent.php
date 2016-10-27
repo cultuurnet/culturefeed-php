@@ -56,13 +56,23 @@ class CultureFeed_Uitpas_Event_CultureEvent extends CultureFeed_Uitpas_ValueObje
    */
    public $actorId;
 
-
-   /**
-   * The distributionId id van een verdeelsleutel
+  /**
+   * The distribution key id(s) of the event.
    *
-   * @var string
+   * Historically the API docs used to indicate that this property should always
+   * be a single value, while in reality it was always allowed to be an array.
+   *
+   * When parsing from xml this property will always be a value of
+   * DistributionKey objects, containing both an id and name.
+   *
+   * When POSTing it can be a single string, specifically the id of a single
+   * distribution key. This is to maintain backwards compatibility with existing
+   * code. Alternatively it can be an array of DistributionKey objects. In that
+   * case only the id property of the DistributionKey object is required.
+   *
+   * @var \CultureFeed_Uitpas_DistributionKey[]|string
    */
-   public $distributionKey;
+  public $distributionKey;
 
    /**
    * The volume constraint added for registering an event
@@ -191,6 +201,20 @@ class CultureFeed_Uitpas_Event_CultureEvent extends CultureFeed_Uitpas_ValueObje
   public $price;
 
   /**
+   * The price names of the event
+   *
+   * @var string[]
+   */
+  public $postPriceNames;
+
+  /**
+   * The price values of the event
+   *
+   * @var float[]
+   */
+  public $postPriceValues;
+
+  /**
    * The tariff of the event for a given passholder
    *
    * @var float
@@ -240,6 +264,8 @@ class CultureFeed_Uitpas_Event_CultureEvent extends CultureFeed_Uitpas_ValueObje
 
   public function __construct() {
     $this->ticketSales = array();
+    $this->postPriceNames = array();
+    $this->postPriceValues = array();
   }
 
   /**
@@ -273,6 +299,29 @@ class CultureFeed_Uitpas_Event_CultureEvent extends CultureFeed_Uitpas_ValueObje
       if (!in_array($key, $allowed)) {
         unset($data[$key]);
       }
+    }
+
+    $priceNameIndex = 0;
+    foreach ($this->postPriceNames as $priceName) {
+      $priceNameIndex++;
+      $data['price.name.' . $priceNameIndex] = $priceName;
+    }
+
+    $priceValueIndex = 0;
+    foreach ($this->postPriceValues as $priceValue) {
+      $priceValueIndex++;
+      $data['price.value.' . $priceValueIndex] = $priceValue;
+    }
+
+    // If distributionKey is an array we should convert the containing keys to
+    // strings as we should only POST the distribution key id.
+    if (is_array($data['distributionKey'])) {
+      $data['distributionKey'] = array_map(
+        function (\CultureFeed_Uitpas_DistributionKey $key) {
+          return (string) $key->id;
+        },
+        $data['distributionKey']
+      );
     }
   }
 
@@ -312,6 +361,11 @@ class CultureFeed_Uitpas_Event_CultureEvent extends CultureFeed_Uitpas_ValueObje
     $event->ticketSales = array();
     foreach ($object->xpath('ticketSales/ticketSale') as $ticketSale) {
       $event->ticketSales[] = CultureFeed_Uitpas_Event_TicketSale_Opportunity::createFromXML($ticketSale, FALSE);
+    }
+
+    $event->distributionKey = array();
+    foreach ($object->xpath('distributionKeys/distributionKey') as $distributionKey) {
+      $event->distributionKey[] = CultureFeed_Uitpas_DistributionKey::createFromXML($distributionKey);
     }
 
     return $event;
