@@ -295,42 +295,22 @@ class CultureFeed_Uitpas_Default implements CultureFeed_Uitpas {
    * @param CultureFeed_Uitpas_Event_CultureEvent $event The event data that needs to be sent over.
    * @return CultureFeed_Uitpas_Response
    */
-   public function registerEvent(CultureFeed_Uitpas_Event_CultureEvent $event) {
+  public function registerEvent(CultureFeed_Uitpas_Event_CultureEvent $event) {
+    $data = $event->toPostData();
 
-     $path = "/uitpas/cultureevent/register";
+    $result = $this->oauth_client->consumerPostAsXml('uitpas/cultureevent/register', $data);
 
-     $data = $event->toPostData();
+    try {
+      $xml = new CultureFeed_SimpleXMLElement($result);
+    }
+    catch (Exception $e) {
+      throw new CultureFeed_ParseException($result);
+    }
 
-     //dpm($data, 'Data sent to uitpas call');
+    $response = CultureFeed_Uitpas_Response::createFromXML($xml->xpath('/response', false));
 
-
-
-
-     try {
-       // Call the path.
-       $result = $this->oauth_client->consumerPostAsXml( $path, $data );
-     } catch(CultureFeed_Exception $e) {
-       throw $e;
-     }
-
-
-     try {
-       $xml = new CultureFeed_SimpleXMLElement($result);
-     }
-     catch (Exception $e) {
-       throw new CultureFeed_ParseException($result);
-     }
-
-     //dpm( print_r( $xml, true ) , 'xml return from register call' );
-
-     $response = CultureFeed_Uitpas_Response::createFromXML($xml->xpath('/response', false));
-
-     //dpm( $response, 'Response from register uitpas call' );
-
-     return $response;
-
-
-   }
+    return $response;
+  }
 
   /**
    * @inheritdoc
