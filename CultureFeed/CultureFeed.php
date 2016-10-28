@@ -1810,14 +1810,12 @@ class CultureFeed implements ICultureFeed {
    * Enter description here ...
    * @param unknown_type $start
    */
-  public function getServiceConsumers($start = 0, $max = NULL, $filters = array()) {
+  public function getServiceConsumers($start = 0, $max = NULL) {
     $query = array('start' => $start);
 
     if ($max) {
       $query['max'] = $max;
     }
-
-    $query += $filters;
 
     $result = $this->oauth_client->consumerGetAsXML('serviceconsumer/list', $query);
 
@@ -1871,12 +1869,14 @@ class CultureFeed implements ICultureFeed {
    * Updates an existing service consumer.
    *
    * @param CultureFeed_Consumer $consumer
+   * @todo check if we can update the status of the consumer
    */
   public function updateServiceConsumer(CultureFeed_Consumer $consumer) {
     $data = $consumer->toPostData();
 
     unset($data['id']);
     unset($data['creationDate']);
+    unset($data['status']);
 
     $this->oauth_client->consumerPostAsXML('serviceconsumer/' . $consumer->consumerKey, $data);
   }
