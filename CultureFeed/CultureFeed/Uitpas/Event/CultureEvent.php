@@ -338,7 +338,7 @@ class CultureFeed_Uitpas_Event_CultureEvent extends CultureFeed_Uitpas_ValueObje
     $event->organiserName = $object->xpath_str('organiserName');
     $event->city = $object->xpath_str('city');
     $event->checkinAllowed = $object->xpath_bool('checkinAllowed');
-    $event->checkinConstraint = CultureFeed_Uitpas_Event_CheckinConstraint::createFromXml($object->xpath('checkinConstraint', false));
+    $event->checkinConstraint = CultureFeed_Uitpas_Event_CheckinConstraint::createFromXML($object->xpath('checkinConstraint', false));
     $event->checkinConstraintReason = $object->xpath_str('checkinConstraintReason');
     $event->checkinStartDate = $object->xpath_time('checkinStartDate');
     $event->checkinEndDate = $object->xpath_time('checkinEndDate');
@@ -349,7 +349,10 @@ class CultureFeed_Uitpas_Event_CultureEvent extends CultureFeed_Uitpas_ValueObje
 
     $object->registerXPathNamespace('cdb', CultureFeed_Cdb_Default::CDB_SCHEME_URL);
 
-    $event->calendar = CultureFeed_Uitpas_Calendar::createFromXML($object->xpath('cdb:calendar', false));
+    $calendar_xml = $object->xpath('cdb:calendar', false);
+    if (!empty($calendar_xml)) {
+      $event->calendar = CultureFeed_Uitpas_Calendar::createFromXML($calendar_xml);
+    }
     $event->numberOfPoints = $object->xpath_int('numberOfPoints');
     $event->gracePeriodMonths = $object->xpath_int('gracePeriodMonths');
 

@@ -303,6 +303,22 @@ class CultureFeed_Uitpas_Default implements CultureFeed_Uitpas {
   }
 
   /**
+   * @inheritdoc
+   */
+  public function getEvent($id) {
+    $result = $this->oauth_client->consumerGetAsXml('uitpas/cultureevent/' . $id);
+
+    try {
+      $xml = new CultureFeed_SimpleXMLElement($result);
+    }
+    catch (Exception $e) {
+      throw new CultureFeed_ParseException($result);
+    }
+
+    return CultureFeed_Uitpas_Event_CultureEvent::createFromXML($xml);
+  }
+
+  /**
    * Performs a consumer authenticated POST request expecting a simple response.
    *
    * @param string $path
