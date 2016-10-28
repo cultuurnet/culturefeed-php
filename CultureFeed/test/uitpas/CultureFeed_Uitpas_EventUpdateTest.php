@@ -26,8 +26,8 @@ class CultureFeed_Uitpas_EventUpdateTest extends PHPUnit_Framework_TestCase {
     $response = <<<XML
 <?xml version="1.0" encoding="utf-8" ?>
 <response>
-  <code>1</code>
-  <message>foo</message>
+  <code>ACTION_SUCCEEDED</code>
+  <message>De event gegevens werden aangepast.</message>
 </response>
 XML;
 
@@ -63,8 +63,8 @@ XML;
 
     $this->assertInstanceOf('\CultureFeed_Uitpas_Response', $response);
 
-    $this->assertEquals(1, $response->code);
-    $this->assertEquals('foo', $response->message);
+    $this->assertEquals('ACTION_SUCCEEDED', $response->code);
+    $this->assertEquals('De event gegevens werden aangepast.', $response->message);
   }
 
 }
