@@ -22,16 +22,6 @@ class CultureFeed_Uitpas_EventDetailTest extends PHPUnit_Framework_TestCase {
         </periodConstraint>
         <volume>0</volume>
     </ticketSalesConstraint>
-    <distributionKeys>
-        <distributionKey>
-            <id>5263</id>
-            <name>Foo</name>
-        </distributionKey>
-        <distributionKey>
-            <id>5264</id>
-            <name>Bar</name>
-        </distributionKey>
-    </distributionKeys>
 </response>
 XML;
 
@@ -53,20 +43,5 @@ XML;
 
     $this->assertSame('e642dc9e-4682-4846-ac61-97a9a0cd38a2', $event->cdbid);
     $this->assertSame(1, $event->numberOfPoints);
-
-    $firstDistributionKey = new CultureFeed_Uitpas_DistributionKey();
-    $firstDistributionKey->id = '5263';
-    $firstDistributionKey->name = 'Foo';
-
-    $secondDistributionKey = new CultureFeed_Uitpas_DistributionKey();
-    $secondDistributionKey->id = '5264';
-    $secondDistributionKey->name = 'Bar';
-
-    $expectedDistributionKeys = [
-      $firstDistributionKey,
-      $secondDistributionKey,
-    ];
-
-    $this->assertEquals($expectedDistributionKeys, $event->distributionKey);
   }
 }
