@@ -20,6 +20,13 @@ class CultureFeed_SearchUser {
   public $nick;
 
   /**
+   * Mbox of the user.
+   *
+   * @var string
+   */
+  public $mbox;
+
+  /**
    * Depiction of the user.
    *
    * @var string

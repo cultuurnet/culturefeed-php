@@ -126,7 +126,16 @@ interface ICultureFeed {
 
   public function getUrlLogout($destination = '');
 
-  public function getServiceConsumers($start = 0, $max = NULL);
+  /**
+   * @param int $start
+   *   Row number to start with
+   * @param int $max
+   *   Total resuls to return
+   * @param array $filters
+   *   Array of extra filters to send.
+   * @return CultureFeed_ResultSet
+   */
+  public function getServiceConsumers($start = 0, $max = NULL, $filters = array());
 
   public function createServiceConsumer(CultureFeed_Consumer $consumer);
 
