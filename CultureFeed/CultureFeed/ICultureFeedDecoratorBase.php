@@ -188,9 +188,9 @@ abstract class CultureFeed_ICultureFeedDecoratorBase implements ICultureFeed
         return $this->realCultureFeed->getServiceConsumer($consumerKey);
     }
 
-    public function getServiceConsumers($start = 0, $max = null)
+    public function getServiceConsumers($start = 0, $max = null, $filters = array())
     {
-        return $this->realCultureFeed->getServiceConsumers($start, $max);
+        return $this->realCultureFeed->getServiceConsumers($start, $max, $filters);
     }
 
     public function getSimilarUsers($id)
