@@ -56,13 +56,23 @@ class CultureFeed_Uitpas_Event_CultureEvent extends CultureFeed_Uitpas_ValueObje
    */
    public $actorId;
 
-
-   /**
-   * The distributionId id van een verdeelsleutel
+  /**
+   * The distribution key id(s) of the event.
    *
-   * @var string
+   * Historically the API docs used to indicate that this property should always
+   * be a single value, while in reality it was always allowed to be an array.
+   *
+   * When parsing from xml this property will always be a value of
+   * DistributionKey objects, containing both an id and name.
+   *
+   * When POSTing it can be a single string, specifically the id of a single
+   * distribution key. This is to maintain backwards compatibility with existing
+   * code. Alternatively it can be an array of DistributionKey objects. In that
+   * case only the id property of the DistributionKey object is required.
+   *
+   * @var \CultureFeed_Uitpas_DistributionKey[]|string
    */
-   public $distributionKey;
+  public $distributionKey;
 
    /**
    * The volume constraint added for registering an event
@@ -94,10 +104,12 @@ class CultureFeed_Uitpas_Event_CultureEvent extends CultureFeed_Uitpas_ValueObje
 
 
    /**
-   * added for registering an event
-   *
-   * @var PeriodConstraint.PeriodType DAY, WEEK, MONTH, QUARTER, YEAR
-   */
+    * added for registering an event
+    *
+    * One of DAY, WEEK, MONTH, QUARTER or YEAR.
+    *
+    * @var string
+    */
    public $periodConstraintType;
 
    /**
@@ -113,8 +125,10 @@ class CultureFeed_Uitpas_Event_CultureEvent extends CultureFeed_Uitpas_ValueObje
 
    /**
    * added for registering an event
+    *
+    * One of DAY, WEEK, MONTH, QUARTER or YEAR.
    *
-   * @var PeriodConstraint.PeriodType DAY, WEEK, MONTH, QUARTER, YEAR
+   * @var string
    */
    public $checkinPeriodConstraintType;
 
@@ -191,6 +205,20 @@ class CultureFeed_Uitpas_Event_CultureEvent extends CultureFeed_Uitpas_ValueObje
   public $price;
 
   /**
+   * The price names of the event
+   *
+   * @var string[]
+   */
+  public $postPriceNames;
+
+  /**
+   * The price values of the event
+   *
+   * @var float[]
+   */
+  public $postPriceValues;
+
+  /**
    * The tariff of the event for a given passholder
    *
    * @var float
@@ -207,14 +235,14 @@ class CultureFeed_Uitpas_Event_CultureEvent extends CultureFeed_Uitpas_ValueObje
   /**
    * The calendar description of the event
    *
-   * @var Calendar
+   * @var CultureFeed_Uitpas_Calendar
    */
   public $calendar;
 
    /**
    * The number of points of the event
    *
-   * @var numberOfPoints
+   * @var int
    */
   public $numberOfPoints;
 
@@ -240,6 +268,8 @@ class CultureFeed_Uitpas_Event_CultureEvent extends CultureFeed_Uitpas_ValueObje
 
   public function __construct() {
     $this->ticketSales = array();
+    $this->postPriceNames = array();
+    $this->postPriceValues = array();
   }
 
   /**
@@ -274,6 +304,29 @@ class CultureFeed_Uitpas_Event_CultureEvent extends CultureFeed_Uitpas_ValueObje
         unset($data[$key]);
       }
     }
+
+    $priceNameIndex = 0;
+    foreach ($this->postPriceNames as $priceName) {
+      $priceNameIndex++;
+      $data['price.name.' . $priceNameIndex] = $priceName;
+    }
+
+    $priceValueIndex = 0;
+    foreach ($this->postPriceValues as $priceValue) {
+      $priceValueIndex++;
+      $data['price.value.' . $priceValueIndex] = $priceValue;
+    }
+
+    // If distributionKey is an array we should convert the containing keys to
+    // strings as we should only POST the distribution key id.
+    if (is_array($data['distributionKey'])) {
+      $data['distributionKey'] = array_map(
+        function (\CultureFeed_Uitpas_DistributionKey $key) {
+          return (string) $key->id;
+        },
+        $data['distributionKey']
+      );
+    }
   }
 
 
@@ -289,7 +342,7 @@ class CultureFeed_Uitpas_Event_CultureEvent extends CultureFeed_Uitpas_ValueObje
     $event->organiserName = $object->xpath_str('organiserName');
     $event->city = $object->xpath_str('city');
     $event->checkinAllowed = $object->xpath_bool('checkinAllowed');
-    $event->checkinConstraint = CultureFeed_Uitpas_Event_CheckinConstraint::createFromXml($object->xpath('checkinConstraint', false));
+    $event->checkinConstraint = CultureFeed_Uitpas_Event_CheckinConstraint::createFromXML($object->xpath('checkinConstraint', false));
     $event->checkinConstraintReason = $object->xpath_str('checkinConstraintReason');
     $event->checkinStartDate = $object->xpath_time('checkinStartDate');
     $event->checkinEndDate = $object->xpath_time('checkinEndDate');
@@ -300,18 +353,26 @@ class CultureFeed_Uitpas_Event_CultureEvent extends CultureFeed_Uitpas_ValueObje
 
     $object->registerXPathNamespace('cdb', CultureFeed_Cdb_Default::CDB_SCHEME_URL);
 
-    $event->calendar = CultureFeed_Uitpas_Calendar::createFromXML($object->xpath('cdb:calendar', false));
+    $calendar_xml = $object->xpath('cdb:calendar', false);
+    if (!empty($calendar_xml)) {
+      $event->calendar = CultureFeed_Uitpas_Calendar::createFromXML($calendar_xml);
+    }
     $event->numberOfPoints = $object->xpath_int('numberOfPoints');
     $event->gracePeriodMonths = $object->xpath_int('gracePeriodMonths');
 
     $event->cardSystems = array();
     foreach ($object->xpath('cardSystems/cardSystem') as $cardSystem) {
-      $event->cardSystems[] = CultureFeed_Uitpas_CardSystem::createFromXML($cardSystem, FALSE);
+      $event->cardSystems[] = CultureFeed_Uitpas_CardSystem::createFromXML($cardSystem);
     }
 
     $event->ticketSales = array();
     foreach ($object->xpath('ticketSales/ticketSale') as $ticketSale) {
-      $event->ticketSales[] = CultureFeed_Uitpas_Event_TicketSale_Opportunity::createFromXML($ticketSale, FALSE);
+      $event->ticketSales[] = CultureFeed_Uitpas_Event_TicketSale_Opportunity::createFromXml($ticketSale);
+    }
+
+    $event->distributionKey = array();
+    foreach ($object->xpath('distributionKeys/distributionKey') as $distributionKey) {
+      $event->distributionKey[] = CultureFeed_Uitpas_DistributionKey::createFromXML($distributionKey);
     }
 
     return $event;

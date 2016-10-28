@@ -39,6 +39,16 @@ open di, woe, do, vrij van 10:00 tot 12:00 en 13:00 tot 17:00 za, zo van 14:00 t
     </checkinConstraint>
     <checkinConstraintReason>INVALID_DATE_TIME</checkinConstraintReason>
     <city>Aalst</city>
+    <distributionKeys>
+        <distributionKey>
+            <id>200</id>
+            <name>Distribution key 200</name>
+        </distributionKey>
+        <distributionKey>
+            <id>201</id>
+            <name>Distribution key 201</name>
+        </distributionKey>
+    </distributionKeys>
     <locationId>5C9C73D3-E82F-E7B3-44161E6E3802E64F</locationId>
     <locationName>'t Gasthuys - Stedelijk Museum Aalst</locationName>
     <numberOfPoints>1</numberOfPoints>
