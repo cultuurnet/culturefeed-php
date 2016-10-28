@@ -104,10 +104,12 @@ class CultureFeed_Uitpas_Event_CultureEvent extends CultureFeed_Uitpas_ValueObje
 
 
    /**
-   * added for registering an event
-   *
-   * @var PeriodConstraint.PeriodType DAY, WEEK, MONTH, QUARTER, YEAR
-   */
+    * added for registering an event
+    *
+    * One of DAY, WEEK, MONTH, QUARTER or YEAR.
+    *
+    * @var string
+    */
    public $periodConstraintType;
 
    /**
@@ -123,8 +125,10 @@ class CultureFeed_Uitpas_Event_CultureEvent extends CultureFeed_Uitpas_ValueObje
 
    /**
    * added for registering an event
+    *
+    * One of DAY, WEEK, MONTH, QUARTER or YEAR.
    *
-   * @var PeriodConstraint.PeriodType DAY, WEEK, MONTH, QUARTER, YEAR
+   * @var string
    */
    public $checkinPeriodConstraintType;
 
@@ -231,14 +235,14 @@ class CultureFeed_Uitpas_Event_CultureEvent extends CultureFeed_Uitpas_ValueObje
   /**
    * The calendar description of the event
    *
-   * @var Calendar
+   * @var CultureFeed_Uitpas_Calendar
    */
   public $calendar;
 
    /**
    * The number of points of the event
    *
-   * @var numberOfPoints
+   * @var int
    */
   public $numberOfPoints;
 
@@ -358,12 +362,12 @@ class CultureFeed_Uitpas_Event_CultureEvent extends CultureFeed_Uitpas_ValueObje
 
     $event->cardSystems = array();
     foreach ($object->xpath('cardSystems/cardSystem') as $cardSystem) {
-      $event->cardSystems[] = CultureFeed_Uitpas_CardSystem::createFromXML($cardSystem, FALSE);
+      $event->cardSystems[] = CultureFeed_Uitpas_CardSystem::createFromXML($cardSystem);
     }
 
     $event->ticketSales = array();
     foreach ($object->xpath('ticketSales/ticketSale') as $ticketSale) {
-      $event->ticketSales[] = CultureFeed_Uitpas_Event_TicketSale_Opportunity::createFromXML($ticketSale, FALSE);
+      $event->ticketSales[] = CultureFeed_Uitpas_Event_TicketSale_Opportunity::createFromXml($ticketSale);
     }
 
     $event->distributionKey = array();
