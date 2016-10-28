@@ -296,9 +296,30 @@ class CultureFeed_Uitpas_Default implements CultureFeed_Uitpas {
    * @return CultureFeed_Uitpas_Response
    */
   public function registerEvent(CultureFeed_Uitpas_Event_CultureEvent $event) {
-    $data = $event->toPostData();
+    return $this->consumerPostWithSimpleResponse(
+      'uitpas/cultureevent/register',
+      $event
+    );
+  }
 
-    $result = $this->oauth_client->consumerPostAsXml('uitpas/cultureevent/register', $data);
+  /**
+   * Performs a consumer authenticated POST request expecting a simple response.
+   *
+   * @param string $path
+   *   Path to post to.
+   * @param CultureFeed_Uitpas_ValueObject|array $data
+   *   Post data.
+   * @return \CultureFeed_Uitpas_Response
+   *   The simple response.
+   * @throws \CultureFeed_ParseException
+   *   When the returned payload is not valid XML.
+   */
+  private function consumerPostWithSimpleResponse($path, $data) {
+    if (is_object($data) && $data instanceof CultureFeed_Uitpas_ValueObject) {
+      $data = $data->toPostData();
+    }
+
+    $result = $this->oauth_client->consumerPostAsXml($path, $data);
 
     try {
       $xml = new CultureFeed_SimpleXMLElement($result);
@@ -316,7 +337,10 @@ class CultureFeed_Uitpas_Default implements CultureFeed_Uitpas {
    * @inheritdoc
    */
   public function updateEvent(CultureFeed_Uitpas_Event_CultureEvent $event) {
-
+    return $this->consumerPostWithSimpleResponse(
+      'uitpas/cultureevent/update',
+      $event
+    );
   }
 
   /**
