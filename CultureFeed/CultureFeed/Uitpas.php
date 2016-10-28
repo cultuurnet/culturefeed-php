@@ -408,6 +408,14 @@ interface CultureFeed_Uitpas {
   public function registerEvent(CultureFeed_Uitpas_Event_CultureEvent $event);
 
   /**
+   * Updates an event.
+   *
+   * @param CultureFeed_Uitpas_Event_CultureEvent $event The event data that needs to be sent over.
+   * @return CultureFeed_Uitpas_Response
+   */
+  public function updateEvent(CultureFeed_Uitpas_Event_CultureEvent $event);
+
+  /**
 	 * @param string $permanent if permanent only permanent card systems need to be sent over.
    * @return CultureFeed_Uitpas_CardSystem[]
    */

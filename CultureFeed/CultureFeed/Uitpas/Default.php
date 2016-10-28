@@ -333,6 +333,13 @@ class CultureFeed_Uitpas_Default implements CultureFeed_Uitpas {
    }
 
   /**
+   * @inheritdoc
+   */
+  public function updateEvent(CultureFeed_Uitpas_Event_CultureEvent $event) {
+
+  }
+
+  /**
    * Resend the activation e-mail for a passholder
    *
    * @param string $uitpas_number The UitPas number
