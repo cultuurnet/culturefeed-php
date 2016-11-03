@@ -1073,7 +1073,7 @@ class CultureFeed implements ICultureFeed {
    *   If the result could not be parsed.
    */
   public function getTemplate($id) {
-    $result = $this->oauth_client->authenticatedGetAsXml('mailing/v2/template/' . $id);
+    $result = $this->oauth_client->authenticatedGetAsXml('mailing/template/' . $id);
 
     try {
       $xml = new CultureFeed_SimpleXMLElement($result);
@@ -1105,7 +1105,7 @@ class CultureFeed implements ICultureFeed {
   public function createTemplate(CultureFeed_Template $template) {
     $data = $template->toPostData();
 
-    $result = $this->oauth_client->authenticatedPostAsXml('mailing/v2/template', $data);
+    $result = $this->oauth_client->authenticatedPostAsXml('mailing/template', $data);
 
     try {
       $xml = new CultureFeed_SimpleXMLElement($result);
@@ -1138,7 +1138,7 @@ class CultureFeed implements ICultureFeed {
 
     unset($data['id']);
 
-    $this->oauth_client->authenticatedPostAsXml('mailing/v2/template/' . $id, $data);
+    $this->oauth_client->authenticatedPostAsXml('mailing/template/' . $id, $data);
   }
 
   /**
@@ -1154,7 +1154,7 @@ class CultureFeed implements ICultureFeed {
    */
   public function getTemplateList() {
 
-    $result = $this->oauth_client->authenticatedGetAsXml('mailing/v2/templates');
+    $result = $this->oauth_client->authenticatedGetAsXml('mailing/templates');
 
     try {
       $xml = new CultureFeed_SimpleXMLElement($result);
@@ -1176,7 +1176,7 @@ class CultureFeed implements ICultureFeed {
    *   ID of the template to delete.
    */
   public function deleteTemplate($id) {
-    $this->oauth_client->authenticatedPostAsXml('mailing/v2/template/' . $id . '/delete');
+    $this->oauth_client->authenticatedPostAsXml('mailing/template/' . $id . '/delete');
   }
 
   /**
@@ -1333,7 +1333,7 @@ class CultureFeed implements ICultureFeed {
    *   ID of the mailing to subscribe to.
    */
   public function sendTestMailing($user_id, $mailing_id) {
-    $this->oauth_client->authenticatedPostAsXml('mailing/v2/' . $mailing_id . '/test', array('userId' => $user_id));
+    $this->oauth_client->authenticatedPostAsXml('mailing/' . $mailing_id . '/test', array('userId' => $user_id));
   }
 
   /**
@@ -1345,7 +1345,7 @@ class CultureFeed implements ICultureFeed {
    *   ID of the mailing to send.
    */
   public function sendMailing($id) {
-    $this->oauth_client->authenticatedPostAsXml('mailing/v2/' . $id . '/send');
+    $this->oauth_client->authenticatedPostAsXml('mailing/' . $id . '/send');
   }
 
   /**
@@ -2369,7 +2369,6 @@ class CultureFeed implements ICultureFeed {
     $template = $element->xpath('template');
 
     if (isset($template[0])) {
-      $mailing->template_id = $template[0];
       $mailing->template = self::parseTemplate($template[0]);
     }
 
