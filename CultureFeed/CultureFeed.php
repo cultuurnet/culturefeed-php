@@ -2185,6 +2185,7 @@ class CultureFeed implements ICultureFeed {
 
       $user->id        = $object->xpath_str('rdf:id');
       $user->nick      = $object->xpath_str('foaf:nick');
+      $user->mbox      = $object->xpath_str('foaf:mbox');
       $user->depiction = $object->xpath_str('foaf:depiction');
       $user->sortValue = $object->xpath_int('sortValue');
 

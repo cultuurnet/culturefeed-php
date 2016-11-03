@@ -26,7 +26,7 @@ XML;
     $oauth_client_stub
       ->expects($this->once())
       ->method('consumerPostAsXml')
-      ->with($this->equalTo('/uitpas/cultureevent/register'))
+      ->with($this->equalTo('uitpas/cultureevent/register'))
       ->will($this->returnValue($response));
 
     $event_xml_str = file_get_contents(dirname(__FILE__) . self::EVENTXML);

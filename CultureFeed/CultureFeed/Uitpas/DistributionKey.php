@@ -21,7 +21,7 @@ class CultureFeed_Uitpas_DistributionKey {
    *
    * @var CultureFeed_Uitpas_DistributionKey_Condition[]
    */
-  public $conditions;
+  public $conditions = array();
 
   /**
    * Price classes.

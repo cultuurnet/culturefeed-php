@@ -295,42 +295,69 @@ class CultureFeed_Uitpas_Default implements CultureFeed_Uitpas {
    * @param CultureFeed_Uitpas_Event_CultureEvent $event The event data that needs to be sent over.
    * @return CultureFeed_Uitpas_Response
    */
-   public function registerEvent(CultureFeed_Uitpas_Event_CultureEvent $event) {
+  public function registerEvent(CultureFeed_Uitpas_Event_CultureEvent $event) {
+    return $this->consumerPostWithSimpleResponse(
+      'uitpas/cultureevent/register',
+      $event
+    );
+  }
 
-     $path = "/uitpas/cultureevent/register";
+  /**
+   * @inheritdoc
+   */
+  public function getEvent($id) {
+    $result = $this->oauth_client->consumerGetAsXml('uitpas/cultureevent/' . $id);
 
-     $data = $event->toPostData();
+    try {
+      $xml = new CultureFeed_SimpleXMLElement($result);
+    }
+    catch (Exception $e) {
+      throw new CultureFeed_ParseException($result);
+    }
 
-     //dpm($data, 'Data sent to uitpas call');
+    return CultureFeed_Uitpas_Event_CultureEvent::createFromXML($xml);
+  }
 
+  /**
+   * Performs a consumer authenticated POST request expecting a simple response.
+   *
+   * @param string $path
+   *   Path to post to.
+   * @param CultureFeed_Uitpas_ValueObject|array $data
+   *   Post data.
+   * @return \CultureFeed_Uitpas_Response
+   *   The simple response.
+   * @throws \CultureFeed_ParseException
+   *   When the returned payload is not valid XML.
+   */
+  private function consumerPostWithSimpleResponse($path, $data) {
+    if (is_object($data) && $data instanceof CultureFeed_Uitpas_ValueObject) {
+      $data = $data->toPostData();
+    }
 
+    $result = $this->oauth_client->consumerPostAsXml($path, $data);
 
+    try {
+      $xml = new CultureFeed_SimpleXMLElement($result);
+    }
+    catch (Exception $e) {
+      throw new CultureFeed_ParseException($result);
+    }
 
-     try {
-       // Call the path.
-       $result = $this->oauth_client->consumerPostAsXml( $path, $data );
-     } catch(CultureFeed_Exception $e) {
-       throw $e;
-     }
+    $response = CultureFeed_Uitpas_Response::createFromXML($xml->xpath('/response', false));
 
+    return $response;
+  }
 
-     try {
-       $xml = new CultureFeed_SimpleXMLElement($result);
-     }
-     catch (Exception $e) {
-       throw new CultureFeed_ParseException($result);
-     }
-
-     //dpm( print_r( $xml, true ) , 'xml return from register call' );
-
-     $response = CultureFeed_Uitpas_Response::createFromXML($xml->xpath('/response', false));
-
-     //dpm( $response, 'Response from register uitpas call' );
-
-     return $response;
-
-
-   }
+  /**
+   * @inheritdoc
+   */
+  public function updateEvent(CultureFeed_Uitpas_Event_CultureEvent $event) {
+    return $this->consumerPostWithSimpleResponse(
+      'uitpas/cultureevent/update',
+      $event
+    );
+  }
 
   /**
    * Resend the activation e-mail for a passholder

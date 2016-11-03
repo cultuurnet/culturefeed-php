@@ -198,4 +198,51 @@ class CultureFeed_CultureFeedTest extends PHPUnit_Framework_TestCase {
 
   }
 
+  /**
+   * Test searching users.
+   */
+  public function testSearchUsers() {
+    $query = new CultureFeed_SearchUsersQuery();
+    $query->name = 'john';
+    $query->mboxIncludePrivate = true;
+
+    $search_users_xml = file_get_contents(dirname(__FILE__) . '/data/search_users.xml');
+
+    $this->oauthClient->expects($this->once())
+      ->method('consumerGetAsXml')
+      ->with(
+        'user/search',
+        array(
+            'name' => 'john',
+            'mboxIncludePrivate' => 'true'
+        )
+      )
+      ->will($this->returnValue($search_users_xml));
+
+    $johnDoe = new CultureFeed_SearchUser();
+    $johnDoe->id = 'A5912755-8060-4CB7-B0D1-51717725A46A';
+    $johnDoe->nick = 'john.doe';
+    $johnDoe->mbox = 'john.doe@example.com';
+    $johnDoe->depiction = '//media.uitid.be/fis/rest/download/ce126667652776f0e9e55160f12f5463/uiv/default.png';
+    $johnDoe->sortValue = null;
+
+    $johnySmith = new CultureFeed_SearchUser();
+    $johnySmith->id = '0AC1C30A-4821-4D82-98AD-ADC02FBC0059';
+    $johnySmith->nick = 'johny.smith';
+    $johnySmith->mbox = 'johny@acme.com';
+    $johnySmith->depiction = '//media.uitid.be/fis/rest/download/ce126667652776f0e9e55160f12f5325/uiv/picture-5015.jpg';
+    $johnySmith->sortValue = null;
+
+    $expectedUsers = array(
+      $johnDoe,
+      $johnySmith
+    );
+
+    $expectedResults = new CultureFeed_ResultSet(2, $expectedUsers);
+
+    $actualResults = $this->cultureFeed->searchUsers($query);
+
+    $this->assertEquals($expectedResults, $actualResults);
+  }
+
 }
