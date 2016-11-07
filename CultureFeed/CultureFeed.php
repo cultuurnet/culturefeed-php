@@ -93,6 +93,7 @@ class CultureFeed implements ICultureFeed {
   const CODE_MAILING_SUBSCRIBED = 'MailingSubscribed';
   const CODE_MAILING_UNSUBSCRIBED = 'MailingUnsubscribed';
   const CODE_MAILING_ALREADY_SUBSCRIBED = 'UserAlreadySubscribed';
+  const CODE_CONSUMER_ADMIN_ADDED = 'ServiceConsumerAdminAdded';
 
   /**
    * OAuth request object to do the request.
@@ -1901,6 +1902,20 @@ class CultureFeed implements ICultureFeed {
     $element = $xml->xpath('/consumer');
 
     return $this->parseServiceConsumer($element[0]);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function addServiceConsumerAdmin($consumerKey, $uid) {
+
+    $data = [
+      'uid' => $uid,
+    ];
+
+    $result = $this->oauth_client->consumerPostAsXML('serviceconsumer/' . $consumerKey . '/admin', $data);
+
+    $this->validateResult($result, self::CODE_CONSUMER_ADMIN_ADDED);
   }
 
   /**

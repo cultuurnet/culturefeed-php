@@ -141,6 +141,13 @@ interface ICultureFeed {
 
   public function updateServiceConsumer(CultureFeed_Consumer $consumer);
 
+  /**
+   * Add a user as service consumer admin.
+   * @param $consumerKey
+   * @param $uid
+   */
+  public function addServiceConsumerAdmin($consumerKey, $uid);
+
   public function getServiceConsumer($consumerKey);
 
   /**
