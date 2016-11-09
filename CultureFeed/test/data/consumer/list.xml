@@ -24,6 +24,8 @@
         <name>Clone of Example Corp.</name>
         <status>BLOCKED</status>
         <destinationAfterEmailVerification>https://clone.example.com/after/verification/email</destinationAfterEmailVerification>
+        <searchPrefix>search prefix</searchPrefix>
+        <searchPrefixFilterQuery>filter query</searchPrefixFilterQuery>
         <domain>clone.example.com</domain>
         <group>3</group>
     </consumer>

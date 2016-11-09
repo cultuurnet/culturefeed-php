@@ -57,6 +57,8 @@ class CultureFeed_ServiceConsumerAPITest extends PHPUnit_Framework_TestCase {
     $this->assertEquals('clone.example.com', $consumers[1]->domain);
     $this->assertEquals('https://clone.example.com/after/verification/email', $consumers[1]->destinationAfterEmailVerification);
     $this->assertEquals(array(3), $consumers[1]->group);
+    $this->assertEquals('search prefix', $consumers[1]->searchPrefix);
+    $this->assertEquals('filter query', $consumers[1]->searchPrefixFilterQuery);
   }
 
   public function testCreateServiceConsumer() {
