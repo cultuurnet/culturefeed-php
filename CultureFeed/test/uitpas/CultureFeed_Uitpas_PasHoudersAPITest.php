@@ -180,6 +180,8 @@ XML;
 
     $expectedGroupPass = new CultureFeed_Uitpas_GroupPass();
     $expectedGroupPass->name = 'test groepspas';
+    $expectedGroupPass->endDate = '2016-02-29T00:00:00+01:00';
+    $expectedGroupPass->ticketsPerYear = 10;
     $expectedGroupPass->availableTickets = 10;
     $expectedGroupPass->uuid = '7ceca8ab-e250-4f6b-bb0f-03c008423754';
     $this->assertEquals($expectedGroupPass, $identity->groupPass);

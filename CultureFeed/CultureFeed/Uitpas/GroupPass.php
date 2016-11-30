@@ -13,6 +13,16 @@ class CultureFeed_Uitpas_GroupPass
     /**
      * @var string
      */
+    public $endDate;
+
+    /**
+     * @var int
+     */
+    public $ticketsPerYear;
+
+    /**
+     * @var string
+     */
     public $uuid;
 
     /**
@@ -39,6 +49,8 @@ class CultureFeed_Uitpas_GroupPass
         $pass = new self();
 
         $pass->name = $object->xpath_str('name');
+        $pass->endDate = $object->xpath_str('endDate');
+        $pass->ticketsPerYear = $object->xpath_int('ticketsPerYear');
         $pass->uuid = $object->xpath_str('uuid');
         $pass->availableTickets = $object->xpath_int('availableTickets');
         $pass->kansenStatuut = $object->xpath_bool('kansenStatuut');
