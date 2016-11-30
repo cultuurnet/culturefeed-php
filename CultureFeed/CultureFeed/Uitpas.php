@@ -480,4 +480,12 @@ interface CultureFeed_Uitpas {
    * @return CultureFeed_Uitpas_Passholder_ExecuteEventActionsResult
    */
   public function postPassholderEventActions(CultureFeed_Uitpas_Passholder_Query_ExecuteEventActions $eventActions);
+
+  /**
+   * Returns a CultureFeed_Uitpas_GroupPass.
+   *
+   * @param $id
+   * @return CultureFeed_Uitpas_GroupPass
+   */
+  public function getGroupPass($id);
 }

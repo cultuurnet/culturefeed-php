@@ -185,11 +185,4 @@ interface ICultureFeed {
    */
   public function postToSocial($id, $account_name, $account_type, $message, $image = NULL, $link = NULL);
 
-  /**
-   * Returns a CultureFeed_Uitpas_GroupPass.
-   *
-   * @param $id
-   * @return CultureFeed_Uitpas_GroupPass
-   */
-  public function getGroupPass($id);
 }

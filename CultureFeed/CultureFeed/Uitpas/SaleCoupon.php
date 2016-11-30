@@ -41,6 +41,16 @@ class CultureFeed_Uitpas_SaleCoupon
     public $remainingTotal = array();
 
     /**
+     * @var string
+     */
+    public $validFrom;
+
+    /**
+     * @var string
+     */
+    public $validTo;
+
+    /**
      * @param CultureFeed_SimpleXMLElement $object
      * @return CultureFeed_Uitpas_SaleCoupon
      */
@@ -53,12 +63,13 @@ class CultureFeed_Uitpas_SaleCoupon
         $coupon->description = $object->xpath_str('description');
         $coupon->exchangeConstraint['periodType'] = $object->exchangeConstraint->xpath_str('periodType');
         $coupon->exchangeConstraint['periodVolume'] = $object->exchangeConstraint->xpath_int('periodVolume');
-        $coupon->expired = $object->xpath_str('expired');
+        $coupon->expired = $object->xpath_bool('expired');
         $coupon->id = $object->xpath_str('id');
         $coupon->name = $object->xpath_str('name');
         $coupon->remainingTotal['periodType'] = $object->remainingTotal->xpath_str('periodType');
         $coupon->remainingTotal['periodVolume'] = $object->remainingTotal->xpath_int('periodVolume');
-
+        $coupon->validFrom = $object->xpath_str('validFrom');
+        $coupon->validTo = $object->xpath_str('validTo');
 
         return $coupon;
     }
