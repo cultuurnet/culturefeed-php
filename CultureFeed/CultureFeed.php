@@ -1195,7 +1195,7 @@ class CultureFeed implements ICultureFeed {
    */
   public function getMailing($id) {
 
-    $result = $this->oauth_client->authenticatedGetAsXml('mailing/v2/' . $id);
+    $result = $this->oauth_client->authenticatedGetAsXml('mailing/' . $id);
 
     try {
       $xml = new CultureFeed_SimpleXMLElement($result);
@@ -1276,7 +1276,7 @@ class CultureFeed implements ICultureFeed {
    *   ID of the mailing to disable.
    */
   public function disableMailing($id) {
-    $this->oauth_client->authenticatedPostAsXml('mailing/v2/' . $id . '/disable');
+    $this->oauth_client->authenticatedPostAsXml('mailing/' . $id . '/disable');
   }
 
   /**
