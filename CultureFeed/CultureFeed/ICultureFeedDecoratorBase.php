@@ -307,6 +307,11 @@ abstract class CultureFeed_ICultureFeedDecoratorBase implements ICultureFeed
         return $this->realCultureFeed->getUserServiceConsumers($id);
     }
 
+    public function addServiceConsumerAdmin($consumerKey, $uid)
+    {
+        return $this->realCultureFeed->addServiceConsumerAdmin($consumerKey, $uid);
+    }
+
     public function removeUserDepiction($id)
     {
         return $this->realCultureFeed->removeUserDepiction($id);
