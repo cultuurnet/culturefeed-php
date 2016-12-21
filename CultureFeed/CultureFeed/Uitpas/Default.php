@@ -1592,4 +1592,27 @@ class CultureFeed_Uitpas_Default implements CultureFeed_Uitpas {
     return $response;
   }
 
+  /**
+   * Returns a CultureFeed_Uitpas_GroupPass object.
+   *
+   * @param $id
+   * @return CultureFeed_Uitpas_GroupPass
+   * @throws \CultureFeed_ParseException
+   */
+  public function getGroupPass($id) {
+
+    $result = $this->oauth_client->consumerGetAsXml('uitpas/grouppass/' . $id);
+
+    try {
+      $xml = new CultureFeed_SimpleXMLElement($result);
+    }
+    catch (Exception $e) {
+      throw new CultureFeed_ParseException($result);
+    }
+
+    $pass = CultureFeed_Uitpas_GroupPass::createFromXML($xml);
+
+    return $pass;
+  }
+
 }
