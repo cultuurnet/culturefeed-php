@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <groupPass>
     <name>Davidsfonds test Anna</name>
-    <endDate>2015-12-31T00:00:00+01:00</endDate>
+    <endDate>2030-12-31T00:00:00+01:00</endDate>
     <ticketsPerYear>40</ticketsPerYear>
     <uuid>83cd39ff-c08b-4afd-8491-a27e8a1c085c</uuid>
     <availableTickets>0</availableTickets>

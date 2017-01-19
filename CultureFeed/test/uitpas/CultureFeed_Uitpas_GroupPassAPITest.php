@@ -24,11 +24,12 @@ class CultureFeed_Uitpas_GroupPassAPITest extends PHPUnit_Framework_TestCase {
 
     $this->assertInstanceOf('CultureFeed_Uitpas_GroupPass', $pass);
     $this->assertEquals('Davidsfonds test Anna', $pass->name);
-    $this->assertEquals(1451516400, $pass->endDate);
+    $this->assertEquals(1924902000, $pass->endDate);
     $this->assertEquals(40, $pass->ticketsPerYear);
     $this->assertEquals('83cd39ff-c08b-4afd-8491-a27e8a1c085c', $pass->uuid);
     $this->assertEquals(0, $pass->availableTickets);
     $this->assertEquals(false, $pass->kansenStatuut);
+    $this->assertEquals(false, $pass->expired);
     $this->assertInternalType('array', $pass->ticketSaleCoupons);
 
     $coupon = reset($pass->ticketSaleCoupons);

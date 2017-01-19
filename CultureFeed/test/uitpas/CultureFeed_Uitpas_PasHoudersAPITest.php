@@ -181,6 +181,7 @@ XML;
     $expectedGroupPass = new CultureFeed_Uitpas_GroupPass();
     $expectedGroupPass->name = 'test groepspas';
     $expectedGroupPass->endDate = 1456700400;
+    $expectedGroupPass->expired = true;
     $expectedGroupPass->ticketsPerYear = 10;
     $expectedGroupPass->availableTickets = 10;
     $expectedGroupPass->uuid = '7ceca8ab-e250-4f6b-bb0f-03c008423754';
