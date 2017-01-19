@@ -41,12 +41,12 @@ class CultureFeed_Uitpas_SaleCoupon
     public $remainingTotal = array();
 
     /**
-     * @var string
+     * @var integer
      */
     public $validFrom;
 
     /**
-     * @var string
+     * @var integer
      */
     public $validTo;
 
@@ -68,8 +68,8 @@ class CultureFeed_Uitpas_SaleCoupon
         $coupon->name = $object->xpath_str('name');
         $coupon->remainingTotal['periodType'] = $object->remainingTotal->xpath_str('periodType');
         $coupon->remainingTotal['periodVolume'] = $object->remainingTotal->xpath_int('periodVolume');
-        $coupon->validFrom = $object->xpath_str('validFrom');
-        $coupon->validTo = $object->xpath_str('validTo');
+        $coupon->validFrom = $object->xpath_time('validFrom');
+        $coupon->validTo = $object->xpath_time('validTo');
 
         return $coupon;
     }
