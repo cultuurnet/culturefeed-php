@@ -5,6 +5,8 @@
  */
 class CultureFeed_Uitpas_Default implements CultureFeed_Uitpas {
 
+  use Culturefeed_ValidationTrait;
+  
   /**
    *
    * CultureFeed object to make CultureFeed core requests.
@@ -1602,17 +1604,9 @@ class CultureFeed_Uitpas_Default implements CultureFeed_Uitpas {
   public function getGroupPass($id) {
 
     $result = $this->oauth_client->consumerGetAsXml('uitpas/grouppass/' . $id);
+    $xml = $this->validateResult($result, '');
 
-    try {
-      $xml = new CultureFeed_SimpleXMLElement($result);
-    }
-    catch (Exception $e) {
-      throw new CultureFeed_ParseException($result);
-    }
-
-    $pass = CultureFeed_Uitpas_GroupPass::createFromXML($xml);
-
-    return $pass;
+    return CultureFeed_Uitpas_GroupPass::createFromXML($xml);
   }
 
 }
