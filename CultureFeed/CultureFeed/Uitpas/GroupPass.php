@@ -62,9 +62,9 @@ class CultureFeed_Uitpas_GroupPass
         $pass->kansenStatuut = $object->xpath_bool('kansenStatuut');
 
         if (!empty($object->ticketSaleCoupons)) {
-          foreach ($object->ticketSaleCoupons as $coupon)
+          foreach ($object->ticketSaleCoupons->ticketSaleCoupon as $coupon)
           {
-            $pass->ticketSaleCoupons[] = CultureFeed_Uitpas_SaleCoupon::createFromXML($coupon->ticketSaleCoupon);
+            $pass->ticketSaleCoupons[] = CultureFeed_Uitpas_SaleCoupon::createFromXML($coupon);
           }
         }
 
