@@ -55,7 +55,7 @@ class CultureFeed_Uitpas_GroupPass
 
         $pass->name = $object->xpath_str('name');
         $pass->endDate = $object->xpath_time('endDate');
-        $pass->expired = $pass->endDate < $_SERVER['REQUEST_TIME'];
+        $pass->expired = !empty($pass->endDate) && $pass->endDate < $_SERVER['REQUEST_TIME'];
         $pass->ticketsPerYear = $object->xpath_int('ticketsPerYear');
         $pass->uuid = $object->xpath_str('uuid');
         $pass->availableTickets = $object->xpath_int('availableTickets');
