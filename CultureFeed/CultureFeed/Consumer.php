@@ -83,6 +83,13 @@ class CultureFeed_Consumer {
   public $callback;
 
   /**
+   * The search prefix filter query to use.
+   *
+   * @var string
+   */
+  public $searchPrefixFilterQuery;
+
+  /**
    * Redirect URL after verification of an e-mail address.
    *
    * @var string
