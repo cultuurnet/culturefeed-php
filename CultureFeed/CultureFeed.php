@@ -1890,17 +1890,20 @@ class CultureFeed implements ICultureFeed {
    */
   public function getServiceConsumer($consumerKey) {
     $result = $this->oauth_client->consumerGetAsXML('serviceconsumer/' . $consumerKey);
+    return $this->parseServiceConsumerFromXmlString($result);
+  }
 
-    try {
-      $xml = new CultureFeed_SimpleXMLElement($result);
-    }
-    catch (Exception $e) {
-      throw new CultureFeed_ParseException($result);
-    }
-
-    $element = $xml->xpath('/consumer');
-
-    return $this->parseServiceConsumer($element[0]);
+  /**
+   * Get An existing service consumer by api key.
+   *
+   * @param string $apiKey
+   * @return \CultureFeed_Consumer
+   * @throws \CultureFeed_ParseException
+   */
+  public function getServiceConsumerByApiKey($apiKey)
+  {
+    $result = $this->oauth_client->consumerGetAsXML('serviceconsumer/apikey/' . $apiKey);
+    return $this->parseServiceConsumerFromXmlString($result);
   }
 
   /**
@@ -1964,6 +1967,25 @@ class CultureFeed implements ICultureFeed {
    */
   public function getClient() {
     return $this->oauth_client;
+  }
+
+  /**
+   * @param string $xml
+   * @return CultureFeed_Consumer
+   * @throws CultureFeed_ParseException
+   */
+  protected function parseServiceConsumerFromXmlString($xml)
+  {
+    try {
+      $xml = new CultureFeed_SimpleXMLElement($xml);
+    }
+    catch (Exception $e) {
+      throw new CultureFeed_ParseException($xml);
+    }
+
+    $element = $xml->xpath('/consumer');
+
+    return $this->parseServiceConsumer($element[0]);
   }
 
   /**

@@ -134,6 +134,8 @@ interface ICultureFeed {
 
   public function getServiceConsumer($consumerKey);
 
+  public function getServiceConsumerByApiKey($apiKey);
+
   /**
    * @return CultureFeed_Uitpas
    */
