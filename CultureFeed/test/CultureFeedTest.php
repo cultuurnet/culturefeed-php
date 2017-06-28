@@ -24,6 +24,66 @@ class CultureFeed_CultureFeedTest extends PHPUnit_Framework_TestCase {
     $this->cultureFeed = new CultureFeed($this->oauthClient);
   }
 
+  public function testGetConsumerWithoutSapi3Properties()
+  {
+    $xml = file_get_contents(__DIR__ . '/data/consumer_without_sapi3_properties.xml');
+
+    $this->oauthClient->expects($this->once())
+      ->method('consumerGetAsXml')
+      ->with('serviceconsumer/5720d908-03cf-46da-8f5a-c43db621df5c')
+      ->willReturn($xml);
+
+    $consumer = $this->cultureFeed->getServiceConsumer('5720d908-03cf-46da-8f5a-c43db621df5c');
+
+    $this->assertNull($consumer->apiKeySapi3);
+    $this->assertNull($consumer->searchPrefixSapi3);
+  }
+
+  public function testGetConsumerWithEmptySapi3Properties()
+  {
+    $xml = file_get_contents(__DIR__ . '/data/consumer_with_empty_sapi3_properties.xml');
+
+    $this->oauthClient->expects($this->once())
+      ->method('consumerGetAsXml')
+      ->with('serviceconsumer/5720d908-03cf-46da-8f5a-c43db621df5c')
+      ->willReturn($xml);
+
+    $consumer = $this->cultureFeed->getServiceConsumer('5720d908-03cf-46da-8f5a-c43db621df5c');
+
+    $this->assertEquals('', $consumer->apiKeySapi3);
+    $this->assertEquals('', $consumer->searchPrefixSapi3);
+  }
+
+  public function testGetConsumerWithApiKeySapi3()
+  {
+    $xml = file_get_contents(__DIR__ . '/data/consumer_with_api_key_sapi3.xml');
+
+    $this->oauthClient->expects($this->once())
+      ->method('consumerGetAsXml')
+      ->with('serviceconsumer/5720d908-03cf-46da-8f5a-c43db621df5c')
+      ->willReturn($xml);
+
+    $consumer = $this->cultureFeed->getServiceConsumer('5720d908-03cf-46da-8f5a-c43db621df5c');
+
+    $this->assertEquals('c2436351-f314-4b83-916d-2e0a37502358', $consumer->apiKeySapi3);
+    $this->assertEquals('', $consumer->searchPrefixSapi3);
+  }
+
+  public function testGetConsumerWithSearchPrefixSapi3()
+  {
+    $xml = file_get_contents(__DIR__ . '/data/consumer_with_search_prefix_sapi3.xml');
+
+    $this->oauthClient->expects($this->once())
+      ->method('consumerGetAsXml')
+      ->with('serviceconsumer/5720d908-03cf-46da-8f5a-c43db621df5c')
+      ->willReturn($xml);
+
+    $consumer = $this->cultureFeed->getServiceConsumer('5720d908-03cf-46da-8f5a-c43db621df5c');
+
+    $this->assertEquals('c2436351-f314-4b83-916d-2e0a37502358', $consumer->apiKeySapi3);
+    $this->assertEquals('labels:foo AND regions:gem-leuven', $consumer->searchPrefixSapi3);
+  }
+
   /**
    * Test the handling of a succesfull user light call.
    */

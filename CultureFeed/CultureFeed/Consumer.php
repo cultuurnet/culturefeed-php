@@ -89,6 +89,16 @@ class CultureFeed_Consumer {
    */
   public $destinationAfterEmailVerification;
 
+  /**
+   * @var string|null
+   */
+  public $apiKeySapi3;
+
+  /**
+   * @var string|null
+   */
+  public $searchPrefixSapi3;
+
    /**
    * Extract an array useable as data in POST requests that expect consumer info.
    *

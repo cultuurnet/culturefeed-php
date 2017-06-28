@@ -1987,6 +1987,8 @@ class CultureFeed implements ICultureFeed {
     $consumer->name                               = $element->xpath_str('name');
     $consumer->status                             = $element->xpath_str('status');
     $consumer->group                              = $element->xpath_int('group', true);
+    $consumer->apiKeySapi3                        = $element->xpath_str('apiKeySapi3');
+    $consumer->searchPrefixSapi3                  = $element->xpath_str('searchPrefixSapi3');
 
     return $consumer;
   }
