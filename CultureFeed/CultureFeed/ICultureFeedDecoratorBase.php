@@ -188,6 +188,10 @@ abstract class CultureFeed_ICultureFeedDecoratorBase implements ICultureFeed
         return $this->realCultureFeed->getServiceConsumer($consumerKey);
     }
 
+    public function getServiceConsumerByApiKey($apiKey) {
+      return $this->realCultureFeed->getServiceConsumerByApiKey($apiKey);
+    }
+
     public function getServiceConsumers($start = 0, $max = null)
     {
         return $this->realCultureFeed->getServiceConsumers($start, $max);
