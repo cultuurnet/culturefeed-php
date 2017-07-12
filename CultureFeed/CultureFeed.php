@@ -1366,7 +1366,7 @@ class CultureFeed implements ICultureFeed {
 
     $data = $query->toPostData();
 
-    $result = $this->oauth_client->authenticatedGetAsXml('mailing/search', $data);
+    $result = $this->oauth_client->authenticatedGetAsXml('mailing/v2/search', $data);
     try {
       $xml = new CultureFeed_SimpleXMLElement($result);
     }
