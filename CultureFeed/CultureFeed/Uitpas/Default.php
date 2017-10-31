@@ -359,6 +359,20 @@ class CultureFeed_Uitpas_Default implements CultureFeed_Uitpas {
   }
 
   /**
+   * {@inheritdoc}
+   */
+  public function addCardSystemToEvent($cdbid, $cardSystemId, $distributionKey = NULL) {
+    $postData = array_filter(
+      [
+        'cardSystemId' => $cardSystemId,
+        'distributionKey' => $distributionKey,
+      ]
+    );
+
+    return $this->consumerPostWithSimpleResponse('uitpas/cultureevent/' . $cdbid . '/cardsystems', $postData);
+  }
+
+  /**
    * Performs a consumer authenticated POST request expecting a simple response.
    *
    * @param string $path

@@ -442,6 +442,18 @@ interface CultureFeed_Uitpas {
   public function getCardSystemsForEvent($cdbid);
 
   /**
+   * Add a card system to the event.
+   *
+   * @param string $cdbid
+   * @param string $cardSystemId
+   * @param string|null $distributionKey
+   *   Only required for manual distribution keys.
+   *
+   * @return CultureFeed_Uitpas_Response
+   */
+  public function addCardSystemToEvent($cdbid, $cardSystemId, $distributionKey = null);
+
+  /**
 	 * @param string $permanent if permanent only permanent card systems need to be sent over.
    * @return CultureFeed_Uitpas_CardSystem[]
    */

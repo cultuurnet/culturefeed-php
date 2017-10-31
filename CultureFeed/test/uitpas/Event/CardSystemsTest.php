@@ -34,4 +34,62 @@ class CultureFeed_Uitpas_Event_CardSystemsTest extends PHPUnit_Framework_TestCas
     $this->assertEquals(27, $cardSystem->distributionKeys[0]->id);
     $this->assertEquals('Speelplein HA', $cardSystem->distributionKeys[0]->name);
   }
+
+  /**
+   * Test the registering of an event.
+   */
+  public function testAddCardSystemToEvent() {
+
+    $response = <<<XML
+<?xml version="1.0" encoding="utf-8" ?>
+<response>
+    <code>ACTION_SUCCEEDED</code>
+    <cardSystems>
+        <cardSystem>
+            <id>1</id>
+            <name>UiTPAS Dender</name>
+            <distributionKeys>
+                <distributionKey>
+                    <id>27</id>
+                    <name>Speelplein HA</name>
+                    <conditions>
+                        <condition>
+                            <definition>KANSARM</definition>
+                            <operator>IN</operator>
+                            <value>MY_CARDSYSTEM</value>
+                        </condition>
+                    </conditions>
+                    <tariff>3.0</tariff>
+                    <priceClasses>
+                        <priceClass>
+                            <name>Basistarief</name>
+                            <price>10.0</price>
+                            <tariff>3.0</tariff>
+                        </priceClass>
+                    </priceClasses>
+                    <automatic>false</automatic>
+                </distributionKey>
+            </distributionKeys>
+        </cardSystem>
+    </cardSystems>
+</response>
+XML;
+
+    /* @var $oauth_client_stub PHPUnit_Framework_MockObject_MockObject */
+    $oauth_client_stub = $this->getMock('CultureFeed_OAuthClient');
+    $oauth_client_stub
+      ->expects($this->once())
+      ->method('consumerPostAsXml')
+      ->with($this->equalTo('uitpas/cultureevent/' . self::EVENTCDBID . '/cardsystems'))
+      ->will($this->returnValue($response));
+
+    $cf = new CultureFeed($oauth_client_stub);
+
+    $response = $cf->uitpas()->addCardSystemToEvent(self::EVENTCDBID, 1, 27);
+
+    $this->assertInstanceOf('\CultureFeed_Uitpas_Response', $response);
+
+    $this->assertEquals('ACTION_SUCCEEDED', $response->code);
+    $this->assertNull($response->message);
+  }
 }
