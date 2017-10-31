@@ -3,7 +3,7 @@
 class CultureFeed_Uitpas_Event_CardSystemsTest extends PHPUnit_Framework_TestCase {
   const EVENTCDBID = "47B6FA21-ACB1-EA8F-2C231182C7DD0A19";
 
-  public function testGetCardSystemsForOrganizer() {
+  public function testGetCardSystemsForEvent() {
     $oauth_client_stub = $this->getMock('CultureFeed_OAuthClient');
 
     $get_xml = file_get_contents(dirname(__FILE__) . '/../data/cultureevent/getCardSystems.xml');
