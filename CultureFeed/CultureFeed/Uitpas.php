@@ -50,7 +50,7 @@ interface CultureFeed_Uitpas {
    * Get the card systems for a given organizer.
    *
    * @param string $cdbid The CDBID of the given organizer
-   * @return CultureFeed_ResultSet The set of distribution keys
+   * @return CultureFeed_ResultSet The set of card systems
    */
   public function getCardSystemsForOrganizer($cdbid);
 
