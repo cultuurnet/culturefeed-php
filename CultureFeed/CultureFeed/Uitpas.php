@@ -454,6 +454,16 @@ interface CultureFeed_Uitpas {
   public function addCardSystemToEvent($cdbid, $cardSystemId, $distributionKey = null);
 
   /**
+   * Delete a card system from the event.
+   *
+   * @param string $cdbid
+   * @param string $cardSystemId
+   *
+   * @return CultureFeed_Uitpas_Response
+   */
+  public function deleteCardSystemFromEvent($cdbid, $cardSystemId);
+
+  /**
 	 * @param string $permanent if permanent only permanent card systems need to be sent over.
    * @return CultureFeed_Uitpas_CardSystem[]
    */

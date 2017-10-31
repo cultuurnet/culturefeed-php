@@ -92,4 +92,38 @@ XML;
     $this->assertEquals('ACTION_SUCCEEDED', $response->code);
     $this->assertNull($response->message);
   }
+
+  public function testDeleteCardSystemFromEvent() {
+
+    $response = <<<XML
+<?xml version="1.0" encoding="utf-8" ?>
+<response>
+    <code>ACTION_SUCCEEDED</code>
+    <cardSystems/>
+</response>
+XML;
+
+    $cardSystemId = 1;
+
+    $oauth_client_stub = $this->getMock('CultureFeed_OAuthClient');
+    $oauth_client_stub
+      ->expects($this->once())
+      ->method('request')
+      ->with(
+        'uitpas/cultureevent/' . self::EVENTCDBID . '/cardsystems/' . $cardSystemId,
+        [],
+        'DELETE',
+        FALSE
+      )
+      ->willReturn($response);
+
+    $cf = new CultureFeed($oauth_client_stub);
+
+    $response = $cf->uitpas()->deleteCardSystemFromEvent(self::EVENTCDBID, $cardSystemId);
+
+    $this->assertInstanceOf('\CultureFeed_Uitpas_Response', $response);
+
+    $this->assertEquals('ACTION_SUCCEEDED', $response->code);
+    $this->assertNull($response->message);
+  }
 }

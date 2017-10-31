@@ -373,6 +373,29 @@ class CultureFeed_Uitpas_Default implements CultureFeed_Uitpas {
   }
 
   /**
+   * {@inheritdoc}
+   */
+  public function deleteCardSystemFromEvent($cdbid, $cardSystemId) {
+    $result = $this->oauth_client->request(
+      'uitpas/cultureevent/' . $cdbid . '/cardsystems/' . $cardSystemId,
+      [],
+      'DELETE',
+      FALSE
+    );
+
+    try {
+      $xml = new CultureFeed_SimpleXMLElement($result);
+    }
+    catch (Exception $e) {
+      throw new CultureFeed_ParseException($result);
+    }
+
+    $response = CultureFeed_Uitpas_Response::createFromXML($xml->xpath('/response', false));
+
+    return $response;
+  }
+
+  /**
    * Performs a consumer authenticated POST request expecting a simple response.
    *
    * @param string $path
