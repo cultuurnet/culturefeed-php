@@ -339,6 +339,26 @@ class CultureFeed_Uitpas_Default implements CultureFeed_Uitpas {
   }
 
   /**
+   * {@inheritdoc}
+   */
+  public function getCardSystemsForEvent($cdbid) {
+    $result = $this->oauth_client->consumerGetAsXML('uitpas/cultureevent/' . $cdbid . '/cardsystems', []);
+    try {
+      $xml = new CultureFeed_SimpleXMLElement($result);
+    } catch (Exception $e) {
+      throw new CultureFeed_ParseException($result);
+    }
+
+    $cardSystems = [];
+    foreach ($xml->xpath('/response/cardSystems/cardSystem') as $cardSystemXml) {
+      $cardSystems[] = CultureFeed_Uitpas_CardSystem::createFromXML($cardSystemXml);
+    }
+
+    $total = count($cardSystems);
+    return new CultureFeed_ResultSet($total, $cardSystems);
+  }
+
+  /**
    * Performs a consumer authenticated POST request expecting a simple response.
    *
    * @param string $path

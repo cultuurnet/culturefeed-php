@@ -434,6 +434,14 @@ interface CultureFeed_Uitpas {
   public function getEvent($id);
 
   /**
+   * Get the card systems for a given event.
+   *
+   * @param string $cdbid The CDBID of the given event
+   * @return CultureFeed_ResultSet The set of card systems
+   */
+  public function getCardSystemsForEvent($cdbid);
+
+  /**
 	 * @param string $permanent if permanent only permanent card systems need to be sent over.
    * @return CultureFeed_Uitpas_CardSystem[]
    */
