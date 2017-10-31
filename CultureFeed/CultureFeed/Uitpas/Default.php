@@ -141,6 +141,26 @@ class CultureFeed_Uitpas_Default implements CultureFeed_Uitpas {
   }
 
   /**
+   * {@inheritdoc}
+   */
+  public function getCardSystemsForOrganizer($cdbid) {
+    $result = $this->oauth_client->consumerGetAsXML('uitpas/distributionkey/organiser/' . $cdbid, []);
+    try {
+      $xml = new CultureFeed_SimpleXMLElement($result);
+    } catch (Exception $e) {
+      throw new CultureFeed_ParseException($result);
+    }
+
+    $cardSystems = [];
+    foreach ($xml->xpath('/response/cardSystems/cardSystem') as $cardSystemXml) {
+      $cardSystems[] = CultureFeed_Uitpas_CardSystem::createFromXML($cardSystemXml);
+    }
+
+    $total = count($cardSystems);
+    return new CultureFeed_ResultSet($total, $cardSystems);
+  }
+
+  /**
    * Register a set of distribution keys for an organizer. The entire set (including existing)
    * of distribution keys must be provided.
    *
