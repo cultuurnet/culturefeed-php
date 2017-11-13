@@ -1890,17 +1890,20 @@ class CultureFeed implements ICultureFeed {
    */
   public function getServiceConsumer($consumerKey) {
     $result = $this->oauth_client->consumerGetAsXML('serviceconsumer/' . $consumerKey);
+    return $this->parseServiceConsumerFromXmlString($result);
+  }
 
-    try {
-      $xml = new CultureFeed_SimpleXMLElement($result);
-    }
-    catch (Exception $e) {
-      throw new CultureFeed_ParseException($result);
-    }
-
-    $element = $xml->xpath('/consumer');
-
-    return $this->parseServiceConsumer($element[0]);
+  /**
+   * Get An existing service consumer by api key.
+   *
+   * @param string $apiKey
+   * @return \CultureFeed_Consumer
+   * @throws \CultureFeed_ParseException
+   */
+  public function getServiceConsumerByApiKey($apiKey)
+  {
+    $result = $this->oauth_client->consumerGetAsXML('serviceconsumer/apikey/' . $apiKey);
+    return $this->parseServiceConsumerFromXmlString($result);
   }
 
   /**
@@ -1967,6 +1970,25 @@ class CultureFeed implements ICultureFeed {
   }
 
   /**
+   * @param string $xml
+   * @return CultureFeed_Consumer
+   * @throws CultureFeed_ParseException
+   */
+  protected function parseServiceConsumerFromXmlString($xml)
+  {
+    try {
+      $xml = new CultureFeed_SimpleXMLElement($xml);
+    }
+    catch (Exception $e) {
+      throw new CultureFeed_ParseException($xml);
+    }
+
+    $element = $xml->xpath('/consumer');
+
+    return $this->parseServiceConsumer($element[0]);
+  }
+
+  /**
    * Initializes a CultureFeed_Consumer object from its XML representation.
    *
    * @param CultureFeed_SimpleXMLElement $element
@@ -1987,6 +2009,8 @@ class CultureFeed implements ICultureFeed {
     $consumer->name                               = $element->xpath_str('name');
     $consumer->status                             = $element->xpath_str('status');
     $consumer->group                              = $element->xpath_int('group', true);
+    $consumer->apiKeySapi3                        = $element->xpath_str('apiKeySapi3');
+    $consumer->searchPrefixSapi3                  = $element->xpath_str('searchPrefixSapi3');
 
     return $consumer;
   }
