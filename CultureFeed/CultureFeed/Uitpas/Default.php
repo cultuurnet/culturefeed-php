@@ -141,6 +141,26 @@ class CultureFeed_Uitpas_Default implements CultureFeed_Uitpas {
   }
 
   /**
+   * {@inheritdoc}
+   */
+  public function getCardSystemsForOrganizer($cdbid) {
+    $result = $this->oauth_client->consumerGetAsXML('uitpas/distributionkey/organiser/' . $cdbid, []);
+    try {
+      $xml = new CultureFeed_SimpleXMLElement($result);
+    } catch (Exception $e) {
+      throw new CultureFeed_ParseException($result);
+    }
+
+    $cardSystems = [];
+    foreach ($xml->xpath('/response/cardSystems/cardSystem') as $cardSystemXml) {
+      $cardSystems[] = CultureFeed_Uitpas_CardSystem::createFromXML($cardSystemXml);
+    }
+
+    $total = count($cardSystems);
+    return new CultureFeed_ResultSet($total, $cardSystems);
+  }
+
+  /**
    * Register a set of distribution keys for an organizer. The entire set (including existing)
    * of distribution keys must be provided.
    *
@@ -316,6 +336,63 @@ class CultureFeed_Uitpas_Default implements CultureFeed_Uitpas {
     }
 
     return CultureFeed_Uitpas_Event_CultureEvent::createFromXML($xml);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getCardSystemsForEvent($cdbid) {
+    $result = $this->oauth_client->consumerGetAsXML('uitpas/cultureevent/' . $cdbid . '/cardsystems', []);
+    try {
+      $xml = new CultureFeed_SimpleXMLElement($result);
+    } catch (Exception $e) {
+      throw new CultureFeed_ParseException($result);
+    }
+
+    $cardSystems = [];
+    foreach ($xml->xpath('/response/cardSystems/cardSystem') as $cardSystemXml) {
+      $cardSystems[] = CultureFeed_Uitpas_CardSystem::createFromXML($cardSystemXml);
+    }
+
+    $total = count($cardSystems);
+    return new CultureFeed_ResultSet($total, $cardSystems);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function addCardSystemToEvent($cdbid, $cardSystemId, $distributionKey = NULL) {
+    $postData = array_filter(
+      [
+        'cardSystemId' => $cardSystemId,
+        'distributionKey' => $distributionKey,
+      ]
+    );
+
+    return $this->consumerPostWithSimpleResponse('uitpas/cultureevent/' . $cdbid . '/cardsystems', $postData);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function deleteCardSystemFromEvent($cdbid, $cardSystemId) {
+    $result = $this->oauth_client->request(
+      'uitpas/cultureevent/' . $cdbid . '/cardsystems/' . $cardSystemId,
+      [],
+      'DELETE',
+      FALSE
+    );
+
+    try {
+      $xml = new CultureFeed_SimpleXMLElement($result);
+    }
+    catch (Exception $e) {
+      throw new CultureFeed_ParseException($result);
+    }
+
+    $response = CultureFeed_Uitpas_Response::createFromXML($xml->xpath('/response', false));
+
+    return $response;
   }
 
   /**

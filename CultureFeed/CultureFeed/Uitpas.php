@@ -47,6 +47,14 @@ interface CultureFeed_Uitpas {
   public function getDistributionKeysForOrganizer($cdbid);
 
   /**
+   * Get the card systems for a given organizer.
+   *
+   * @param string $cdbid The CDBID of the given organizer
+   * @return CultureFeed_ResultSet The set of card systems
+   */
+  public function getCardSystemsForOrganizer($cdbid);
+
+  /**
    * Get the price of the UitPas.
    *
    * @return CultureFeed_ResultSet
@@ -424,6 +432,36 @@ interface CultureFeed_Uitpas {
    *   Details of the event.
    */
   public function getEvent($id);
+
+  /**
+   * Get the card systems for a given event.
+   *
+   * @param string $cdbid The CDBID of the given event
+   * @return CultureFeed_ResultSet The set of card systems
+   */
+  public function getCardSystemsForEvent($cdbid);
+
+  /**
+   * Add a card system to the event.
+   *
+   * @param string $cdbid
+   * @param string $cardSystemId
+   * @param string|null $distributionKey
+   *   Only required for manual distribution keys.
+   *
+   * @return CultureFeed_Uitpas_Response
+   */
+  public function addCardSystemToEvent($cdbid, $cardSystemId, $distributionKey = null);
+
+  /**
+   * Delete a card system from the event.
+   *
+   * @param string $cdbid
+   * @param string $cardSystemId
+   *
+   * @return CultureFeed_Uitpas_Response
+   */
+  public function deleteCardSystemFromEvent($cdbid, $cardSystemId);
 
   /**
 	 * @param string $permanent if permanent only permanent card systems need to be sent over.
