@@ -361,6 +361,31 @@ class CultureFeed_Uitpas_Default implements CultureFeed_Uitpas {
   /**
    * {@inheritdoc}
    */
+  public function eventHasTicketSales($cdbid) {
+    $result = $this->oauth_client->consumerGetAsXML('uitpas/cultureevent/' . $cdbid . '/hasticketsales');
+
+    try {
+      $xml = new CultureFeed_SimpleXMLElement($result);
+    } catch (Exception $e) {
+      throw new CultureFeed_ParseException($result);
+    }
+
+    $responseTag = $xml->xpath('/response', false);
+    $code = $responseTag->xpath_str('code');
+    $hasTicketSales = $responseTag->xpath_bool('hasTicketSales');
+
+    if ($code === 'ACTION_SUCCEEDED') {
+      return (bool) $hasTicketSales;
+    } elseif ($code === 'UNKNOWN_EVENT_CDBID') {
+      throw new CultureFeed_HttpException($result, 404);
+    } else {
+      throw new CultureFeed_Cdb_ParseException('Got unknown response code ' . $code);
+    }
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function addCardSystemToEvent($cdbid, $cardSystemId, $distributionKey = NULL) {
     $postData = array_filter(
       [
