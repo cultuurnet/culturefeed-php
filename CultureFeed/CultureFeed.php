@@ -2003,6 +2003,7 @@ class CultureFeed implements ICultureFeed {
     $consumer->status                             = $element->xpath_str('status');
     $consumer->group                              = $element->xpath_int('group', true);
     $consumer->searchPrefix                       = $element->xpath_str('searchPrefix');
+    $consumer->searchApi3Key                      = $element->xpath_str('apiKeySapi3');
     $consumer->searchPrefixFilterQuery            = $element->xpath_str('searchPrefixFilterQuery');
 
     return $consumer;

@@ -90,6 +90,13 @@ class CultureFeed_Consumer {
   public $searchPrefixFilterQuery;
 
   /**
+   * The API key for search api 3.
+   *
+   * @var string
+   */
+  public $searchApi3Key;
+
+  /**
    * Redirect URL after verification of an e-mail address.
    *
    * @var string
