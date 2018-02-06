@@ -103,6 +103,13 @@ class CultureFeed_Consumer {
    */
   public $destinationAfterEmailVerification;
 
+  /**
+   * admins for this consumer
+   *
+   * @var array
+   */
+  public $admins;
+
    /**
    * Extract an array useable as data in POST requests that expect consumer info.
    *

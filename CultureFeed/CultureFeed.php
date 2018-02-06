@@ -2237,6 +2237,16 @@ class CultureFeed implements ICultureFeed {
       $consumer->logo         = $object->xpath_str('logo');
       $consumer->domain       = $object->xpath_str('domain');
 
+      $consumer_admins = $consumer->xpath('admins/admin');
+
+      foreach ($consumer_admins as $admin) {
+         $admin->registerXPathNamespace('rdf', 'http://www.w3.org/1999/02/22-rdf-syntax-ns');
+         $admin->registerXPathNamespace('foaf', 'http://xmlns.com/foaf/0.1/');
+         $admins[] = $admin->xpath_str('rdf:id');
+      }
+
+      $consumer->admins = $admins;
+
       $consumers[] = $consumer;
     }
 
