@@ -2005,6 +2005,7 @@ class CultureFeed implements ICultureFeed {
     $consumer->searchPrefix                       = $element->xpath_str('searchPrefix');
     $consumer->searchApi3Key                      = $element->xpath_str('apiKeySapi3');
     $consumer->searchPrefixFilterQuery            = $element->xpath_str('searchPrefixFilterQuery');
+    $consumer->admins                            = $element->xpath_str('admins/admin/rdf:id', true);
 
     return $consumer;
   }
