@@ -2005,20 +2005,7 @@ class CultureFeed implements ICultureFeed {
     $consumer->searchPrefix                       = $element->xpath_str('searchPrefix');
     $consumer->searchApi3Key                      = $element->xpath_str('apiKeySapi3');
     $consumer->searchPrefixFilterQuery            = $element->xpath_str('searchPrefixFilterQuery');
-
-    $consumer_admins = $element->xpath('admins/admin');
-
-    $admins = [];
-
-    foreach ($consumer_admins as $admin) {
-       $admin->registerXPathNamespace('rdf', 'http://www.w3.org/1999/02/22-rdf-syntax-ns');
-       $admin->registerXPathNamespace('foaf', 'http://xmlns.com/foaf/0.1/');
-       $admins[] = $admin->xpath_str('rdf:id');
-    }
-
-    if(count($admins)>0) {
-      $consumer->admins = $admins;
-    }
+    $consumer->admins                            = $element->xpath_str('admins/admin/rdf:id', true);
 
     return $consumer;
   }
