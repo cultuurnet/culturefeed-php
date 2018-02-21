@@ -2001,7 +2001,7 @@ class CultureFeed implements ICultureFeed {
     $consumer->logo                               = $element->xpath_str('logo');
     $consumer->name                               = $element->xpath_str('name');
     $consumer->status                             = $element->xpath_str('status');
-    $consumer->group                              = $element->xpath_int('group', true);
+    $consumer->group                              = $element->xpath_int('groups/group/id', true);
     $consumer->searchPrefix                       = $element->xpath_str('searchPrefix');
     $consumer->searchApi3Key                      = $element->xpath_str('apiKeySapi3');
     $consumer->searchPrefixFilterQuery            = $element->xpath_str('searchPrefixFilterQuery');
