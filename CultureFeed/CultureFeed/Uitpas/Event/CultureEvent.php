@@ -362,7 +362,7 @@ class CultureFeed_Uitpas_Event_CultureEvent extends CultureFeed_Uitpas_ValueObje
     $object->registerXPathNamespace('cdb', CultureFeed_Cdb_Default::CDB_SCHEME_URL);
 
     $calendar_xml = $object->xpath('cdb:calendar', false);
-    if ($calendar_xml !== FALSE) {
+    if ($calendar_xml !== FALSE && !is_array($calendar_xml)) {
       $event->calendar = CultureFeed_Uitpas_Calendar::createFromXML($calendar_xml);
     }
     $event->numberOfPoints = $object->xpath_int('numberOfPoints');
