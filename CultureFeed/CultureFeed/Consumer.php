@@ -90,6 +90,13 @@ class CultureFeed_Consumer {
   public $searchPrefixFilterQuery;
 
   /**
+   * The search prefix query to use for search api 3.
+   *
+   * @var string
+   */
+  public $searchPrefixSapi3;
+
+  /**
    * The API key for search api 3.
    *
    * @var string
