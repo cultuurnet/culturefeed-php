@@ -31,6 +31,30 @@ class CultureFeed_CultureFeedTest extends PHPUnit_Framework_TestCase {
    * @param string $identifier
    * @param string $expectedPath
    */
+  public function testGetConsumerWithGroups(
+    $method,
+    $identifier,
+    $expectedPath
+  ) {
+    $xml = file_get_contents(__DIR__ . '/data/consumer_with_api_key_sapi3.xml');
+
+    $this->oauthClient->expects($this->once())
+      ->method('consumerGetAsXml')
+      ->with($expectedPath)
+      ->willReturn($xml);
+
+    $consumer = $this->cultureFeed->{$method}($identifier);
+
+    $this->assertEquals([744, 22074], $consumer->group);
+  }
+
+  /**
+   * @dataProvider getConsumerMethodDataProvider
+   *
+   * @param string $method
+   * @param string $identifier
+   * @param string $expectedPath
+   */
   public function testGetConsumerWithoutSapi3Properties(
     $method,
     $identifier,
