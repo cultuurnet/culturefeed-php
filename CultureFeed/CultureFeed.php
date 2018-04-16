@@ -2008,9 +2008,14 @@ class CultureFeed implements ICultureFeed {
     $consumer->logo                               = $element->xpath_str('logo');
     $consumer->name                               = $element->xpath_str('name');
     $consumer->status                             = $element->xpath_str('status');
-    $consumer->group                              = $element->xpath_int('group', true);
     $consumer->apiKeySapi3                        = $element->xpath_str('apiKeySapi3');
     $consumer->searchPrefixSapi3                  = $element->xpath_str('searchPrefixSapi3');
+
+    $consumer->group = $element->xpath_int('groups/group/id', true);
+    if (empty($consumer->group)) {
+      // Try the deprecated/obsolete format just to make sure.
+      $consumer->group = $element->xpath_int('group', true);
+    }
 
     return $consumer;
   }
