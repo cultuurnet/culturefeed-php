@@ -1210,11 +1210,8 @@ class CultureFeed_Uitpas_Default implements CultureFeed_Uitpas {
    */
   public function searchEvents(CultureFeed_Uitpas_Event_Query_SearchEventsOptions $query) {
     $data = $query->toPostData();
-    //$data['email'] = "sven@cultuurnet.be";
 
     $result = $this->oauth_client->consumerGetAsXml('uitpas/cultureevent/search', $data);
-    //dpm( $data );
-    //dpm( $result );
 
     try {
       $xml = new CultureFeed_SimpleXMLElement($result);
