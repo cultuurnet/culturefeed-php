@@ -83,6 +83,13 @@ class CultureFeed_Consumer {
   public $callback;
 
   /**
+   * The search prefix filter query to use.
+   *
+   * @var string
+   */
+  public $searchPrefixFilterQuery;
+
+  /**
    * Redirect URL after verification of an e-mail address.
    *
    * @var string
@@ -90,6 +97,14 @@ class CultureFeed_Consumer {
   public $destinationAfterEmailVerification;
 
   /**
+   * Admin uid's for the consumer.
+   *
+   * @var array
+   */
+  public $admins;
+
+  /**
+   * The API key for search api 3.
    * @var string|null
    */
   public $apiKeySapi3;

@@ -192,9 +192,9 @@ abstract class CultureFeed_ICultureFeedDecoratorBase implements ICultureFeed
       return $this->realCultureFeed->getServiceConsumerByApiKey($apiKey);
     }
 
-    public function getServiceConsumers($start = 0, $max = null)
+    public function getServiceConsumers($start = 0, $max = null, $filters = array())
     {
-        return $this->realCultureFeed->getServiceConsumers($start, $max);
+        return $this->realCultureFeed->getServiceConsumers($start, $max, $filters);
     }
 
     public function getSimilarUsers($id)
@@ -309,6 +309,11 @@ abstract class CultureFeed_ICultureFeedDecoratorBase implements ICultureFeed
     public function getUserServiceConsumers($id)
     {
         return $this->realCultureFeed->getUserServiceConsumers($id);
+    }
+
+    public function addServiceConsumerAdmin($consumerKey, $uid)
+    {
+        return $this->realCultureFeed->addServiceConsumerAdmin($consumerKey, $uid);
     }
 
     public function removeUserDepiction($id)

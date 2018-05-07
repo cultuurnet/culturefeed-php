@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<groupPass>
+    <name>Davidsfonds test Anna</name>
+    <endDate>2030-12-31T00:00:00+01:00</endDate>
+    <ticketsPerYear>40</ticketsPerYear>
+    <uuid>83cd39ff-c08b-4afd-8491-a27e8a1c085c</uuid>
+    <availableTickets>0</availableTickets>
+    <kansenStatuut>false</kansenStatuut>
+    <ticketSaleCoupons>
+        <ticketSaleCoupon>
+            <buyConstraint>
+                <periodType>ABSOLUTE</periodType>
+                <periodVolume>50</periodVolume>
+            </buyConstraint>
+            <description>bon voor groep id AB</description>
+            <exchangeConstraint>
+                <periodType>ABSOLUTE</periodType>
+                <periodVolume>50</periodVolume>
+            </exchangeConstraint>
+            <expired>false</expired>
+            <id>14</id>
+            <name>AB groepsbon</name>
+            <remainingTotal>
+                <periodType>ABSOLUTE</periodType>
+                <periodVolume>50</periodVolume>
+            </remainingTotal>
+            <validFrom>2016-10-02T00:00:00+02:00</validFrom>
+            <validTo>2016-10-21T23:59:59.999+02:00</validTo>
+        </ticketSaleCoupon>
+    </ticketSaleCoupons>
+</groupPass>

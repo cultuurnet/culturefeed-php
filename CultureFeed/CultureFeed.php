@@ -93,6 +93,7 @@ class CultureFeed implements ICultureFeed {
   const CODE_MAILING_SUBSCRIBED = 'MailingSubscribed';
   const CODE_MAILING_UNSUBSCRIBED = 'MailingUnsubscribed';
   const CODE_MAILING_ALREADY_SUBSCRIBED = 'UserAlreadySubscribed';
+  const CODE_CONSUMER_ADMIN_ADDED = 'ServiceConsumerAdminAdded';
 
   /**
    * OAuth request object to do the request.
@@ -1810,12 +1811,14 @@ class CultureFeed implements ICultureFeed {
    * Enter description here ...
    * @param unknown_type $start
    */
-  public function getServiceConsumers($start = 0, $max = NULL) {
+  public function getServiceConsumers($start = 0, $max = NULL, $filters = array()) {
     $query = array('start' => $start);
 
     if ($max) {
       $query['max'] = $max;
     }
+
+    $query += $filters;
 
     $result = $this->oauth_client->consumerGetAsXML('serviceconsumer/list', $query);
 
@@ -1869,14 +1872,12 @@ class CultureFeed implements ICultureFeed {
    * Updates an existing service consumer.
    *
    * @param CultureFeed_Consumer $consumer
-   * @todo check if we can update the status of the consumer
    */
   public function updateServiceConsumer(CultureFeed_Consumer $consumer) {
     $data = $consumer->toPostData();
 
     unset($data['id']);
     unset($data['creationDate']);
-    unset($data['status']);
 
     $this->oauth_client->consumerPostAsXML('serviceconsumer/' . $consumer->consumerKey, $data);
   }
@@ -1904,6 +1905,20 @@ class CultureFeed implements ICultureFeed {
   {
     $result = $this->oauth_client->consumerGetAsXML('serviceconsumer/apikey/' . $apiKey);
     return $this->parseServiceConsumerFromXmlString($result);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function addServiceConsumerAdmin($consumerKey, $uid) {
+
+    $data = [
+      'uid' => $uid,
+    ];
+
+    $result = $this->oauth_client->consumerPostAsXML('serviceconsumer/' . $consumerKey . '/admin', $data);
+
+    $this->validateResult($result, self::CODE_CONSUMER_ADMIN_ADDED);
   }
 
   /**
@@ -2008,8 +2023,12 @@ class CultureFeed implements ICultureFeed {
     $consumer->logo                               = $element->xpath_str('logo');
     $consumer->name                               = $element->xpath_str('name');
     $consumer->status                             = $element->xpath_str('status');
-    $consumer->apiKeySapi3                        = $element->xpath_str('apiKeySapi3');
+    $consumer->group                              = $element->xpath_int('groups/group/id', true);
+    $consumer->searchPrefix                       = $element->xpath_str('searchPrefix');
+    $consumer->apiKeySapi3                      = $element->xpath_str('apiKeySapi3');
+    $consumer->searchPrefixFilterQuery            = $element->xpath_str('searchPrefixFilterQuery');
     $consumer->searchPrefixSapi3                  = $element->xpath_str('searchPrefixSapi3');
+    $consumer->admins                            = $element->xpath_str('admins/admin/rdf:id', true);
 
     $consumer->group = $element->xpath_int('groups/group/id', true);
     if (empty($consumer->group)) {
@@ -2246,6 +2265,7 @@ class CultureFeed implements ICultureFeed {
       $consumer->name         = $object->xpath_str('name');
       $consumer->description  = $object->xpath_str('description');
       $consumer->logo         = $object->xpath_str('logo');
+      $consumer->domain       = $object->xpath_str('domain');
 
       $consumers[] = $consumer;
     }
