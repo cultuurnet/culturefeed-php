@@ -41,11 +41,11 @@ class CultureFeed_Uitpas_Passholder_OptInPreferences extends CultureFeed_Uitpas_
   public static function createFromXML(CultureFeed_SimpleXMLElement $object) {
     $preferences = new CultureFeed_Uitpas_Passholder_OptInPreferences();
 
-    $preferences->optInServiceMails = $object->xpath_str('optInServiceMails');
-    $preferences->optInMilestoneMails = $object->xpath_str('optInMilestoneMails');
-    $preferences->optInInfoMails = $object->xpath_str('optInInfoMails');
-    $preferences->optInSms = $object->xpath_str('optInSms');
-    $preferences->optInPost = $object->xpath_str('optInPost');
+    $preferences->optInServiceMails = $object->xpath_bool('optInServiceMails');
+    $preferences->optInMilestoneMails = $object->xpath_bool('optInMilestoneMails');
+    $preferences->optInInfoMails = $object->xpath_bool('optInInfoMails');
+    $preferences->optInSms = $object->xpath_bool('optInSms');
+    $preferences->optInPost = $object->xpath_bool('optInPost');
 
     return $preferences;
   }
