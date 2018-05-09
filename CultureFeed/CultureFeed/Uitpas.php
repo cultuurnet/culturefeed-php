@@ -236,6 +236,15 @@ interface CultureFeed_Uitpas {
   public function updatePassholderCardSystemPreferences(CultureFeed_Uitpas_Passholder_CardSystemPreferences $preferences);
 
   /**
+   * Update a passholder's opt-in preferences.
+   *
+   * @param string $id The user ID of the passholder
+   * @param CultureFeed_Uitpas_Passholder_OptInPreferences $preferences The passholder's opt-in preferences to update.
+   *        The opt-in preferences are identified by user id. Only fields that are set will be updated.
+   */
+  public function updatePassholderOptInPreferences($id, CultureFeed_Uitpas_Passholder_OptInPreferences $preferences);
+
+  /**
    * Block a UitPas.
    *
    * @param string $uitpas_number The UitPas number
