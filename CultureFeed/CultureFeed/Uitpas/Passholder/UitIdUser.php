@@ -16,6 +16,14 @@ class CultureFeed_Uitpas_Passholder_UitIdUser extends CultureFeed_Uitpas_ValueOb
    */
   public $nick;
 
+  /**
+   * The opt-in preferences of the user.
+   *
+   * @var CultureFeed_Uitpas_Passholder_OptInPreferences
+   */
+  public $optInPreferences;
+
+
   public static function createFromXML(CultureFeed_SimpleXMLElement $object) {
     $user = new CultureFeed_Uitpas_Passholder_UitIdUser();
 
@@ -24,6 +32,8 @@ class CultureFeed_Uitpas_Passholder_UitIdUser extends CultureFeed_Uitpas_ValueOb
 
     $user->id = $object->xpath_str('rdf:id');
     $user->nick = $object->xpath_str('foaf:nick');
+
+    $user->optInPreferences = CultureFeed_Uitpas_Passholder_OptInPreferences::createFromXML($object->xpath('optInPreferences')[0]);
 
     return $user;
   }
