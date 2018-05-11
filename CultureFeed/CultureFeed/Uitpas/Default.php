@@ -874,6 +874,31 @@ class CultureFeed_Uitpas_Default implements CultureFeed_Uitpas {
     return $response;
   }
 
+    /**
+     * {@inheritdoc}
+     */
+    public function updatePassholderOptInPreferences($id, CultureFeed_Uitpas_Passholder_OptInPreferences $preferences, $consumer_key_counter = NULL) {
+
+        $data = $preferences->toPostData();
+
+        if ($consumer_key_counter) {
+            $data['balieConsumerKey'] = $consumer_key_counter;
+        }
+
+        $result = $this->oauth_client->authenticatedPostAsXml('uitpas/passholder/' . $id . '/optinpreferences', $data);
+
+        try {
+            $xml = new CultureFeed_SimpleXMLElement($result);
+        }
+        catch (Exception $e) {
+            throw new CultureFeed_ParseException($result);
+        }
+
+        $response = CultureFeed_Uitpas_Passholder_OptInPreferences::createFromXML($xml->xpath('optInPreferences', false));
+
+        return $response;
+    }
+
   /**
    * Block a UitPas.
    *
