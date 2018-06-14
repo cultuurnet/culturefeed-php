@@ -239,7 +239,7 @@ class OAuthRequestTest extends PHPUnit_Framework_TestCase {
 	}
 	
 	public function testWontBuildHeaderWithArrayInput() {
-		$this->setExpectedException('OAuthException');
+		$this->setExpectedException('CulturefeedOAuthException');
 		OAuthTestUtils::build_request('POST', 'http://example.com', 'oauth_foo=bar&oauth_foo=baz');
 		OAuthRequest::from_request()->to_header();
 	}

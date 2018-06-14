@@ -12,7 +12,7 @@ try {
     $total[] = urlencode($k) . "=" . urlencode($v);
   }
   print implode("&", $total);
-} catch (OAuthException $e) {
+} catch (CulturefeedOAuthException $e) {
   print($e->getMessage() . "\n<hr />\n");
   print_r($req);
   die();

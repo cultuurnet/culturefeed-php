@@ -56,7 +56,7 @@ class SimpleOAuthDataStore extends OAuthDataStore {/*{{{*/
     $secret = time() + time();
     $token = new OAuthToken($key, md5(md5($secret)));
     if (!dba_insert("${type}_$key", serialize($token), $this->dbh)) {
-      throw new OAuthException("doooom!");
+      throw new CulturefeedOAuthException("doooom!");
     }
     return $token;
   }/*}}}*/
