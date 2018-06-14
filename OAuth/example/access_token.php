@@ -5,7 +5,7 @@ try {
   $req = OAuthRequest::from_request();
   $token = $test_server->fetch_access_token($req);
   print $token;
-} catch (OAuthException $e) {
+} catch (CulturefeedOAuthException $e) {
   print($e->getMessage() . "\n<hr />\n");
   print_r($req);
   die();
