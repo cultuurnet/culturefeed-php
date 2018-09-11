@@ -2121,6 +2121,14 @@ class CultureFeed implements ICultureFeed {
       }
       $page->setCategories($categories);
 
+      // Set keywords
+      $keywords_element = $membership->xpath('page/keywords/keyword');
+      $keywords = array();
+      foreach ($keywords_element as $keyword) {
+        $keywords[] = (string) $keyword;
+      }
+      $page->setKeywords($keywords);
+
       $user_membership->page          = $page;
       $user_membership->validated     = $membership->xpath_bool('validated');
       $user_membership->role          = $membership->xpath_str('role');
@@ -2167,6 +2175,14 @@ class CultureFeed implements ICultureFeed {
         $categories[] = (string) $category;
       }
       $page->setCategories($categories);
+
+      // Set keywords
+      $keywords_element = $object->xpath('keywords/keyword');
+      $keywords = array();
+      foreach ($keywords_element as $keyword) {
+        $keywords[] = (string) $keyword;
+      }
+      $page->setKeywords($keywords);
 
       $follower->page          = $page;
       $follower->user          = $user;
