@@ -2109,31 +2109,13 @@ class CultureFeed implements ICultureFeed {
 
       $user_membership = new CultureFeed_Pages_Membership();
 
-      $page = new CultureFeed_Cdb_Item_Page();
-      $page->setId($pageId);
-      $page->setName($membership->xpath_str('page/name'));
-
-      // Set categories
-      $categories_element = $membership->xpath('page/categoryIds/categoryId');
-      $categories = array();
-      foreach ($categories_element as $category) {
-        $categories[] = (string) $category;
-      }
-      $page->setCategories($categories);
-
-      // Set keywords
-      $keywords_element = $membership->xpath('page/keywords/keyword');
-      $keywords = array();
-      foreach ($keywords_element as $keyword) {
-        $keywords[] = (string) $keyword;
-      }
-      $page->setKeywords($keywords);
+      $page = CultureFeed_Cdb_Item_Page::parseFromCdbXml($membership->xpath('page')[0]);
 
       $user_membership->page          = $page;
       $user_membership->validated     = $membership->xpath_bool('validated');
       $user_membership->role          = $membership->xpath_str('role');
       $user_membership->relation      = $membership->xpath_str('relation');
-      $user_membership->creationDate = $membership->xpath_time('creationDate');
+      $user_membership->creationDate  = $membership->xpath_time('creationDate');
 
 
       $user_memberships[] = $user_membership;
@@ -2164,25 +2146,7 @@ class CultureFeed implements ICultureFeed {
 
       $follower = new CultureFeed_Pages_Follower();
 
-      $page = new CultureFeed_Cdb_Item_Page();
-      $page->setId($pageId);
-      $page->setName($object->xpath_str('name'));
-
-      // Set categories
-      $categories_element = $object->xpath('categoryIds/categoryId');
-      $categories = array();
-      foreach ($categories_element as $category) {
-        $categories[] = (string) $category;
-      }
-      $page->setCategories($categories);
-
-      // Set keywords
-      $keywords_element = $object->xpath('keywords/keyword');
-      $keywords = array();
-      foreach ($keywords_element as $keyword) {
-        $keywords[] = (string) $keyword;
-      }
-      $page->setKeywords($keywords);
+      $page = CultureFeed_Cdb_Item_Page::parseFromCdbXml($object);
 
       $follower->page          = $page;
       $follower->user          = $user;
