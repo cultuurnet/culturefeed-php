@@ -1901,9 +1901,10 @@ class CultureFeed implements ICultureFeed {
    * @return \CultureFeed_Consumer
    * @throws \CultureFeed_ParseException
    */
-  public function getServiceConsumerByApiKey($apiKey)
+  public function getServiceConsumerByApiKey($apiKey, $includePermissions = TRUE)
   {
-    $result = $this->oauth_client->consumerGetAsXML('serviceconsumer/apikey/' . $apiKey);
+    $params = array('includePermissions' => $includePermissions ? 'true' : 'false');
+    $result = $this->oauth_client->consumerGetAsXML('serviceconsumer/apikey/' . $apiKey, $params);
     return $this->parseServiceConsumerFromXmlString($result);
   }
 

@@ -150,7 +150,7 @@ interface ICultureFeed {
 
   public function getServiceConsumer($consumerKey);
 
-  public function getServiceConsumerByApiKey($apiKey);
+  public function getServiceConsumerByApiKey($apiKey, $includePermissions = TRUE);
 
   /**
    * @return CultureFeed_Uitpas
