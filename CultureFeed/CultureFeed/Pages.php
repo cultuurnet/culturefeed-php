@@ -19,9 +19,14 @@ interface CultureFeed_Pages {
    *   Page id to query.
    * @param array $roles
    *   Roles to filter on. (ADMIN / MEMBER / FOLLOWER)
-   * @return CultureFeed_ResultSet
+   * @param bool $use_auth
+   *   Use authentication for the request.
+   * @param bool $mboxIncludePrivate
+   *   Include the user mbox (consumer needs additional permission).
+   *
+   * @return \CultureFeed_ResultSet
    */
-  public function getUserList($id, $roles = array());
+  public function getUserList($id, $roles = array(), $use_auth = TRUE, $mboxIncludePrivate = FALSE);
 
   /**
    * Add a page.
