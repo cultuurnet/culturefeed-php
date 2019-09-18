@@ -457,6 +457,11 @@ abstract class CultureFeed_ICultureFeedDecoratorBase implements ICultureFeed
         return $this->realCultureFeed->uploadUserDepiction($id, $file_data);
     }
 
+    public function addUitpasPermission(CultureFeed_Consumer $consumer, $permissionGroup)
+    {
+        return $this->realCultureFeed->addUitpasPermission($consumer, $permissionGroup);
+    }
+
     /**
      * {@inheritdoc}
      */
