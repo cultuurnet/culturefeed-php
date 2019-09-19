@@ -1909,6 +1909,17 @@ class CultureFeed implements ICultureFeed {
   }
 
   /**
+   * Add group permission to uitpas
+   *
+   * @param CultureFeed_Consumer $consumer
+   * @param int $permissionGroup
+   */
+  public function addUitpasPermission(CultureFeed_Consumer $consumer, $permissionGroup) {
+    $params = ['group' =>  $permissionGroup];
+    $this->oauth_client->consumerPostAsXML('uitpas/consumerpermission/' . $consumer->consumerKey, $params);
+  }
+
+  /**
    * {@inheritdoc}
    */
   public function addServiceConsumerAdmin($consumerKey, $uid) {
