@@ -1914,7 +1914,7 @@ class CultureFeed implements ICultureFeed {
    * @param CultureFeed_Consumer $consumer
    * @param int $permissionGroup
    */
-  public function addUitpasPermission(CultureFeed_Consumer $consumer, int $permissionGroup) {
+  public function addUitpasPermission(CultureFeed_Consumer $consumer, $permissionGroup) {
     $params = ['group' =>  $permissionGroup];
     $this->oauth_client->consumerPostAsXML('uitpas/consumerpermission/' . $consumer->consumerKey, $params);
   }
