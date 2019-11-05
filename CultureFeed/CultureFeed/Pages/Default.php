@@ -206,11 +206,15 @@ class CultureFeed_Pages_Default implements CultureFeed_Pages {
   /**
    * @see CultureFeed_Pages::getUserList()
    */
-  public function getUserList($id, $roles = array(), $use_auth = TRUE) {
+  public function getUserList($id, $roles = array(), $use_auth = TRUE, $mboxIncludePrivate = FALSE) {
 
     $query = array();
     if (!empty($roles)) {
       $query['role'] = $roles;
+    }
+
+    if ($mboxIncludePrivate) {
+      $query['mboxIncludePrivate'] = 'true';
     }
 
     if ($use_auth) {
@@ -238,6 +242,7 @@ class CultureFeed_Pages_Default implements CultureFeed_Pages {
       $account->id          = $object->xpath_str('user/rdf:id');
       $account->nick        = $object->xpath_str('user/foaf:nick');
       $account->depiction   = $object->xpath_str('user/foaf:depiction');
+      $account->mbox        = $object->xpath_str('user/foaf:mbox');
       $membership->user     = $account;
 
       $membership->role          = $object->xpath_str('pageRole');
