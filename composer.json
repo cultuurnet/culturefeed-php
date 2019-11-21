@@ -33,7 +33,7 @@
     "cultuurnet/cdb": "~2.1"
   },
   "require-dev": {
-    "phpunit/phpunit": "~4.4.0",
+    "phpunit/phpunit": "~7.4.0",
     "satooshi/php-coveralls": "~0.7"
   },
   "autoload": {
