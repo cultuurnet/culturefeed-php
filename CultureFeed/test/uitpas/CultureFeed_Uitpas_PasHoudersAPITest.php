@@ -551,7 +551,7 @@ XML;
 
     $passholder_xml = file_get_contents(dirname(__FILE__) . '/data/passholder.update.succeeded.xml');
 
-    $oauth_client_stub->expects($this->any())
+    $oauth_client_stub->expects($this->once())
       ->method('authenticatedPostAsXml')
       ->with($path, $data)
       ->willReturn($passholder_xml);
