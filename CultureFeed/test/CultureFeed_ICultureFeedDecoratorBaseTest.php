@@ -5,7 +5,7 @@ class CultureFeed_ICultureFeedDecoratorBaseTest extends PHPUnit_Framework_TestCa
     public function testInheritingClassCanBeInstantiated()
     {
         $subject = new CultureFeed_ICultureFeedDecoratorBaseTestImplementation(
-            $this->getMock('\ICultureFeed')
+            $this->createMock('\ICultureFeed')
         );
         $this->assertInstanceOf('CultureFeed_ICultureFeedDecoratorBase', $subject);
     }

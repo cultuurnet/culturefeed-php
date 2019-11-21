@@ -6,7 +6,7 @@
 class CultureFeed_Uitpas_SearchCheckinsTest extends PHPUnit_Framework_TestCase {
 
   public function testSearchCheckins() {
-    $oauth_client_stub = $this->getMock('CultureFeed_OAuthClient');
+    $oauth_client_stub = $this->createMock('CultureFeed_OAuthClient');
 
     $checkins_xml = file_get_contents(dirname(__FILE__) . '/data/cultureevent/searchCheckins.xml');
 

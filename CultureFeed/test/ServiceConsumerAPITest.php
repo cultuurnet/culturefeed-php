@@ -8,7 +8,7 @@
 class CultureFeed_ServiceConsumerAPITest extends PHPUnit_Framework_TestCase {
 
   public function testGetServiceConsumers() {
-    $oauth_client_stub = $this->getMock('CultureFeed_OAuthClient');
+    $oauth_client_stub = $this->createMock('CultureFeed_OAuthClient');
 
     $consumers_xml = file_get_contents(dirname(__FILE__) . '/data/consumer/list.xml');
 
@@ -62,7 +62,7 @@ class CultureFeed_ServiceConsumerAPITest extends PHPUnit_Framework_TestCase {
   }
 
   public function testCreateServiceConsumer() {
-    $oauth_client_stub = $this->getMock('CultureFeed_OAuthClient');
+    $oauth_client_stub = $this->createMock('CultureFeed_OAuthClient');
     $cf = new Culturefeed($oauth_client_stub);
 
     $consumerKey = 'y1j72kx0btua10otvftd25cf6mws39pg';

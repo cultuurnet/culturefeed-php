@@ -22,7 +22,7 @@ class CultureFeed_EntryApiTest extends PHPUnit_Framework_TestCase {
 
   public function setUp() {
 
-    $this->oauthClient = $this->getMock('CultureFeed_OAuthClient');
+    $this->oauthClient = $this->createMock('CultureFeed_OAuthClient');
     $this->entry = new CultureFeed_EntryApi($this->oauthClient);
 
     $this->event = new CultureFeed_Cdb_Item_Event();

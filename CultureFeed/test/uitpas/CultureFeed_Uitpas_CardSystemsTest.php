@@ -6,7 +6,7 @@ class CultureFeed_Uitpas_CardSystemsTest extends PHPUnit_Framework_TestCase {
 
   public function testGetCardSystemsForOrganizer() {
     /** @var CultureFeed_OAuthClient|PHPUnit_Framework_MockObject_MockObject $oauth_client_stub */
-    $oauth_client_stub = $this->getMock('CultureFeed_OAuthClient');
+    $oauth_client_stub = $this->createMock('CultureFeed_OAuthClient');
 
     $get_xml = file_get_contents(dirname(__FILE__) . '/data/cardsystems/get.xml');
 

@@ -20,7 +20,7 @@ class CultureFeed_CultureFeedTest extends PHPUnit_Framework_TestCase {
   public function setUp() {
     parent::setUp();
 
-    $this->oauthClient = $this->getMock('CultureFeed_OAuthClient');
+    $this->oauthClient = $this->createMock('CultureFeed_OAuthClient');
     $this->cultureFeed = new CultureFeed($this->oauthClient);
   }
 

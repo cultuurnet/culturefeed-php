@@ -10,7 +10,7 @@ class CultureFeed_Uitpas_SearchEventsTest extends PHPUnit_Framework_TestCase {
    * Test the searching events.
    */
   public function testSearchEvents() {
-    $oauth_client_stub = $this->getMock('CultureFeed_OAuthClient');
+    $oauth_client_stub = $this->createMock('CultureFeed_OAuthClient');
 
     $get_xml = file_get_contents(dirname(__FILE__) . '/data/events/searchresults.xml');
 

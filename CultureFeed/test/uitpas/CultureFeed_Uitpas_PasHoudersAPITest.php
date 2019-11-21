@@ -11,7 +11,7 @@ class CultureFeed_Uitpas_PasHoudersAPITest extends PHPUnit_Framework_TestCase {
   const POINTS = 2;
 
   public function testGetPrice() {
-    $oauth_client_stub = $this->getMock('CultureFeed_OAuthClient');
+    $oauth_client_stub = $this->createMock('CultureFeed_OAuthClient');
 
     $prices_xml = file_get_contents(dirname(__FILE__) . '/data/passholder/prices.xml');
 
@@ -36,7 +36,7 @@ class CultureFeed_Uitpas_PasHoudersAPITest extends PHPUnit_Framework_TestCase {
   }
 
   public function testCreatePassholder() {
-    $oauth_client_stub = $this->getMock('CultureFeed_OAuthClient');
+    $oauth_client_stub = $this->createMock('CultureFeed_OAuthClient');
 
     $create_xml = file_get_contents(dirname(__FILE__) . '/data/passholder/create.xml');
 
@@ -92,7 +92,7 @@ class CultureFeed_Uitpas_PasHoudersAPITest extends PHPUnit_Framework_TestCase {
     $expected->cardSystem->name = 'UiTPAS Regio Aalst';
 
     /* @var CultureFeed_OAuthClient|PHPUnit_Framework_MockObject_MockObject $oauth_client_stub */
-    $oauth_client_stub = $this->getMock('CultureFeed_OAuthClient');
+    $oauth_client_stub = $this->createMock('CultureFeed_OAuthClient');
     $oauth_client_stub->expects($this->any())
       ->method('authenticatedGetAsXml')
       ->with('uitpas/price', $post_data)
@@ -123,7 +123,7 @@ class CultureFeed_Uitpas_PasHoudersAPITest extends PHPUnit_Framework_TestCase {
 XML;
 
     /* @var CultureFeed_OAuthClient|PHPUnit_Framework_MockObject_MockObject $oauth_client_stub */
-    $oauth_client_stub = $this->getMock('CultureFeed_OAuthClient');
+    $oauth_client_stub = $this->createMock('CultureFeed_OAuthClient');
     $oauth_client_stub->expects($this->any())
       ->method('authenticatedGetAsXml')
       ->will($this->returnValue($xml));
@@ -142,7 +142,7 @@ XML;
       'balieConsumerKey' => 'some-key',
     );
 
-    $oauth_client_stub = $this->getMock('CultureFeed_OAuthClient');
+    $oauth_client_stub = $this->createMock('CultureFeed_OAuthClient');
     $oauth_client_stub->expects($this->any())
       ->method('authenticatedGetAsXml')
       ->with('uitpas/retrieve', $data)
@@ -200,7 +200,7 @@ XML;
   }
 
   public function testIdentifyParseException() {
-    $oauth_client_stub = $this->getMock('CultureFeed_OAuthClient');
+    $oauth_client_stub = $this->createMock('CultureFeed_OAuthClient');
     $oauth_client_stub->expects($this->any())
       ->method('authenticatedGetAsXml')
       ->will($this->returnValue('<invalid></in_valid>'));
@@ -212,7 +212,7 @@ XML;
   }
 
   public function testGetWelcomeAdvantagesForPassholder() {
-    $oauth_client_stub = $this->getMock('CultureFeed_OAuthClient');
+    $oauth_client_stub = $this->createMock('CultureFeed_OAuthClient');
 
     $advantages_xml = file_get_contents(dirname(__FILE__) . '/data/passholder/advantages.xml');
 
@@ -246,7 +246,7 @@ XML;
   }
 
   public function testCheckinPassholder() {
-    $oauth_client_stub = $this->getMock('CultureFeed_OAuthClient');
+    $oauth_client_stub = $this->createMock('CultureFeed_OAuthClient');
 
     $checkin_xml = file_get_contents(dirname(__FILE__) . '/data/passholder/checkin.xml');
 
@@ -265,7 +265,7 @@ XML;
   }
 
   public function testCashInWelcomeAdvantage() {
-    $oauth_client_stub = $this->getMock('CultureFeed_OAuthClient');
+    $oauth_client_stub = $this->createMock('CultureFeed_OAuthClient');
 
     $promotion_xml = file_get_contents(dirname(__FILE__) . '/data/passholder/promotion.xml');
 
@@ -283,7 +283,7 @@ XML;
   }
 
   public function testGetPromotionPoints() {
-    $oauth_client_stub = $this->getMock('CultureFeed_OAuthClient');
+    $oauth_client_stub = $this->createMock('CultureFeed_OAuthClient');
 
     $advantages_xml = file_get_contents(dirname(__FILE__) . '/data/passholder/promotion_points.xml');
 
@@ -356,7 +356,7 @@ XML;
   }
 
   public function testCashInPromotionPoints() {
-    $oauth_client_stub = $this->getMock('CultureFeed_OAuthClient');
+    $oauth_client_stub = $this->createMock('CultureFeed_OAuthClient');
 
     $promotion_xml = file_get_contents(dirname(__FILE__) . '/data/passholder/promotion_checkin.xml');
 
@@ -375,7 +375,7 @@ XML;
   }
 
   public function testBlockUitpas() {
-    $oauth_client_stub = $this->getMock('CultureFeed_OAuthClient');
+    $oauth_client_stub = $this->createMock('CultureFeed_OAuthClient');
 
     $block_xml = file_get_contents(dirname(__FILE__) . '/data/passholder/block.xml');
 
@@ -391,7 +391,7 @@ XML;
   }
 
   public function testSearchWelcomeAdvantages() {
-    $oauth_client_stub = $this->getMock('CultureFeed_OAuthClient');
+    $oauth_client_stub = $this->createMock('CultureFeed_OAuthClient');
 
     $advantages_xml = file_get_contents(dirname(__FILE__) . '/data/passholder/welcome_advantages.xml');
 
@@ -421,7 +421,7 @@ XML;
   }
 
   public function testGetCard() {
-    $oauth_client_stub = $this->getMock('CultureFeed_OAuthClient');
+    $oauth_client_stub = $this->createMock('CultureFeed_OAuthClient');
 
     $card_xml = file_get_contents(dirname(__FILE__) . '/data/card.xml');
 
@@ -445,7 +445,7 @@ XML;
   }
 
   public function testSearch() {
-    $oauth_client_stub = $this->getMock('CultureFeed_OAuthClient');
+    $oauth_client_stub = $this->createMock('CultureFeed_OAuthClient');
 
     $search_xml = file_get_contents(dirname(__FILE__) . '/data/passholder/search.xml');
 
@@ -542,7 +542,7 @@ XML;
     $passholder->uitpasNumber = '1000001500601';
     $passholder->name = 'Tester';
 
-    $oauth_client_stub = $this->getMock('CultureFeed_OAuthClient');
+    $oauth_client_stub = $this->createMock('CultureFeed_OAuthClient');
 
     $path = 'uitpas/passholder/' . $passholder->uitpasNumber;
 
