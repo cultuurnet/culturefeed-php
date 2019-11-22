@@ -6,7 +6,7 @@
 class CultureFeed_Uitpas_GroupPassAPITest extends PHPUnit_Framework_TestCase {
 
   public function testGetGroupPass() {
-    $oauth_client_stub = $this->getMock('CultureFeed_OAuthClient');
+    $oauth_client_stub = $this->createMock('CultureFeed_OAuthClient');
 
     $xml = file_get_contents(dirname(__FILE__) . '/data/grouppass/groupPass.xml');
 

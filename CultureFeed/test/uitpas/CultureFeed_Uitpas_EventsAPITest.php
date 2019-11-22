@@ -11,7 +11,7 @@ class CultureFeed_Uitpas_EventsAPITest extends PHPUnit_Framework_TestCase {
   const POINTS = 2;
 
   public function testRegisterTicketSale() {
-    $oauth_client_stub = $this->getMock('CultureFeed_OAuthClient');
+    $oauth_client_stub = $this->createMock('CultureFeed_OAuthClient');
 
     $register_xml = file_get_contents(dirname(__FILE__) . '/data/events/register.xml');
 

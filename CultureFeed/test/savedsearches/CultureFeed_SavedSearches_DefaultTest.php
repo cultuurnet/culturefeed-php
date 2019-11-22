@@ -24,7 +24,7 @@ class CultureFeed_SavedSearches_DefaultTest extends PHPUnit_Framework_TestCase {
   public function setUp() {
     parent::setUp();
 
-    $this->oauthClient = $this->getMock('CultureFeed_OAuthClient');
+    $this->oauthClient = $this->createMock('CultureFeed_OAuthClient');
     $this->cultureFeed = new Culturefeed($this->oauthClient);
 
     $this->savedSearch = new CultureFeed_SavedSearches_SavedSearch(

@@ -25,7 +25,7 @@ class CultureFeed_Pages_DefaultTest extends PHPUnit_Framework_TestCase {
   public function setUp() {
     parent::setUp();
 
-    $this->oauthClient = $this->getMock('CultureFeed_OAuthClient');
+    $this->oauthClient = $this->createMock('CultureFeed_OAuthClient');
     $this->cultureFeed = new CultureFeed($this->oauthClient);
     $this->pages = new CultureFeed_Pages_Default($this->cultureFeed);
   }

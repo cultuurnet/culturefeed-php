@@ -6,7 +6,7 @@
 class CultureFeed_Uitpas_AssociationAPITest extends PHPUnit_Framework_TestCase {
 
   public function testGetAssociations() {
-    $oauth_client_stub = $this->getMock('CultureFeed_OAuthClient');
+    $oauth_client_stub = $this->createMock('CultureFeed_OAuthClient');
 
     $balie_consumer_key = 'e52efb7f-2eab-47a5-9cf3-9e7413ffd942';
 

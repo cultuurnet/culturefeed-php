@@ -5,7 +5,7 @@ class CultureFeed_Uitpas_Event_TicketSalesTest extends PHPUnit_Framework_TestCas
 
   public function testEventHasTicketSales() {
     /** @var CultureFeed_OAuthClient|PHPUnit_Framework_MockObject_MockObject $oauth_client_stub */
-    $oauth_client_stub = $this->getMock('CultureFeed_OAuthClient');
+    $oauth_client_stub = $this->createMock('CultureFeed_OAuthClient');
 
     $get_xml = file_get_contents(dirname(__FILE__) . '/../data/ticketsales/hasticketsales-true.xml');
 
@@ -22,7 +22,7 @@ class CultureFeed_Uitpas_Event_TicketSalesTest extends PHPUnit_Framework_TestCas
 
   public function testEventHasNoTicketSales() {
     /** @var CultureFeed_OAuthClient|PHPUnit_Framework_MockObject_MockObject $oauth_client_stub */
-    $oauth_client_stub = $this->getMock('CultureFeed_OAuthClient');
+    $oauth_client_stub = $this->createMock('CultureFeed_OAuthClient');
 
     $get_xml = file_get_contents(dirname(__FILE__) . '/../data/ticketsales/hasticketsales-false.xml');
 
@@ -39,7 +39,7 @@ class CultureFeed_Uitpas_Event_TicketSalesTest extends PHPUnit_Framework_TestCas
 
   public function testEventNotFound() {
     /** @var CultureFeed_OAuthClient|PHPUnit_Framework_MockObject_MockObject $oauth_client_stub */
-    $oauth_client_stub = $this->getMock('CultureFeed_OAuthClient');
+    $oauth_client_stub = $this->createMock('CultureFeed_OAuthClient');
 
     $get_xml = file_get_contents(dirname(__FILE__) . '/../data/ticketsales/hasticketsales-unknown-cdbid.xml');
 
@@ -55,7 +55,7 @@ class CultureFeed_Uitpas_Event_TicketSalesTest extends PHPUnit_Framework_TestCas
 
   public function testUnknownResponseCode() {
     /** @var CultureFeed_OAuthClient|PHPUnit_Framework_MockObject_MockObject $oauth_client_stub */
-    $oauth_client_stub = $this->getMock('CultureFeed_OAuthClient');
+    $oauth_client_stub = $this->createMock('CultureFeed_OAuthClient');
 
     $get_xml = file_get_contents(dirname(__FILE__) . '/../data/ticketsales/hasticketsales-unknown-code.xml');
 

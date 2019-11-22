@@ -22,7 +22,7 @@ class CultureFeed_Uitpas_EventsRegisterTest extends PHPUnit_Framework_TestCase {
 XML;
 
     /* @var $oauth_client_stub PHPUnit_Framework_MockObject_MockObject */
-    $oauth_client_stub = $this->getMock('CultureFeed_OAuthClient');
+    $oauth_client_stub = $this->createMock('CultureFeed_OAuthClient');
     $oauth_client_stub
       ->expects($this->once())
       ->method('consumerPostAsXml')

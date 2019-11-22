@@ -5,7 +5,7 @@ class CultureFeed_Uitpas_Event_CardSystemsTest extends PHPUnit_Framework_TestCas
 
   public function testGetCardSystemsForEvent() {
     /** @var CultureFeed_OAuthClient|PHPUnit_Framework_MockObject_MockObject $oauth_client_stub */
-    $oauth_client_stub = $this->getMock('CultureFeed_OAuthClient');
+    $oauth_client_stub = $this->createMock('CultureFeed_OAuthClient');
 
     $get_xml = file_get_contents(dirname(__FILE__) . '/../data/cultureevent/getCardSystems.xml');
 
@@ -77,7 +77,7 @@ class CultureFeed_Uitpas_Event_CardSystemsTest extends PHPUnit_Framework_TestCas
 XML;
 
     /** @var CultureFeed_OAuthClient|PHPUnit_Framework_MockObject_MockObject $oauth_client_stub */
-    $oauth_client_stub = $this->getMock('CultureFeed_OAuthClient');
+    $oauth_client_stub = $this->createMock('CultureFeed_OAuthClient');
     $oauth_client_stub
       ->expects($this->once())
       ->method('consumerPostAsXml')
@@ -107,7 +107,7 @@ XML;
     $cardSystemId = 1;
 
     /** @var CultureFeed_OAuthClient|PHPUnit_Framework_MockObject_MockObject $oauth_client_stub */
-    $oauth_client_stub = $this->getMock('CultureFeed_OAuthClient');
+    $oauth_client_stub = $this->createMock('CultureFeed_OAuthClient');
     $oauth_client_stub
       ->expects($this->once())
       ->method('request')

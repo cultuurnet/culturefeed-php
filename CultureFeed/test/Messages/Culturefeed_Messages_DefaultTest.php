@@ -25,7 +25,7 @@ class CultureFeed_Messages_DefaultTest extends PHPUnit_Framework_TestCase {
   public function setUp() {
     parent::setUp();
 
-    $this->oauthClient = $this->getMock('CultureFeed_OAuthClient');
+    $this->oauthClient = $this->createMock('CultureFeed_OAuthClient');
     $this->cultureFeed = new CultureFeed($this->oauthClient);
     $this->messages = new CultureFeed_Messages_Default($this->cultureFeed);
     $this->message = new CultureFeed_Messages_Message();

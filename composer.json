@@ -4,36 +4,20 @@
   "license": "GPL-2.0",
   "authors": [
     {
-      "name": "Sven Houtmeyers",
-      "email": "sven.houtmeyers@cultuurnet.be"
-    },
-    {
-      "name": "Luk Dens",
-      "email": "luk.dens@cultuurnet.be"
-    },
-    {
-      "name": "Davy Van Den Bremt"
-    },
-    {
-      "name": "Jochen Stals"
-    },
-    {
-      "name": "Nils Destoop"
-    },
-    {
-      "name": "Kristof Coomans",
-      "email": "kristof@2dotstwice.be"
-    },
-    {
-      "name": "Hans Langouche",
-      "email": "hans@2dotstwice.be"
+      "name": "Publiq vwz",
+      "email": "dev@publiq.be"
     }
   ],
+  "config": {
+    "platform": {
+      "php": "5.6.40"
+    }
+  },
   "require": {
     "cultuurnet/cdb": "~2.1"
   },
   "require-dev": {
-    "phpunit/phpunit": "~4.4.0",
+    "phpunit/phpunit": "~5.7",
     "satooshi/php-coveralls": "~0.7"
   },
   "autoload": {
