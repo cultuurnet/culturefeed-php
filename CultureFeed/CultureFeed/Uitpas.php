@@ -474,6 +474,16 @@ interface CultureFeed_Uitpas {
   public function eventHasTicketSales($cdbid);
 
   /**
+   * Sets card systems to the event.
+   *
+   * @param string $cdbid
+   * @param array $cardSystemIds
+   *
+   * @return CultureFeed_Uitpas_Response
+   */
+  public function setCardSystemsForEvent($cdbid, array $cardSystemIds);
+
+  /**
    * Add a card system to the event.
    *
    * @param string $cdbid

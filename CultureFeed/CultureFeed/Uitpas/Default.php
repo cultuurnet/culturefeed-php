@@ -394,6 +394,16 @@ class CultureFeed_Uitpas_Default implements CultureFeed_Uitpas {
     }
   }
 
+  public function setCardSystemsForEvent($cdbid, array $cardSystemIds)
+  {
+    return $this->consumerPostWithSimpleResponse(
+      'uitpas/cultureevent/' . $cdbid . '/preset_cardsystems',
+      [
+        'cardSystemId' => $cardSystemIds,
+      ]
+    );
+  }
+
   /**
    * {@inheritdoc}
    */
