@@ -109,6 +109,13 @@ class CultureFeed_Uitpas_Passholder extends CultureFeed_Uitpas_ValueObject {
   public $city;
 
   /**
+   * The foreignCity of the passholder.
+   *
+   * @var string
+   */
+  public $foreignCity;
+
+  /**
    * The telephone number of the passholder.
    *
    * @var string
@@ -377,6 +384,7 @@ class CultureFeed_Uitpas_Passholder extends CultureFeed_Uitpas_ValueObject {
     $passholder->box = $object->xpath_str('box');
     $passholder->postalCode = $object->xpath_str('postalCode');
     $passholder->city = $object->xpath_str('city');
+    $passholder->foreignCity = $object->xpath_str('foreignCity');
     $passholder->telephone = $object->xpath_str('telephone');
     $passholder->gsm = $object->xpath_str('gsm');
     $passholder->nationality = $object->xpath_str('nationality');
