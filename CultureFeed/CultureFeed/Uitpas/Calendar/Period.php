@@ -17,6 +17,12 @@ class CultureFeed_Uitpas_Calendar_Period {
    */
   public $dateto;
 
+  public function __construct($datefrom = null, $dateto = null)
+  {
+    $this->datefrom = $datefrom;
+    $this->dateto = $dateto;
+  }
+
   /**
    * @param CultureFeed_SimpleXMLElement $object
    * @return CultureFeed_Uitpas_Calendar_Period
