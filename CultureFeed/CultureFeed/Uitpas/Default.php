@@ -1716,6 +1716,38 @@ class CultureFeed_Uitpas_Default implements CultureFeed_Uitpas {
     return $response;
   }
 
+  /**
+   * @param string $consumer_key_counter
+   * @return CultureFeed_Uitpas_Calendar_Period[]
+   * @throws CultureFeed_ParseException
+   */
+  public function getFinancialOverviewReportPeriods($consumer_key_counter)
+  {
+    $params = array(
+      'balieConsumerKey' => $consumer_key_counter,
+    );
+
+    $response = $this->oauth_client->authenticatedGetAsXml(
+      'uitpas/report/financialoverview/organiser/periods',
+      $params
+    );
+
+    try {
+      $xml = new CultureFeed_SimpleXMLElement($response);
+    }
+    catch (Exception $e) {
+      throw new CultureFeed_ParseException($response);
+    }
+
+    $periods = array();
+
+    foreach ($xml->periods->period as $periodXml) {
+      $periods[] = CultureFeed_Uitpas_Calendar_Period::createFromXML($periodXml);
+    }
+
+    return $periods;
+  }
+
   public function deleteMembership($uid, $assocationId, $consumer_key_counter = NULL) {
     $data = array(
       'uid' => $uid,
