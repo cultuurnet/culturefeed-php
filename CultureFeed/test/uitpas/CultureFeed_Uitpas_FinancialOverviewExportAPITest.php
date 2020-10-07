@@ -1,7 +1,4 @@
 <?php
-/**
- * @file
- */
 
 class CultureFeed_Uitpas_FinancialOverviewExportAPITest extends PHPUnit_Framework_TestCase {
 
