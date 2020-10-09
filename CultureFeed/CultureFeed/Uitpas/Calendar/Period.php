@@ -17,4 +17,23 @@ class CultureFeed_Uitpas_Calendar_Period {
    */
   public $dateto;
 
+  public function __construct($datefrom = null, $dateto = null)
+  {
+    $this->datefrom = $datefrom;
+    $this->dateto = $dateto;
+  }
+
+  /**
+   * @param CultureFeed_SimpleXMLElement $object
+   * @return CultureFeed_Uitpas_Calendar_Period
+   */
+  public static function createFromXml(CultureFeed_SimpleXMLElement $object)
+  {
+    $period = new self();
+
+    $period->datefrom = $object->xpath_time('startDate');
+    $period->dateto = $object->xpath_time('endDate');
+
+    return $period;
+  }
 }

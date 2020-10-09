@@ -543,6 +543,12 @@ interface CultureFeed_Uitpas {
   );
 
   /**
+   * @param string $consumer_key_counter
+   * @return CultureFeed_Uitpas_Calendar_Period[]
+   */
+  public function getFinancialOverviewReportPeriods($consumer_key_counter);
+
+  /**
    * @param string $uid
    * @param string $assocationId
    * @param string|null $consumer_key_counter
