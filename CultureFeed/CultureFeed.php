@@ -417,14 +417,19 @@ class CultureFeed implements ICultureFeed {
    *   Boolean indicating wether the request should be done on behalf of a certain user.
    *   In case $use_auth is TRUE, the object should be initialized with an access token.
    *   Defaults to TRUE.
+   * @param bool $mbox_include_private
+   *   Boolean indicating wether the request should also return the email of current user.
    * @return CultureFeed_User
    *   The requested user.
    *
    * @throws CultureFeed_ParseException
    *   If the result could not be parsed.
    */
-  public function getUser($id, $private = FALSE, $use_auth = TRUE) {
+  public function getUser($id, $private = FALSE, $use_auth = TRUE, $mbox_include_private = FALSE) {
     $query = array('private' => $private ? 'true' : 'false');
+    if ($mbox_include_private) {
+      $query['mboxIncludePrivate'] = 'true';
+    }
 
     if ($use_auth) {
       $result = $this->oauth_client->authenticatedGetAsXml('user/' . $id, $query);

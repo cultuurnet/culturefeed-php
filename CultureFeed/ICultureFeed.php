@@ -22,7 +22,7 @@ interface ICultureFeed {
 
   public function deleteUser($id);
 
-  public function getUser($id, $private = FALSE, $use_auth = TRUE);
+  public function getUser($id, $private = FALSE, $use_auth = TRUE, $mbox_include_private = FALSE);
 
   public function getUserLightId($email, $home_zip = '');
 

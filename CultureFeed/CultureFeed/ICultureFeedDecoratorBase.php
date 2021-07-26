@@ -287,12 +287,13 @@ abstract class CultureFeed_ICultureFeedDecoratorBase implements ICultureFeed
         return $this->realCultureFeed->getUrlLogout($destination);
     }
 
-    public function getUser($id, $private = false, $use_auth = true)
+    public function getUser($id, $private = false, $use_auth = true, $mbox_include_private = false)
     {
         return $this->realCultureFeed->getUser(
             $id,
             $private,
-            $use_auth
+            $use_auth,
+            $mbox_include_private
         );
     }
 
