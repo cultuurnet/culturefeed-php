@@ -6,7 +6,7 @@
 class CultureFeed_Uitpas_Default implements CultureFeed_Uitpas {
 
   use Culturefeed_ValidationTrait;
-
+  
   /**
    *
    * CultureFeed object to make CultureFeed core requests.
@@ -1372,24 +1372,6 @@ class CultureFeed_Uitpas_Default implements CultureFeed_Uitpas {
   public function addMemberToCounter($uid, $consumer_key_counter = NULL) {
     $data = array(
       'uid' => $uid,
-    );
-
-    if ($consumer_key_counter) {
-      $data['balieConsumerKey'] = $consumer_key_counter;
-    }
-
-    $this->oauth_client->authenticatedPost('uitpas/balie/member', $data);
-  }
-
-  /**
-   * Add a member to a counter using their email address.
-   *
-   * @param string $email The UiTID user email (v1 or v2)
-   * @param string $consumer_key_counter The consumer key of the counter from where the request originates
-   */
-  public function addMemberToCounterByEmail($email, $consumer_key_counter = NULL) {
-    $data = array(
-      'email' => $email,
     );
 
     if ($consumer_key_counter) {
