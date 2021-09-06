@@ -1387,7 +1387,7 @@ class CultureFeed_Uitpas_Default implements CultureFeed_Uitpas {
    * @param string $email The UiTID user email (v1 or v2)
    * @param string $consumer_key_counter The consumer key of the counter from where the request originates
    */
-  public function addMemberToCounterUsingEmail($email, $consumer_key_counter = NULL) {
+  public function addMemberToCounterByEmail($email, $consumer_key_counter = NULL) {
     $data = array(
       'email' => $email,
     );
