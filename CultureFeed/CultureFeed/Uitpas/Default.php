@@ -6,7 +6,7 @@
 class CultureFeed_Uitpas_Default implements CultureFeed_Uitpas {
 
   use Culturefeed_ValidationTrait;
-  
+
   /**
    *
    * CultureFeed object to make CultureFeed core requests.
