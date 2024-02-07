@@ -50,6 +50,11 @@ class CultureFeed_Uitpas_Passholder_CardSystemSpecific {
   public $kansenStatuutInGracePeriod;
 
   /**
+   * @var bool
+   */
+  public $kansenStatuutSuspendedUntil;
+
+  /**
    * @var string
    */
   public $status;
@@ -73,6 +78,7 @@ class CultureFeed_Uitpas_Passholder_CardSystemSpecific {
     $cardSystemSpecific->kansenStatuutExpired = $object->xpath_bool('kansenStatuutExpired');
     $cardSystemSpecific->kansenStatuutEndDate = $object->xpath_time('kansenStatuutEndDate');
     $cardSystemSpecific->kansenStatuutInGracePeriod = $object->xpath_bool('kansenStatuutInGracePeriod');
+    $cardSystemSpecific->kansenStatuutSuspendedUntil = $object->xpath_time('kansenStatuutSuspendedUntil');
 
     $cardSystemSpecific->status = $object->xpath_str('status');
 
