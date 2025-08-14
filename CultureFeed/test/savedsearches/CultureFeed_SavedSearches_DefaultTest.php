@@ -27,7 +27,7 @@ class CultureFeed_SavedSearches_DefaultTest extends TestCase {
     parent::setUp();
 
     $this->oauthClient = $this->createMock('CultureFeed_OAuthClient');
-    $this->cultureFeed = new Culturefeed($this->oauthClient);
+    $this->cultureFeed = new CultureFeed($this->oauthClient);
 
     $this->savedSearch = new CultureFeed_SavedSearches_SavedSearch(
       '4d177d4e-6810-404c-afe0-e7dba1765f7c',

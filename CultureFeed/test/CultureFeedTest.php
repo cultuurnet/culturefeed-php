@@ -204,7 +204,7 @@ class CultureFeed_CultureFeedTest extends TestCase {
       )
       ->will($this->returnValue($without_uid_xml));
 
-    $this->expectException(Culturefeed_ParseException::class);
+    $this->expectException(CultureFeed_ParseException::class);
 
     $this->cultureFeed->getUserLightId('test@test.be', '');
 
@@ -225,7 +225,7 @@ class CultureFeed_CultureFeedTest extends TestCase {
       )
       ->will($this->returnValue($invalid_xml));
 
-      $this->expectException(Culturefeed_ParseException::class);
+      $this->expectException(CultureFeed_ParseException::class);
 
       $this->cultureFeed->getUserLightId('test@test.be', '');
 

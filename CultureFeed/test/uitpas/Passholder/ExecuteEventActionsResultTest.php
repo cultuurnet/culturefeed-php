@@ -78,7 +78,7 @@ class CultureFeed_Uitpas_Passholder_ExecuteEventActionsResultTest extends TestCa
     $expectedActions = array();
 
     $expectedBuyTicketResultAction =
-      new CultureFeed_Uitpas_Passholder_ExecuteEventActionsResultAction();
+      new Culturefeed_Uitpas_Passholder_ExecuteEventActionsResultAction();
     $expectedBuyTicketResultAction->actionType =
       $expectedBuyTicketResultAction::TYPE_BUYTICKET;
     $expectedBuyTicketResultAction->buyTicketResponse =
