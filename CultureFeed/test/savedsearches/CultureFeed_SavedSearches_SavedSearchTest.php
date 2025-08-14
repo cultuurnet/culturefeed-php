@@ -63,7 +63,8 @@ class CultureFeed_SavedSearches_SavedSearchTest extends TestCase {
     $this->assertEquals($filled_saved_search->frequency, SavedSearch::ASAP);
 
     // Build with an invalid frequency argument.
-    $this->setExpectedException('InvalidArgumentException');
+    $this->expectException(InvalidArgumentException::class);
+
     new SavedSearch(
       'userId',
       'name',
@@ -95,9 +96,12 @@ class CultureFeed_SavedSearches_SavedSearchTest extends TestCase {
     $savedSearch->setFrequency($validFrequencyString);
 
     // These should throw exceptions.
-    $this->setExpectedException('InvalidArgumentException');
+    $this->expectException(InvalidArgumentException::class);
+
     $savedSearch->setFrequency($invalidFrequencyString);
-    $this->setExpectedException('InvalidArgumentException');
+
+    $this->expectException(InvalidArgumentException::class);
+
     $savedSearch->setFrequency($invalidFrequencyObject);
   }
 }

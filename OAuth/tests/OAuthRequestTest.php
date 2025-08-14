@@ -241,7 +241,8 @@ class OAuthRequestTest extends TestCase {
 	}
 	
 	public function testWontBuildHeaderWithArrayInput() {
-		$this->setExpectedException('OAuthException');
+		$this->expectException(OAuthException::class);
+
 		OAuthTestUtils::build_request('POST', 'http://example.com', 'oauth_foo=bar&oauth_foo=baz');
 		OAuthRequest::from_request()->to_header();
 	}

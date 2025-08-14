@@ -51,7 +51,8 @@ class CultureFeed_Uitpas_Event_TicketSalesTest extends TestCase {
 
     $cf = new CultureFeed($oauth_client_stub);
 
-    $this->setExpectedException('\CultureFeed_HttpException');
+    $this->expectException(CultureFeed_HttpException::class);
+
     $cf->uitpas()->eventHasTicketSales(self::EVENTCDBID);
   }
 
@@ -67,7 +68,8 @@ class CultureFeed_Uitpas_Event_TicketSalesTest extends TestCase {
 
     $cf = new CultureFeed($oauth_client_stub);
 
-    $this->setExpectedException('\CultureFeed_Cdb_ParseException');
+    $this->expectException(CultureFeed_Cdb_ParseException::class);
+
     $cf->uitpas()->eventHasTicketSales(self::EVENTCDBID);
   }
 }

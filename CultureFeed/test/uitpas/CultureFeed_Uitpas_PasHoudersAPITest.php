@@ -132,7 +132,8 @@ XML;
 
     $cf = new CultureFeed($oauth_client_stub);
 
-    $this->setExpectedException('LogicException');
+    $this->expectException(LogicException::class);
+
     $cf->uitpas()->getPriceByUitpas($uitpas_number, $reason);
   }
 
@@ -209,7 +210,8 @@ XML;
 
     $cf = new CultureFeed($oauth_client_stub);
 
-    $this->setExpectedException('CultureFeed_ParseException');
+    $this->expectException(CultureFeed_ParseException::class);
+
     $cf->uitpas()->identify('1000001500601');
   }
 

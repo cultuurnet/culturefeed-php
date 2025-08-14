@@ -89,7 +89,7 @@ class CultureFeed_EntryApiTest extends TestCase {
    */
   public function testAddTagToEventWithInvalidKeywords($keyword) {
     $keywords = array($keyword);
-    $this->setExpectedException('InvalidArgumentException');
+    $this->expectException(InvalidArgumentException::class);
     $this->entry->addTagToEvent($this->event, $keywords);
   }
 
