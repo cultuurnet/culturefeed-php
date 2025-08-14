@@ -1,5 +1,6 @@
 <?php
 
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 class CultureFeed_SavedSearches_DefaultTest extends TestCase {
@@ -9,7 +10,7 @@ class CultureFeed_SavedSearches_DefaultTest extends TestCase {
   protected $cultureFeed;
 
   /**
-   * @var CultureFeed_OAuthClient|PHPUnit_Framework_MockObject_MockObject
+   * @var CultureFeed_OAuthClient&MockObject
    */
   protected $oauthClient;
 

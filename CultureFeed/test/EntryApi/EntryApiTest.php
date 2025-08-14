@@ -1,5 +1,6 @@
 <?php
 
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -14,7 +15,7 @@ class CultureFeed_EntryApiTest extends TestCase {
   protected $entry;
 
   /**
-   * @var CultureFeed_OAuthClient|PHPUnit_Framework_MockObject_MockObject
+   * @var CultureFeed_OAuthClient&MockObject
    */
   protected $oauthClient;
 
