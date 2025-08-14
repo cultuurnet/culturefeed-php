@@ -257,7 +257,7 @@ class CultureFeed_Activity {
   /**
    * The details of the content where the activity is occurred. Currently only
    * for contentType Event.
-   * @var ActivityEventDetails $contentDetails
+   * @var Culturefeed_ActivityEventDetails $contentDetails
    */
   public $contentDetails;
 

@@ -79,7 +79,7 @@ class CultureFeed_Messages_Message {
 
   /**
    * Timestamp of the last reply date.
-   * @var unknown
+   * @var int
    */
   public $lastReply;
 

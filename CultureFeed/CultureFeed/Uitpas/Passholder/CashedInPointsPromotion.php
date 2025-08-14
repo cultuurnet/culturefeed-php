@@ -27,6 +27,8 @@ class CultureFeed_Uitpas_Passholder_CashedInPointsPromotion extends CultureFeed_
   
   public $cashingDate;
 
+  public $counters;
+
   public static function createFromXML(CultureFeed_SimpleXMLElement $object) {
     // TODO: implement properly
     $promotion = new CultureFeed_Uitpas_Passholder_CashedInPointsPromotion();

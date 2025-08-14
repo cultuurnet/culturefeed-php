@@ -269,7 +269,7 @@ class CultureFeed_Uitpas_Default implements CultureFeed_Uitpas {
    *
    * @param CultureFeed_Uitpas_Passholder $passholder The new passholder
    * @param null $consumer_key_counter
-   * @return Passholder user ID
+   * @return CultureFeed_Uitpas_Passholder
    * @throws \CultureFeed_ParseException
    * @throws \CultureFeed_Uitpas_PassholderException
    */
@@ -667,7 +667,6 @@ class CultureFeed_Uitpas_Default implements CultureFeed_Uitpas {
    * Provide either a UitPas number or chip number. You cannot provide both.
    *
    * @param CultureFeed_Uitpas_Passholder_Query_CheckInPassholderOptions $query The event data object
-   * @return The total amount of points of the user
    */
   public function checkinPassholder(CultureFeed_Uitpas_Passholder_Query_CheckInPassholderOptions $query) {
     $data = $query->toPostData();
