@@ -12,7 +12,7 @@ class Culturefeed_Log_Request {
 
   /**
    * Start timestamp of the request in microseconds.
-   * @var int
+   * @var float
    */
   private $startTime;
 
@@ -30,7 +30,7 @@ class Culturefeed_Log_Request {
 
   /**
    * Total time for the request in microseconds.
-   * @var int
+   * @var float
    */
   protected $time;
 
