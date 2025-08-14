@@ -284,23 +284,23 @@ class CultureFeed_Activity {
     switch ($id) {
 
       case self::TYPE_RECOMMEND:
-        $name = \CultuurNet\Search\ActivityStatsExtendedEntity::ACTIVITY_COUNT_RECOMMEND;
+        $name = 'recommend';
         break;
 
       case self::TYPE_LIKE:
-        $name = \CultuurNet\Search\ActivityStatsExtendedEntity::ACTIVITY_COUNT_LIKE;
+        $name = 'like';
         break;
 
       case self::TYPE_COMMENT:
-        $name = \CultuurNet\Search\ActivityStatsExtendedEntity::ACTIVITY_COUNT_COMMENT;
+        $name = 'comment';
         break;
 
       case self::TYPE_IK_GA:
-        $name = \CultuurNet\Search\ActivityStatsExtendedEntity::ACTIVITY_COUNT_ATTEND;
+        $name = 'attend';
         break;
 
       case self::TYPE_FACEBOOK:
-        $name = \CultuurNet\Search\ActivityStatsExtendedEntity::ACTIVITY_COUNT_FACEBOOK_SHARE;
+        $name = 'facebook_share';
         break;
 
     }
