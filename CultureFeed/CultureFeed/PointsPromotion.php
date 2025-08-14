@@ -46,17 +46,17 @@ class CultureFeed_PointsPromotion {
   public $id;
 
   /**
-   * @var date
+   * @var int
    */
   public $cashingPeriodBegin;
 
   /**
-   * @var date
+   * @var int
    */
   public $cashingPeriodEnd;
 
   /**
-   * @var date
+   * @var int
    */
   public $creationDate;
 

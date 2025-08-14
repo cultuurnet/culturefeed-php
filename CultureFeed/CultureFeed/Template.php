@@ -71,7 +71,7 @@ class CultureFeed_Template {
 
   /**
    * Date for frequency once.
-   * @var date
+   * @var int
    */
   public $scheduledDate;
 
