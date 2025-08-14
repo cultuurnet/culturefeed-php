@@ -8,12 +8,8 @@
       "email": "dev@publiq.be"
     }
   ],
-  "config": {
-    "platform": {
-      "php": "5.6.40"
-    }
-  },
   "require": {
+    "php": ">=7.4",
     "cultuurnet/cdb": "~2.1"
   },
   "require-dev": {
@@ -24,12 +20,6 @@
       "CultureFeed",
       "OAuth"
     ]
-  },
-  "extra": {
-    "branch-alias": {
-      "dev-master": "1.9.x-dev",
-      "dev-develop": "1.2.x-dev"
-    }
   },
   "minimum-stability": "dev",
   "prefer-stable": true
