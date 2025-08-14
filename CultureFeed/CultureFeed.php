@@ -622,7 +622,7 @@ class CultureFeed implements ICultureFeed {
    *
    * @param string $user_id
    *   ID of the user who requests the revoke.
-   * @param integer id
+   * @param integer $consumer_id
    *   ID of the service consumer that needs to be revoked.
    */
   public function revokeUserServiceConsumer($user_id, $consumer_id) {
@@ -1390,7 +1390,7 @@ class CultureFeed implements ICultureFeed {
    *
    * @param string $user_id
    *   ID from user that needs to be subscribed.
-   * @param string
+   * @param string $mailing_id
    *   ID of the mailing to subscribe to.
    * @param bool $use_auth
    *   Using a consumer request for this method is only available for a few consumers who have the ‘Use Light UiTID permission.
@@ -1414,7 +1414,7 @@ class CultureFeed implements ICultureFeed {
    *
    * @param string $user_id
    *   ID from user that needs to be unsubscribed.
-   * @param string
+   * @param string $mailing_id
    *   ID of the mailing to unsubscribe from.
    * @param bool $use_auth
    *   Using a consumer request for this method is only available for a few consumers who have the ‘Use Light UiTID permission.
@@ -1587,7 +1587,7 @@ class CultureFeed implements ICultureFeed {
    *
    * @param string $userId
    *   User Id to get the notifications for.
-   * @param string dateFrom
+   * @param string $dateFrom
    *   ISO Date to set the startdate of the timeline. (optional)
    *
    * @throws CultureFeed_ParseException

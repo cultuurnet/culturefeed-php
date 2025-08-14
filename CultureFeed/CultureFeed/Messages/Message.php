@@ -127,7 +127,7 @@ class CultureFeed_Messages_Message {
 
   /**
    * Parse a message from an xml element.
-   * @param unknown $xmlElement
+   * @param CultureFeed_SimpleXMLElement $xmlElement
    */
   public static function parseFromXml(CultureFeed_SimpleXMLElement $xmlElement) {
 

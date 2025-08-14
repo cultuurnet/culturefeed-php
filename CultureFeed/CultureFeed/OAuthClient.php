@@ -129,7 +129,7 @@ interface CultureFeed_OAuthClient {
    *
    * @param string $path
    *   The path for the request relative to the endpoint.
-   * @param string $params
+   * @param array $params
    *   Post data for a POST request, query string for a GET request.
    * @param string $method
    *   HTTP method.

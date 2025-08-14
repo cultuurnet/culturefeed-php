@@ -303,7 +303,7 @@ class CultureFeed_Uitpas_Default implements CultureFeed_Uitpas {
   /**
    * Create a new membership for a UitPas passholder.
    *
-   * @param CultureFeed_Uitpas_Membership $membership The membership object of the UitPas passholder
+   * @param CultureFeed_Uitpas_Passholder_Membership $membership The membership object of the UitPas passholder
    */
   public function createMembershipForPassholder(CultureFeed_Uitpas_Passholder_Membership $membership) {
     $data = $membership->toPostData();

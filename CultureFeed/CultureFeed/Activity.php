@@ -274,8 +274,8 @@ class CultureFeed_Activity {
    * to the /search api will use the predefined names.
    * This method maps the two with intention easy the usage.
    *
-   * @param Integer $type
-   * @return String $activity type.
+   * @param int $id
+   * @return string
    */
   public static function getNameById($id) {
 
