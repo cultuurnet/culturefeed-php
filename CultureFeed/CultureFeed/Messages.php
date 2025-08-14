@@ -22,7 +22,7 @@ interface CultureFeed_Messages {
 
   /**
    * Get the given message and it's children.
-   * @param unknown $id
+   * @param int $id
    */
   public function getMessage($id);
 

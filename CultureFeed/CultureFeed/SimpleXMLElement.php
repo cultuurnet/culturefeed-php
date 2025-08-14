@@ -128,8 +128,8 @@ class CultureFeed_SimpleXMLElement extends SimpleXMLElement {
 
   /**
    * Return the value from a simple xml object and cast it using a type casting function.
-   * @param unknown_type $cast_function
-   * @param unknown_type $object
+   * @param callable $cast_function
+   * @param object $object
    */
   private function xpath_object_value($cast_function, $object) {
 

@@ -1814,7 +1814,7 @@ class CultureFeed implements ICultureFeed {
    * @todo clarify if $start and $max are obligatory or optional
    *
    * Enter description here ...
-   * @param unknown_type $start
+   * @param int $start
    */
   public function getServiceConsumers($start = 0, $max = NULL, $filters = array()) {
     $query = array('start' => $start);
