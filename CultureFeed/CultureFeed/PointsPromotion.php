@@ -41,12 +41,12 @@ class CultureFeed_PointsPromotion {
   public $cashedIn;
 
   /**
-   * @var string.
+   * @var string
    */
   public $id;
 
   /**
-   * @var date.
+   * @var date
    */
   public $cashingPeriodBegin;
 
@@ -71,27 +71,27 @@ class CultureFeed_PointsPromotion {
   public $periodConstraint = NULL;
 
   /**
-   * @var double.
+   * @var double
    */
   public $points;
 
   /**
-   * @var Boolean.
+   * @var Boolean
    */
   public $inSpotlight;
 
   /**
-   * @var string.
+   * @var string
    */
   public $title;
 
   /**
-   * @var string.
+   * @var string
    */
   public $description1;
 
   /**
-   * @var string.
+   * @var string
    */
   public $description2;
 
@@ -101,7 +101,7 @@ class CultureFeed_PointsPromotion {
   public $pictures = array();
 
   /**
-   * @var integer.
+   * @var integer
    */
   public $unitsTaken;
 
