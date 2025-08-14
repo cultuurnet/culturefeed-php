@@ -794,7 +794,7 @@ class CultureFeed implements ICultureFeed {
    *
    * @param CultureFeed_SearchActivitiesQuery $query
    *   The query.
-   * @return CultureFeed_Activity[]
+   * @return CultureFeed_ResultSet
    *   The activities.
    *
    * @throws CultureFeed_ParseException
@@ -1152,7 +1152,7 @@ class CultureFeed implements ICultureFeed {
    *
    *  The object should be initialized with the consumer token and user access token of the user who is acted upon.
    *
-   * @return CultureFeed_Template[]
+   * @return CultureFeed_ResultSet
    *   List of templates.
    *
    * @throws CultureFeed_ParseException
@@ -1248,8 +1248,6 @@ class CultureFeed implements ICultureFeed {
     $object = $xml->xpath('/response/mailing');
 
     return self::parseMailing($object[0]);
-
-    throw new CultureFeed_ParseException($result);
   }
 
   /**
@@ -1305,7 +1303,7 @@ class CultureFeed implements ICultureFeed {
    * @param CultureFeed_SearchMailingsQuery $query
    *   The query.
    *
-   * @return CultureFeed_Mailing[]
+   * @return CultureFeed_ResultSet
    *   List of mailings.
    *
    * @throws CultureFeed_ParseException
@@ -1362,7 +1360,7 @@ class CultureFeed implements ICultureFeed {
    * @param CultureFeed_SearchMailingsQuery $query
    *   The query.
    *
-   * @return CultureFeed_Mailing[]
+   * @return CultureFeed_ResultSet
    *   List of mailings.
    *
    * @throws CultureFeed_ParseException
@@ -1439,7 +1437,7 @@ class CultureFeed implements ICultureFeed {
    * @param bool $use_auth
    *   Using a consumer request for this method is only available for a few consumers who have the ‘Use Light UiTID permission.
    *
-   * @return CultureFeed_Mailing[]
+   * @return CultureFeed_ResultSet
    *   List of mailings.
    *
    * @throws CultureFeed_ParseException
@@ -1591,7 +1589,7 @@ class CultureFeed implements ICultureFeed {
    *   ISO Date to set the startdate of the timeline. (optional)
    *
    * @throws CultureFeed_ParseException
-   * @return CultureFeed_ResultSet
+   * @return array
    */
   public function getNotificationsCount($userId, $dateFrom = NULL) {
 
@@ -1611,7 +1609,7 @@ class CultureFeed implements ICultureFeed {
     $notifications_count = array();
     $total = $xmlElement->xpath('/response/total');
     if (!$total) {
-      return array();
+      return [];
     }
 
     foreach ($total as $count) {
@@ -1980,7 +1978,7 @@ class CultureFeed implements ICultureFeed {
   /**
    * Returns the SavedSearches object.
    *
-   * @return CultureFeed_SavedSearches_Default
+   * @return CultureFeed_SavedSearches
    */
   public function savedSearches() {
 

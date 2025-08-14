@@ -75,7 +75,7 @@ class CultureFeed_SimpleXMLElement extends SimpleXMLElement {
    * @param string $path
    * @param bool $multiple
    *
-   * @return CultureFeed_SimpleXMLElement|CultureFeed_SimpleXMLElement[]
+   * @return array<CultureFeed_SimpleXMLElement>|false|null|CultureFeed_SimpleXMLElement
    */
   public function xpath($path, $multiple = true) {
     $val = parent::xpath($path);

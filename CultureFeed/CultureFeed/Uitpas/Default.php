@@ -269,7 +269,7 @@ class CultureFeed_Uitpas_Default implements CultureFeed_Uitpas {
    *
    * @param CultureFeed_Uitpas_Passholder $passholder The new passholder
    * @param null $consumer_key_counter
-   * @return CultureFeed_Uitpas_Passholder
+   * @return string
    * @throws \CultureFeed_ParseException
    * @throws \CultureFeed_Uitpas_PassholderException
    */

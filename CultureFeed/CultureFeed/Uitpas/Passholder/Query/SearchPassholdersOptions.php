@@ -26,7 +26,7 @@ class CultureFeed_Uitpas_Passholder_Query_SearchPassholdersOptions extends Cultu
   /**
    * The UitPas number of the passholder.
    *
-   * @var string
+   * @var string[]
    */
   public $uitpasNumber;
 
