@@ -1,4 +1,4 @@
-.PHONY: up down build bash install
+.PHONY: up down build bash install test
 
 up:
 	docker-compose up -d
@@ -14,3 +14,6 @@ bash:
 
 install:
 	docker-compose exec php composer install
+
+test:
+	docker-compose exec php ./vendor/bin/phpunit
