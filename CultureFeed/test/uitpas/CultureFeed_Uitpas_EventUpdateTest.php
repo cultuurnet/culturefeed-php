@@ -1,10 +1,13 @@
 <?php
+
+use PHPUnit\Framework\TestCase;
+
 /**
  * @file
  * PHPUnit Testing the registering of an event.
  */
 
-class CultureFeed_Uitpas_EventUpdateTest extends PHPUnit_Framework_TestCase {
+class CultureFeed_Uitpas_EventUpdateTest extends TestCase {
 
   /**
    * Test the update of an event.

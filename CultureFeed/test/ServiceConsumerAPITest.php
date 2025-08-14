@@ -1,11 +1,13 @@
 <?php
 
+use PHPUnit\Framework\TestCase;
+
 /**
  * @todo test if Culturefeed methods let through CultureFeed_HttpException 421 existing service consumer with the same consumerKey
  * @todo test if CultureFeed methods let through CultureFeed_HttpException 403 permission denied
  * @todo test CultureFeed::updateServiceConsumer()
  */
-class CultureFeed_ServiceConsumerAPITest extends PHPUnit_Framework_TestCase {
+class CultureFeed_ServiceConsumerAPITest extends TestCase {
 
   public function testGetServiceConsumers() {
     $oauth_client_stub = $this->createMock('CultureFeed_OAuthClient');

@@ -1,6 +1,8 @@
 <?php
 
-class CultureFeed_Uitpas_EventsAPITest extends PHPUnit_Framework_TestCase {
+use PHPUnit\Framework\TestCase;
+
+class CultureFeed_Uitpas_EventsAPITest extends TestCase {
 
   const PRICE = 15;
   const CDBID = "94305b2e-e7ff-4dfc-8d96-ef4d43de9038";

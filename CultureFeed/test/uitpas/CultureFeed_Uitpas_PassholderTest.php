@@ -1,8 +1,11 @@
 <?php
+
+use PHPUnit\Framework\TestCase;
+
 /**
  *
  */
-class CultureFeed_Uitpas_PassholderTest extends PHPUnit_Framework_TestCase {
+class CultureFeed_Uitpas_PassholderTest extends TestCase {
 
   /**
    * @var CultureFeed_Uitpas_Passholder

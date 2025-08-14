@@ -1,9 +1,12 @@
 <?php
+
+use PHPUnit\Framework\TestCase;
+
 /**
  * @file
  */
 
-class CultureFeed_EntryApiTest extends PHPUnit_Framework_TestCase {
+class CultureFeed_EntryApiTest extends TestCase {
 
   /**
    * @var CultureFeed_EntryApi

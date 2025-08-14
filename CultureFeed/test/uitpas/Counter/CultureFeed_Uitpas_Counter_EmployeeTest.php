@@ -1,6 +1,8 @@
 <?php
 
-class CultureFeed_Uitpas_Counter_EmployeeTest extends PHPUnit_Framework_TestCase {
+use PHPUnit\Framework\TestCase;
+
+class CultureFeed_Uitpas_Counter_EmployeeTest extends TestCase {
 
   /**
    * @var CultureFeed_Uitpas_Counter_Employee

@@ -1,9 +1,12 @@
 <?php
+
+use PHPUnit\Framework\TestCase;
+
 /**
  * @file
  */
 
-class CultureFeed_Uitpas_Passholder_EventActionsTest extends PHPUnit_Framework_TestCase {
+class CultureFeed_Uitpas_Passholder_EventActionsTest extends TestCase {
 
   protected $dataDir;
 

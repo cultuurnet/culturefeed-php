@@ -1,9 +1,11 @@
 <?php
 
+use PHPUnit\Framework\TestCase;
+
 /**
  * Provides tests for OptinPreferences
  */
-class CultureFeed_Uitpas_Passholder_OptinPreferencesTest extends PHPUnit_Framework_TestCase {
+class CultureFeed_Uitpas_Passholder_OptinPreferencesTest extends TestCase {
 
   public function testToPostData() {
 

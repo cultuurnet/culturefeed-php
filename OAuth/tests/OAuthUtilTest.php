@@ -1,11 +1,13 @@
 <?php
 
+use PHPUnit\Framework\TestCase;
+
 require_once dirname(__FILE__) . '/common.php';
 
 /**
  * Tests of OAuthUtil
  */
-class OAuthUtilTest extends PHPUnit_Framework_TestCase {
+class OAuthUtilTest extends TestCase {
 	public function testUrlencode() {
 		// Tests taken from
 		// http://wiki.oauth.net/TestCases ("Parameter Encoding")

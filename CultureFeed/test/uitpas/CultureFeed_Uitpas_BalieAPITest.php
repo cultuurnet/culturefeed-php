@@ -1,9 +1,12 @@
 <?php
+
+use PHPUnit\Framework\TestCase;
+
 /**
  * @file
  */
 
-class CultureFeed_Uitpas_BalieAPITest extends PHPUnit_Framework_TestCase {
+class CultureFeed_Uitpas_BalieAPITest extends TestCase {
 
   public function testSearchCountersForMember() {
     $oauth_client_stub = $this->createMock('CultureFeed_OAuthClient');

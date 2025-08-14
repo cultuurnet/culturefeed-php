@@ -1,9 +1,12 @@
 <?php
+
+use PHPUnit\Framework\TestCase;
+
 /**
  * @file
  */
 
-class CultureFeed_Uitpas_GroupPassAPITest extends PHPUnit_Framework_TestCase {
+class CultureFeed_Uitpas_GroupPassAPITest extends TestCase {
 
   public function testGetGroupPass() {
     $oauth_client_stub = $this->createMock('CultureFeed_OAuthClient');

@@ -1,9 +1,12 @@
 <?php
+
+use PHPUnit\Framework\TestCase;
+
 /**
  * @file
  */
 
-class CultureFeed_Uitpas_SearchCheckinsTest extends PHPUnit_Framework_TestCase {
+class CultureFeed_Uitpas_SearchCheckinsTest extends TestCase {
 
   public function testSearchCheckins() {
     $oauth_client_stub = $this->createMock('CultureFeed_OAuthClient');

@@ -1,12 +1,14 @@
 <?php
 
+use PHPUnit\Framework\TestCase;
+
 require_once dirname(__FILE__) . '/common.php';
 require_once dirname(__FILE__) . '/Mock_OAuthDataStore.php';
 
 /**
  * Tests of OAuthUtil
  */
-class OAuthServerTest extends PHPUnit_Framework_TestCase {
+class OAuthServerTest extends TestCase {
 	private $consumer;
 	private $request_token;
 	private $access_token;

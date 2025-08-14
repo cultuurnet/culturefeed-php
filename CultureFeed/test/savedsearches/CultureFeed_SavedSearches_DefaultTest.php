@@ -1,6 +1,8 @@
 <?php
 
-class CultureFeed_SavedSearches_DefaultTest extends PHPUnit_Framework_TestCase {
+use PHPUnit\Framework\TestCase;
+
+class CultureFeed_SavedSearches_DefaultTest extends TestCase {
   /**
    * @var Culturefeed
    */

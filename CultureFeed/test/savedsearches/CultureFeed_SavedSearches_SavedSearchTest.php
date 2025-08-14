@@ -1,8 +1,9 @@
 <?php
 
 use CultureFeed_SavedSearches_SavedSearch as SavedSearch;
+use PHPUnit\Framework\TestCase;
 
-class CultureFeed_SavedSearches_SavedSearchTest extends PHPUnit_Framework_TestCase {
+class CultureFeed_SavedSearches_SavedSearchTest extends TestCase {
 
   public function testSavedSearchToPostData() {
     $saved_search = new SavedSearch();

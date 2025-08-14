@@ -1,6 +1,8 @@
 <?php
 
-class CultureFeed_Uitpas_Event_CultureEventTest extends PHPUnit_Framework_TestCase {
+use PHPUnit\Framework\TestCase;
+
+class CultureFeed_Uitpas_Event_CultureEventTest extends TestCase {
 
   public function testCreateFromXml() {
     $event = CultureFeed_Uitpas_Event_CultureEvent::createFromXML(

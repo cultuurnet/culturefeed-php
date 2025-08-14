@@ -1,9 +1,11 @@
 <?php
 
+use PHPUnit\Framework\TestCase;
+
 require_once 'common.php';
 require_once 'Mock_OAuthBaseStringRequest.php';
 
-class OAuthSignatureMethodPlaintextTest extends PHPUnit_Framework_TestCase {
+class OAuthSignatureMethodPlaintextTest extends TestCase {
 	private $method;
 	
 	public function setUp() {

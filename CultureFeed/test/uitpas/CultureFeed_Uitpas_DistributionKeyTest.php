@@ -1,6 +1,8 @@
 <?php
 
-class CultureFeed_Uitpas_DistributionKeyTest extends PHPUnit_Framework_TestCase {
+use PHPUnit\Framework\TestCase;
+
+class CultureFeed_Uitpas_DistributionKeyTest extends TestCase {
 
   const ORGANIZERCDBID = "47B6FA21-ACB1-EA8F-2C231182C7DD0A19";
 

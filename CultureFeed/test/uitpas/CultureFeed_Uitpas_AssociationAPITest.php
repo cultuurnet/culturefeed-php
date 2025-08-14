@@ -1,9 +1,12 @@
 <?php
+
+use PHPUnit\Framework\TestCase;
+
 /**
  * @file
  */
 
-class CultureFeed_Uitpas_AssociationAPITest extends PHPUnit_Framework_TestCase {
+class CultureFeed_Uitpas_AssociationAPITest extends TestCase {
 
   public function testGetAssociations() {
     $oauth_client_stub = $this->createMock('CultureFeed_OAuthClient');

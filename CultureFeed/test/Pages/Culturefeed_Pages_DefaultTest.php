@@ -1,11 +1,13 @@
 <?php
 
+use PHPUnit\Framework\TestCase;
+
 /**
  * @file
  * Testing methods for the Pages_Default class.
  */
 
-class CultureFeed_Pages_DefaultTest extends PHPUnit_Framework_TestCase {
+class CultureFeed_Pages_DefaultTest extends TestCase {
 
   /**
    * @var Culturefeed

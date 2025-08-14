@@ -11,9 +11,11 @@
  * http://wiki.oauth.net/TestCases
  */
 
+use PHPUnit\Framework\TestCase;
+
 require_once dirname(__FILE__) . '/common.php';
 
-class OAuthRequestTest extends PHPUnit_Framework_TestCase {	
+class OAuthRequestTest extends TestCase {
 	public function testCanGetSingleParameter() {
 		// Yes, a awesomely boring test.. But if this doesn't work, the other tests is unreliable
 		$request = new OAuthRequest('', '', array('test'=>'foo'));
