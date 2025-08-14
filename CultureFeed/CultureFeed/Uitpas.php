@@ -220,7 +220,7 @@ interface CultureFeed_Uitpas {
    * @param CultureFeed_Uitpas_Passholder $passholder The passholder to update.
    * 		The passholder is identified by ID. Only fields that are set will be updated.
    */
-  public function updatePassholder(CultureFeed_Uitpas_Passholder $passholder);
+  public function updatePassholder(CultureFeed_Uitpas_Passholder $passholder, string $consumer_key_counter = null);
 
   /**
    * Update a passholder's card system preferences.
