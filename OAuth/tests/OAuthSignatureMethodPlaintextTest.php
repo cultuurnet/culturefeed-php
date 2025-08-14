@@ -8,7 +8,7 @@ require_once 'Mock_OAuthBaseStringRequest.php';
 class OAuthSignatureMethodPlaintextTest extends TestCase {
 	private $method;
 	
-	public function setUp() {
+	public function setUp(): void {
 		$this->method = new OAuthSignatureMethod_PLAINTEXT();
 	}
 	

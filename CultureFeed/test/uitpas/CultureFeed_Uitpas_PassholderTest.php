@@ -12,7 +12,7 @@ class CultureFeed_Uitpas_PassholderTest extends TestCase {
    */
   protected $passholder;
 
-  public function setUp() {
+  public function setUp(): void {
     $this->passholder = new CultureFeed_Uitpas_Passholder();
 
     $this->passholder->schoolConsumerKey = '111';

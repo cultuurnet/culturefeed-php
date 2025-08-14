@@ -10,7 +10,7 @@ class CultureFeed_Uitpas_Passholder_ExecuteEventActionsResultTest extends TestCa
 
   protected $dataDir;
 
-  protected function setUp() {
+  protected function setUp(): void {
     $this->dataDir = dirname(__FILE__) . '/data/eventactions';
   }
 

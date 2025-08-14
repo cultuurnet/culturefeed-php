@@ -24,7 +24,7 @@ class CultureFeed_Pages_DefaultTest extends TestCase {
    */
   protected $pages;
 
-  public function setUp() {
+  public function setUp(): void {
     parent::setUp();
 
     $this->oauthClient = $this->createMock('CultureFeed_OAuthClient');

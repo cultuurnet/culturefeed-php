@@ -23,7 +23,7 @@ class CultureFeed_EntryApiTest extends TestCase {
    */
   protected $event;
 
-  public function setUp() {
+  public function setUp(): void {
 
     $this->oauthClient = $this->createMock('CultureFeed_OAuthClient');
     $this->entry = new CultureFeed_EntryApi($this->oauthClient);

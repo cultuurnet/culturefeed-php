@@ -23,7 +23,7 @@ class CultureFeed_SavedSearches_DefaultTest extends TestCase {
    */
   protected $savedSearches;
 
-  public function setUp() {
+  public function setUp(): void {
     parent::setUp();
 
     $this->oauthClient = $this->createMock('CultureFeed_OAuthClient');

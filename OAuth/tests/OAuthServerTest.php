@@ -16,7 +16,7 @@ class OAuthServerTest extends TestCase {
 	private $plaintext;
 	private $server;
 	
-	public function setUp() {
+	public function setUp(): void {
 		$this->consumer       = new OAuthConsumer('key', 'secret');
 		$this->request_token  = new OAuthToken('requestkey', 'requestsecret');
 		$this->access_token   = new OAuthToken('accesskey', 'accesssecret');
