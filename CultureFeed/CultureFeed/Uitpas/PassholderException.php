@@ -1,6 +1,6 @@
 <?php
 
-class CultureFeed_Uitpas_PassholderException extends CultureFeed_Exception {
+final class CultureFeed_Uitpas_PassholderException extends CultureFeed_Exception {
 
   /**
    * @var CultureFeed_Uitpas_CardInfo[]
