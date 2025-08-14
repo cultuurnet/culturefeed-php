@@ -54,6 +54,7 @@ class CultureFeed_Uitpas_Passholder_ExecuteEventActionsResult {
         return $action;
       }
     }
+    return null;
   }
 
   /**
@@ -67,6 +68,7 @@ class CultureFeed_Uitpas_Passholder_ExecuteEventActionsResult {
         return $action;
       }
     }
+    return null;
   }
 
   /**
@@ -80,6 +82,7 @@ class CultureFeed_Uitpas_Passholder_ExecuteEventActionsResult {
         return $action;
       }
     }
+    return null;
   }
 
   /**
@@ -91,5 +94,6 @@ class CultureFeed_Uitpas_Passholder_ExecuteEventActionsResult {
         return $action;
       }
     }
+    return null;
   }
 }
