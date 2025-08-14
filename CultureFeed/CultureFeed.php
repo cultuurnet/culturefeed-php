@@ -199,7 +199,7 @@ class CultureFeed implements ICultureFeed {
    *
    * The object should be initialized with the consumer token.
    *
-   * @param string $token
+   * @param array $token
    *   A request token fetched with getRequestToken.
    * @param string $callback
    *   (optional) The URL of the page to redirect the user back to after authorization has been handled on provider.
