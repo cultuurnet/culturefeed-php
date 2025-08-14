@@ -24,7 +24,7 @@ class CultureFeed_Uitpas_Event_CultureEventTest extends TestCase {
     $distributionKey201->id = '201';
     $distributionKey201->name = 'Distribution key 201';
 
-    $this->assertInternalType('array', $event->distributionKey);
+    $this->assertIsArray($event->distributionKey);
     $this->assertCount(2, $event->distributionKey);
     $this->assertEquals(
       array(
@@ -109,14 +109,22 @@ class CultureFeed_Uitpas_Event_CultureEventTest extends TestCase {
 
     $postData = $event->toPostData();
 
-    $this->assertArraySubset(
+    $this->assertEquals(
       array(
         'price.name.1' => 'price 1',
         'price.value.1' => 10.5,
         'price.name.2' => 'price 2',
         'price.value.2' => 11.6
       ),
-      $postData
+      array_intersect_key(
+        $postData,
+        array(
+          'price.name.1' => true,
+          'price.value.1' => true,
+          'price.name.2' => true,
+          'price.value.2' => true
+        )
+      )
     );
   }
 }

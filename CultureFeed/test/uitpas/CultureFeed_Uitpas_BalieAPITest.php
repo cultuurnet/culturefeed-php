@@ -30,7 +30,7 @@ class CultureFeed_Uitpas_BalieAPITest extends TestCase {
     $this->assertInstanceOf('CultureFeed_ResultSet', $counters);
     $this->assertEquals(18, $counters->total);
 
-    $this->assertInternalType('array', $counters->objects);
+    $this->assertIsArray($counters->objects);
     $this->assertCount(18, $counters->objects);
     $this->assertContainsOnly('CultureFeed_Uitpas_Counter_Employee', $counters->objects);
 
@@ -43,7 +43,7 @@ class CultureFeed_Uitpas_BalieAPITest extends TestCase {
     $this->assertEquals('admin', $counter->role);
     $this->assertEquals('5c9c73d3-e82f-e7b3-44161e6e3802e64f', $counter->actorId);
 
-    $this->assertInternalType('array', $counter->cardSystems);
+    $this->assertIsArray($counter->cardSystems);
     $this->assertContainsOnly('CultureFeed_Uitpas_Counter_EmployeeCardSystem', $counter->cardSystems);
     $this->assertCount(1, $counter->cardSystems);
 
@@ -52,12 +52,12 @@ class CultureFeed_Uitpas_BalieAPITest extends TestCase {
 
     $this->assertEquals(1, $card_system->id);
     $this->assertEquals('HELA', $card_system->name);
-    $this->assertInternalType('array', $card_system->groups);
+    $this->assertIsArray($card_system->groups);
     $this->assertCount(1, $card_system->groups);
     $this->assertContainsOnly('string', $card_system->groups);
     $this->assertEquals('Niet-geauthorizeerde registratie balies', reset($card_system->groups));
 
-    $this->assertInternalType('array', $card_system->permissions);
+    $this->assertIsArray($card_system->permissions);
     $this->assertCount(1, $card_system->permissions);
     $this->assertContainsOnly('string', $card_system->permissions);
     $this->assertEquals('registratie', reset($card_system->permissions));
@@ -78,7 +78,7 @@ class CultureFeed_Uitpas_BalieAPITest extends TestCase {
 
     $cardCounters = $cf->uitpas()->getCardCounters();
 
-    $this->assertInternalType('array', $cardCounters);
+    $this->assertIsArray($cardCounters);
     $this->assertCount(4, $cardCounters);
 
     /** @var CultureFeed_Uitpas_Counter_CardCounter $cardCounter */

@@ -34,7 +34,7 @@ class CultureFeed_Uitpas_Passholder_EventActionsTest extends TestCase {
     /* @var CultureFeed_Uitpas_Passholder_CardSystemSpecific $card_system_specific */
     $card_system_specific = reset($event_actions->passholder->cardSystemSpecific);
 
-    $this->assertInternalType('string', $card_system_specific->currentCard->uitpasNumber);
+    $this->assertIsString($card_system_specific->currentCard->uitpasNumber);
     $this->assertEquals('0930000150316', $card_system_specific->currentCard->uitpasNumber);
     $this->assertEquals('ACTIVE', $card_system_specific->currentCard->status);
     $this->assertEquals(TRUE, $card_system_specific->kansenStatuut);
