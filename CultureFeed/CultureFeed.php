@@ -1138,7 +1138,7 @@ class CultureFeed implements ICultureFeed {
    *   If this parameters is not empty, only the properties specified in this array will be updated on the API.
    */
   public function updateTemplate(CultureFeed_Template $template, $fields = array()) {
-    $data = $template->toPostData($fields);
+    $data = $template->toPostData();
 
     $id = $data['id'];
 
@@ -1263,7 +1263,7 @@ class CultureFeed implements ICultureFeed {
    *   If this parameters is not empty, only the properties specified in this array will be updated on the API.
    */
   public function updateMailing(CultureFeed_Mailing $mailing, $fields = array()) {
-    $data = $mailing->toPostData($fields);
+    $data = $mailing->toPostData();
 
     $id = $data['id'];
     unset($data['id']);
