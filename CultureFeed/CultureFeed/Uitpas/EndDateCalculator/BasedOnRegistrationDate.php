@@ -6,7 +6,7 @@
 class CultureFeed_Uitpas_EndDateCalculator_BasedOnRegistrationDate extends CultureFeed_Uitpas_EndDateCalculator_Base {
   /**
    * @param CultureFeed_Uitpas_Passholder $passholder
-   * @return DateTime
+   * @return CultureFeed_Uitpas_EndDate
    */
   public function endDate(CultureFeed_Uitpas_Passholder $passholder) {
     $now = new DateTime();
