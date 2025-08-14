@@ -5,7 +5,7 @@ class CultureFeed_Uitpas_DistributionKey {
   /**
    * ID of the association.
    *
-   * @var int
+   * @var string
    */
   public $id;
 
