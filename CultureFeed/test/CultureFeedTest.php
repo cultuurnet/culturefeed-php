@@ -11,7 +11,7 @@ use PHPUnit\Framework\TestCase;
 class CultureFeed_CultureFeedTest extends TestCase {
 
   /**
-   * @var Culturefeed
+   * @var CultureFeed
    */
   protected $cultureFeed;
 
