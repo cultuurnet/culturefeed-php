@@ -59,8 +59,8 @@ class MockOAuthDataStore extends OAuthDataStore {/*{{{*/
 
     function __construct() {/*{{{*/
         $this->consumer = new OAuthConsumer("key", "secret", NULL);
-        $this->request_token = new OAuthToken("requestkey", "requestsecret", 1);
-        $this->access_token = new OAuthToken("accesskey", "accesssecret", 1);
+        $this->request_token = new OAuthToken("requestkey", "requestsecret");
+        $this->access_token = new OAuthToken("accesskey", "accesssecret");
         $this->nonce = "nonce";
     }/*}}}*/
 
