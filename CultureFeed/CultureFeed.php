@@ -125,7 +125,7 @@ class CultureFeed implements ICultureFeed {
 
   /**
    * Culturefeed saved searches instance.
-   * @var Culturefeed_SavedSearches
+   * @var CultureFeed_SavedSearches
    */
   protected $savedSearches;
 
