@@ -4,30 +4,31 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d946433dd646bf69347f2423868f84a2",
+    "content-hash": "ee6277e86d5b781533f59cfb419633f0",
     "packages": [
         {
             "name": "cultuurnet/cdb",
-            "version": "v2.1.4",
+            "version": "v3.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cultuurnet/Cdb.git",
-                "reference": "514a9f9bec93f1222671e1bceea9b05ee3f30d33"
+                "reference": "9c0d27f9812c6cf7072ef55da866b507f61b72af"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cultuurnet/Cdb/zipball/514a9f9bec93f1222671e1bceea9b05ee3f30d33",
-                "reference": "514a9f9bec93f1222671e1bceea9b05ee3f30d33",
+                "url": "https://api.github.com/repos/cultuurnet/Cdb/zipball/9c0d27f9812c6cf7072ef55da866b507f61b72af",
+                "reference": "9c0d27f9812c6cf7072ef55da866b507f61b72af",
                 "shasum": ""
             },
             "require": {
-                "ext-simplexml": "*"
+                "ext-dom": "*",
+                "ext-simplexml": "*",
+                "php": ">=8.0"
             },
             "require-dev": {
-                "phing/phing": "~2.11",
-                "phpunit/phpunit": "~4.8",
-                "satooshi/php-coveralls": "~0.7",
-                "squizlabs/php_codesniffer": "~2.3"
+                "phpstan/phpstan": "^2.1",
+                "phpunit/phpunit": "^9.0",
+                "publiq/php-cs-fixer-config": "^2.1"
             },
             "type": "library",
             "autoload": {
@@ -44,9 +45,9 @@
             "description": "PHP library for hydrating/manipulating CultuurNet's Cdb XML documents",
             "support": {
                 "issues": "https://github.com/cultuurnet/Cdb/issues",
-                "source": "https://github.com/cultuurnet/Cdb/tree/v2.1.4"
+                "source": "https://github.com/cultuurnet/Cdb/tree/v3.0.0"
             },
-            "time": "2018-12-14T08:36:04+00:00"
+            "time": "2025-08-13T07:50:54+00:00"
         }
     ],
     "packages-dev": [
@@ -1900,7 +1901,8 @@
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=7.4"
+        "php": ">=7.4",
+        "ext-simplexml": "*"
     },
     "platform-dev": {},
     "plugin-api-version": "2.6.0"

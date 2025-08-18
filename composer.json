@@ -11,7 +11,7 @@
   "require": {
     "php": ">=7.4",
     "ext-simplexml": "*",
-    "cultuurnet/cdb": "^2.1"
+    "cultuurnet/cdb": "^3.0"
   },
   "require-dev": {
     "phpunit/phpunit": "^9.0",
