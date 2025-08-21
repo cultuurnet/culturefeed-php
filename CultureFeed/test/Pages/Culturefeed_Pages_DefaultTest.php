@@ -49,8 +49,7 @@ class CultureFeed_Pages_DefaultTest extends TestCase {
     ->will($this->returnValue($modified_xml));
 
     $uid = $this->pages->updatePage('f412b8a3-8b12-44bc-9a0a-c74ec0e88e98', array('name' => 'test'));
-//    $this->assertEquals($uid, 'f412b8a3-8b12-44bc-9a0a-c74ec0e88e98');
-
+    $this->assertEquals($uid, 'f412b8a3-8b12-44bc-9a0a-c74ec0e88e98');
   }
 
 }
