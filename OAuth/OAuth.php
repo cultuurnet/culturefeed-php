@@ -145,7 +145,7 @@ if (!class_exists('OAuthSignatureMethod_HMAC_SHA1')) {
 
       $key_parts = [
         $consumer->secret,
-        ($token) ? $token->secret : ""
+        !empty($token->secret) ? $token->secret : ""
       ];
 
       $key_parts = OAuthUtil::urlencode_rfc3986($key_parts);
@@ -180,7 +180,7 @@ if (!class_exists('OAuthSignatureMethod_PLAINTEXT')) {
     public function build_signature($request, $consumer, $token) {
       $key_parts = [
         $consumer->secret,
-        ($token) ? $token->secret : ""
+          !empty($token->secret) ? $token->secret : ""
       ];
 
       $key_parts = OAuthUtil::urlencode_rfc3986($key_parts);

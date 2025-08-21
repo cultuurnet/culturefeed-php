@@ -86,11 +86,9 @@ class CultureFeed_Uitpas_Counter_Employee extends CultureFeed_Uitpas_ValueObject
    */
   private function getPropertyFromCardsystems($type) {
     $properties = array();
-    if (isset($this->cardSystems)) {
-      foreach ($this->cardSystems as $card_system) {
-        if (is_array($card_system->{$type})) {
-          $properties = array_merge($properties, $card_system->{$type});
-        }
+    foreach ($this->cardSystems as $card_system) {
+      if (is_array($card_system->{$type})) {
+        $properties = array_merge($properties, $card_system->{$type});
       }
     }
     return array_values(array_unique($properties));

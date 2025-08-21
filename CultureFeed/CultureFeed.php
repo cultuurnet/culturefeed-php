@@ -1109,8 +1109,6 @@ class CultureFeed implements ICultureFeed {
     $object = $xml->xpath('/response/template');
 
     return self::parseTemplate($object[0]);
-
-    throw new CultureFeed_ParseException($result);
   }
 
   /**
@@ -1199,8 +1197,6 @@ class CultureFeed implements ICultureFeed {
     $object = $xml->xpath('/response/mailing');
 
     return self::parseMailing($object[0]);
-
-    throw new CultureFeed_ParseException($result);
   }
 
   /**
