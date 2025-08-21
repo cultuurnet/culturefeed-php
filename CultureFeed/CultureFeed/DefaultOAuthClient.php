@@ -5,12 +5,7 @@
  */
 class CultureFeed_DefaultOAuthClient implements CultureFeed_OAuthClient {
 
-  /**
-   * HTTP Request object to make the requests.
-   *
-   * @var CultureFeed_HttpClient
-   */
-  protected $http_client;
+  protected ?CultureFeed_HttpClient $http_client = null;
 
   /**
    * Endpoint (full url) where the CultureFeed API resides.

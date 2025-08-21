@@ -115,7 +115,7 @@ class CultureFeed_DefaultHttpClient implements CultureFeed_HttpClient, CultureFe
    *   Represented as an array of header strings.
    * @param string $method
    *   The HTTP method.
-   * @param string $post_data
+   * @param string|array $post_data
    *   In case of a POST request, specify the post data a string.
    * @return CultureFeed_HttpResponse
    *   The response.

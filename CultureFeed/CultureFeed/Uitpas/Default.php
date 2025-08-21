@@ -268,7 +268,7 @@ class CultureFeed_Uitpas_Default implements CultureFeed_Uitpas {
    * Create a new UitPas passholder.
    *
    * @param CultureFeed_Uitpas_Passholder $passholder The new passholder
-   * @param null $consumer_key_counter
+   * @param ?string $consumer_key_counter
    * @return string
    * @throws \CultureFeed_ParseException
    * @throws \CultureFeed_Uitpas_PassholderException
@@ -454,7 +454,7 @@ class CultureFeed_Uitpas_Default implements CultureFeed_Uitpas {
    *   When the returned payload is not valid XML.
    */
   private function consumerPostWithSimpleResponse($path, $data) {
-    if (is_object($data) && $data instanceof CultureFeed_Uitpas_ValueObject) {
+    if ($data instanceof CultureFeed_Uitpas_ValueObject) {
       $data = $data->toPostData();
     }
 
@@ -840,7 +840,7 @@ class CultureFeed_Uitpas_Default implements CultureFeed_Uitpas {
      *
      * @param CultureFeed_Uitpas_Passholder $passholder The passholder to update.
      *     The passholder is identified by ID. Only fields that are set will be updated.
-     * @param null $consumer_key_counter
+     * @param string $consumer_key_counter
      * @return \CultureFeed_Uitpas_Response
      * @throws \CultureFeed_ParseException
      */
@@ -1395,7 +1395,7 @@ class CultureFeed_Uitpas_Default implements CultureFeed_Uitpas {
   /**
    * {@inheritdoc}
    */
-  public function getCardCounters($consumer_key_counter = NULL) {
+  public function getCardCounters($consumer_key_counter = NULL): array {
     $data = array();
 
     if ($consumer_key_counter) {

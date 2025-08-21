@@ -4,16 +4,14 @@
  */
 
 class CultureFeed_Uitpas_Passholder_AgeRange {
-  /**
-   *
-   * @var integer
-   */
-  public $ageFrom;
+  public ?int $ageFrom = null;
+  public ?int $ageTo = null;
 
   /**
-   * @var integer
+   * Checks if an age (in years) is in the range.
+   *
+   * @param int $age
    */
-  public $ageTo;
 
   /**
    * Checks if an age (in years) is in the range.

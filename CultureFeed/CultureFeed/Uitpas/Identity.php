@@ -6,10 +6,7 @@ final class CultureFeed_Uitpas_Identity extends CultureFeed_Uitpas_ValueObject {
    */
   public $card;
 
-  /**
-   * @var \CultureFeed_Uitpas_Passholder
-   */
-  public $passHolder;
+  public ?CultureFeed_Uitpas_Passholder $passHolder = null;
 
   /**
    * @var \CultureFeed_Uitpas_GroupPass

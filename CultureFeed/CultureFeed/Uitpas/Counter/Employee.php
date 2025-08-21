@@ -36,9 +36,9 @@ class CultureFeed_Uitpas_Counter_Employee extends CultureFeed_Uitpas_ValueObject
   public $actorId;
 
   /**
-   * @var CultureFeed_Uitpas_Counter_EmployeeCardSystem[]
+   * @var array<CultureFeed_Uitpas_Counter_EmployeeCardSystem>
    */
-  public $cardSystems = array();
+  public array $cardSystems = [];
 
 
   public static function createFromXML(CultureFeed_SimpleXMLElement $object) {

@@ -41,9 +41,9 @@ class CultureFeed_Uitpas_GroupPass
     public $expired;
 
     /**
-     * @var array
+     * @var array<CultureFeed_Uitpas_SaleCoupon>
      */
-    public $ticketSaleCoupons = array();
+    public array $ticketSaleCoupons = [];
 
     /**
      * @param CultureFeed_SimpleXMLElement $object
