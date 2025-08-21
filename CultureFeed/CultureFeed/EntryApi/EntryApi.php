@@ -390,7 +390,7 @@ class CultureFeed_EntryApi implements CultureFeed_EntryApi_IEntryApi {
    *
    * @param CultureFeed_Cdb_Item_Event $event
    *   Event where the tags will be added to.
-   * @param string[]|CultureFeed_Cdb_Data_Keyword[] $keywords
+   * @param array<string>|array<CultureFeed_Cdb_Data_Keyword> $keywords
    *   Tags to add, each tag being either a scalar string or a
    *   CultureFeed_Cdb_Data_Keyword object.
    */
