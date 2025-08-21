@@ -773,29 +773,25 @@ if (!class_exists('OAuthServer')) {
 if (!class_exists('OAuthDataStore')) {
   class OAuthDataStore {
 
-    function lookup_consumer($consumer_key) {
-      // implement me
+    function lookup_consumer($consumer_key): ?string {
+      throw new OAuthException("Not implemented: lookup_consumer");
     }
 
-    function lookup_token($consumer, $token_type, $token) {
-      // implement me
+    function lookup_token($consumer, $token_type, $token): ?string {
+      throw new OAuthException("Not implemented: lookup_consumer");
     }
 
-    function lookup_nonce($consumer, $token, $nonce, $timestamp) {
-      // implement me
+    function lookup_nonce($consumer, $token, $nonce, $timestamp): ?string {
+      throw new OAuthException("Not implemented: lookup_consumer");
     }
 
-    function new_request_token($consumer, $callback = NULL) {
-      // return a new token attached to this consumer
+    function new_request_token($consumer, $callback = NULL): ?string {
+      throw new OAuthException("Not implemented: lookup_consumer");
     }
 
-    function new_access_token($token, $consumer, $verifier = NULL) {
-      // return a new access token attached to this consumer
-      // for the user associated with this token if the request token
-      // is authorized
-      // should also invalidate the request token
+    function new_access_token($token, $consumer, $verifier = NULL): ?string {
+      throw new OAuthException("Not implemented: lookup_consumer");
     }
-
   }
 }
 
