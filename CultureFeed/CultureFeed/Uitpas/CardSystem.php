@@ -6,7 +6,7 @@
 class CultureFeed_Uitpas_CardSystem
 {
     /**
-     * @var string Unique ID of the card system.
+     * @var int Unique ID of the card system.
      */
     public $id;
 
@@ -21,7 +21,7 @@ class CultureFeed_Uitpas_CardSystem
   public $distributionKeys = array();
 
   /**
-   * @param string|null $id
+   * @param int|null $id
    * @param string|null $name
    */
   public function __construct($id = NULL, $name = NULL) {

@@ -247,7 +247,7 @@ class CultureFeed_CultureFeedTest extends TestCase {
       )
     ->will($this->returnValue($subscribe_to_mailing_xml));
 
-    $this->cultureFeed->subscribeToMailing(1, 3);
+    $this->cultureFeed->subscribeToMailing('1', '3');
 
   }
 
@@ -266,7 +266,7 @@ class CultureFeed_CultureFeedTest extends TestCase {
       )
     ->will($this->returnValue($subscribe_to_mailing_xml));
 
-    $this->cultureFeed->subscribeToMailing(1, 3, FALSE);
+    $this->cultureFeed->subscribeToMailing('1', '3', FALSE);
   }
 
   /**
@@ -287,7 +287,7 @@ class CultureFeed_CultureFeedTest extends TestCase {
     $this->expectException(CultureFeed_InvalidCodeException::class);
     $this->expectExceptionMessage('errormessage');
 
-    $this->cultureFeed->subscribeToMailing(1, 3);
+    $this->cultureFeed->subscribeToMailing('1', '3');
 
   }
 
@@ -306,7 +306,7 @@ class CultureFeed_CultureFeedTest extends TestCase {
       )
       ->will($this->returnValue($unsubscribe_from_mailing_xml));
 
-    $this->cultureFeed->unSubscribeFromMailing(1, 3);
+    $this->cultureFeed->unSubscribeFromMailing('1', '3');
   }
 
   /**
@@ -324,7 +324,7 @@ class CultureFeed_CultureFeedTest extends TestCase {
       )
       ->will($this->returnValue($unsubscribe_from_mailing_xml));
 
-    $this->cultureFeed->unSubscribeFromMailing(1, 3, FALSE);
+    $this->cultureFeed->unSubscribeFromMailing('1', '3', FALSE);
 
   }
 
@@ -346,7 +346,7 @@ class CultureFeed_CultureFeedTest extends TestCase {
     $this->expectException(CultureFeed_InvalidCodeException::class);
     $this->expectExceptionMessage('errormessage');
 
-    $this->cultureFeed->unsubscribeFromMailing(1, 3);
+    $this->cultureFeed->unsubscribeFromMailing('1', '3');
 
   }
 

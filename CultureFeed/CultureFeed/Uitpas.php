@@ -340,7 +340,7 @@ interface CultureFeed_Uitpas {
   /**
    * Cancel a ticket sale for a passholder by ticket id.
    *
-   * @param string $ticketId The ticket id
+   * @param int $ticketId The ticket id
    * @param string $consumer_key_counter The consumer key of the counter from where the request originates
    */
   public function cancelTicketSaleById($ticketId, $consumer_key_counter = NULL);
@@ -482,8 +482,8 @@ interface CultureFeed_Uitpas {
    * Add a card system to the event.
    *
    * @param string $cdbid
-   * @param string $cardSystemId
-   * @param string|null $distributionKey
+   * @param int $cardSystemId
+   * @param int|null $distributionKey
    *   Only required for manual distribution keys.
    *
    * @return CultureFeed_Uitpas_Response
@@ -494,7 +494,7 @@ interface CultureFeed_Uitpas {
    * Delete a card system from the event.
    *
    * @param string $cdbid
-   * @param string $cardSystemId
+   * @param int $cardSystemId
    *
    * @return CultureFeed_Uitpas_Response
    */
