@@ -41,7 +41,7 @@ class CultureFeed_SavedSearches_DefaultTest extends TestCase {
     $this->savedSearches = new CultureFeed_SavedSearches_Default($this->cultureFeed);
   }
 
-  public function testSubscribe() {
+  public function testSubscribe(): void {
     $saved_search_xml = file_get_contents(dirname(__FILE__) . '/data/savedsearch.xml');
 
     $this->oauthClient->expects($this->once())
@@ -58,7 +58,7 @@ class CultureFeed_SavedSearches_DefaultTest extends TestCase {
     $this->assertEquals($this->savedSearch, $result);
   }
 
-  public function testSubscribeConsumer() {
+  public function testSubscribeConsumer(): void {
     $saved_search_xml = file_get_contents(dirname(__FILE__) . '/data/savedsearch.xml');
 
     $this->oauthClient->expects($this->once())
@@ -75,7 +75,7 @@ class CultureFeed_SavedSearches_DefaultTest extends TestCase {
     $this->assertEquals($this->savedSearch, $result);
   }
 
-  public function testSubscribeErrorUserNotFound() {
+  public function testSubscribeErrorUserNotFound(): void {
     $subscribe_xml = file_get_contents(dirname(__FILE__) . '/data/savedsearch_error_user_not_found.xml');
 
     $this->oauthClient->expects($this->once())
@@ -92,7 +92,7 @@ class CultureFeed_SavedSearches_DefaultTest extends TestCase {
     $this->savedSearches->subscribe($this->savedSearch);
   }
 
-  public function testSubscribeErrorMissingRequiredFields() {
+  public function testSubscribeErrorMissingRequiredFields(): void {
     $subscribe_xml = file_get_contents(dirname(__FILE__) . '/data/savedsearch_error_missing_required_fields.xml');
 
     $this->oauthClient->expects($this->once())
@@ -109,7 +109,7 @@ class CultureFeed_SavedSearches_DefaultTest extends TestCase {
     $this->savedSearches->subscribe($this->savedSearch);
   }
 
-  public function testSubscribeErrorInvalidParameters() {
+  public function testSubscribeErrorInvalidParameters(): void {
     $subscribe_xml = file_get_contents(dirname(__FILE__) . '/data/savedsearch_error_invalid_parameters.xml');
 
     $this->oauthClient->expects($this->once())
@@ -126,7 +126,7 @@ class CultureFeed_SavedSearches_DefaultTest extends TestCase {
       $this->savedSearches->subscribe($this->savedSearch);
   }
 
-  public function testUnsubscribe() {
+  public function testUnsubscribe(): void {
     $unsubscribe_xml = file_get_contents(dirname(__FILE__) . '/data/unsubscribe.xml');
 
     $this->oauthClient->expects($this->once())
@@ -140,7 +140,7 @@ class CultureFeed_SavedSearches_DefaultTest extends TestCase {
     $this->savedSearches->unsubscribe($this->savedSearch->id, $this->savedSearch->userId);
   }
 
-  public function testUnsubscribeConsumer() {
+  public function testUnsubscribeConsumer(): void {
     $unsubscribe_xml = file_get_contents(dirname(__FILE__) . '/data/unsubscribe.xml');
 
     $this->oauthClient->expects($this->once())
@@ -154,7 +154,7 @@ class CultureFeed_SavedSearches_DefaultTest extends TestCase {
     $this->savedSearches->unsubscribe($this->savedSearch->id, $this->savedSearch->userId, FALSE);
   }
 
-  public function testUnsubscribeErrorUserNotFound() {
+  public function testUnsubscribeErrorUserNotFound(): void {
     $unsubscribe_xml = file_get_contents(dirname(__FILE__) . '/data/savedsearch_error_user_not_found.xml');
 
     $this->oauthClient->expects($this->once())
@@ -171,7 +171,7 @@ class CultureFeed_SavedSearches_DefaultTest extends TestCase {
     $this->savedSearches->unsubscribe($this->savedSearch->id, $this->savedSearch->userId);
   }
 
-  public function testUnsubscribeErrorInvalidParameters() {
+  public function testUnsubscribeErrorInvalidParameters(): void {
     $unsubscribe_xml = file_get_contents(dirname(__FILE__) . '/data/savedsearch_error_invalid_parameters.xml');
 
     $this->oauthClient->expects($this->once())
@@ -188,7 +188,7 @@ class CultureFeed_SavedSearches_DefaultTest extends TestCase {
     $this->savedSearches->unsubscribe($this->savedSearch->id, $this->savedSearch->userId);
   }
 
-  public function testChangeFrequency() {
+  public function testChangeFrequency(): void {
     $saved_search_xml = file_get_contents(dirname(__FILE__) . '/data/savedsearch.xml');
 
     $this->oauthClient->expects($this->once())
@@ -205,7 +205,7 @@ class CultureFeed_SavedSearches_DefaultTest extends TestCase {
     $this->assertEquals($this->savedSearch, $result);
   }
 
-  public function testChangeFrequencyErrorUserNotFound() {
+  public function testChangeFrequencyErrorUserNotFound(): void {
     $not_xml = file_get_contents(dirname(__FILE__) . '/data/savedsearch_error_user_not_found.xml');
 
     $this->oauthClient->expects($this->once())
@@ -222,7 +222,7 @@ class CultureFeed_SavedSearches_DefaultTest extends TestCase {
     $this->savedSearches->changeFrequency($this->savedSearch->id, $this->savedSearch->frequency);
   }
 
-  public function testChangeFrequencyErrorInvalidParameters() {
+  public function testChangeFrequencyErrorInvalidParameters(): void {
     $incorrect_xml = file_get_contents(dirname(__FILE__) . '/data/savedsearch_error_invalid_parameters.xml');
 
     $this->oauthClient->expects($this->once())
@@ -239,7 +239,7 @@ class CultureFeed_SavedSearches_DefaultTest extends TestCase {
     $this->savedSearches->changeFrequency($this->savedSearch->id, $this->savedSearch->frequency);
   }
 
-  public function testGetSavedSearch() {
+  public function testGetSavedSearch(): void {
     $saved_search_xml = file_get_contents(dirname(__FILE__) . '/data/savedsearch.xml');
 
     $this->oauthClient->expects($this->once())
@@ -253,7 +253,7 @@ class CultureFeed_SavedSearches_DefaultTest extends TestCase {
     $this->assertEquals($this->savedSearch, $result);
   }
 
-  public function testGetSavedSearchWithoutXml() {
+  public function testGetSavedSearchWithoutXml(): void {
     $not_xml = file_get_contents(dirname(__FILE__) . '/data/not_xml.xml');
 
     $this->oauthClient->expects($this->once())
@@ -266,7 +266,7 @@ class CultureFeed_SavedSearches_DefaultTest extends TestCase {
     $this->savedSearches->getSavedSearch(3);
   }
 
-  public function testGetSavedSearchWithIncorrectXml() {
+  public function testGetSavedSearchWithIncorrectXml(): void {
     $incorrect_xml = file_get_contents(dirname(__FILE__) . '/data/savedsearch_missing_parameter.xml');
 
     $this->oauthClient->expects($this->once())
@@ -279,7 +279,7 @@ class CultureFeed_SavedSearches_DefaultTest extends TestCase {
     $this->savedSearches->getSavedSearch(4);
   }
 
-  public function testGetList() {
+  public function testGetList(): void {
     $saved_search_list_xml = file_get_contents(dirname(__FILE__) . '/data/savedsearchlist.xml');
 
     $this->oauthClient->expects($this->once())
@@ -318,7 +318,7 @@ class CultureFeed_SavedSearches_DefaultTest extends TestCase {
     );
   }
 
-  public function testGetListWithoutXml() {
+  public function testGetListWithoutXml(): void {
     $not_xml = file_get_contents(dirname(__FILE__) . '/data/not_xml.xml');
 
     $this->oauthClient->expects($this->once())
@@ -336,7 +336,7 @@ class CultureFeed_SavedSearches_DefaultTest extends TestCase {
     $result = $this->savedSearches->getList(TRUE);
   }
 
-  public function testGetEmptyList() {
+  public function testGetEmptyList(): void {
       $saved_search_list_xml = file_get_contents(
           __DIR__ . '/data/savedsearchlist_empty.xml'
       );
@@ -357,7 +357,7 @@ class CultureFeed_SavedSearches_DefaultTest extends TestCase {
       );
   }
 
-  public function testGetListWithIncorrectXml() {
+  public function testGetListWithIncorrectXml(): void {
     $saved_search_list_xml = file_get_contents(dirname(__FILE__) . '/data/savedsearchlist_missing_parameter.xml');
 
     $this->oauthClient->expects($this->once())

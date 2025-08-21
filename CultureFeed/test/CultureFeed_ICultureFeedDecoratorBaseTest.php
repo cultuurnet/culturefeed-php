@@ -4,7 +4,7 @@ use PHPUnit\Framework\TestCase;
 
 class CultureFeed_ICultureFeedDecoratorBaseTest extends TestCase
 {
-    public function testInheritingClassCanBeInstantiated()
+    public function testInheritingClassCanBeInstantiated(): void
     {
         $subject = new CultureFeed_ICultureFeedDecoratorBaseTestImplementation(
             $this->createMock('\ICultureFeed')

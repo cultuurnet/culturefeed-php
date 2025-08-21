@@ -4,7 +4,7 @@ use PHPUnit\Framework\TestCase;
 
 class CultureFeed_Uitpas_Event_CultureEventTest extends TestCase {
 
-  public function testCreateFromXml() {
+  public function testCreateFromXml(): void {
     $event = CultureFeed_Uitpas_Event_CultureEvent::createFromXML(
       new CultureFeed_SimpleXMLElement(
         file_get_contents(__DIR__ . '/../data/events/event.xml')
@@ -36,7 +36,7 @@ class CultureFeed_Uitpas_Event_CultureEventTest extends TestCase {
   }
 
 
-  public function testToPostDataBasicProperties() {
+  public function testToPostDataBasicProperties(): void {
     $event = new CultureFeed_Uitpas_Event_CultureEvent();
 
     $event->cdbid = '9ba1b072-40ea-41b6-a66b-ac3fdf646f36';
@@ -55,7 +55,7 @@ class CultureFeed_Uitpas_Event_CultureEventTest extends TestCase {
     );
   }
 
-  public function testToPostDataWithDistributionKeyAsString() {
+  public function testToPostDataWithDistributionKeyAsString(): void {
     $event = new CultureFeed_Uitpas_Event_CultureEvent();
 
     $event->distributionKey = '200';
@@ -66,7 +66,7 @@ class CultureFeed_Uitpas_Event_CultureEventTest extends TestCase {
     $this->assertSame('200', $postData['distributionKey']);
   }
 
-  public function testToPostDataWithDistributionKeysAsArrayOfObjects() {
+  public function testToPostDataWithDistributionKeysAsArrayOfObjects(): void {
     $event = new CultureFeed_Uitpas_Event_CultureEvent();
 
     $distributionKey200 = new CultureFeed_Uitpas_DistributionKey();
@@ -94,7 +94,7 @@ class CultureFeed_Uitpas_Event_CultureEventTest extends TestCase {
     );
   }
 
-  public function testPostDataPriceNamesAndValues() {
+  public function testPostDataPriceNamesAndValues(): void {
     $event = new CultureFeed_Uitpas_Event_CultureEvent();
 
     $event->postPriceNames = array(

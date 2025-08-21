@@ -6,7 +6,7 @@ use PHPUnit\Framework\TestCase;
 class CultureFeed_Uitpas_Event_CardSystemsTest extends TestCase {
   const EVENTCDBID = "47B6FA21-ACB1-EA8F-2C231182C7DD0A19";
 
-  public function testGetCardSystemsForEvent() {
+  public function testGetCardSystemsForEvent(): void {
     /** @var CultureFeed_OAuthClient&MockObject $oauth_client_stub */
     $oauth_client_stub = $this->createMock('CultureFeed_OAuthClient');
 
@@ -42,7 +42,7 @@ class CultureFeed_Uitpas_Event_CardSystemsTest extends TestCase {
   /**
    * Test the registering of an event.
    */
-  public function testAddCardSystemToEvent() {
+  public function testAddCardSystemToEvent(): void {
 
     $response = <<<XML
 <?xml version="1.0" encoding="utf-8" ?>
@@ -97,7 +97,7 @@ XML;
     $this->assertNull($response->message);
   }
 
-  public function testDeleteCardSystemFromEvent() {
+  public function testDeleteCardSystemFromEvent(): void {
 
     $response = <<<XML
 <?xml version="1.0" encoding="utf-8" ?>

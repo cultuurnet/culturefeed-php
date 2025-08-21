@@ -43,7 +43,7 @@ class Culturefeed_Log_Request {
     return $this->url;
   }
 
-  public function setUrl($url) {
+  public function setUrl($url): void {
     $this->url = $url;
   }
 
@@ -51,7 +51,7 @@ class Culturefeed_Log_Request {
     return $this->time;
   }
 
-  public function setTime($time) {
+  public function setTime($time): void {
     $this->time = $time;
   }
 
@@ -62,7 +62,7 @@ class Culturefeed_Log_Request {
   /**
    * Query has received a result, stop the query.
    */
-  public function onRequestSent($response) {
+  public function onRequestSent($response): void {
     $stopTime = microtime(TRUE);
     $this->time = round(($stopTime - $this->startTime) * 1000, 2);
     $this->response = $response;

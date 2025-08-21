@@ -21,7 +21,7 @@ class CultureFeed_Uitpas_PassholderTest extends TestCase {
     $this->passholder->street = '';
   }
 
-  public function testToPostData() {
+  public function testToPostData(): void {
     $postData = $this->passholder->toPostData();
 
     $this->assertArrayNotHasKey('street', $postData);
@@ -45,7 +45,7 @@ class CultureFeed_Uitpas_PassholderTest extends TestCase {
     $this->assertEquals('true', $postData['kansenStatuut']);
   }
 
-  public function testToPostDataDropsEmptyPropertiesByDefault() {
+  public function testToPostDataDropsEmptyPropertiesByDefault(): void {
     $this->passholder->schoolConsumerKey = '';
 
     $postData = $this->passholder->toPostData();
@@ -53,7 +53,7 @@ class CultureFeed_Uitpas_PassholderTest extends TestCase {
     $this->assertArrayNotHasKey('schoolConsumerKey', $postData);
   }
 
-  public function testKeepEmptySchoolConsumerKeyWhenSpecified() {
+  public function testKeepEmptySchoolConsumerKeyWhenSpecified(): void {
     $this->passholder->schoolConsumerKey = '';
     $this->passholder->toPostDataKeepEmptySchoolConsumerKey();
 
@@ -71,7 +71,7 @@ class CultureFeed_Uitpas_PassholderTest extends TestCase {
     $this->assertArrayNotHasKey('schoolConsumerKey', $postData);
   }
 
-  public function testKeepEmptySecondNameWhenSpecified() {
+  public function testKeepEmptySecondNameWhenSpecified(): void {
       $this->passholder->secondName = '';
       $this->passholder->toPostDataKeepEmptySecondName();
 
@@ -89,7 +89,7 @@ class CultureFeed_Uitpas_PassholderTest extends TestCase {
       $this->assertArrayNotHasKey('secondName', $postData);
   }
 
-  public function testKeepEmptyContactInformationWhenSpecified() {
+  public function testKeepEmptyContactInformationWhenSpecified(): void {
       $this->passholder->email = '';
       $this->passholder->telephone = '';
       $this->passholder->gsm = '';
@@ -119,7 +119,7 @@ class CultureFeed_Uitpas_PassholderTest extends TestCase {
       $this->assertArrayNotHasKey('gsm', $postData);
   }
 
-  public function testKeepEmptyRemarksWhenSpecified() {
+  public function testKeepEmptyRemarksWhenSpecified(): void {
       $this->passholder->moreInfo = '';
       $this->passholder->toPostDataKeepEmptyMoreInfo();
 
@@ -137,7 +137,7 @@ class CultureFeed_Uitpas_PassholderTest extends TestCase {
       $this->assertArrayNotHasKey('moreInfo', $postData);
   }
 
-  public function testCreateFromXML() {
+  public function testCreateFromXML(): void {
     $xml = file_get_contents(dirname(__FILE__) . '/data/passholder.xml');
     $simple_xml = new CultureFeed_SimpleXMLElement($xml);
 
@@ -193,7 +193,7 @@ class CultureFeed_Uitpas_PassholderTest extends TestCase {
     $this->assertEquals(FALSE, $passholder->verified);
   }
 
-  public function testCreateFromXMLWithMemberships() {
+  public function testCreateFromXMLWithMemberships(): void {
     $xml = file_get_contents(dirname(__FILE__) . '/data/passholder.memberships.xml');
     $simple_xml = new CultureFeed_SimpleXMLElement($xml);
 
@@ -215,7 +215,7 @@ class CultureFeed_Uitpas_PassholderTest extends TestCase {
     $this->assertSame('Chiro Jongens', $membership->association->name);
   }
 
-  public function testOptinPreferencesToPostData() {
+  public function testOptinPreferencesToPostData(): void {
     $this->passholder->schoolConsumerKey = '';
 
     $postData = $this->passholder->toPostData();

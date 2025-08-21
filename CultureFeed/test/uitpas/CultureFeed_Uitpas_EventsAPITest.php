@@ -12,7 +12,7 @@ class CultureFeed_Uitpas_EventsAPITest extends TestCase {
   const CONSUMER_KEY_COUNTER = "94305r2e-e7ff-4dfc-8dd6-ef4d43de9098";
   const POINTS = 2;
 
-  public function testRegisterTicketSale() {
+  public function testRegisterTicketSale(): void {
     $oauth_client_stub = $this->createMock('CultureFeed_OAuthClient');
 
     $register_xml = file_get_contents(dirname(__FILE__) . '/data/events/register.xml');

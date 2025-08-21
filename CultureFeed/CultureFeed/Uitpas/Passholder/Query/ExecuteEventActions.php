@@ -54,25 +54,25 @@ class CultureFeed_Uitpas_Passholder_Query_ExecuteEventActions extends CultureFee
     $this->balieConsumerKey = $balieConsumerKey;
   }
 
-  public function buyTicket() {
+  public function buyTicket(): void {
     $this->actionBuyTicket = TRUE;
   }
 
-  public function checkin() {
+  public function checkin(): void {
     $this->actionCheckin = TRUE;
   }
 
   /**
    * @param string $id
    */
-  public function collectWelcomeAdvantage($id) {
+  public function collectWelcomeAdvantage($id): void {
     $this->welcomeAdvantageIds[] = $id;
   }
 
   /**
    * @param string $id
    */
-  public function collectPointsPromotion($id) {
+  public function collectPointsPromotion($id): void {
     $this->pointsPromotionIds[] = $id;
   }
 

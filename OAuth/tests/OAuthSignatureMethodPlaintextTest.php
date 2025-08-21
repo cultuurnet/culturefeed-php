@@ -12,11 +12,11 @@ class OAuthSignatureMethodPlaintextTest extends TestCase {
 		$this->method = new OAuthSignatureMethod_PLAINTEXT();
 	}
 	
-	public function testIdentifyAsPlaintext() {
+	public function testIdentifyAsPlaintext(): void {
 		$this->assertEquals('PLAINTEXT', $this->method->get_name());
 	}
 	
-	public function testBuildSignature() {
+	public function testBuildSignature(): void {
 		// Tests based on from http://wiki.oauth.net/TestCases section 9.2 ("HMAC-SHA1")
 		$request  = new Mock_OAuthBaseStringRequest('__unused__');
 		$consumer = new OAuthConsumer('__unused__', 'cs');
@@ -45,7 +45,7 @@ class OAuthSignatureMethodPlaintextTest extends TestCase {
 		$this->assertEquals('djr9rjt0jd78jf88&jjd99%24tj88uiths3', $this->method->build_signature( $request, $consumer, $token) );
 	}
 	
-	public function testVerifySignature() {
+	public function testVerifySignature(): void {
 		// Tests based on from http://wiki.oauth.net/TestCases section 9.2 ("HMAC-SHA1")
 		$request   = new Mock_OAuthBaseStringRequest('__unused__');
 		$consumer  = new OAuthConsumer('__unused__', 'cs');

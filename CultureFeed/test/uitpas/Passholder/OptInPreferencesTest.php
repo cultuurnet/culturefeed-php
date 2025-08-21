@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase;
  */
 class CultureFeed_Uitpas_Passholder_OptinPreferencesTest extends TestCase {
 
-  public function testToPostData() {
+  public function testToPostData(): void {
 
     $data = [
       'optInServiceMails' => 'true',

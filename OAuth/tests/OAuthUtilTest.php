@@ -8,7 +8,7 @@ require_once dirname(__FILE__) . '/common.php';
  * Tests of OAuthUtil
  */
 class OAuthUtilTest extends TestCase {
-	public function testUrlencode() {
+	public function testUrlencode(): void {
 		// Tests taken from
 		// http://wiki.oauth.net/TestCases ("Parameter Encoding")
 		$this->assertEquals('abcABC123', OAuthUtil::urlencode_rfc3986('abcABC123'));
@@ -29,7 +29,7 @@ class OAuthUtilTest extends TestCase {
 		$this->assertEquals( '', OAuthUtil::urlencode_rfc3986(new stdClass()));
 	}
 
-	public function testUrldecode() {
+	public function testUrldecode(): void {
 		// Tests taken from
 		// http://wiki.oauth.net/TestCases ("Parameter Encoding")
 		$this->assertEquals('abcABC123', OAuthUtil::urldecode_rfc3986('abcABC123'));
@@ -41,12 +41,12 @@ class OAuthUtilTest extends TestCase {
 		$this->assertEquals("\x7F",      OAuthUtil::urldecode_rfc3986('%7F'));
 		//$this->assertEquals("\x00\x80",  OAuthUtil::urldecode_rfc3986('%C2%80'));
 		//$this->assertEquals("\x30\x01",  OAuthUtil::urldecode_rfc3986('%E3%80%81'));
-		
+
 		// Last two checks disabled because of lack of UTF-8 support, or lack
 		// of knowledge from me (morten.fangel) on how to use it properly..
 	}
 	
-	public function testParseParameter() {
+	public function testParseParameter(): void {
 		// Tests taken from
 		// http://wiki.oauth.net/TestCases ("Normalize Request Parameters")
 	
@@ -72,7 +72,7 @@ class OAuthUtilTest extends TestCase {
 		);
 	}
 	
-	public function testBuildHttpQuery() {
+	public function testBuildHttpQuery(): void {
 		// Tests taken from
 		// http://wiki.oauth.net/TestCases ("Normalize Request Parameters")
 		$this->assertEquals(
@@ -111,7 +111,7 @@ class OAuthUtilTest extends TestCase {
 		);
 	}
 	
-	public function testSplitHeader() {
+	public function testSplitHeader(): void {
 		$this->assertEquals(
 			array('oauth_foo'=>'bar','oauth_baz'=>'bla,rgh'),
 			OAuthUtil::split_header('OAuth realm="",oauth_foo=bar,oauth_baz="bla,rgh"')
@@ -131,7 +131,7 @@ class OAuthUtilTest extends TestCase {
 		
 	}
 
-	public function testGetHeaders() {
+	public function testGetHeaders(): void {
 		if (function_exists('apache_request_headers')) {
 			$this->markTestSkipped('We assume the apache module is well tested. Since this module is present, no need testing our suplement');
 		}

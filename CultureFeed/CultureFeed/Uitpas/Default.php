@@ -169,7 +169,7 @@ class CultureFeed_Uitpas_Default implements CultureFeed_Uitpas {
    * @param string $cdbid The CDBID of the organizer
    * @param array $distribution_keys The identification of the distribution key
    */
-  public function registerDistributionKeysForOrganizer($cdbid, $distribution_keys) {
+  public function registerDistributionKeysForOrganizer($cdbid, $distribution_keys): void {
     $this->oauth_client->consumerPostAsXml('uitpas/distributionkey/organiser/' . $cdbid, $distribution_keys);
   }
 
@@ -823,7 +823,7 @@ class CultureFeed_Uitpas_Default implements CultureFeed_Uitpas {
    * @param string $file_data The binary data of the picture
    * @param string $consumer_key_counter The consumer key of the counter from where the request originates
    */
-  public function uploadPicture($id, $file_data, $consumer_key_counter = NULL) {
+  public function uploadPicture($id, $file_data, $consumer_key_counter = NULL): void {
     $data = array(
       'picture' => $file_data,
     );
@@ -1171,7 +1171,7 @@ class CultureFeed_Uitpas_Default implements CultureFeed_Uitpas {
   /**
    * {@inheritdoc}
    */
-  public function cancelTicketSaleById($ticketId, $consumer_key_counter = NULL) {
+  public function cancelTicketSaleById($ticketId, $consumer_key_counter = NULL): void {
     $data = array();
 
     if ($consumer_key_counter) {
@@ -1371,7 +1371,7 @@ class CultureFeed_Uitpas_Default implements CultureFeed_Uitpas {
    * @param string $uid The Culturefeed user ID
    * @param string $consumer_key_counter The consumer key of the counter from where the request originates
    */
-  public function addMemberToCounter($uid, $consumer_key_counter = NULL) {
+  public function addMemberToCounter($uid, $consumer_key_counter = NULL): void {
     $data = array(
       'uid' => $uid,
     );
@@ -1383,7 +1383,7 @@ class CultureFeed_Uitpas_Default implements CultureFeed_Uitpas {
     $this->oauth_client->authenticatedPost('uitpas/balie/member', $data);
   }
 
-  public function removeMemberFromCounter($uid, $consumer_key_counter = NULL) {
+  public function removeMemberFromCounter($uid, $consumer_key_counter = NULL): void {
     $data = array(
       'uid' => $uid,
     );

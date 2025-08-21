@@ -5,7 +5,7 @@ use PHPUnit\Framework\TestCase;
 
 class CultureFeed_SavedSearches_SavedSearchTest extends TestCase {
 
-  public function testSavedSearchToPostData() {
+  public function testSavedSearchToPostData(): void {
     $saved_search = new SavedSearch();
 
     // Expect an empty array with certain keys and empty values.
@@ -37,7 +37,7 @@ class CultureFeed_SavedSearches_SavedSearchTest extends TestCase {
     $this->assertEquals($expected, $saved_search->toPostData());
   }
 
-  public function testConstructorArguments() {
+  public function testConstructorArguments(): void {
     // Build without arguments.
     $empty_saved_search = new SavedSearch();
     $this->assertInstanceOf('CultureFeed_SavedSearches_SavedSearch', $empty_saved_search);
@@ -74,7 +74,7 @@ class CultureFeed_SavedSearches_SavedSearchTest extends TestCase {
     );
   }
 
-  public function testFrequencyValidation() {
+  public function testFrequencyValidation(): void {
     // First test the validation method itself.
     $validFrequencyConstant = SavedSearch::DAILY;
     $this->assertTrue(SavedSearch::validateFrequency($validFrequencyConstant));

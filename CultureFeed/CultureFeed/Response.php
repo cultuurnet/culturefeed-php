@@ -25,21 +25,21 @@ final class CultureFeed_Response {
     $this->setMessage($message);
   }
 
-  private function setMessage($message) {
+  private function setMessage($message): void {
     if (!is_string($message) || '' === trim($message)) {
       throw new InvalidArgumentException('Invalid value for message');
     }
     $this->message = $message;
   }
 
-  private function setCode($code) {
+  private function setCode($code): void {
     if (!is_string($code) || '' === trim($code)) {
       throw new InvalidArgumentException('Invalid value for code');
     }
     $this->code = $code;
   }
 
-  private function setResource($resource) {
+  private function setResource($resource): void {
     $this->resource = $resource;
   }
 

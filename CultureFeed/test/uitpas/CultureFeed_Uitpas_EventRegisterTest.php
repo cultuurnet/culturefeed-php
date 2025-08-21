@@ -15,7 +15,7 @@ class CultureFeed_Uitpas_EventsRegisterTest extends TestCase {
   /**
    * Test the registering of an event.
    */
-  public function testRegisterEvent() {
+  public function testRegisterEvent(): void {
 
     $response = <<<XML
 <?xml version="1.0" encoding="utf-8" ?>

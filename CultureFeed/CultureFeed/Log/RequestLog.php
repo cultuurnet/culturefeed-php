@@ -24,7 +24,7 @@ class Culturefeed_Log_RequestLog {
     return self::$instance;
   }
 
-  public function addRequest($request) {
+  public function addRequest($request): void {
     $this->requests[] = $request;
   }
 

@@ -40,7 +40,7 @@ class CultureFeed_Uitpas_Passholder_ExecuteEventActionsResult {
    * @param CultureFeed_SimpleXMLElement $xml
    * @return void
    */
-  private function addActionFromXML(CultureFeed_SimpleXMLElement $xml) {
+  private function addActionFromXML(CultureFeed_SimpleXMLElement $xml): void {
     $this->actions[] =
       Culturefeed_Uitpas_Passholder_ExecuteEventActionsResultAction::createFromXML($xml);
   }

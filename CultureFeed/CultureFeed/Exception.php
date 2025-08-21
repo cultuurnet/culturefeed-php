@@ -20,7 +20,7 @@ class CultureFeed_Exception extends Exception {
     return $this->userFriendlyMessage;
   }
 
-  public function setUserFriendlyMessage(string $message) {
+  public function setUserFriendlyMessage(string $message): void {
     $this->userFriendlyMessage = $message;
   }
 }

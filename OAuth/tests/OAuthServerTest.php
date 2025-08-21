@@ -29,7 +29,7 @@ class OAuthServerTest extends TestCase {
 		$this->server->add_signature_method( $this->plaintext );
 	}
 
-	public function testAcceptValidRequest() {
+	public function testAcceptValidRequest(): void {
 		$request = OAuthRequest::from_consumer_and_token( $this->consumer, $this->access_token, 'POST', 'http://example.com');
 		$request->sign_request( $this->plaintext, $this->consumer, $this->access_token );		
 		list($consumer, $token) = $this->server->verify_request( $request );
@@ -42,7 +42,7 @@ class OAuthServerTest extends TestCase {
 		$this->assertEquals( $this->access_token, $token );
 	}
 	
-	public function testAcceptRequestWithoutVersion() {
+	public function testAcceptRequestWithoutVersion(): void {
 		$request = OAuthRequest::from_consumer_and_token( $this->consumer, $this->access_token, 'POST', 'http://example.com');
 		$request->unset_parameter('oauth_version');
 		$request->sign_request( $this->hmac_sha1, $this->consumer, $this->access_token );
@@ -50,7 +50,7 @@ class OAuthServerTest extends TestCase {
 		$this->server->verify_request( $request );
 	}
 	
-	public function testRejectRequestSignedWithRequestToken() {
+	public function testRejectRequestSignedWithRequestToken(): void {
 		$request = OAuthRequest::from_consumer_and_token( $this->consumer, $this->request_token, 'POST', 'http://example.com');
 		$request->sign_request( $this->plaintext, $this->consumer, $this->request_token );		
 		
@@ -59,7 +59,7 @@ class OAuthServerTest extends TestCase {
 		$this->server->verify_request( $request );
 	}
 	
-	public function testRejectRequestWithMissingParameters() {
+	public function testRejectRequestWithMissingParameters(): void {
 		// The list of required parameters is taken from
 		// Chapter 7 ("Accessing Protected Resources")
 		
@@ -83,7 +83,7 @@ class OAuthServerTest extends TestCase {
 		}
 	}
 		
-	public function testRejectPastTimestamp() {
+	public function testRejectPastTimestamp(): void {
 		// We change the timestamp to be 10 hours ago, it should throw an exception
 		
 		$request = OAuthRequest::from_consumer_and_token( $this->consumer, $this->access_token, 'POST', 'http://example.com');
@@ -95,7 +95,7 @@ class OAuthServerTest extends TestCase {
 		$this->server->verify_request($request);
 	}
 	
-	public function testRejectFutureTimestamp() {
+	public function testRejectFutureTimestamp(): void {
 		// We change the timestamp to be 10 hours in the future, it should throw an exception
 		
 		$request = OAuthRequest::from_consumer_and_token( $this->consumer, $this->access_token, 'POST', 'http://example.com');
@@ -107,7 +107,7 @@ class OAuthServerTest extends TestCase {
 		$this->server->verify_request($request);
 	}
 	
-	public function testRejectUsedNonce() {
+	public function testRejectUsedNonce(): void {
 		// We give a known nonce and should see an exception
 	
 		$request = OAuthRequest::from_consumer_and_token( $this->consumer, $this->access_token, 'POST', 'http://example.com');
@@ -120,7 +120,7 @@ class OAuthServerTest extends TestCase {
 		$this->server->verify_request($request);
 	}
 	
-	public function testRejectInvalidSignature() {
+	public function testRejectInvalidSignature(): void {
 		// We change the signature post-signing to be something invalid
 	
 		$request = OAuthRequest::from_consumer_and_token( $this->consumer, $this->access_token, 'POST', 'http://example.com');
@@ -132,7 +132,7 @@ class OAuthServerTest extends TestCase {
 		$this->server->verify_request($request);
 	}
 	
-	public function testRejectInvalidConsumer() {
+	public function testRejectInvalidConsumer(): void {
 		// We use the consumer-key "unknown", which isn't known by the datastore. 
 		
 		$unknown_consumer = new OAuthConsumer('unknown', '__unused__');
@@ -145,7 +145,7 @@ class OAuthServerTest extends TestCase {
 		$this->server->verify_request( $request );	
 	}
 	
-	public function testRejectInvalidToken() {
+	public function testRejectInvalidToken(): void {
 		// We use the access-token "unknown" which isn't known by the datastore
 		
 		$unknown_token = new OAuthToken('unknown', '__unused__');
@@ -158,7 +158,7 @@ class OAuthServerTest extends TestCase {
 		$this->server->verify_request( $request );	
 	}
 	
-	public function testRejectUnknownSignatureMethod() {
+	public function testRejectUnknownSignatureMethod(): void {
 		// We use a server that only supports HMAC-SHA1, but requests with PLAINTEXT signature
 		
 		$request = OAuthRequest::from_consumer_and_token( $this->consumer, $this->access_token, 'POST', 'http://example.com');
@@ -172,7 +172,7 @@ class OAuthServerTest extends TestCase {
 		$server->verify_request( $request );	
 	}
 	
-	public function testRejectUnknownVersion() {
+	public function testRejectUnknownVersion(): void {
 		// We use the version "1.0a" which isn't "1.0", so reject the request
 		
 		$request = OAuthRequest::from_consumer_and_token( $this->consumer, $this->access_token, 'POST', 'http://example.com');
@@ -184,7 +184,7 @@ class OAuthServerTest extends TestCase {
 		$this->server->verify_request( $request );	
 	}
 	
-	public function testCreateRequestToken() {
+	public function testCreateRequestToken(): void {
 		// We request a new Request Token
 		
 		$request = OAuthRequest::from_consumer_and_token( $this->consumer, NULL, 'POST', 'http://example.com');
@@ -194,7 +194,7 @@ class OAuthServerTest extends TestCase {
 		$this->assertEquals($this->request_token, $token);
 	}
 	
-	public function testRejectSignedRequestTokenRequest() {
+	public function testRejectSignedRequestTokenRequest(): void {
 		// We request a new Request Token, but the request is signed with a token which should fail
 		
 		$request = OAuthRequest::from_consumer_and_token( $this->consumer, $this->request_token, 'POST', 'http://example.com');
@@ -205,7 +205,7 @@ class OAuthServerTest extends TestCase {
         $token = $this->server->fetch_request_token($request);
 	}
 	
-	public function testCreateAccessToken() {
+	public function testCreateAccessToken(): void {
 		// We request a new Access Token
 		
 		$request = OAuthRequest::from_consumer_and_token( $this->consumer, $this->request_token, 'POST', 'http://example.com');
@@ -215,7 +215,7 @@ class OAuthServerTest extends TestCase {
 		$this->assertEquals($this->access_token, $token);
 	}
 	
-	public function testRejectUnsignedAccessTokenRequest() {
+	public function testRejectUnsignedAccessTokenRequest(): void {
 		// We request a new Access Token, but we didn't sign the request with a Access Token
 		
 		$request = OAuthRequest::from_consumer_and_token( $this->consumer, NULL, 'POST', 'http://example.com');
@@ -226,7 +226,7 @@ class OAuthServerTest extends TestCase {
         $token = $this->server->fetch_access_token($request);
 	}
 	
-	public function testRejectAccessTokenSignedAccessTokenRequest() {
+	public function testRejectAccessTokenSignedAccessTokenRequest(): void {
 		// We request a new Access Token, but the request is signed with an access token, so fail!
 		
 		$request = OAuthRequest::from_consumer_and_token( $this->consumer, $this->access_token, 'POST', 'http://example.com');

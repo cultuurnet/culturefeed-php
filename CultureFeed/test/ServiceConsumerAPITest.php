@@ -9,7 +9,7 @@ use PHPUnit\Framework\TestCase;
  */
 class CultureFeed_ServiceConsumerAPITest extends TestCase {
 
-  public function testGetServiceConsumers() {
+  public function testGetServiceConsumers(): void {
     $oauth_client_stub = $this->createMock('CultureFeed_OAuthClient');
 
     $consumers_xml = file_get_contents(dirname(__FILE__) . '/data/consumer/list.xml');
@@ -62,7 +62,7 @@ class CultureFeed_ServiceConsumerAPITest extends TestCase {
     $this->assertEquals('filter query', $consumers[1]->searchPrefixFilterQuery);
   }
 
-  public function testCreateServiceConsumer() {
+  public function testCreateServiceConsumer(): void {
     $oauth_client_stub = $this->createMock('CultureFeed_OAuthClient');
     $cf = new CultureFeed($oauth_client_stub);
 
