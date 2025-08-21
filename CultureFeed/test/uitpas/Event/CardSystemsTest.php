@@ -120,7 +120,7 @@ XML;
         'DELETE',
         FALSE
       )
-      ->willReturn($response);
+      ->willReturn(new CultureFeed_HttpResponse(200, $response));
 
     $cf = new CultureFeed($oauth_client_stub);
 
