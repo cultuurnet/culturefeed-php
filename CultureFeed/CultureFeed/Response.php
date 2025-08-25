@@ -3,7 +3,7 @@
  * @file
  */
 
-class CultureFeed_Response {
+final class CultureFeed_Response {
 
   /**
    * @var string

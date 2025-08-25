@@ -24,6 +24,11 @@ class CultureFeed_Messages_DefaultTest extends TestCase {
    */
   protected $messages;
 
+  /**
+   * @var CultureFeed_Messages_Message
+   */
+  protected $message;
+
   public function setUp(): void {
     parent::setUp();
 

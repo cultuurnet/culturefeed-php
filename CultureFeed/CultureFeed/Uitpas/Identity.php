@@ -1,6 +1,6 @@
 <?php
 
-class CultureFeed_Uitpas_Identity extends CultureFeed_Uitpas_ValueObject {
+final class CultureFeed_Uitpas_Identity extends CultureFeed_Uitpas_ValueObject {
   /**
    * @var \CultureFeed_Uitpas_Passholder_Card
    */

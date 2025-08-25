@@ -59,10 +59,6 @@ class Culturefeed_Log_Request {
     return $this->response;
   }
 
-  public function setResponse(Guzzle\Http\Message\Response $response) {
-    $this->response = $response;
-  }
-
   /**
    * Query has received a result, stop the query.
    */

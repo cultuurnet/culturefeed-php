@@ -73,6 +73,11 @@ class CultureFeed_EntryApi implements CultureFeed_EntryApi_IEntryApi {
   private $cdbXmlVersion;
 
   /**
+   * @var CultureFeed_OAuthClient
+   */
+  private $oauth_client;
+
+  /**
    * Constructor for a new CultureFeed_EntryApi instance.
    *
    * @param CultureFeed_OAuthClient $oauth_client

@@ -36,7 +36,7 @@ class CultureFeed_Uitpas_CardSystem
    * @return CultureFeed_Uitpas_CardSystem
    */
   public static function createFromXML(CultureFeed_SimpleXMLElement $object) {
-
+    // @phpstan-ignore-next-line
     $card_system = new static();
 
     $card_system->id = $object->xpath_int('id');
@@ -44,7 +44,7 @@ class CultureFeed_Uitpas_CardSystem
 
     $card_system->distributionKeys = array();
     foreach ($object->xpath('distributionKeys/distributionKey') as $distributionKey) {
-      $card_system->distributionKeys[] = CultureFeed_Uitpas_DistributionKey::createFromXML($distributionKey, FALSE);
+      $card_system->distributionKeys[] = CultureFeed_Uitpas_DistributionKey::createFromXML($distributionKey);
     }
 
     return $card_system;

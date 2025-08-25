@@ -65,7 +65,7 @@ class CultureFeed_ServiceConsumerAPITest extends TestCase {
 
   public function testCreateServiceConsumer() {
     $oauth_client_stub = $this->createMock('CultureFeed_OAuthClient');
-    $cf = new Culturefeed($oauth_client_stub);
+    $cf = new CultureFeed($oauth_client_stub);
 
     $consumerKey = 'y1j72kx0btua10otvftd25cf6mws39pg';
     $consumerSecret = 'o86hyiffn254i3v26o0pqiononc4yw0v';

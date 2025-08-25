@@ -10,10 +10,11 @@
   ],
   "require": {
     "php": ">=7.4",
-    "cultuurnet/cdb": "~2.1"
+    "cultuurnet/cdb": "^2.1"
   },
   "require-dev": {
-    "phpunit/phpunit": "~9.0"
+    "phpunit/phpunit": "^9.0",
+    "phpstan/phpstan": "^2.0"
   },
   "autoload": {
     "classmap": [

@@ -130,6 +130,11 @@ class CultureFeed implements ICultureFeed {
   protected $savedSearches;
 
   /**
+   * @var OAuthConsumer
+   */
+  protected $oAuthConsumer;
+
+  /**
    * Get the consumer.
    *
    * @return OAuthConsumer $consumer
@@ -184,7 +189,7 @@ class CultureFeed implements ICultureFeed {
       throw new CultureFeed_ParseException($response, 'token');
     }
 
-    $this->token = new OAuthConsumer($token['oauth_token'], $token['oauth_token_secret']);
+    $this->oAuthConsumer = new OAuthConsumer($token['oauth_token'], $token['oauth_token_secret']);
 
     return $token;
   }
@@ -267,7 +272,7 @@ class CultureFeed implements ICultureFeed {
       throw new CultureFeed_ParseException($response, 'token');
     }
 
-    $this->token = new OAuthConsumer($token['oauth_token'], $token['oauth_token_secret']);
+    $this->oAuthConsumer = new OAuthConsumer($token['oauth_token'], $token['oauth_token_secret']);
 
     return $token;
   }

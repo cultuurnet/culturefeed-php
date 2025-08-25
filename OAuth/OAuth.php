@@ -16,6 +16,8 @@ if (!class_exists('OAuthConsumer')) {
 
     public $secret;
 
+    public $callback_url;
+
     function __construct($key, $secret, $callback_url = NULL) {
       $this->key = $key;
       $this->secret = $secret;
