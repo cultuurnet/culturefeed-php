@@ -241,7 +241,7 @@ class CultureFeed_EntryApi implements CultureFeed_EntryApi_IEntryApi {
    * @param string $id
    *   ID of the production to load.
    *
-   * @return CultureFeed_Cdb_Item_Event
+   * @return CultureFeed_Cdb_Item_Production
    * @throws CultureFeed_ParseException
    */
   public function getProduction($id) {

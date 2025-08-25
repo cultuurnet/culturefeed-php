@@ -24,7 +24,7 @@ interface CultureFeed_Pages {
    * @param bool $mboxIncludePrivate
    *   Include the user mbox (consumer needs additional permission).
    *
-   * @return \CultureFeed_ResultSet
+   * @return CultureFeed_Pages_UserList
    */
   public function getUserList($id, $roles = array(), $use_auth = TRUE, $mboxIncludePrivate = FALSE);
 

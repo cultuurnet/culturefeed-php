@@ -25,7 +25,7 @@ class CultureFeed_Mailing {
 
   /**
    * The template associated with the mailing.
-   * @var CultureFeed_Template
+   * @var CultureFeed_Template|int
    */
   public $template;
 

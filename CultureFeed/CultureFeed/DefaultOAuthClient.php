@@ -366,7 +366,7 @@ class CultureFeed_DefaultOAuthClient implements CultureFeed_OAuthClient {
     }
 
     // In case the HTTP response status is 200, we return the response.
-    return $response->response;
+    return $response;
   }
 
   /**
@@ -392,7 +392,7 @@ class CultureFeed_DefaultOAuthClient implements CultureFeed_OAuthClient {
   /**
    * Build a querystring.
    *
-   * @param string $params
+   * @param array $params
    *   Array representation of the querystring.
    * @return string
    *   The querystring.

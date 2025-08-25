@@ -36,7 +36,7 @@ class CultureFeed_SearchUser {
   /**
    * Soft value.
    *
-   * @var integer
+   * @var integer|null
    */
   public $sortValue;
 

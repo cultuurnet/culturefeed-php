@@ -83,7 +83,7 @@ class CultureFeed_Uitpas_PasHoudersAPITest extends TestCase {
     $xml = file_get_contents(dirname(__FILE__) . '/data/passholder/price.xml');
 
     $expected = new CultureFeed_Uitpas_Passholder_UitpasPrice();
-    $expected->id = 148;
+    $expected->id = '148';
     $expected->reason = CultureFeed_Uitpas_Passholder_UitpasPrice::REASON_FIRST_CARD;
     $expected->cardType = 'CARD';
     $expected->ageRange = new CultureFeed_Uitpas_Passholder_AgeRange();
@@ -91,7 +91,7 @@ class CultureFeed_Uitpas_PasHoudersAPITest extends TestCase {
     $expected->kansenStatuut = FALSE;
     $expected->price = 2;
     $expected->cardSystem = new CultureFeed_Uitpas_CardSystem();
-    $expected->cardSystem->id = 1;
+    $expected->cardSystem->id = '1';
     $expected->cardSystem->name = 'UiTPAS Regio Aalst';
 
     /* @var CultureFeed_OAuthClient&MockObject $oauth_client_stub

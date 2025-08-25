@@ -21,7 +21,7 @@ class CultureFeed_SavedSearches_SavedSearchTest extends TestCase {
 
     // Set data and test if we receive the same data.
     $saved_search->id = 123456;
-    $saved_search->userId = 123789;
+    $saved_search->userId = '123789';
     $saved_search->name = 'The name';
     $saved_search->query = 'The string';
     $saved_search->frequency = SavedSearch::ASAP;
