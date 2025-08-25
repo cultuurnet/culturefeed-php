@@ -1,4 +1,4 @@
-.PHONY: up down build bash install test stan
+.PHONY: up down build bash install test test-filter stan
 
 up:
 	docker-compose up -d
@@ -17,6 +17,9 @@ install:
 
 test:
 	docker-compose exec php ./vendor/bin/phpunit
+
+test-filter:
+	docker-compose exec php ./vendor/bin/phpunit --filter=$(filter)
 
 stan:
 	docker-compose exec php ./vendor/bin/phpstan --memory-limit=512M
