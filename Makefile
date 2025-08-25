@@ -1,4 +1,4 @@
-.PHONY: up down build bash install test
+.PHONY: up down build bash install test test-filter
 
 up:
 	docker-compose up -d
@@ -17,3 +17,6 @@ install:
 
 test:
 	docker-compose exec php ./vendor/bin/phpunit
+
+test-filter:
+	docker-compose exec php ./vendor/bin/phpunit --filter=$(filter)
