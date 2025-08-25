@@ -104,6 +104,11 @@ class CultureFeed_Consumer {
   public $admins;
 
   /**
+   * @var string|null
+   */
+  public $searchPrefix;
+
+  /**
    * The API key for search api 3.
    * @var string|null
    */

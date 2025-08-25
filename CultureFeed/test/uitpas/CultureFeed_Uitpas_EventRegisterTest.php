@@ -1,5 +1,6 @@
 <?php
 
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -24,7 +25,7 @@ class CultureFeed_Uitpas_EventsRegisterTest extends TestCase {
 </response>
 XML;
 
-    /* @var $oauth_client_stub PHPUnit_Framework_MockObject_MockObject */
+    /* @var $oauth_client_stub MockObject */
     $oauth_client_stub = $this->createMock('CultureFeed_OAuthClient');
     $oauth_client_stub
       ->expects($this->once())

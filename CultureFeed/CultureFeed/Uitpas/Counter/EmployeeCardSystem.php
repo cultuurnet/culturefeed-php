@@ -23,6 +23,7 @@ class CultureFeed_Uitpas_Counter_EmployeeCardSystem extends CultureFeed_Uitpas_C
   public $groups;
 
   public static function createFromXml(CultureFeed_SimpleXMLElement $object) {
+    /** @var CultureFeed_Uitpas_Counter_EmployeeCardSystem $instance */
     $instance = parent::createFromXML($object);
 
     foreach ($object->xpath('permissions/permission') as $permission) {

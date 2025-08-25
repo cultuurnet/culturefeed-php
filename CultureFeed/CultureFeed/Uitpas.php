@@ -108,10 +108,6 @@ interface CultureFeed_Uitpas {
 
   /**
    * Create a new membership for a UitPas passholder.
-   *
-   * @param string $id The user ID of the passholder
-   * @param string $organization The name of the organization
-   * @param DateTime $end_date The membership's organization end date
    */
   public function createMembershipForPassholder(CultureFeed_Uitpas_Passholder_Membership $membership);
 
@@ -168,7 +164,6 @@ interface CultureFeed_Uitpas {
    * Get the welcome advantages for a passholder.
    *
    * @param CultureFeed_Uitpas_Passholder_Query_WelcomeAdvantagesOptions $query The query
-   * @param string $uitpas_number The UitPas number
    */
   public function getWelcomeAdvantagesForPassholder(CultureFeed_Uitpas_Passholder_Query_WelcomeAdvantagesOptions $query);
 
@@ -206,7 +201,7 @@ interface CultureFeed_Uitpas {
    *
    * @param string $uitpas_number The UitPas number
    * @param int $points_promotion_id The identification of the redeem option
-   * @param string $counter The name of the UitPas counter
+   * @param string $consumer_key_counter The name of the UitPas counter
    */
   public function cashInPromotionPoints($uitpas_number, $points_promotion_id, $consumer_key_counter = NULL);
 
@@ -225,7 +220,7 @@ interface CultureFeed_Uitpas {
    * @param CultureFeed_Uitpas_Passholder $passholder The passholder to update.
    * 		The passholder is identified by ID. Only fields that are set will be updated.
    */
-  public function updatePassholder(CultureFeed_Uitpas_Passholder $passholder);
+  public function updatePassholder(CultureFeed_Uitpas_Passholder $passholder, string $consumer_key_counter = null);
 
   /**
    * Update a passholder's card system preferences.
@@ -283,7 +278,7 @@ interface CultureFeed_Uitpas {
    *
    * @param string $uid
    * @param string $activation_code
-   * @param string $destination_
+   * @param string $destination
    */
   public function constructPassHolderActivationLink($uid, $activation_code, $destination = NULL);
 

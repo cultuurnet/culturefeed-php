@@ -125,7 +125,7 @@ class CultureFeed implements ICultureFeed {
 
   /**
    * Culturefeed saved searches instance.
-   * @var Culturefeed_SavedSearches
+   * @var CultureFeed_SavedSearches
    */
   protected $savedSearches;
 
@@ -622,7 +622,7 @@ class CultureFeed implements ICultureFeed {
    *
    * @param string $user_id
    *   ID of the user who requests the revoke.
-   * @param integer id
+   * @param integer $consumer_id
    *   ID of the service consumer that needs to be revoked.
    */
   public function revokeUserServiceConsumer($user_id, $consumer_id) {
@@ -1138,7 +1138,7 @@ class CultureFeed implements ICultureFeed {
    *   If this parameters is not empty, only the properties specified in this array will be updated on the API.
    */
   public function updateTemplate(CultureFeed_Template $template, $fields = array()) {
-    $data = $template->toPostData($fields);
+    $data = $template->toPostData();
 
     $id = $data['id'];
 
@@ -1263,7 +1263,7 @@ class CultureFeed implements ICultureFeed {
    *   If this parameters is not empty, only the properties specified in this array will be updated on the API.
    */
   public function updateMailing(CultureFeed_Mailing $mailing, $fields = array()) {
-    $data = $mailing->toPostData($fields);
+    $data = $mailing->toPostData();
 
     $id = $data['id'];
     unset($data['id']);
@@ -1390,7 +1390,7 @@ class CultureFeed implements ICultureFeed {
    *
    * @param string $user_id
    *   ID from user that needs to be subscribed.
-   * @param string
+   * @param string $mailing_id
    *   ID of the mailing to subscribe to.
    * @param bool $use_auth
    *   Using a consumer request for this method is only available for a few consumers who have the ‘Use Light UiTID permission.
@@ -1414,7 +1414,7 @@ class CultureFeed implements ICultureFeed {
    *
    * @param string $user_id
    *   ID from user that needs to be unsubscribed.
-   * @param string
+   * @param string $mailing_id
    *   ID of the mailing to unsubscribe from.
    * @param bool $use_auth
    *   Using a consumer request for this method is only available for a few consumers who have the ‘Use Light UiTID permission.
@@ -1587,7 +1587,7 @@ class CultureFeed implements ICultureFeed {
    *
    * @param string $userId
    *   User Id to get the notifications for.
-   * @param string dateFrom
+   * @param string $dateFrom
    *   ISO Date to set the startdate of the timeline. (optional)
    *
    * @throws CultureFeed_ParseException
@@ -1814,7 +1814,7 @@ class CultureFeed implements ICultureFeed {
    * @todo clarify if $start and $max are obligatory or optional
    *
    * Enter description here ...
-   * @param unknown_type $start
+   * @param int $start
    */
   public function getServiceConsumers($start = 0, $max = NULL, $filters = array()) {
     $query = array('start' => $start);

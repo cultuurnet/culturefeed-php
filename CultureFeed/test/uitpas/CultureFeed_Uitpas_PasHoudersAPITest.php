@@ -1,5 +1,6 @@
 <?php
 
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 class CultureFeed_Uitpas_PasHoudersAPITest extends TestCase {
@@ -93,7 +94,8 @@ class CultureFeed_Uitpas_PasHoudersAPITest extends TestCase {
     $expected->cardSystem->id = 1;
     $expected->cardSystem->name = 'UiTPAS Regio Aalst';
 
-    /* @var CultureFeed_OAuthClient|PHPUnit_Framework_MockObject_MockObject $oauth_client_stub */
+    /* @var CultureFeed_OAuthClient&MockObject $oauth_client_stub
+     */
     $oauth_client_stub = $this->createMock('CultureFeed_OAuthClient');
     $oauth_client_stub->expects($this->any())
       ->method('authenticatedGetAsXml')
@@ -124,7 +126,7 @@ class CultureFeed_Uitpas_PasHoudersAPITest extends TestCase {
 </response>
 XML;
 
-    /* @var CultureFeed_OAuthClient|PHPUnit_Framework_MockObject_MockObject $oauth_client_stub */
+    /* @var CultureFeed_OAuthClient&MockObject $oauth_client_stub */
     $oauth_client_stub = $this->createMock('CultureFeed_OAuthClient');
     $oauth_client_stub->expects($this->any())
       ->method('authenticatedGetAsXml')
@@ -227,7 +229,7 @@ XML;
     $cf = new CultureFeed($oauth_client_stub);
 
     $query = new CultureFeed_Uitpas_Passholder_Query_WelcomeAdvantagesOptions();
-    $query->uitpasNumber = self::UITPAS_NUMBER;
+    $query->uitpas_number = self::UITPAS_NUMBER;
     $result = $cf->uitpas()->getWelcomeAdvantagesForPassholder($query);
 
     $this->assertEquals(2, $result->total);
@@ -261,7 +263,7 @@ XML;
     $cf = new CultureFeed($oauth_client_stub);
 
     $event = new CultureFeed_Uitpas_Passholder_Query_CheckInPassholderOptions();
-    $event->uitpas_number = self::UITPAS_NUMBER;
+    $event->uitpasNumber = self::UITPAS_NUMBER;
 
     $points = $cf->uitpas()->checkinPassholder($event);
 
@@ -298,7 +300,7 @@ XML;
     $cf = new CultureFeed($oauth_client_stub);
 
     $query = new CultureFeed_Uitpas_Passholder_Query_SearchPromotionPointsOptions();
-    $query->uitpasUid = self::UID;
+    $query->uitpasNumber = self::UID;
     $query->balieConsumerKey = self::CONSUMER_KEY_COUNTER;
     $query->sort = CultureFeed_Uitpas_Passholder_Query_SearchPromotionPointsOptions::SORT_POINTS;
     $query->order = CultureFeed_Uitpas_Passholder_Query_SearchPromotionPointsOptions::ORDER_ASC;

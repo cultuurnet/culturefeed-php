@@ -236,27 +236,27 @@ class CultureFeed_DefaultOAuthClient implements CultureFeed_OAuthClient {
    *
    * @param string $path
    *   The path for the request relative to the endpoint.
-   * @param string $params
+   * @param array $params
    *   Post data for a POST request, query string for a GET request.
    * @param string $method
    *   HTTP method.
-   * @param string $use_auth
+   * @param bool $use_auth
    *   Should the request be signed with the user token and token secret or just the consumer token and secret?
    *   If $use_auth is TRUE, sign with user token, secret as well as consumer token and secret.
    *   If $use_auth is FALSE, sign only with consumer token and secret.
    * @param string $format
    *   The response format.
    *   Possible values are 'xml', 'json' and '' for default response (depending on request).
-   * @param string $raw_post
+   * @param bool $raw_post
    *   Should the post data (passed via $params) be passed as is ($raw_post TRUE) or should the OAuth params be added?
-   * @return CultureFeed_HTTPResponse
+   * @return CultureFeed_HttpResponse
    *   The response.
    *
    * @throws Exception
    *   If an $use_auth is TRUE and no token was set.
    * @throws CultureFeed_Exception
    *   If an error message and code could be parsed from the response.
-   * @throws CultureFeed_HTTPException
+   * @throws CultureFeed_HttpException
    *   If no error message and code could be parsed from the response.
    */
   public function request($path, array $params = array(), $method = 'GET', $use_auth = TRUE, $format = 'xml', $raw_post = TRUE, $has_file_upload = FALSE) {
