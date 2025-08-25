@@ -5,10 +5,7 @@
 
 class CultureFeed_Uitpas_Passholder_CardSystemSpecific {
 
-  /**
-   * @var CultureFeed_Uitpas_Passholder_Card
-   */
-  public $currentCard;
+  public ?CultureFeed_Uitpas_Passholder_Card $currentCard = null;
 
   /**
    * The e-mail preference

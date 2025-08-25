@@ -23,12 +23,7 @@ class CultureFeed_Uitpas_Event_CheckinActivity extends CultureFeed_Uitpas_ValueO
    */
   public $nodeTitle;
 
-  /**
-   * Privacy status
-   *
-   * @var bool
-   */
-  public $private;
+  public bool $private;
 
   /**
    * The ServiceConsumer ID of the activity object
@@ -93,12 +88,7 @@ class CultureFeed_Uitpas_Event_CheckinActivity extends CultureFeed_Uitpas_ValueO
    */
   public $creationDate;
 
-  /**
-   * True if the author of the checkin has a kansenstatuut
-   *
-   * @var boolean
-   */
-  public $kansenStatuut;
+  public bool $kansenStatuut;
 
   /**
    * The location of the checkin
@@ -152,20 +142,10 @@ class CultureFeed_Uitpas_Event_CheckinActivity extends CultureFeed_Uitpas_ValueO
    * @var integer
    */
   public $userPoints;
-  
-  /**
-   * Latitude of the location where checked in.
-   *
-   * @var float
-   */
-  public $eventLocationLat;
 
-  /**
-   * Longitude of the location where checked in.
-   *
-   * @var float
-   */
-  public $eventLocationLon;
+  public ?float $eventLocationLat;
+
+  public ?float $eventLocationLon;
   
   /**
    * Gender of the passholder who checked in.
@@ -173,10 +153,10 @@ class CultureFeed_Uitpas_Event_CheckinActivity extends CultureFeed_Uitpas_ValueO
    */
   public $gender;
 
-  /**
-   * @var integer[]
-   */
-  public $organiserCardSystems;
+    /**
+     * @var array<int>
+     */
+  public array $organiserCardSystems;
 
   /**
    * Instantiates a new checkin activity object based on the passed XML representation.

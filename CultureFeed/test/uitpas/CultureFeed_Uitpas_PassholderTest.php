@@ -145,7 +145,6 @@ class CultureFeed_Uitpas_PassholderTest extends TestCase {
 
     $this->assertInstanceOf('CultureFeed_Uitpas_Passholder', $passholder);
 
-    $this->assertIsArray($passholder->cardSystemSpecific);
     $this->assertCount(2, $passholder->cardSystemSpecific);
 
     $keys = array_keys($passholder->cardSystemSpecific);
@@ -175,7 +174,6 @@ class CultureFeed_Uitpas_PassholderTest extends TestCase {
     $this->assertEquals('Backend', $passholder->secondName);
     $this->assertEquals('FEMALE', $passholder->gender);
     $this->assertEquals('62cb6cc2a58d1b23d85b5993894c2fcd2d55ed01c0f6ff1f4f0ee87ac2b83dd9', $passholder->inszNumberHash);
-    $this->assertIsArray($passholder->memberships);
     $this->assertCount(0, $passholder->memberships);
     $this->assertEquals('Tester', $passholder->name);
     $this->assertEquals(2, $passholder->numberOfCheckins);
@@ -203,7 +201,6 @@ class CultureFeed_Uitpas_PassholderTest extends TestCase {
 
     $this->assertInstanceOf('CultureFeed_Uitpas_Passholder', $passholder);
 
-    $this->assertIsArray($passholder->memberships);
     $this->assertCount(1, $passholder->memberships);
 
     /** @var CultureFeed_Uitpas_Passholder_Membership $membership */

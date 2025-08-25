@@ -24,8 +24,6 @@ class CultureFeed_Uitpas_SearchCheckinsTest extends TestCase {
 
     $this->assertEquals(12, $checkins->total);
 
-    $this->assertIsArray($checkins->objects);
-
     $this->assertContainsOnly('CultureFeed_Uitpas_Event_CheckinActivity', $checkins->objects, FALSE);
 
     /** @var CultureFeed_Uitpas_Event_CheckinActivity $checkin */
@@ -41,17 +39,14 @@ class CultureFeed_Uitpas_SearchCheckinsTest extends TestCase {
     $this->assertEquals('c44d849a-1290-4927-81ac-e782428de887', $checkin->nodeId);
     $this->assertEquals('test cine palace', $checkin->nodeTitle);
     $this->assertEquals(0, $checkin->points);
-    $this->assertIsBool($checkin->private);
     $this->assertEquals(FALSE, $checkin->private);
     $this->assertEquals('a81b1741-5e97-4eee-ab30-a71865fc266a', $checkin->userId);
     $this->assertEquals('Frontend', $checkin->firstName);
     $this->assertEquals('FEMALE', $checkin->gender);
-    $this->assertIsBool($checkin->kansenStatuut);
     $this->assertEquals(FALSE, $checkin->kansenStatuut);
     $this->assertEquals('Tester', $checkin->lastName);
     $this->assertEquals('Aalst', $checkin->location);
     $this->assertEquals('CC De Werf', $checkin->organiser);
-    $this->assertIsArray($checkin->organiserCardSystems);
 
     $this->assertContainsOnly('integer', $checkin->organiserCardSystems, TRUE);
     $this->assertCount(2, $checkin->organiserCardSystems);

@@ -919,7 +919,7 @@ class CultureFeed_EntryApi implements CultureFeed_EntryApi_IEntryApi {
   /**
    * Validates that the keyword is of a proper type.
    *
-   * @param string|CultureFeed_Cdb_Data_Keyword $keyword
+   * @param mixed $keyword
    *
    * @return void
    * @throws InvalidArgumentException
@@ -1108,7 +1108,7 @@ class CultureFeed_EntryApi implements CultureFeed_EntryApi_IEntryApi {
    *
    * @param string $result
    *   Result from the request.
-   * @param string $valid_status_code
+   * @param string|array $valid_status_code
    *   Status code if this is a valid request.
    * @return CultureFeed_SimpleXMLElement The parsed xml.
    *

@@ -390,9 +390,9 @@ interface CultureFeed_Uitpas {
 
   /**
    * @param string|null $consumer_key_counter
-   * @return CultureFeed_Uitpas_Counter_CardCounter[]
+   * @return array<CultureFeed_Uitpas_Counter_CardCounter>
    */
-  public function getCardCounters($consumer_key_counter = NULL);
+  public function getCardCounters($consumer_key_counter = NULL): array;
 
   /**
    * Search for counters for a given member
@@ -404,7 +404,7 @@ interface CultureFeed_Uitpas {
   public function searchCountersForMember($uid);
 
   /**
-   * @param null $consumer_key_counter
+   * @param string $consumer_key_counter
    * @param bool $show_event
    * @return CultureFeed_Uitpas_Counter_Device[]
    */

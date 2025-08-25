@@ -7,19 +7,9 @@ class CultureFeed_Uitpas_Passholder_Card extends CultureFeed_Uitpas_ValueObject 
   const STATUS_ACTIVE = 'ACTIVE';
   const STATUS_BLOCKED = 'BLOCKED';
 
-  /**
-   * The city of the uitpas
-   *
-   * @var string
-   */
-  public $city;
+  public ?string $city = null;
 
-  /**
-   * The number of the uitpas
-   *
-   * @var string
-   */
-  public $uitpasNumber;
+  public string $uitpasNumber;
 
   /**
    * True if the passholder has a kansenpas

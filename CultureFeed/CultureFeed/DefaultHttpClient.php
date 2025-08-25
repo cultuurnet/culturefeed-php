@@ -115,7 +115,7 @@ class CultureFeed_DefaultHttpClient implements CultureFeed_HttpClient, CultureFe
    *   Represented as an array of header strings.
    * @param string $method
    *   The HTTP method.
-   * @param string $post_data
+   * @param string|array $post_data
    *   In case of a POST request, specify the post data a string.
    * @return CultureFeed_HttpResponse
    *   The response.
@@ -152,7 +152,7 @@ class CultureFeed_DefaultHttpClient implements CultureFeed_HttpClient, CultureFe
     if ($method == 'POST') {
       if (is_array($post_data)) {
           foreach ($post_data as $key => $value) {
-              if (is_object($value) && method_exists($value, '__toString')) {
+              if (!empty($value) && method_exists($value, '__toString')) {
                   $post_data[$key] = (string)$value;
               }
           }

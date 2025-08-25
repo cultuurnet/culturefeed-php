@@ -8,7 +8,7 @@ class CultureFeed_Uitpas_SaleCoupon
     /**
      * @var array
      */
-    public $buyConstraint = array();
+    public array $buyConstraint = [];
 
     /**
      * @var string
@@ -18,7 +18,7 @@ class CultureFeed_Uitpas_SaleCoupon
     /**
      * @var array
      */
-    public $exchangeConstraint = array();
+    public array $exchangeConstraint = [];
 
     /**
      * @var boolean
@@ -38,7 +38,7 @@ class CultureFeed_Uitpas_SaleCoupon
     /**
      * @var array
      */
-    public $remainingTotal = array();
+    public array $remainingTotal = [];
 
     /**
      * @var integer

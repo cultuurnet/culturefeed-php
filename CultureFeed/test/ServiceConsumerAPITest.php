@@ -26,7 +26,6 @@ class CultureFeed_ServiceConsumerAPITest extends TestCase {
 
     $consumers = $result->objects;
 
-    $this->assertIsArray($consumers);
     $this->assertEquals(2, count($consumers));
     $this->assertContainsOnly('CultureFeed_Consumer', $consumers);
 
@@ -148,11 +147,9 @@ class CultureFeed_ServiceConsumerAPITest extends TestCase {
     // properties that differ
 
     // creationDate should be 2011-10-09T16:00Z as returned by the oauth_client
-    $this->assertIsInt($new_consumer->creationDate);
     $this->assertEquals(1318176000, $new_consumer->creationDate);
 
     // id as returned by the oauth_client
-    $this->assertIsInt($new_consumer->id);
     $this->assertEquals(27, $new_consumer->id);
 
     // status as returned by the oauth_client

@@ -30,7 +30,6 @@ class CultureFeed_Uitpas_AssociationAPITest extends TestCase {
     $this->assertInstanceOf('CultureFeed_ResultSet', $result);
     $this->assertEquals(3, $result->total);
 
-    $this->assertIsArray($result->objects);
     $this->assertCount(3, $result->objects);
     $this->assertContainsOnly('CultureFeed_Uitpas_Association', $result->objects);
 

@@ -26,19 +26,9 @@ class CultureFeed_Consumer {
    */
   public $group;
 
-  /**
-   * Creation date of this consumer represented as a UNIX timestamp.
-   *
-   * @var integer
-   */
-  public $creationDate;
+  public int $creationDate;
 
-  /**
-   * ID of the consumer.
-   *
-   * @var integer
-   */
-  public $id;
+  public int $id;
 
   /**
    * Name of the consumer.

@@ -30,7 +30,6 @@ class CultureFeed_Uitpas_BalieAPITest extends TestCase {
     $this->assertInstanceOf('CultureFeed_ResultSet', $counters);
     $this->assertEquals(18, $counters->total);
 
-    $this->assertIsArray($counters->objects);
     $this->assertCount(18, $counters->objects);
     $this->assertContainsOnly('CultureFeed_Uitpas_Counter_Employee', $counters->objects);
 
@@ -78,7 +77,6 @@ class CultureFeed_Uitpas_BalieAPITest extends TestCase {
 
     $cardCounters = $cf->uitpas()->getCardCounters();
 
-    $this->assertIsArray($cardCounters);
     $this->assertCount(4, $cardCounters);
 
     /** @var CultureFeed_Uitpas_Counter_CardCounter $cardCounter */

@@ -33,22 +33,18 @@ class CultureFeed_Uitpas_GroupPassAPITest extends TestCase {
     $this->assertEquals(0, $pass->availableTickets);
     $this->assertEquals(false, $pass->kansenStatuut);
     $this->assertEquals(false, $pass->expired);
-    $this->assertIsArray($pass->ticketSaleCoupons);
 
     $coupon = reset($pass->ticketSaleCoupons);
 
     $this->assertInstanceOf('CultureFeed_Uitpas_SaleCoupon', $coupon);
-    $this->assertIsArray($coupon->buyConstraint);
     $this->assertEquals('ABSOLUTE', $coupon->buyConstraint['periodType']);
     $this->assertEquals(50, $coupon->buyConstraint['periodVolume']);
     $this->assertEquals('bon voor groep id AB', $coupon->description);
-    $this->assertIsArray($coupon->exchangeConstraint);
     $this->assertEquals('ABSOLUTE', $coupon->exchangeConstraint['periodType']);
     $this->assertEquals(50, $coupon->exchangeConstraint['periodVolume']);
     $this->assertEquals(false, $coupon->expired);
     $this->assertEquals(14, $coupon->id);
     $this->assertEquals('AB groepsbon', $coupon->name);
-    $this->assertIsArray($coupon->remainingTotal);
     $this->assertEquals('ABSOLUTE', $coupon->remainingTotal['periodType']);
     $this->assertEquals(50, $coupon->remainingTotal['periodVolume']);
     $this->assertEquals(1475359200, $coupon->validFrom);

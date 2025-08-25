@@ -14,12 +14,7 @@ class CultureFeed_ResultSet {
    */
   public $total;
 
-  /**
-   * The objects in the slice.
-   *
-   * @var array
-   */
-  public $objects;
+  public array $objects;
 
   /**
    * Constructor for a new CultureFeed_ResultSet instance.

@@ -105,29 +105,15 @@ class CultureFeed implements ICultureFeed {
   /**
    * CultureFeed Uitpas instance.
    *
-   * @var CultureFeed_Uitpas
+   * @var ?CultureFeed_Uitpas
    */
   protected $uitpas;
 
-  /**
-   * Culturefeed pages instance.
-   *
-   * @var CultureFeed_Pages
-   */
-  protected $pages;
+  protected ?CultureFeed_Pages $pages = null;
 
-  /**
-   * Culturefeed messages instance.
-   *
-   * @var CultureFeed_Messages
-   */
-  protected $messages;
+  protected ?CultureFeed_Messages $messages = null;
 
-  /**
-   * Culturefeed saved searches instance.
-   * @var CultureFeed_SavedSearches
-   */
-  protected $savedSearches;
+  protected ?CultureFeed_SavedSearches $savedSearches = null;
 
   /**
    * @var OAuthConsumer
@@ -1123,8 +1109,6 @@ class CultureFeed implements ICultureFeed {
     $object = $xml->xpath('/response/template');
 
     return self::parseTemplate($object[0]);
-
-    throw new CultureFeed_ParseException($result);
   }
 
   /**
@@ -1213,8 +1197,6 @@ class CultureFeed implements ICultureFeed {
     $object = $xml->xpath('/response/mailing');
 
     return self::parseMailing($object[0]);
-
-    throw new CultureFeed_ParseException($result);
   }
 
   /**

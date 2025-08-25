@@ -179,12 +179,7 @@ class CultureFeed_Uitpas_Passholder extends CultureFeed_Uitpas_ValueObject {
    */
   public $kansenStatuutInGracePeriod;  
 
-  /**
-   * The user coupled with the passholder
-   *
-   * @var CultureFeed_Uitpas_Passholder_UitIdUser
-   */
-  public $uitIdUser;
+  public ?CultureFeed_Uitpas_Passholder_UitIdUser $uitIdUser = null;
 
   /**
    * True if the uitpas has been blocked
@@ -201,11 +196,9 @@ class CultureFeed_Uitpas_Passholder extends CultureFeed_Uitpas_ValueObject {
   public $verified;
 
   /**
-   * The memberships if the passholder
-   *
-   * @var CultureFeed_Uitpas_Passholder_Membership[]
+   * @var array<CultureFeed_Uitpas_Passholder_Membership>
    */
-  public $memberships = array();
+  public array $memberships = [];
 
   /**
    * The consumer key of the counter where the passholder has been registered
@@ -230,11 +223,9 @@ class CultureFeed_Uitpas_Passholder extends CultureFeed_Uitpas_ValueObject {
   public $picture;
 
   /**
-   * Card system specific information of the passholder.
-   *
-   * @var CultureFeed_Uitpas_Passholder_CardSystemSpecific[]
+   * @var array<CultureFeed_Uitpas_Passholder_CardSystemSpecific>
    */
-  public $cardSystemSpecific;
+  public array $cardSystemSpecific;
 
   /**
    * Empty properties to keep when converting to POST data.

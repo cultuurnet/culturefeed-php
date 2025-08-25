@@ -20,14 +20,7 @@ class CultureFeed_Exception extends Exception {
     return $this->userFriendlyMessage;
   }
 
-  /**
-   * @param string $message
-   */
-  public function setUserFriendlyMessage($message) {
-    if (!is_string($message)) {
-      $exception_message = sprintf('%s requires argument 1 to be a string, %s given.', __METHOD__, gettype($message));
-      throw new InvalidArgumentException($exception_message, 1);
-    }
+  public function setUserFriendlyMessage(string $message) {
     $this->userFriendlyMessage = $message;
   }
 }

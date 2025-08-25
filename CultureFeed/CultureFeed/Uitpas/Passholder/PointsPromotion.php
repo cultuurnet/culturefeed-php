@@ -141,9 +141,9 @@ class CultureFeed_Uitpas_Passholder_PointsPromotion extends CultureFeed_Uitpas_V
   public $owningCardSystem;
 
   /**
-   * @var CultureFeed_Uitpas_CardSystem[] Card systems the promotion applies to
+   * @var array<CultureFeed_Uitpas_CardSystem>
    */
-  public $applicableCardSystems = array();
+  public array $applicableCardSystems = [];
 
   const CASHIN_POSSIBLE = 'POSSIBLE';
   const CASHIN_NOT_POSSIBLE_DATE_CONSTRAINT = 'NOT_POSSIBLE_DATE_CONSTRAINT';
