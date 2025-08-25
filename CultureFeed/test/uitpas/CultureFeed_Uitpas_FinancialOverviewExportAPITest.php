@@ -1,6 +1,8 @@
 <?php
 
-class CultureFeed_Uitpas_FinancialOverviewExportAPITest extends PHPUnit_Framework_TestCase {
+use PHPUnit\Framework\TestCase;
+
+class CultureFeed_Uitpas_FinancialOverviewExportAPITest extends TestCase {
 
   public function testGetFinancialOverviewReportPeriods() {
     $oauth_client_stub = $this->createMock('CultureFeed_OAuthClient');

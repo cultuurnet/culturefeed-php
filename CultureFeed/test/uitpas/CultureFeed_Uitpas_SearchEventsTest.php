@@ -1,10 +1,13 @@
 <?php
+
+use PHPUnit\Framework\TestCase;
+
 /**
  * @file
  * PHPUnit test for searching events.
  */
 
-class CultureFeed_Uitpas_SearchEventsTest extends PHPUnit_Framework_TestCase {
+class CultureFeed_Uitpas_SearchEventsTest extends TestCase {
 
   /**
    * Test the searching events.

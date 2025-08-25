@@ -1,10 +1,13 @@
 <?php
+
+use PHPUnit\Framework\TestCase;
+
 /**
  * @file
  * Testing methods for the CultureFeed_Activity class.
  */
 
-class CultureFeed_ActivityTest extends PHPUnit_Framework_TestCase {
+class CultureFeed_ActivityTest extends TestCase {
 
   /**
    * Test if the calendar date property is correctly added to the post data.

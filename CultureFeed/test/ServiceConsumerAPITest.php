@@ -1,11 +1,13 @@
 <?php
 
+use PHPUnit\Framework\TestCase;
+
 /**
  * @todo test if Culturefeed methods let through CultureFeed_HttpException 421 existing service consumer with the same consumerKey
  * @todo test if CultureFeed methods let through CultureFeed_HttpException 403 permission denied
  * @todo test CultureFeed::updateServiceConsumer()
  */
-class CultureFeed_ServiceConsumerAPITest extends PHPUnit_Framework_TestCase {
+class CultureFeed_ServiceConsumerAPITest extends TestCase {
 
   public function testGetServiceConsumers() {
     $oauth_client_stub = $this->createMock('CultureFeed_OAuthClient');
@@ -24,16 +26,16 @@ class CultureFeed_ServiceConsumerAPITest extends PHPUnit_Framework_TestCase {
 
     $consumers = $result->objects;
 
-    $this->assertInternalType('array', $consumers);
+    $this->assertIsArray($consumers);
     $this->assertEquals(2, count($consumers));
     $this->assertContainsOnly('CultureFeed_Consumer', $consumers);
 
     $this->assertEquals('ay1dgdxusn52hgzlnmqlebmaejytpm5l', $consumers[0]->consumerKey);
     $this->assertEquals('una4equafq25xcg8r0po0z8lvh8d1bbi', $consumers[0]->consumerSecret);
     $this->assertEquals('', $consumers[0]->callback);
-    $this->assertInternalType('integer', $consumers[0]->creationDate);
+    $this->assertIsInt($consumers[0]->creationDate);
     $this->assertEquals(1316701860, $consumers[0]->creationDate);
-    $this->assertInternalType('integer', $consumers[0]->id);
+    $this->assertIsInt($consumers[0]->id);
     $this->assertEquals(17, $consumers[0]->id);
     $this->assertEquals('Example Corp.', $consumers[0]->name);
     $this->assertEquals('Example Corp. CultureFeed consumer', $consumers[0]->description);
@@ -46,9 +48,9 @@ class CultureFeed_ServiceConsumerAPITest extends PHPUnit_Framework_TestCase {
     $this->assertEquals('wad324omxeegtejdp7ycqgiak6z78scm', $consumers[1]->consumerKey);
     $this->assertEquals('8r6b2o5zy1irnnt5ltds7kio6ozmh6nh', $consumers[1]->consumerSecret);
     $this->assertEquals('https://clone.example.com/callback', $consumers[1]->callback);
-    $this->assertInternalType('integer', $consumers[1]->creationDate);
+    $this->assertIsInt($consumers[1]->creationDate);
     $this->assertEquals(1318062600, $consumers[1]->creationDate);
-    $this->assertInternalType('integer', $consumers[1]->id);
+    $this->assertIsInt($consumers[1]->id);
     $this->assertEquals(18, $consumers[1]->id);
     $this->assertEquals('Clone of Example Corp.', $consumers[1]->name);
     $this->assertEquals('', $consumers[1]->description);
@@ -146,11 +148,11 @@ class CultureFeed_ServiceConsumerAPITest extends PHPUnit_Framework_TestCase {
     // properties that differ
 
     // creationDate should be 2011-10-09T16:00Z as returned by the oauth_client
-    $this->assertInternalType('integer', $new_consumer->creationDate);
+    $this->assertIsInt($new_consumer->creationDate);
     $this->assertEquals(1318176000, $new_consumer->creationDate);
 
     // id as returned by the oauth_client
-    $this->assertInternalType('integer', $new_consumer->id);
+    $this->assertIsInt($new_consumer->id);
     $this->assertEquals(27, $new_consumer->id);
 
     // status as returned by the oauth_client

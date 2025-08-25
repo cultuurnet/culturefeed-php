@@ -1,6 +1,8 @@
 <?php
 
-class CultureFeed_Uitpas_PasHoudersAPITest extends PHPUnit_Framework_TestCase {
+use PHPUnit\Framework\TestCase;
+
+class CultureFeed_Uitpas_PasHoudersAPITest extends TestCase {
 
   const PRICE = 15;
   const UID = "94305b2e-e7ff-4dfc-8d96-ef4d43de9038";
@@ -130,7 +132,8 @@ XML;
 
     $cf = new CultureFeed($oauth_client_stub);
 
-    $this->setExpectedException('LogicException');
+    $this->expectException(LogicException::class);
+
     $cf->uitpas()->getPriceByUitpas($uitpas_number, $reason);
   }
 
@@ -207,7 +210,8 @@ XML;
 
     $cf = new CultureFeed($oauth_client_stub);
 
-    $this->setExpectedException('CultureFeed_ParseException');
+    $this->expectException(CultureFeed_ParseException::class);
+
     $cf->uitpas()->identify('1000001500601');
   }
 
@@ -230,7 +234,7 @@ XML;
 
     $advantages = $result->objects;
 
-    $this->assertInternalType('array', $advantages);
+    $this->assertIsArray($advantages);
     $this->assertEquals(2, count($advantages));
     $this->assertContainsOnly('CultureFeed_Uitpas_Passholder_WelcomeAdvantage', $advantages);
 
@@ -305,7 +309,7 @@ XML;
 
     $promotions = $result->objects;
 
-    $this->assertInternalType('array', $promotions);
+    $this->assertIsArray($promotions);
     $this->assertEquals(2, count($promotions));
     $this->assertContainsOnly('CultureFeed_Uitpas_Passholder_PointsPromotion', $promotions);
 
@@ -334,7 +338,7 @@ XML;
     $this->assertEquals(1, $promotion->owningCardSystem->id);
     $this->assertEquals('HELA', $promotion->owningCardSystem->name);
 
-    $this->assertInternalType('array', $promotion->applicableCardSystems);
+    $this->assertIsArray($promotion->applicableCardSystems);
     $this->assertCount(2, $promotion->applicableCardSystems);
     $this->assertContainsOnly('Culturefeed_Uitpas_CardSystem', $promotion->applicableCardSystems);
 
@@ -349,7 +353,7 @@ XML;
 
     $promotion = next($promotions);
 
-    $this->assertInternalType('array', $promotion->applicableCardSystems);
+    $this->assertIsArray($promotion->applicableCardSystems);
     $this->assertCount(0, $promotion->applicableCardSystems);
 
     $this->assertNull($promotion->owningCardSystem);
@@ -408,7 +412,7 @@ XML;
 
     $promotions = $result->objects;
 
-    $this->assertInternalType('array', $promotions);
+    $this->assertIsArray($promotions);
     $this->assertEquals(2, count($promotions));
     $this->assertContainsOnly('CultureFeed_Uitpas_Passholder_WelcomeAdvantage', $promotions);
 
@@ -478,7 +482,7 @@ XML;
 
     $this->assertEquals(1851, $results->total);
 
-    $this->assertInternalType('array', $results->objects);
+    $this->assertIsArray($results->objects);
     $this->assertCount(10, $results->objects);
     $this->assertEquals(
         array(
@@ -492,7 +496,7 @@ XML;
     /** @var CultureFeed_Uitpas_Passholder $passholder */
     $passholder = reset($results->objects);
 
-    $this->assertInternalType('array', $passholder->cardSystemSpecific);
+    $this->assertIsArray($passholder->cardSystemSpecific);
     $this->assertCount(1, $passholder->cardSystemSpecific);
     $this->assertContainsOnly('CultureFeed_Uitpas_Passholder_CardSystemSpecific', $passholder->cardSystemSpecific);
 
@@ -518,7 +522,7 @@ XML;
     $this->assertEquals('tadug', $passholder->firstName);
     $this->assertEquals('MALE', $passholder->gender);
     $this->assertEquals('0475/51.87.60', $passholder->gsm);
-    $this->assertInternalType('array', $passholder->memberships);
+    $this->assertIsArray($passholder->memberships);
     $this->assertCount(0, $passholder->memberships);
     $this->assertEquals("Nieuwe aanvraag\r OCMW Ja\r Via MvM", $passholder->moreInfo);
 

@@ -1,6 +1,8 @@
 <?php
 
-class CultureFeed_Uitpas_Counter_EmployeeTest extends PHPUnit_Framework_TestCase {
+use PHPUnit\Framework\TestCase;
+
+class CultureFeed_Uitpas_Counter_EmployeeTest extends TestCase {
 
   /**
    * @var CultureFeed_Uitpas_Counter_Employee
@@ -17,7 +19,7 @@ class CultureFeed_Uitpas_Counter_EmployeeTest extends PHPUnit_Framework_TestCase
    */
   protected $groups;
 
-  public function setUp() {
+  public function setUp(): void {
     $cardSystem1 = new \CultureFeed_Uitpas_Counter_EmployeeCardSystem();
     $cardSystem1->permissions = array(
       'permission1',

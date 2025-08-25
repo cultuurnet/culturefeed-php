@@ -1,9 +1,12 @@
 <?php
+
+use PHPUnit\Framework\TestCase;
+
 /**
  * @file
  */
 
-class CultureFeed_EntryApiTest extends PHPUnit_Framework_TestCase {
+class CultureFeed_EntryApiTest extends TestCase {
 
   /**
    * @var CultureFeed_EntryApi
@@ -20,7 +23,7 @@ class CultureFeed_EntryApiTest extends PHPUnit_Framework_TestCase {
    */
   protected $event;
 
-  public function setUp() {
+  public function setUp(): void {
 
     $this->oauthClient = $this->createMock('CultureFeed_OAuthClient');
     $this->entry = new CultureFeed_EntryApi($this->oauthClient);
@@ -86,7 +89,7 @@ class CultureFeed_EntryApiTest extends PHPUnit_Framework_TestCase {
    */
   public function testAddTagToEventWithInvalidKeywords($keyword) {
     $keywords = array($keyword);
-    $this->setExpectedException('InvalidArgumentException');
+    $this->expectException(InvalidArgumentException::class);
     $this->entry->addTagToEvent($this->event, $keywords);
   }
 

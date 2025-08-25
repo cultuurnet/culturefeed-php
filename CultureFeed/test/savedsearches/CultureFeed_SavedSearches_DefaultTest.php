@@ -1,6 +1,8 @@
 <?php
 
-class CultureFeed_SavedSearches_DefaultTest extends PHPUnit_Framework_TestCase {
+use PHPUnit\Framework\TestCase;
+
+class CultureFeed_SavedSearches_DefaultTest extends TestCase {
   /**
    * @var Culturefeed
    */
@@ -21,7 +23,7 @@ class CultureFeed_SavedSearches_DefaultTest extends PHPUnit_Framework_TestCase {
    */
   protected $savedSearches;
 
-  public function setUp() {
+  public function setUp(): void {
     parent::setUp();
 
     $this->oauthClient = $this->createMock('CultureFeed_OAuthClient');
@@ -83,7 +85,9 @@ class CultureFeed_SavedSearches_DefaultTest extends PHPUnit_Framework_TestCase {
       )
       ->will($this->returnValue($subscribe_xml));
 
-    $this->setExpectedException('CultureFeed_Exception', 'The user is not found');
+    $this->expectException(CultureFeed_Exception::class);
+    $this->expectExceptionMessage('The user is not found');
+
     $this->savedSearches->subscribe($this->savedSearch);
   }
 
@@ -98,7 +102,9 @@ class CultureFeed_SavedSearches_DefaultTest extends PHPUnit_Framework_TestCase {
       )
       ->will($this->returnValue($subscribe_xml));
 
-    $this->setExpectedException('CultureFeed_Exception', '\'name\' is a required parameter');
+    $this->expectException(CultureFeed_Exception::class);
+    $this->expectExceptionMessage('\'name\' is a required parameter');
+
     $this->savedSearches->subscribe($this->savedSearch);
   }
 
@@ -113,8 +119,10 @@ class CultureFeed_SavedSearches_DefaultTest extends PHPUnit_Framework_TestCase {
       )
       ->will($this->returnValue($subscribe_xml));
 
-    $this->setExpectedException('CultureFeed_Exception', '\'name\' is a required parameter');
-    $this->savedSearches->subscribe($this->savedSearch);
+      $this->expectException(CultureFeed_Exception::class);
+      $this->expectExceptionMessage('\'name\' is a required parameter');
+
+      $this->savedSearches->subscribe($this->savedSearch);
   }
 
   public function testUnsubscribe() {
@@ -156,7 +164,9 @@ class CultureFeed_SavedSearches_DefaultTest extends PHPUnit_Framework_TestCase {
       )
       ->will($this->returnValue($unsubscribe_xml));
 
-    $this->setExpectedException('CultureFeed_Exception', 'The user is not found');
+    $this->expectException(CultureFeed_Exception::class);
+    $this->expectExceptionMessage('The user is not found');
+
     $this->savedSearches->unsubscribe($this->savedSearch->id, $this->savedSearch->userId);
   }
 
@@ -171,7 +181,9 @@ class CultureFeed_SavedSearches_DefaultTest extends PHPUnit_Framework_TestCase {
       )
       ->will($this->returnValue($unsubscribe_xml));
 
-    $this->setExpectedException('CultureFeed_Exception', '\'name\' is a required parameter');
+    $this->expectException(CultureFeed_Exception::class);
+    $this->expectExceptionMessage('\'name\' is a required parameter');
+
     $this->savedSearches->unsubscribe($this->savedSearch->id, $this->savedSearch->userId);
   }
 
@@ -203,7 +215,9 @@ class CultureFeed_SavedSearches_DefaultTest extends PHPUnit_Framework_TestCase {
       )
       ->will($this->returnValue($not_xml));
 
-    $this->setExpectedException('CultureFeed_Exception', 'The user is not found');
+    $this->expectException(CultureFeed_Exception::class);
+    $this->expectExceptionMessage('The user is not found');
+
     $this->savedSearches->changeFrequency($this->savedSearch->id, $this->savedSearch->frequency);
   }
 
@@ -218,7 +232,9 @@ class CultureFeed_SavedSearches_DefaultTest extends PHPUnit_Framework_TestCase {
       )
       ->will($this->returnValue($incorrect_xml));
 
-    $this->setExpectedException('CultureFeed_Exception', '\'name\' is a required parameter');
+    $this->expectException(CultureFeed_Exception::class);
+    $this->expectExceptionMessage('\'name\' is a required parameter');
+
     $this->savedSearches->changeFrequency($this->savedSearch->id, $this->savedSearch->frequency);
   }
 
@@ -244,7 +260,8 @@ class CultureFeed_SavedSearches_DefaultTest extends PHPUnit_Framework_TestCase {
       ->with('savedSearch/3')
       ->will($this->returnValue($not_xml));
 
-    $this->setExpectedException('CultureFeed_ParseException');
+    $this->expectException(CultureFeed_ParseException::class);
+
     $this->savedSearches->getSavedSearch(3);
   }
 
@@ -256,7 +273,8 @@ class CultureFeed_SavedSearches_DefaultTest extends PHPUnit_Framework_TestCase {
       ->with('savedSearch/4')
       ->will($this->returnValue($incorrect_xml));
 
-    $this->setExpectedException('CultureFeed_ParseException');
+    $this->expectException(CultureFeed_ParseException::class);
+
     $this->savedSearches->getSavedSearch(4);
   }
 
@@ -312,7 +330,8 @@ class CultureFeed_SavedSearches_DefaultTest extends PHPUnit_Framework_TestCase {
       )
       ->will($this->returnValue($not_xml));
 
-    $this->setExpectedException('CultureFeed_ParseException');
+    $this->expectException(CultureFeed_ParseException::class);
+
     $result = $this->savedSearches->getList(TRUE);
   }
 
@@ -350,7 +369,8 @@ class CultureFeed_SavedSearches_DefaultTest extends PHPUnit_Framework_TestCase {
       )
       ->will($this->returnValue($saved_search_list_xml));
 
-    $this->setExpectedException('CultureFeed_ParseException');
+    $this->expectException(CultureFeed_ParseException::class);
+
     $result = $this->savedSearches->getList(TRUE);
   }
 

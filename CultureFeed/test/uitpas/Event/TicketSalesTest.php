@@ -1,6 +1,8 @@
 <?php
 
-class CultureFeed_Uitpas_Event_TicketSalesTest extends PHPUnit_Framework_TestCase {
+use PHPUnit\Framework\TestCase;
+
+class CultureFeed_Uitpas_Event_TicketSalesTest extends TestCase {
   const EVENTCDBID = "47B6FA21-ACB1-EA8F-2C231182C7DD0A19";
 
   public function testEventHasTicketSales() {
@@ -49,7 +51,8 @@ class CultureFeed_Uitpas_Event_TicketSalesTest extends PHPUnit_Framework_TestCas
 
     $cf = new CultureFeed($oauth_client_stub);
 
-    $this->setExpectedException('\CultureFeed_HttpException');
+    $this->expectException(CultureFeed_HttpException::class);
+
     $cf->uitpas()->eventHasTicketSales(self::EVENTCDBID);
   }
 
@@ -65,7 +68,8 @@ class CultureFeed_Uitpas_Event_TicketSalesTest extends PHPUnit_Framework_TestCas
 
     $cf = new CultureFeed($oauth_client_stub);
 
-    $this->setExpectedException('\CultureFeed_Cdb_ParseException');
+    $this->expectException(CultureFeed_Cdb_ParseException::class);
+
     $cf->uitpas()->eventHasTicketSales(self::EVENTCDBID);
   }
 }

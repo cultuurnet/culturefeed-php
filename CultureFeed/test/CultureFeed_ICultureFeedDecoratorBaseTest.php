@@ -1,6 +1,8 @@
 <?php
 
-class CultureFeed_ICultureFeedDecoratorBaseTest extends PHPUnit_Framework_TestCase
+use PHPUnit\Framework\TestCase;
+
+class CultureFeed_ICultureFeedDecoratorBaseTest extends TestCase
 {
     public function testInheritingClassCanBeInstantiated()
     {

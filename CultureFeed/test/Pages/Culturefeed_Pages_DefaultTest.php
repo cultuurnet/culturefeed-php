@@ -1,11 +1,13 @@
 <?php
 
+use PHPUnit\Framework\TestCase;
+
 /**
  * @file
  * Testing methods for the Pages_Default class.
  */
 
-class CultureFeed_Pages_DefaultTest extends PHPUnit_Framework_TestCase {
+class CultureFeed_Pages_DefaultTest extends TestCase {
 
   /**
    * @var Culturefeed
@@ -22,7 +24,7 @@ class CultureFeed_Pages_DefaultTest extends PHPUnit_Framework_TestCase {
    */
   protected $pages;
 
-  public function setUp() {
+  public function setUp(): void {
     parent::setUp();
 
     $this->oauthClient = $this->createMock('CultureFeed_OAuthClient');

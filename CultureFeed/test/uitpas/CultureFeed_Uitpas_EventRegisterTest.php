@@ -1,10 +1,13 @@
 <?php
+
+use PHPUnit\Framework\TestCase;
+
 /**
  * @file
  * PHPUnit Testing the registering of an event.
  */
 
-class CultureFeed_Uitpas_EventsRegisterTest extends PHPUnit_Framework_TestCase {
+class CultureFeed_Uitpas_EventsRegisterTest extends TestCase {
 
   const EVENTXML = "/data/events/event.xml";
 

@@ -1,9 +1,12 @@
 <?php
+
+use PHPUnit\Framework\TestCase;
+
 /**
  * @file
  */
 
-class CultureFeed_Uitpas_SearchCheckinsTest extends PHPUnit_Framework_TestCase {
+class CultureFeed_Uitpas_SearchCheckinsTest extends TestCase {
 
   public function testSearchCheckins() {
     $oauth_client_stub = $this->createMock('CultureFeed_OAuthClient');
@@ -21,7 +24,7 @@ class CultureFeed_Uitpas_SearchCheckinsTest extends PHPUnit_Framework_TestCase {
 
     $this->assertEquals(12, $checkins->total);
 
-    $this->assertInternalType('array', $checkins->objects);
+    $this->assertIsArray($checkins->objects);
 
     $this->assertContainsOnly('CultureFeed_Uitpas_Event_CheckinActivity', $checkins->objects, FALSE);
 
@@ -38,17 +41,17 @@ class CultureFeed_Uitpas_SearchCheckinsTest extends PHPUnit_Framework_TestCase {
     $this->assertEquals('c44d849a-1290-4927-81ac-e782428de887', $checkin->nodeId);
     $this->assertEquals('test cine palace', $checkin->nodeTitle);
     $this->assertEquals(0, $checkin->points);
-    $this->assertInternalType('boolean', $checkin->private);
+    $this->assertIsBool($checkin->private);
     $this->assertEquals(FALSE, $checkin->private);
     $this->assertEquals('a81b1741-5e97-4eee-ab30-a71865fc266a', $checkin->userId);
     $this->assertEquals('Frontend', $checkin->firstName);
     $this->assertEquals('FEMALE', $checkin->gender);
-    $this->assertInternalType('boolean', $checkin->kansenStatuut);
+    $this->assertIsBool($checkin->kansenStatuut);
     $this->assertEquals(FALSE, $checkin->kansenStatuut);
     $this->assertEquals('Tester', $checkin->lastName);
     $this->assertEquals('Aalst', $checkin->location);
     $this->assertEquals('CC De Werf', $checkin->organiser);
-    $this->assertInternalType('array', $checkin->organiserCardSystems);
+    $this->assertIsArray($checkin->organiserCardSystems);
 
     $this->assertContainsOnly('integer', $checkin->organiserCardSystems, TRUE);
     $this->assertCount(2, $checkin->organiserCardSystems);
@@ -73,19 +76,19 @@ class CultureFeed_Uitpas_SearchCheckinsTest extends PHPUnit_Framework_TestCase {
     $this->assertEquals('27f1e25a-1ba6-4a43-96de-0c6f99b508f3', $checkin->nodeId);
     $this->assertEquals('testevent uitpas betalend', $checkin->nodeTitle);
     $this->assertEquals(0, $checkin->points);
-    $this->assertInternalType('boolean', $checkin->private);
+    $this->assertIsBool($checkin->private);
     $this->assertEquals(FALSE, $checkin->private);
     $this->assertEquals('8f62d25d-4865-4e9e-955a-aedd5c748a9a', $checkin->userId);
     $this->assertEquals(50.939304, $checkin->eventLocationLat);
     $this->assertEquals(4.042009, $checkin->eventLocationLon);
     $this->assertEquals('Block2', $checkin->firstName);
-    $this->assertInternalType('boolean', $checkin->kansenStatuut);
+    $this->assertIsBool($checkin->kansenStatuut);
     $this->assertEquals(FALSE, $checkin->kansenStatuut);
     $this->assertEquals('Pieter', $checkin->lastName);
     $this->assertEquals('Aalst', $checkin->location);
     $this->assertEquals('CC De Werf', $checkin->organiser);
 
-    $this->assertInternalType('array', $checkin->organiserCardSystems);
+    $this->assertIsArray($checkin->organiserCardSystems);
     $this->assertContainsOnly('integer', $checkin->organiserCardSystems, TRUE);
     $this->assertEquals(array(8, 5), $checkin->organiserCardSystems);
 

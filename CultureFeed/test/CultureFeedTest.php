@@ -1,11 +1,13 @@
 <?php
 
+use PHPUnit\Framework\TestCase;
+
 /**
  * @file
  * Testing methods for the culturefeed class.
  */
 
-class CultureFeed_CultureFeedTest extends PHPUnit_Framework_TestCase {
+class CultureFeed_CultureFeedTest extends TestCase {
 
   /**
    * @var Culturefeed
@@ -17,7 +19,7 @@ class CultureFeed_CultureFeedTest extends PHPUnit_Framework_TestCase {
    */
   protected $oauthClient;
 
-  public function setUp() {
+  public function setUp(): void {
     parent::setUp();
 
     $this->oauthClient = $this->createMock('CultureFeed_OAuthClient');
@@ -189,7 +191,6 @@ class CultureFeed_CultureFeedTest extends PHPUnit_Framework_TestCase {
 
   /**
    * Test the handling of an empty xml when calling user light.
-   * @expectedException Culturefeed_ParseException
    */
   public function testGetUserLightIdEmptyXmlParseException() {
 
@@ -203,13 +204,14 @@ class CultureFeed_CultureFeedTest extends PHPUnit_Framework_TestCase {
       )
       ->will($this->returnValue($without_uid_xml));
 
+    $this->expectException(Culturefeed_ParseException::class);
+
     $this->cultureFeed->getUserLightId('test@test.be', '');
 
   }
 
   /**
    * Test the handling of an invalid xml when calling user light.
-   * @expectedException Culturefeed_ParseException
    */
   public function testGetUserLightInvalidXmlParseException() {
 
@@ -223,7 +225,9 @@ class CultureFeed_CultureFeedTest extends PHPUnit_Framework_TestCase {
       )
       ->will($this->returnValue($invalid_xml));
 
-    $this->cultureFeed->getUserLightId('test@test.be', '');
+      $this->expectException(Culturefeed_ParseException::class);
+
+      $this->cultureFeed->getUserLightId('test@test.be', '');
 
   }
 
@@ -279,7 +283,9 @@ class CultureFeed_CultureFeedTest extends PHPUnit_Framework_TestCase {
       )
     ->will($this->returnValue($subscribe_to_mailing_xml));
 
-    $this->setExpectedException('CultureFeed_InvalidCodeException', 'errormessage');
+    $this->expectException(CultureFeed_InvalidCodeException::class);
+    $this->expectExceptionMessage('errormessage');
+
     $this->cultureFeed->subscribeToMailing(1, 3);
 
   }
@@ -336,7 +342,9 @@ class CultureFeed_CultureFeedTest extends PHPUnit_Framework_TestCase {
       )
     ->will($this->returnValue($subscribe_to_mailing_xml));
 
-    $this->setExpectedException('CultureFeed_InvalidCodeException', 'errormessage');
+    $this->expectException(CultureFeed_InvalidCodeException::class);
+    $this->expectExceptionMessage('errormessage');
+
     $this->cultureFeed->unsubscribeFromMailing(1, 3);
 
   }

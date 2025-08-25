@@ -1,6 +1,8 @@
 <?php
 
-class CultureFeed_Uitpas_EventDetailTest extends PHPUnit_Framework_TestCase {
+use PHPUnit\Framework\TestCase;
+
+class CultureFeed_Uitpas_EventDetailTest extends TestCase {
 
   /**
    * Test retrieval of the details of an event.

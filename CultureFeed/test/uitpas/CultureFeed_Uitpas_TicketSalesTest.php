@@ -1,6 +1,8 @@
 <?php
 
-class CultureFeed_Uitpas_TicketSaleTest extends PHPUnit_Framework_TestCase {
+use PHPUnit\Framework\TestCase;
+
+class CultureFeed_Uitpas_TicketSaleTest extends TestCase {
 
   /**
    * @test

@@ -1,9 +1,12 @@
 <?php
+
+use PHPUnit\Framework\TestCase;
+
 /**
  * @file
  */
 
-class CultureFeed_Uitpas_AssociationAPITest extends PHPUnit_Framework_TestCase {
+class CultureFeed_Uitpas_AssociationAPITest extends TestCase {
 
   public function testGetAssociations() {
     $oauth_client_stub = $this->createMock('CultureFeed_OAuthClient');
@@ -27,7 +30,7 @@ class CultureFeed_Uitpas_AssociationAPITest extends PHPUnit_Framework_TestCase {
     $this->assertInstanceOf('CultureFeed_ResultSet', $result);
     $this->assertEquals(3, $result->total);
 
-    $this->assertInternalType('array', $result->objects);
+    $this->assertIsArray($result->objects);
     $this->assertCount(3, $result->objects);
     $this->assertContainsOnly('CultureFeed_Uitpas_Association', $result->objects);
 

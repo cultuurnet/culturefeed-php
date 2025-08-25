@@ -1,13 +1,16 @@
 <?php
+
+use PHPUnit\Framework\TestCase;
+
 /**
  * @file
  */
 
-class CultureFeed_Uitpas_Passholder_ExecuteEventActionsResultTest extends PHPUnit_Framework_TestCase {
+class CultureFeed_Uitpas_Passholder_ExecuteEventActionsResultTest extends TestCase {
 
   protected $dataDir;
 
-  protected function setUp() {
+  protected function setUp(): void {
     $this->dataDir = dirname(__FILE__) . '/data/eventactions';
   }
 

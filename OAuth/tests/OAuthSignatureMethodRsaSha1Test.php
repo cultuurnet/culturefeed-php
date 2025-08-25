@@ -1,13 +1,15 @@
 <?php
 
+use PHPUnit\Framework\TestCase;
+
 require_once 'common.php';
 require_once 'Mock_OAuthBaseStringRequest.php';
 require_once 'Mock_OAuthSignatureMethod_RSA_SHA1.php';
 
-class OAuthSignatureMethodRsaSha1Test extends PHPUnit_Framework_TestCase {
+class OAuthSignatureMethodRsaSha1Test extends TestCase {
 	private $method;
 	
-	public function setUp() {
+	public function setUp(): void {
 		$this->method = new Mock_OAuthSignatureMethod_RSA_SHA1();
 	}
 	
