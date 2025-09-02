@@ -10,120 +10,46 @@ class CultureFeed_Uitpas_Event_Query_SearchEventsOptions extends CultureFeed_Uit
   const ORDER_ASC = "ASC";
   const ORDER_DESC = "DESC";
 
-  /**
-   * Consumer key of the counter
-   *
-   * @var string
-   */
-  public $balieConsumerKey;
+  public string $balieConsumerKey;
 
   /**
-   * Begin date
-   *
    * @var integer|string
    */
   public $startDate;
 
   /**
-   * End date
-   *
    * @var integer|string
    */
   public $endDate;
 
-  /**
-   * Search for events with a given location ID
-   *
-   * @var string
-   */
-  public $locatieId;
+  public string $locatieId;
 
-  /**
-   * Search for events with a given inrichter ID
-   *
-   * @var string
-   */
-  public $inrichterId;
+  public string $inrichterId;
 
-  /**
-   * Search for events with a given city
-   *
-   * @var string
-   */
-  public $city;
+  public string $city;
 
-  /**
-   * Sort field.
-   *
-   * @var string
-   *
-   * @deprecated use $sort instead
-   */
-  public $sortField;
+  public string $sortField;
 
-  /**
-   * Sort direction
-   *
-   * @var string
-   *
-   * @deprecated use $sort instead
-   */
-  public $sortOrder = self::ORDER_DESC;
+  public string $sortOrder = self::ORDER_DESC;
 
-  /**
-   * Maximum number of results. Default: 20
-   *
-   * @var integer
-   */
-  public $max = 20;
+  public int $max = 20;
 
-  /**
-   * Results offset. Default: 0
-   *
-   * @var integer
-   */
-  public $start = 0;
+  public int $start = 0;
 
-  /**
-   * The Uitpas of the passholder
-   *
-   * @var string
-   */
-  public $uitpasNumber;
+  public string $uitpasNumber;
 
-  /**
-   * A search term
-   *
-   * @var string
-   */
-  public $q;
+  public string $q;
 
-  /**
-   * The CDBID of the event
-   *
-   * @var string
-   */
-  public $cdbid;
+  public string $cdbid;
 
-  /**
-   * @var string
-   */
-  public $datetype;
+  public string $datetype;
 
-  /**
-   * @var string
-   */
-  public $sort;
+  public string $sort;
 
-  /**
-   * Whether to add description to results. Default: true.
-   *
-   * @var boolean
-   */
-  public $description = true;
+  public bool $description = true;
 
 
-  protected function manipulatePostData(&$data) {
+  protected function manipulatePostData(&$data): void {
     if (isset($data['startDate']) && is_integer($data['startDate'])) {
       $data['startDate'] = date(DateTime::W3C, $data['startDate']);
     }
@@ -141,9 +67,6 @@ class CultureFeed_Uitpas_Event_Query_SearchEventsOptions extends CultureFeed_Uit
 
   }
 
-  /**
-   * Read the data from a array and set the variables
-   */
   public function readValues($values): void {
     foreach($values as $k => $v) {
       $this->$k = $v;
@@ -158,9 +81,6 @@ class CultureFeed_Uitpas_Event_Query_SearchEventsOptions extends CultureFeed_Uit
     }
   }
 
-  /**
-   * Read from a querystring
-   */
    public function readQueryString( $str ): void {
      $values = array();
      parse_str(urldecode($str) , $values);
