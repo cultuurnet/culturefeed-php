@@ -8,7 +8,7 @@ class CultureFeed_Uitpas_EventDetailTest extends TestCase {
   /**
    * Test retrieval of the details of an event.
    */
-  public function testGetEvent() {
+  public function testGetEvent(): void {
     $response = <<<XML
 <response>
     <cdbid>e642dc9e-4682-4846-ac61-97a9a0cd38a2</cdbid>

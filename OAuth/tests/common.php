@@ -7,7 +7,7 @@ require dirname(__FILE__).'/../OAuth.php';
  * during some of the tests
  */
 class OAuthTestUtils {
-	private static function reset_request_vars() {
+	private static function reset_request_vars(): void {
 		$_SERVER = array();
 		$_POST = array();
 		$_GET = array();	
@@ -21,7 +21,7 @@ class OAuthTestUtils {
 	 * @param string $post_data What should the post-data be
 	 * @param string $auth_header What to set the Authorization header to
 	 */
-	public static function build_request( $method, $uri, $post_data = '', $auth_header = '' ) {
+	public static function build_request( $method, $uri, $post_data = '', $auth_header = '' ): void {
 		self::reset_request_vars();
 
 		$method = strtoupper($method);

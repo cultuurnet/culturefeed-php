@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 class CultureFeed_Uitpas_SearchCheckinsTest extends TestCase {
 
-  public function testSearchCheckins() {
+  public function testSearchCheckins(): void {
     $oauth_client_stub = $this->createMock('CultureFeed_OAuthClient');
 
     $checkins_xml = file_get_contents(dirname(__FILE__) . '/data/cultureevent/searchCheckins.xml');

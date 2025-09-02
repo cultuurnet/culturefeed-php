@@ -6,7 +6,7 @@ use PHPUnit\Framework\TestCase;
 class CultureFeed_Uitpas_Event_TicketSalesTest extends TestCase {
   const EVENTCDBID = "47B6FA21-ACB1-EA8F-2C231182C7DD0A19";
 
-  public function testEventHasTicketSales() {
+  public function testEventHasTicketSales(): void {
     /** @var CultureFeed_OAuthClient&MockObject $oauth_client_stub */
     $oauth_client_stub = $this->createMock(CultureFeed_OAuthClient::class);
 
@@ -23,7 +23,7 @@ class CultureFeed_Uitpas_Event_TicketSalesTest extends TestCase {
     $this->assertTrue($hasTicketSales);
   }
 
-  public function testEventHasNoTicketSales() {
+  public function testEventHasNoTicketSales(): void {
     /** @var CultureFeed_OAuthClient&MockObject $oauth_client_stub */
     $oauth_client_stub = $this->createMock('CultureFeed_OAuthClient');
 
@@ -40,7 +40,7 @@ class CultureFeed_Uitpas_Event_TicketSalesTest extends TestCase {
     $this->assertFalse($hasTicketSales);
   }
 
-  public function testEventNotFound() {
+  public function testEventNotFound(): void {
     /** @var CultureFeed_OAuthClient&MockObject $oauth_client_stub */
     $oauth_client_stub = $this->createMock('CultureFeed_OAuthClient');
 
@@ -57,7 +57,7 @@ class CultureFeed_Uitpas_Event_TicketSalesTest extends TestCase {
     $cf->uitpas()->eventHasTicketSales(self::EVENTCDBID);
   }
 
-  public function testUnknownResponseCode() {
+  public function testUnknownResponseCode(): void {
     /** @var CultureFeed_OAuthClient&MockObject $oauth_client_stub */
     $oauth_client_stub = $this->createMock('CultureFeed_OAuthClient');
 

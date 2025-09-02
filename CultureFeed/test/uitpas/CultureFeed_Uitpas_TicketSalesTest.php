@@ -7,7 +7,7 @@ class CultureFeed_Uitpas_TicketSaleTest extends TestCase {
   /**
    * @test
    */
-  public function testCancelTicketSaleById() {
+  public function testCancelTicketSaleById(): void {
     $oauth_client_stub = $this->createMock('CultureFeed_OAuthClient');
     $ticketId = 1;
     $consumerKey = 'abc';

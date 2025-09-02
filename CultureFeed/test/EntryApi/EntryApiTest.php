@@ -33,7 +33,7 @@ class CultureFeed_EntryApiTest extends TestCase {
     $this->event->setCdbId('xyz');
   }
 
-  public function testAddTagToEventWithKeywordsAsStrings() {
+  public function testAddTagToEventWithKeywordsAsStrings(): void {
     $keywords = array(
       'foo',
       'bar',
@@ -53,7 +53,7 @@ class CultureFeed_EntryApiTest extends TestCase {
     $this->entry->addTagToEvent($this->event, $keywords);
   }
 
-  public function testAddTagToEventWithKeywordsMixedAsObjectsAndStrings() {
+  public function testAddTagToEventWithKeywordsMixedAsObjectsAndStrings(): void {
     $keywords = array(
       new CultureFeed_Cdb_Data_Keyword('foo', true),
       new CultureFeed_Cdb_Data_Keyword('bar', false),
@@ -88,7 +88,7 @@ class CultureFeed_EntryApiTest extends TestCase {
    *
    * @param string|CultureFeed_Cdb_Data_Keyword $keyword
    */
-  public function testAddTagToEventWithInvalidKeywords($keyword) {
+  public function testAddTagToEventWithInvalidKeywords($keyword): void {
     $keywords = array($keyword);
     $this->expectException(InvalidArgumentException::class);
     $this->entry->addTagToEvent($this->event, $keywords);
@@ -98,7 +98,7 @@ class CultureFeed_EntryApiTest extends TestCase {
     return file_get_contents(__DIR__ . '/samples/rsp-keywords-created.xml');
   }
 
-    public function testAddLinkToEvent() {
+    public function testAddLinkToEvent(): void {
 
         $lang = 'nl';
         $link = 'http://tools.uitdatabank.be';
@@ -123,7 +123,7 @@ class CultureFeed_EntryApiTest extends TestCase {
         $this->entry->addLinkToEvent($this->event, $link, $link_type, $lang);
     }
 
-    public function testAddCollaborationLinkToEvent() {
+    public function testAddCollaborationLinkToEvent(): void {
 
         $copyright = 'copyright';
         $description = 'description';

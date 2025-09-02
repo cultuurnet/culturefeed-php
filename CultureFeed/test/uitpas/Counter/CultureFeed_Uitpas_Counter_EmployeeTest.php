@@ -64,7 +64,7 @@ class CultureFeed_Uitpas_Counter_EmployeeTest extends TestCase {
     );
   }
 
-  public function testJsonEncoding() {
+  public function testJsonEncoding(): void {
     $json = json_encode($this->employee);
     $decoded = json_decode($json);
 
@@ -72,13 +72,13 @@ class CultureFeed_Uitpas_Counter_EmployeeTest extends TestCase {
     $this->assertEquals($this->groups, $decoded->groups);
   }
 
-  public function testGetPermissionsFromCardSystems() {
+  public function testGetPermissionsFromCardSystems(): void {
     $this->assertEquals($this->permissions, $this->employee->getPermissionsFromCardSystems());
     $emptyEmployee = new CultureFeed_Uitpas_Counter_Employee();
     $this->assertEquals(array(), $emptyEmployee->getPermissionsFromCardSystems());
   }
 
-  public function testGetGroupsFromCardSystems() {
+  public function testGetGroupsFromCardSystems(): void {
     $this->assertEquals($this->groups, $this->employee->getGroupsFromCardSystems());
     $emptyEmployee = new CultureFeed_Uitpas_Counter_Employee();
     $this->assertEquals(array(), $emptyEmployee->getGroupsFromCardSystems());

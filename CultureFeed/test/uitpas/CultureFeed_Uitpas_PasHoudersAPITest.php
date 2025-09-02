@@ -13,7 +13,7 @@ class CultureFeed_Uitpas_PasHoudersAPITest extends TestCase {
   const CONSUMER_KEY_COUNTER = "94305r2e-e7ff-4dfc-8dd6-ef4d43de9098";
   const POINTS = 2;
 
-  public function testGetPrice() {
+  public function testGetPrice(): void {
     $oauth_client_stub = $this->createMock('CultureFeed_OAuthClient');
 
     $prices_xml = file_get_contents(dirname(__FILE__) . '/data/passholder/prices.xml');
@@ -38,7 +38,7 @@ class CultureFeed_Uitpas_PasHoudersAPITest extends TestCase {
     $this->assertEquals('Test', $prices->objects[0]->cardSystem->name);
   }
 
-  public function testCreatePassholder() {
+  public function testCreatePassholder(): void {
     $oauth_client_stub = $this->createMock('CultureFeed_OAuthClient');
 
     $create_xml = file_get_contents(dirname(__FILE__) . '/data/passholder/create.xml');
@@ -63,7 +63,7 @@ class CultureFeed_Uitpas_PasHoudersAPITest extends TestCase {
     $this->assertEquals(self::UID, $uid);
   }
 
-  public function testGetPriceByUitpas() {
+  public function testGetPriceByUitpas(): void {
     $reason = CultureFeed_Uitpas_Passholder_UitpasPrice::REASON_FIRST_CARD;
     $uitpas_number = '0930000422202';
     $date_of_birth = 672364800;
@@ -116,7 +116,7 @@ class CultureFeed_Uitpas_PasHoudersAPITest extends TestCase {
     $this->assertEquals($expected, $price);
   }
 
-  public function testGetPriceByUitpasLogicException() {
+  public function testGetPriceByUitpasLogicException(): void {
     $reason = CultureFeed_Uitpas_Passholder_UitpasPrice::REASON_FIRST_CARD;
     $uitpas_number = '0930000422202';
 
@@ -139,7 +139,7 @@ XML;
     $cf->uitpas()->getPriceByUitpas($uitpas_number, $reason);
   }
 
-  public function testIndentify() {
+  public function testIndentify(): void {
     $passholder_xml = file_get_contents(dirname(__FILE__) . '/data/identity.xml');
 
     $data = array(
@@ -174,7 +174,7 @@ XML;
     $this->assertEquals('Boadu', $identity->passHolder->name);
   }
 
-  public function testIndentifyGroup() {
+  public function testIndentifyGroup(): void {
     $xml = file_get_contents(dirname(__FILE__) . '/data/identity-group.xml');
     $xml_element = new CultureFeed_SimpleXMLElement($xml);
     $response_xml_element = $xml_element->xpath('/response', false);
@@ -193,7 +193,7 @@ XML;
     $this->assertEquals($expectedGroupPass, $identity->groupPass);
   }
 
-  public function testIdentityCardSystemIdFallback() {
+  public function testIdentityCardSystemIdFallback(): void {
     $xml = file_get_contents(dirname(__FILE__) . '/data/identity.xml');
     $xml_element = new CultureFeed_SimpleXMLElement($xml);
     $response_xml_element = $xml_element->xpath('/response', false);
@@ -204,7 +204,7 @@ XML;
     $this->assertEquals('UiTPAS Regio Aalst', $identity->card->cardSystem->name);
   }
 
-  public function testIdentifyParseException() {
+  public function testIdentifyParseException(): void {
     $oauth_client_stub = $this->createMock('CultureFeed_OAuthClient');
     $oauth_client_stub->expects($this->any())
       ->method('authenticatedGetAsXml')
@@ -217,7 +217,7 @@ XML;
     $cf->uitpas()->identify('1000001500601');
   }
 
-  public function testGetWelcomeAdvantagesForPassholder() {
+  public function testGetWelcomeAdvantagesForPassholder(): void {
     $oauth_client_stub = $this->createMock('CultureFeed_OAuthClient');
 
     $advantages_xml = file_get_contents(dirname(__FILE__) . '/data/passholder/advantages.xml');
@@ -251,7 +251,7 @@ XML;
     $this->assertEquals(true, $advantages[1]->cashedIn);
   }
 
-  public function testCheckinPassholder() {
+  public function testCheckinPassholder(): void {
     $oauth_client_stub = $this->createMock('CultureFeed_OAuthClient');
 
     $checkin_xml = file_get_contents(dirname(__FILE__) . '/data/passholder/checkin.xml');
@@ -270,7 +270,7 @@ XML;
     $this->assertEquals(self::POINTS, $points);
   }
 
-  public function testCashInWelcomeAdvantage() {
+  public function testCashInWelcomeAdvantage(): void {
     $oauth_client_stub = $this->createMock('CultureFeed_OAuthClient');
 
     $promotion_xml = file_get_contents(dirname(__FILE__) . '/data/passholder/promotion.xml');
@@ -288,7 +288,7 @@ XML;
     $this->assertEquals(true, $promotion->cashedIn);
   }
 
-  public function testGetPromotionPoints() {
+  public function testGetPromotionPoints(): void {
     $oauth_client_stub = $this->createMock('CultureFeed_OAuthClient');
 
     $advantages_xml = file_get_contents(dirname(__FILE__) . '/data/passholder/promotion_points.xml');
@@ -359,7 +359,7 @@ XML;
     $this->assertNull($promotion->owningCardSystem);
   }
 
-  public function testCashInPromotionPoints() {
+  public function testCashInPromotionPoints(): void {
     $oauth_client_stub = $this->createMock('CultureFeed_OAuthClient');
 
     $promotion_xml = file_get_contents(dirname(__FILE__) . '/data/passholder/promotion_checkin.xml');
@@ -378,7 +378,7 @@ XML;
     $this->assertEquals("De Werf", $promotion->counters[0]->name);
   }
 
-  public function testBlockUitpas() {
+  public function testBlockUitpas(): void {
     $oauth_client_stub = $this->createMock('CultureFeed_OAuthClient');
 
     $block_xml = file_get_contents(dirname(__FILE__) . '/data/passholder/block.xml');
@@ -394,7 +394,7 @@ XML;
     $this->assertEquals('The uitpas has been blocked.', $response->message);
   }
 
-  public function testSearchWelcomeAdvantages() {
+  public function testSearchWelcomeAdvantages(): void {
     $oauth_client_stub = $this->createMock('CultureFeed_OAuthClient');
 
     $advantages_xml = file_get_contents(dirname(__FILE__) . '/data/passholder/welcome_advantages.xml');
@@ -424,7 +424,7 @@ XML;
     $this->assertEquals(0, $promotions[0]->unitsTaken);
   }
 
-  public function testGetCard() {
+  public function testGetCard(): void {
     $oauth_client_stub = $this->createMock('CultureFeed_OAuthClient');
 
     $card_xml = file_get_contents(dirname(__FILE__) . '/data/card.xml');
@@ -448,7 +448,7 @@ XML;
     $this->assertEquals('CARD', $card->type);
   }
 
-  public function testSearch() {
+  public function testSearch(): void {
     $oauth_client_stub = $this->createMock('CultureFeed_OAuthClient');
 
     $search_xml = file_get_contents(dirname(__FILE__) . '/data/passholder/search.xml');
@@ -536,7 +536,7 @@ XML;
     $this->assertEquals(FALSE, $passholder->verified);
   }
 
-  public function testUpdate() {
+  public function testUpdate(): void {
     $balieConsumerKey = 'b95d1bcf-533d-45ac-afcd-e015cfe86c84';
 
     $passholder = new CultureFeed_Uitpas_Passholder();

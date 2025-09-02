@@ -43,7 +43,7 @@ class CultureFeed_Messages_DefaultTest extends TestCase {
   /**
    * Test the requesting of a message
    */
-  public function testGetMessage() {
+  public function testGetMessage(): void {
 
     $message_xml = file_get_contents(dirname(__FILE__) . '/data/message.xml');
 

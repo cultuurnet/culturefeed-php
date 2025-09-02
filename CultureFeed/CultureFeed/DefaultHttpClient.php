@@ -51,7 +51,7 @@ class CultureFeed_DefaultHttpClient implements CultureFeed_HttpClient, CultureFe
    *
    * @param string $proxy_server
    */
-  public function setProxyServer($proxy_server) {
+  public function setProxyServer($proxy_server): void {
     $this->proxy_server = $proxy_server;
   }
 
@@ -60,7 +60,7 @@ class CultureFeed_DefaultHttpClient implements CultureFeed_HttpClient, CultureFe
    *
    * @param integer $proxy_port
    */
-  public function setProxyPort($proxy_port) {
+  public function setProxyPort($proxy_port): void {
     $this->proxy_port = $proxy_port;
   }
 
@@ -69,7 +69,7 @@ class CultureFeed_DefaultHttpClient implements CultureFeed_HttpClient, CultureFe
    *
    * @param string $proxy_username
    */
-  public function setProxyUsername($proxy_username) {
+  public function setProxyUsername($proxy_username): void {
     $this->proxy_username = $proxy_username;
   }
 
@@ -78,7 +78,7 @@ class CultureFeed_DefaultHttpClient implements CultureFeed_HttpClient, CultureFe
    *
    * @param string $proxy_password
    */
-  public function setProxyPassword($proxy_password) {
+  public function setProxyPassword($proxy_password): void {
     $this->proxy_password = $proxy_password;
   }
 
@@ -87,21 +87,21 @@ class CultureFeed_DefaultHttpClient implements CultureFeed_HttpClient, CultureFe
    *
    * @param integer $timeout
    */
-  public function setTimeout($timeout) {
+  public function setTimeout($timeout): void {
     $this->timeout = $timeout;
   }
 
   /**
    * Enable the logging of requests.
    */
-  public function enableLogging() {
+  public function enableLogging(): void {
     $this->loggingEnabled = TRUE;
   }
 
   /**
    * Disable the logging of requests.
    */
-  public function disableLogging() {
+  public function disableLogging(): void {
     $this->loggingEnabled = FALSE;
   }
 

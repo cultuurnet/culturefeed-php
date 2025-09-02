@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 class CultureFeed_Uitpas_BalieAPITest extends TestCase {
 
-  public function testSearchCountersForMember() {
+  public function testSearchCountersForMember(): void {
     $oauth_client_stub = $this->createMock('CultureFeed_OAuthClient');
 
     $uid = 'e52efb7f-2eab-47a5-9cf3-9e7413ffd942';
@@ -62,7 +62,7 @@ class CultureFeed_Uitpas_BalieAPITest extends TestCase {
     $this->assertEquals('registratie', reset($card_system->permissions));
   }
 
-  public function testGetCardCounts() {
+  public function testGetCardCounts(): void {
     $oauth_client_stub = $this->createMock('CultureFeed_OAuthClient');
 
     $xml = file_get_contents(dirname(__FILE__) . '/data/balie/countCards.xml');

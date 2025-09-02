@@ -13,7 +13,7 @@ class CultureFeed_Uitpas_EventUpdateTest extends TestCase {
   /**
    * Test the update of an event.
    */
-  public function testUpdateEvent() {
+  public function testUpdateEvent(): void {
     $event = new CultureFeed_Uitpas_Event_CultureEvent();
     $event->cdbid = 'da4cf0be-b28b-4b1d-b66f-50adc5638594';
     $event->organiserId = 'b101b61b-1d91-4216-908e-2c0ac16bc490';

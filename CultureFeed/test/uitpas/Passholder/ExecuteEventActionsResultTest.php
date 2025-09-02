@@ -24,7 +24,7 @@ class CultureFeed_Uitpas_Passholder_ExecuteEventActionsResultTest extends TestCa
     return CultureFeed_Uitpas_Passholder_ExecuteEventActionsResult::createFromXML($xml_element);
   }
 
-  public function testCreateFromXML() {
+  public function testCreateFromXML(): void {
     $result = $this->loadSample('post.xml');
 
     $expectedPassholder = new CultureFeed_Uitpas_Passholder();

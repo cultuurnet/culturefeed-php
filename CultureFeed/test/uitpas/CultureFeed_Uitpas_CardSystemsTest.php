@@ -7,7 +7,7 @@ class CultureFeed_Uitpas_CardSystemsTest extends TestCase {
 
   const ORGANIZERCDBID = "47B6FA21-ACB1-EA8F-2C231182C7DD0A19";
 
-  public function testGetCardSystemsForOrganizer() {
+  public function testGetCardSystemsForOrganizer(): void {
     /** @var CultureFeed_OAuthClient&MockObject $oauth_client_stub */
     $oauth_client_stub = $this->createMock('CultureFeed_OAuthClient');
 

@@ -12,7 +12,7 @@ class CultureFeed_ActivityTest extends TestCase {
   /**
    * Test if the calendar date property is correctly added to the post data.
    */
-  public function testCalendarDateToPostData() {
+  public function testCalendarDateToPostData(): void {
 
     $activity = new CultureFeed_Activity();
 

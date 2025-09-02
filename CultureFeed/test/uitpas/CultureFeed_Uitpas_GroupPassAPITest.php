@@ -8,7 +8,7 @@ use PHPUnit\Framework\TestCase;
 
 class CultureFeed_Uitpas_GroupPassAPITest extends TestCase {
 
-  public function testGetGroupPass() {
+  public function testGetGroupPass(): void {
     $oauth_client_stub = $this->createMock('CultureFeed_OAuthClient');
 
     $xml = file_get_contents(dirname(__FILE__) . '/data/grouppass/groupPass.xml');

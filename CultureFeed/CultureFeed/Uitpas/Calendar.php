@@ -16,11 +16,11 @@ class CultureFeed_Uitpas_Calendar {
    */
   public $periods = array();
 
-  public function addPeriod(CultureFeed_Uitpas_Calendar_Period $period) {
+  public function addPeriod(CultureFeed_Uitpas_Calendar_Period $period): void {
     $this->periods[] = $period;
   }
   
-  public function addTimestamp(CultureFeed_Uitpas_Calendar_Timestamp $timestamp) {
+  public function addTimestamp(CultureFeed_Uitpas_Calendar_Timestamp $timestamp): void {
     $this->timestamps[] = $timestamp;
   }
 
