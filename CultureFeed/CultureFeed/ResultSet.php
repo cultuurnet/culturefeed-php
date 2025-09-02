@@ -10,6 +10,4 @@ class CultureFeed_ResultSet {
     $this->total = $total;
     $this->objects = $objects;
   }
-
 }
-
