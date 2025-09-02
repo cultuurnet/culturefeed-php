@@ -3,18 +3,14 @@
 class CultureFeed_Uitpas_Calendar {
 
   /**
-   * The periods of the calendar object
-   *
    * @var CultureFeed_Uitpas_Calendar_Timestamp[]
    */
-  public $timestamps = array();
+  public array $timestamps = array();
   
   /**
-   * The periods of the calendar object
-   *
    * @var CultureFeed_Uitpas_Calendar_Period[]
    */
-  public $periods = array();
+  public array $periods = array();
 
   public function addPeriod(CultureFeed_Uitpas_Calendar_Period $period): void {
     $this->periods[] = $period;
@@ -24,7 +20,8 @@ class CultureFeed_Uitpas_Calendar {
     $this->timestamps[] = $timestamp;
   }
 
-  public static function createFromXML(CultureFeed_SimpleXMLElement $object) {
+  public static function createFromXML(CultureFeed_SimpleXMLElement $object): CultureFeed_Uitpas_Calendar
+  {
     $object->registerXPathNamespace('cdb', CultureFeed_Cdb_Default::CDB_SCHEME_URL);
 
     $calendar = new CultureFeed_Uitpas_Calendar();
