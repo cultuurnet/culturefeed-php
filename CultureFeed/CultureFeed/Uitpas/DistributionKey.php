@@ -2,33 +2,19 @@
 
 class CultureFeed_Uitpas_DistributionKey {
 
-  /**
-   * ID of the association.
-   *
-   * @var string
-   */
-  public $id;
+  public string $id;
+
+  public string $name;
 
   /**
-   * Name of the association.
-   *
-   * @var string
-   */
-  public $name;
-
-  /**
-   * Conditions.
-   *
    * @var CultureFeed_Uitpas_DistributionKey_Condition[]
    */
-  public $conditions = array();
+  public array $conditions = array();
 
   /**
-   * Price classes.
-   *
    * @var CultureFeed_Uitpas_Event_PriceClass[]
    */
-  public $priceClasses;
+  public array $priceClasses;
 
   /**
    * Tariff of the distributionkey.
@@ -49,12 +35,10 @@ class CultureFeed_Uitpas_DistributionKey {
    */
   public $sameRegion;
 
-  /**
-   * @var CultureFeed_Uitpas_CardSystem
-   */
-  public $cardSystem;
+  public CultureFeed_Uitpas_CardSystem $cardSystem;
 
-  public static function createFromXML(CultureFeed_SimpleXMLElement $object) {
+  public static function createFromXML(CultureFeed_SimpleXMLElement $object): CultureFeed_Uitpas_DistributionKey
+  {
 
     $distribution_key = new CultureFeed_Uitpas_DistributionKey();
 
