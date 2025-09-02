@@ -3,21 +3,11 @@
 
 class CultureFeed_Uitpas_Calendar_Period {
 
-  /**
-   * The start date of the period
-   *
-   * @var integer
-   */
-  public $datefrom;
+  public int $datefrom;
 
-  /**
-   * The end date of the period
-   *
-   * @var integer
-   */
-  public $dateto;
+  public ?int $dateto = null;
 
-  public function __construct($datefrom = null, $dateto = null)
+  public function __construct($datefrom, $dateto = null)
   {
     $this->datefrom = $datefrom;
     $this->dateto = $dateto;
@@ -29,11 +19,9 @@ class CultureFeed_Uitpas_Calendar_Period {
    */
   public static function createFromXml(CultureFeed_SimpleXMLElement $object)
   {
-    $period = new self();
-
-    $period->datefrom = $object->xpath_time('startDate');
-    $period->dateto = $object->xpath_time('endDate');
-
-    return $period;
+      return new self(
+          $object->xpath_time('startDate'),
+          $object->xpath_time('endDate')
+      );
   }
 }

@@ -32,9 +32,10 @@ class CultureFeed_Uitpas_Calendar {
     foreach ($object->xpath('cdb:periods/cdb:period') as $timeObject) {
       $timeObject->registerXPathNamespace('cdb', CultureFeed_Cdb_Default::CDB_SCHEME_URL);
 
-      $period = new CultureFeed_Uitpas_Calendar_Period();
-      $period->datefrom = $timeObject->xpath_time('cdb:datefrom');
-      $period->dateto = $timeObject->xpath_time('cdb:dateto');
+      $period = new CultureFeed_Uitpas_Calendar_Period(
+          $timeObject->xpath_time('cdb:datefrom'),
+            $timeObject->xpath_time('cdb:dateto')
+      );
 
       $calendar->addPeriod($period);
     }
