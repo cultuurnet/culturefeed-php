@@ -16,12 +16,7 @@ class CultureFeed_Uitpas_DistributionKey {
    */
   public array $priceClasses;
 
-  /**
-   * Tariff of the distributionkey.
-   *
-   * @var string
-   */
-  public $tariff;
+  public string $tariff = '';
 
   public bool $automatic = false;
 
@@ -43,7 +38,7 @@ class CultureFeed_Uitpas_DistributionKey {
     foreach ($object->xpath('priceClasses/priceClass') as $priceClass) {
       $distribution_key->priceClasses[] = CultureFeed_Uitpas_Event_PriceClass::createFromXML($priceClass);
     }
-    $distribution_key->tariff = $object->xpath_str('tariff');
+    $distribution_key->tariff = $object->xpath_str('tariff') ?? '';
     $distribution_key->automatic = $object->xpath_bool('automatic') === true;
     $distribution_key->sameRegion = $object->xpath_bool('sameRegion') === true;
 
