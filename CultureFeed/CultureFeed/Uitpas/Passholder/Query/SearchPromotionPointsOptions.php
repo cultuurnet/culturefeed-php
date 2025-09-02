@@ -15,166 +15,54 @@ class CultureFeed_Uitpas_Passholder_Query_SearchPromotionPointsOptions extends C
    */
   const FILTER_POSSIBLE = "POSSIBLE";
 
-  /**
-   * List is cities where the pointspromotions must be valid. Possible values: Aalst, Lede, Haaltert, Erpe_Mere
-   *
-   * @var string
-   */
-  public $city;
+  public string $city;
 
-  /**
-   * Minimum number of points needed for the pointspromotion
-   *
-   * @var integer
-   */
-  public $minPoints;
+  public int $minPoints;
 
-  /**
-   * Maximum number of points needed for the pointspromotion
-   *
-   * @var integer
-   */
-  public $maxPoints;
+  public int $maxPoints;
 
-  /**
-   * Consumer key of the counter
-   *
-   * @var string
-   */
-  public $balieConsumerKey;
+  public string $balieConsumerKey;
 
-  /**
-   * Begin date of the cashing period
-   *
-   * @var integer
-   */
-  public $cashingPeriodBegin;
+  public int $cashingPeriodBegin;
 
-  /**
-   * End date of the cashing period
-   *
-   * @var integer
-   */
-  public $cashingPeriodEnd;
+  public int $cashingPeriodEnd;
 
-  /**
-   * Begin date of the granting period
-   *
-   * @var integer
-   */
-  public $grantingPeriodBegin;
+  public int $grantingPeriodBegin;
 
-  /**
-   * End date of the granting period
-   *
-   * @var integer
-   */
-  public $grantingPeriodEnd;
+  public int $grantingPeriodEnd;
 
-  /**
-   * Sort field.
-   *
-   * @var string
-   */
-  public $sort = self::SORT_CREATION_DATE;
+  public string $sort = self::SORT_CREATION_DATE;
 
-  /**
-   * Sort direction
-   *
-   * @var string
-   */
-  public $order = self::ORDER_DESC;
+  public string $order = self::ORDER_DESC;
 
-  /**
-   * Maximum number of results. Default: 20
-   *
-   * @var integer
-   */
-  public $max = 20;
+  public int $max = 20;
 
-  /**
-   * Results offset. Default: 0
-   *
-   * @var integer
-   */
-  public $start = 0;
+  public int $start = 0;
 
-  /**
-   * The user ID of the passholder
-   *
-   * @var string
-   */
-  public $uid;
+  public string $uid;
 
-  /**
-   * The number of the uitpas of the passholder
-   *
-   * @var string
-   */
-  public $uitpasNumber;
+  public string $uitpasNumber;
 
-  /**
-   * Default: false. Indicates if the system must only show the pointspromotions for which the user has sufficient points
-   *
-   * @var boolean
-   */
-  public $filterOnUserPoints = false;
+  public bool $filterOnUserPoints = false;
 
-  /**
-   * Default: false. Indicates if the system must only show the pointspromotions for which the user has sufficient points
-   *
-   * @var boolean
-   */
-  public $published = false;
+  public bool $published = false;
 
-  /**
-   * Can be used to see which pointspromotions are possible if the user had e.g. 5 extra points.
-   *
-   * @var integer
-   */
-  public $simulatedExtraPoints;
+  public int $simulatedExtraPoints;
 
-  /**
-   * Default: false. Indicates that only unexpired points promotions are returned.
-   *
-   * @var boolean
-   */
-  public $unexpired = false;
+  public bool $unexpired = false;
+
+  public string $cashInState = self::FILTER_POSSIBLE;
+
+  public bool $inSpotlight;
+
+  public string $owningCardSystemId;
+
+  public string $orderByOwningCardSystemId;
+
+  public string $applicableCardSystemId;
 
 
-  /**
-   * Filter based on cashInState NOT_POSSIBLE_DATE_CONSTRAINT
-   *
-   * @var string POSSIBLE or NOT_POSSIBLE_DATE_CONSTRAINT or ...
-   */
-  public $cashInState = self::FILTER_POSSIBLE;
-
-  /**
-   * Filters the promotions based on their spotlight status.
-   * @var boolean
-   */
-  public $inSpotlight;
-
-  /**
-   * Id of a CardSystem owning the promotions.
-   * @var string
-   */
-  public $owningCardSystemId;
-
-  /**
-   * Order by id of a CardSystem owning the promotions.
-   * @var string
-   */
-  public $orderByOwningCardSystemId;
-
-  /**
-   * Id of a CardSystem to which the promotions are applicable.
-   * @var string
-   */
-  public $applicableCardSystemId;
-
-
-  protected function manipulatePostData(&$data) {
+  protected function manipulatePostData(&$data): void {
     if (isset($data['inSpotlight'])) {
       $data['inSpotlight'] = $data['inSpotlight'] ? "true" : "false";
     }
@@ -207,5 +95,4 @@ class CultureFeed_Uitpas_Passholder_Query_SearchPromotionPointsOptions extends C
       $data['grantingPeriodEnd'] = date('c', $data['grantingPeriodEnd']);
     }
   }
-
 }
