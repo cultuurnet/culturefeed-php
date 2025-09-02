@@ -30,10 +30,7 @@ class CultureFeed_Uitpas_DistributionKey {
    */
   public $automatic;
 
-  /**
-   * @var boolean
-   */
-  public $sameRegion;
+  public bool $sameRegion;
 
   public CultureFeed_Uitpas_CardSystem $cardSystem;
 
@@ -53,9 +50,12 @@ class CultureFeed_Uitpas_DistributionKey {
     }
     $distribution_key->tariff = $object->xpath_str('tariff');
     $distribution_key->automatic = $object->xpath_bool('automatic');
-    $distribution_key->sameRegion = $object->xpath_bool('sameRegion');
+
+    $sameRegionValue = $object->xpath_bool('sameRegion');
+    if ($sameRegionValue !== null) {
+      $distribution_key->sameRegion = $sameRegionValue;
+    }
 
     return $distribution_key;
   }
-
 }
