@@ -20,14 +20,14 @@ class CultureFeed_Uitpas_Event_Query_SearchEventsOptions extends CultureFeed_Uit
   /**
    * Begin date
    *
-   * @var integer
+   * @var integer|string
    */
   public $startDate;
 
   /**
    * End date
    *
-   * @var integer
+   * @var integer|string
    */
   public $endDate;
 

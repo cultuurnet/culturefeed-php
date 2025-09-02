@@ -87,7 +87,7 @@ class CultureFeed_ServiceConsumerAPITest extends TestCase {
     $element->addChild('name', $name);
     $element->addChild('destinationAfterEmailVerification', $destinationAfterEmailVerification);
     $element->addChild('creationDate', '2011-10-09T16:00Z');
-    $element->addChild('id', 27);
+    $element->addChild('id', '27');
     $element->addChild('status', 'ACTIVE');
 
     $xml = $element->asXML();

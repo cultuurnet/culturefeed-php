@@ -430,10 +430,10 @@ class CultureFeed_Uitpas_Default implements CultureFeed_Uitpas {
     );
 
     try {
-      $xml = new CultureFeed_SimpleXMLElement($result);
+      $xml = new CultureFeed_SimpleXMLElement($result->response);
     }
     catch (Exception $e) {
-      throw new CultureFeed_ParseException($result);
+      throw new CultureFeed_ParseException($result->response);
     }
 
     $response = CultureFeed_Uitpas_Response::createFromXML($xml->xpath('/response', false));
@@ -1035,8 +1035,11 @@ class CultureFeed_Uitpas_Default implements CultureFeed_Uitpas {
 
   public function getPassholderActivationLinkChainedWithAuthorization($uitpas_number, DateTime $date_of_birth, $callback_url) {
     $c = $this->culturefeed;
+    $activation_data = new CultureFeed_Uitpas_Passholder_Query_ActivationData();
+    $activation_data->uitpasNumber = $uitpas_number;
+    $activation_data->dob = $date_of_birth;
 
-    $link = $this->getPassholderActivationLink($uitpas_number, function () use ($c, $callback_url) {
+    $link = $this->getPassholderActivationLink($activation_data, function () use ($c, $callback_url) {
       $token = $c->getRequestToken($callback_url);
 
       $auth_url = $c->getUrlAuthorize($token, $callback_url, CultureFeed::AUTHORIZE_TYPE_REGULAR, TRUE);

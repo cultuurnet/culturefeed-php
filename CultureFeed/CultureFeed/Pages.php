@@ -37,7 +37,7 @@ interface CultureFeed_Pages {
 
   /**
    * Update a page.
-   * @param Integer $id
+   * @param string $id
    *   The page ID.
    * @param array $params
    *   Params to update the page.
@@ -46,14 +46,14 @@ interface CultureFeed_Pages {
 
   /**
    * Remove a page.
-   * @param Integer $id
+   * @param string $id
    *   The page ID of the page to remove (set invisible).
    */
   public function removePage($id);
 
   /**
    * Publish a page.
-   * @param Integer $id
+   * @param string $id
    *   The page ID of the page to publish (set visible).
    */
   public function publishPage($id);
@@ -92,7 +92,7 @@ interface CultureFeed_Pages {
 
   /**
    * Change the permissions for a page.
-   * @param Integer $id
+   * @param string $id
    *   The page ID of the page to remove (set invisible).
    * @param array $params
    *   Params of permissions keys to set. E.g. allowMembers, allowComments, ...

@@ -67,8 +67,8 @@ class CultureFeed_Uitpas_PasHoudersAPITest extends TestCase {
     $reason = CultureFeed_Uitpas_Passholder_UitpasPrice::REASON_FIRST_CARD;
     $uitpas_number = '0930000422202';
     $date_of_birth = 672364800;
-    $postal_code = 3000;
-    $voucher_number = 666;
+    $postal_code = '3000';
+    $voucher_number = '666';
     $balie_consumer_key = '36d72c6a679b5992c42238425d2632cd';
 
     $post_data = array(
@@ -76,7 +76,7 @@ class CultureFeed_Uitpas_PasHoudersAPITest extends TestCase {
       'uitpasNumber' => '0930000422202',
       'dateOfBirth' => '1991-04-23',
       'postalCode' => 3000,
-      'voucherNumber' => 666,
+      'voucherNumber' => '666',
       'balieConsumerKey' => '36d72c6a679b5992c42238425d2632cd',
     );
 
@@ -91,7 +91,7 @@ class CultureFeed_Uitpas_PasHoudersAPITest extends TestCase {
     $expected->kansenStatuut = FALSE;
     $expected->price = 2;
     $expected->cardSystem = new CultureFeed_Uitpas_CardSystem();
-    $expected->cardSystem->id = '1';
+    $expected->cardSystem->id = 1;
     $expected->cardSystem->name = 'UiTPAS Regio Aalst';
 
     /* @var CultureFeed_OAuthClient&MockObject $oauth_client_stub
@@ -281,7 +281,7 @@ XML;
 
     $cf = new CultureFeed($oauth_client_stub);
 
-    $promotion = $cf->uitpas()->cashInWelcomeAdvantage(self::UITPAS_NUMBER, self::CONSUMER_KEY_COUNTER, self::WELCOME_ADVANTAGE_ID);
+    $promotion = $cf->uitpas()->cashInWelcomeAdvantage(self::UITPAS_NUMBER, self::WELCOME_ADVANTAGE_ID, self::CONSUMER_KEY_COUNTER);
     $this->assertEquals(5, $promotion->id);
     $this->assertEquals('Gratis armbandjes', $promotion->title);
     $this->assertEquals(0, $promotion->points);

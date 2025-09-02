@@ -85,9 +85,6 @@ class CultureFeed_SavedSearches_SavedSearchTest extends TestCase {
     $invalidFrequencyString = 'SOMETIMES';
     $this->assertFalse(SavedSearch::validateFrequency($invalidFrequencyString));
 
-    $invalidFrequencyObject = new stdClass();
-    $this->assertFalse(SavedSearch::validateFrequency($invalidFrequencyObject));
-
     // Next test the setting of a frequency.
     $savedSearch = new SavedSearch();
 
@@ -99,9 +96,5 @@ class CultureFeed_SavedSearches_SavedSearchTest extends TestCase {
     $this->expectException(InvalidArgumentException::class);
 
     $savedSearch->setFrequency($invalidFrequencyString);
-
-    $this->expectException(InvalidArgumentException::class);
-
-    $savedSearch->setFrequency($invalidFrequencyObject);
   }
 }

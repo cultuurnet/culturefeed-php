@@ -86,7 +86,7 @@ class CultureFeed_EntryApiTest extends TestCase {
   /**
    * @dataProvider invalidKeywordProvider
    *
-   * @param array $keyword
+   * @param string|CultureFeed_Cdb_Data_Keyword $keyword
    */
   public function testAddTagToEventWithInvalidKeywords($keyword) {
     $keywords = array($keyword);
