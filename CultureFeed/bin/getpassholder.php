@@ -75,7 +75,7 @@ catch (Exception $e) {
   print "An exception of type {$type} was thrown." . PHP_EOL;
   print "Code: {$e->getCode()}" . PHP_EOL;
   if ($e instanceof CultureFeed_Exception) {
-    print "CultureFeed error code: {$e->error_code}" . PHP_EOL;
+    print "CultureFeed error code: {$e->getErrorCode()}" . PHP_EOL;
   }
   print "Message: {$e->getMessage()}" . PHP_EOL;
   print "Stack trace: {$eol}{$e->getTraceAsString()}" . PHP_EOL;
