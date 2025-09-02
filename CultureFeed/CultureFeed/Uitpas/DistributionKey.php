@@ -23,14 +23,9 @@ class CultureFeed_Uitpas_DistributionKey {
    */
   public $tariff;
 
-  /**
-   * Automatic.
-   *
-   * @var boolean
-   */
-  public $automatic;
+  public bool $automatic = false;
 
-  public bool $sameRegion;
+  public bool $sameRegion = false;
 
   public CultureFeed_Uitpas_CardSystem $cardSystem;
 
@@ -49,12 +44,8 @@ class CultureFeed_Uitpas_DistributionKey {
       $distribution_key->priceClasses[] = CultureFeed_Uitpas_Event_PriceClass::createFromXML($priceClass);
     }
     $distribution_key->tariff = $object->xpath_str('tariff');
-    $distribution_key->automatic = $object->xpath_bool('automatic');
-
-    $sameRegionValue = $object->xpath_bool('sameRegion');
-    if ($sameRegionValue !== null) {
-      $distribution_key->sameRegion = $sameRegionValue;
-    }
+    $distribution_key->automatic = $object->xpath_bool('automatic') === true;
+    $distribution_key->sameRegion = $object->xpath_bool('sameRegion') === true;
 
     return $distribution_key;
   }
