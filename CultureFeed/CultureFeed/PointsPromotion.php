@@ -1,118 +1,48 @@
 <?php
 
-/**
- * Class to represent a PointsPromotion.
- */
 class CultureFeed_PointsPromotion {
 
-  /**
-   * The cashing in of a promotion failed.
-   */
   const CASHIN_PROMOTION_NOT_ALLOWED = 'CASHIN_PROMOTION_NOT_ALLOWED';
 
-  /**
-   * cashInState: Not possible points constraint.
-   */
   const NOT_POSSIBLE_POINTS_CONSTRAINT = 'NOT_POSSIBLE_POINTS_CONSTRAINT';
 
-  /**
-   * cashInState: Not possible user volume constraint.
-   */
   const NOT_POSSIBLE_USER_VOLUME_CONSTRAINT = 'NOT_POSSIBLE_USER_VOLUME_CONSTRAINT';
 
-  /**
-   * cashInstate: Possible to exchange points.
-   */
   const POSSIBLE = 'POSSIBLE';
 
-  /**
-   * Periodtype: ABSOLUTE
-   */
   const ABSOLUTE = "ABSOLUTE";
 
-  /**
-   * @var String constant.
-   */
-  public $cashInState;
+  public string $cashInState;
 
-  /**
-   * @var Boolean
-   */
-  public $cashedIn;
+  public bool $cashedIn;
 
-  /**
-   * @var string
-   */
-  public $id;
+  public string $id;
 
-  /**
-   * @var int
-   */
-  public $cashingPeriodBegin;
+  public int $cashingPeriodBegin;
 
-  /**
-   * @var int
-   */
-  public $cashingPeriodEnd;
+  public int $cashingPeriodEnd;
 
-  /**
-   * @var int
-   */
-  public $creationDate;
+  public int $creationDate;
 
-  /**
-   * @var integer
-   */
-  public $maxAvailableUnits;
+  public int $maxAvailableUnits;
 
-  /**
-   * @var CultureFeed_PeriodConstraint
-   */
-  public $periodConstraint = NULL;
+  public ?CultureFeed_PeriodConstraint $periodConstraint = NULL;
 
-  /**
-   * @var double
-   */
-  public $points;
+  public float $points;
 
-  /**
-   * @var Boolean
-   */
-  public $inSpotlight;
+  public bool $inSpotlight;
 
-  /**
-   * @var string
-   */
-  public $title;
+  public string $title;
 
-  /**
-   * @var string
-   */
-  public $description1;
+  public string $description1;
 
-  /**
-   * @var string
-   */
-  public $description2;
+  public string $description2;
 
-  /**
-   * @var array of picture urls.
-   */
-  public $pictures = array();
+  public array $pictures = array();
 
-  /**
-   * @var integer
-   */
-  public $unitsTaken;
+  public int $unitsTaken;
 
-  /**
-   * Extract an array useable as data in POST requests that expect PointsPromotion info.
-   *
-   * @return array
-   *   Associative array representing the PointsPromotion object.
-   *   For documentation of the structure, check the CultureFeed API documentation.
-   */
-  public function toPostData() {
+  public function toPostData(): array {
     // For most properties we can rely on get_object_vars.
     $data = get_object_vars($this);
 
@@ -135,13 +65,7 @@ class CultureFeed_PointsPromotion {
     return $data;
   }
 
-  /**
-   * Initializes a CultureFeed_PointsPromotion object from its XML representation.
-   *
-   * @param CultureFeed_SimpleXMLElement $element
-   * @return CultureFeed_PointsPromotion
-   */
-  public static function parseFromXML(CultureFeed_SimpleXMLElement $element) {
+  public static function parseFromXML(CultureFeed_SimpleXMLElement $element): CultureFeed_PointsPromotion {
 
     if (empty($element->id)) {
       throw new CultureFeed_ParseException('id missing for PointsPromotions element');
