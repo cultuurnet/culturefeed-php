@@ -14,22 +14,14 @@ class CultureFeed_Uitpas_DistributionKey_Condition extends CultureFeed_Uitpas_Va
 
   const VALUE_AT_LEAST_ONE_CARDSYSTEM = 'AT_LEAST_ONE_CARDSYSTEM';
 
-  /**
-   * @var string The definition of the condition.
-   */
-  public $definition;
+  public string $definition;
 
-  /**
-   * @var string The operator of the condition.
-   */
-  public $operator;
+  public string $operator;
 
-  /**
-   * @var string The value of the condition.
-   */
-  public $value;
+  public string $value;
 
-  public static function createFromXML(CultureFeed_SimpleXMLElement $object) {
+  public static function createFromXML(CultureFeed_SimpleXMLElement $object): CultureFeed_Uitpas_DistributionKey_Condition
+  {
 
     $condition = new self();
 
