@@ -20,12 +20,7 @@ class CultureFeed_Uitpas_Event_CultureEvent extends CultureFeed_Uitpas_ValueObje
    */
   const BUY_CONSTRAINT_REASON_MAXIMUM_REACHED = 'MAXIMUM_REACHED';
 
-  /**
-   * The identification of the event
-   *
-   * @var string
-   */
-  public $cdbid;
+  public string $cdbid;
 
   /**
    * The ID of the location of the event
