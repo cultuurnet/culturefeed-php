@@ -90,9 +90,10 @@ class CultureFeed_Uitpas_PasHoudersAPITest extends TestCase {
     $expected->ageRange->ageTo = 17;
     $expected->kansenStatuut = FALSE;
     $expected->price = 2;
-    $expected->cardSystem = new CultureFeed_Uitpas_CardSystem();
-    $expected->cardSystem->id = 1;
-    $expected->cardSystem->name = 'UiTPAS Regio Aalst';
+    $expected->cardSystem = new CultureFeed_Uitpas_CardSystem(
+        1,
+        'UiTPAS Regio Aalst'
+    );
 
     /* @var CultureFeed_OAuthClient&MockObject $oauth_client_stub
      */

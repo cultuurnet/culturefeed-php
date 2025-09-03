@@ -16,31 +16,21 @@ class CultureFeed_Uitpas_CardSystem
     public $name;
 
   /**
-   * @var CultureFeed_Uitpas_DistributionKey[] Distributionkeys.
+   * @var CultureFeed_Uitpas_DistributionKey[]
    */
   public $distributionKeys = array();
 
-  /**
-   * @param int|null $id
-   * @param string|null $name
-   */
-  public function __construct($id = NULL, $name = NULL) {
+  public function __construct(int $id, string $name) {
     $this->id = $id;
     $this->name = $name;
   }
 
-  /**
-
-   * @param CultureFeed_SimpleXMLElement $object
-   *
-   * @return CultureFeed_Uitpas_CardSystem
-   */
-  public static function createFromXML(CultureFeed_SimpleXMLElement $object) {
+  public static function createFromXML(CultureFeed_SimpleXMLElement $object): CultureFeed_Uitpas_CardSystem {
     // @phpstan-ignore-next-line
-    $card_system = new static();
-
-    $card_system->id = $object->xpath_int('id');
-    $card_system->name = $object->xpath_str('name');
+    $card_system = new static(
+        $object->xpath_int('id'),
+        $object->xpath_str('name')
+    );
 
     $card_system->distributionKeys = array();
     foreach ($object->xpath('distributionKeys/distributionKey') as $distributionKey) {

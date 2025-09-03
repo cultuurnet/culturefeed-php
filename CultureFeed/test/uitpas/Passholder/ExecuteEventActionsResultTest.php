@@ -53,9 +53,10 @@ class CultureFeed_Uitpas_Passholder_ExecuteEventActionsResultTest extends TestCa
     $expectedPassholder->uitIdUser->optInPreferences->optInPost = true;
 
     $passholderCardSystemData = new CultureFeed_Uitpas_Passholder_CardSystemSpecific();
-    $passholderCardSystemData->cardSystem = new CultureFeed_Uitpas_CardSystem();
-    $passholderCardSystemData->cardSystem->id = 1;
-    $passholderCardSystemData->cardSystem->name = 'UiTPAS Regio Aalst';
+    $passholderCardSystemData->cardSystem = new CultureFeed_Uitpas_CardSystem(
+        1,
+        'UiTPAS Regio Aalst'
+    );
 
     $passholderCardSystemData->currentCard = new CultureFeed_Uitpas_Passholder_Card();
     $passholderCardSystemData->currentCard->kansenpas = false;

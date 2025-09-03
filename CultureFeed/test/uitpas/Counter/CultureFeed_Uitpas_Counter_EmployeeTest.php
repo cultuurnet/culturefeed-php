@@ -20,7 +20,10 @@ class CultureFeed_Uitpas_Counter_EmployeeTest extends TestCase {
   protected $groups;
 
   public function setUp(): void {
-    $cardSystem1 = new \CultureFeed_Uitpas_Counter_EmployeeCardSystem();
+    $cardSystem1 = new \CultureFeed_Uitpas_Counter_EmployeeCardSystem(
+        1,
+        'UiTPAS Regio Aalst'
+    );
     $cardSystem1->permissions = array(
       'permission1',
       'permission2',
@@ -30,13 +33,19 @@ class CultureFeed_Uitpas_Counter_EmployeeTest extends TestCase {
       'group2',
     );
 
-    $cardSystem2 = new \CultureFeed_Uitpas_Counter_EmployeeCardSystem();
+    $cardSystem2 = new \CultureFeed_Uitpas_Counter_EmployeeCardSystem(
+        1,
+        'UiTPAS Regio Aalst'
+    );
     $cardSystem2->groups = array(
       'group2',
       'group3',
     );
 
-    $cardSystem3 = new \CultureFeed_Uitpas_Counter_EmployeeCardSystem();
+    $cardSystem3 = new \CultureFeed_Uitpas_Counter_EmployeeCardSystem(
+        1,
+        'UiTPAS Regio Aalst'
+    );
     $cardSystem3->permissions = array(
       'permission2',
       'permission3',
