@@ -267,8 +267,6 @@ class CultureFeed_Uitpas_Event_CultureEvent extends CultureFeed_Uitpas_ValueObje
   public $description;
 
   /**
-   * The ticket sales.
-   *
    * @var CultureFeed_Uitpas_Event_TicketSale_Opportunity[]
    */
   public array $ticketSales;
