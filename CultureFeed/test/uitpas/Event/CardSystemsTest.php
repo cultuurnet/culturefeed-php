@@ -29,7 +29,7 @@ class CultureFeed_Uitpas_Event_CardSystemsTest extends TestCase {
     /* @var \CultureFeed_Uitpas_CardSystem $cardSystem */
     $cardSystem = reset($data->objects);
 
-    $this->assertEquals(1, $cardSystem->id);
+    $this->assertEquals(1, $cardSystem->getId());
     $this->assertEquals("UiTPAS Dender", $cardSystem->getName());
 
     $this->assertContainsOnly('CultureFeed_Uitpas_DistributionKey', $cardSystem->distributionKeys);

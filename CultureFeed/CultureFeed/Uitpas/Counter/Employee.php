@@ -51,7 +51,7 @@ class CultureFeed_Uitpas_Counter_Employee extends CultureFeed_Uitpas_ValueObject
 
     foreach ($object->xpath('cardSystems/cardSystem') as $card_system) {
       $cardSystem = CultureFeed_Uitpas_Counter_EmployeeCardSystem::createFromXml($card_system);
-      $counter->cardSystems[$cardSystem->id] = $cardSystem;
+      $counter->cardSystems[$cardSystem->getId()] = $cardSystem;
     }
 
     return $counter;

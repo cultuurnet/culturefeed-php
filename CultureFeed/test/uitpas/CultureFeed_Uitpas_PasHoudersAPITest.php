@@ -34,7 +34,7 @@ class CultureFeed_Uitpas_PasHoudersAPITest extends TestCase {
     $this->assertEquals(FALSE, $prices->objects[0]->kansenStatuut);
     $this->assertEquals(20.5, $prices->objects[0]->price);
     $this->assertInstanceOf('CultureFeed_Uitpas_CardSystem', $prices->objects[0]->cardSystem);
-    $this->assertEquals(5, $prices->objects[0]->cardSystem->id);
+    $this->assertEquals(5, $prices->objects[0]->cardSystem->getId());
     $this->assertEquals('Test', $prices->objects[0]->cardSystem->getName());
   }
 
@@ -168,7 +168,7 @@ XML;
     $this->assertEquals('ACTIVE', $identity->card->status);
     $this->assertFalse($identity->card->kansenpas);
     $this->assertEmpty($identity->card->city);
-    $this->assertEquals(1, $identity->card->cardSystem->id);
+    $this->assertEquals(1, $identity->card->cardSystem->getId());
     $this->assertEquals('UiTPAS Regio Aalst', $identity->card->cardSystem->getName());
 
     $this->assertInstanceOf('CultureFeed_Uitpas_Passholder', $identity->passHolder);
@@ -201,7 +201,7 @@ XML;
 
     $identity = CultureFeed_Uitpas_Identity::createFromXml($response_xml_element);
 
-    $this->assertEquals(1, $identity->card->cardSystem->id);
+    $this->assertEquals(1, $identity->card->cardSystem->getId());
     $this->assertEquals('UiTPAS Regio Aalst', $identity->card->cardSystem->getName());
   }
 
@@ -337,7 +337,7 @@ XML;
     $this->assertEquals("Scouts Aalst", $promotion->counters[1]->name);
 
     $this->assertInstanceOf('CultureFeed_Uitpas_CardSystem', $promotion->owningCardSystem);
-    $this->assertEquals(1, $promotion->owningCardSystem->id);
+    $this->assertEquals(1, $promotion->owningCardSystem->getId());
     $this->assertEquals('HELA', $promotion->owningCardSystem->getName());
 
     $this->assertCount(2, $promotion->applicableCardSystems);
@@ -345,11 +345,11 @@ XML;
 
     /** @var CultureFeed_Uitpas_CardSystem $applicableCardSystem */
     $applicableCardSystem = reset($promotion->applicableCardSystems);
-    $this->assertEquals(1, $applicableCardSystem->id);
+    $this->assertEquals(1, $applicableCardSystem->getId());
     $this->assertEquals('HELA', $applicableCardSystem->getName());
 
     $applicableCardSystem = next($promotion->applicableCardSystems);
-    $this->assertEquals(3, $applicableCardSystem->id);
+    $this->assertEquals(3, $applicableCardSystem->getId());
     $this->assertEquals('Test cardsystem', $applicableCardSystem->getName());
 
     $promotion = next($promotions);
@@ -444,7 +444,7 @@ XML;
     $this->assertEquals(self::UITPAS_NUMBER, $card->uitpasNumber);
     $this->assertEquals('ACTIVE', $card->status);
     $this->assertInstanceOf('CultureFeed_Uitpas_CardSystem', $card->cardSystem);
-    $this->assertEquals(6, $card->cardSystem->id);
+    $this->assertEquals(6, $card->cardSystem->getId());
     $this->assertEquals('Testsysteem Paspartoe', $card->cardSystem->getName());
     $this->assertEquals('CARD', $card->type);
   }
@@ -503,7 +503,7 @@ XML;
     $cardSystemSpecific = reset($passholder->cardSystemSpecific);
     $this->assertInstanceOf('CultureFeed_Uitpas_CardSystem', $cardSystemSpecific->cardSystem);
     $this->assertEquals('HELA', $cardSystemSpecific->cardSystem->getName());
-    $this->assertEquals(1, $cardSystemSpecific->cardSystem->id);
+    $this->assertEquals(1, $cardSystemSpecific->cardSystem->getId());
     $this->assertInstanceOf('CultureFeed_Uitpas_Passholder_Card', $cardSystemSpecific->currentCard);
     $this->assertEquals(TRUE, $cardSystemSpecific->currentCard->kansenpas);
     $this->assertEquals('ACTIVE', $cardSystemSpecific->currentCard->status);

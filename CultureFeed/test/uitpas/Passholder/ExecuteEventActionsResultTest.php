@@ -71,7 +71,7 @@ class CultureFeed_Uitpas_Passholder_ExecuteEventActionsResultTest extends TestCa
     $passholderCardSystemData->status = 'ACTIVE';
 
     $expectedPassholder->cardSystemSpecific = array(
-      $passholderCardSystemData->cardSystem->id => $passholderCardSystemData,
+      $passholderCardSystemData->cardSystem->getId() => $passholderCardSystemData,
     );
 
     $this->assertEquals($expectedPassholder, $result->passholder);

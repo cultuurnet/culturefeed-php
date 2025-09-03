@@ -5,10 +5,7 @@
 
 class CultureFeed_Uitpas_CardSystem
 {
-    /**
-     * @var int Unique ID of the card system.
-     */
-    public $id;
+    private int $id;
 
     private string $name;
 
@@ -35,6 +32,11 @@ class CultureFeed_Uitpas_CardSystem
     }
 
     return $card_system;
+  }
+
+  public function getId(): int
+  {
+      return $this->id;
   }
 
   public function getName(): string

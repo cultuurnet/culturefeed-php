@@ -32,7 +32,7 @@ class CultureFeed_Uitpas_DistributionKeyTest extends TestCase {
     $this->assertEquals(35, $key->id);
     $this->assertEquals("School - Halve Dag - €1,50", $key->name);
     $this->assertInstanceOf('CultureFeed_Uitpas_CardSystem', $key->cardSystem);
-    $this->assertEquals(1, $key->cardSystem->id);
+    $this->assertEquals(1, $key->cardSystem->getId());
     $this->assertEquals('HELA', $key->cardSystem->getName());
 
     $key = next($data->objects);
@@ -40,7 +40,7 @@ class CultureFeed_Uitpas_DistributionKeyTest extends TestCase {
     $this->assertEquals(36, $key->id);
     $this->assertEquals("School - hele dag €3", $key->name);
     $this->assertInstanceOf('CultureFeed_Uitpas_CardSystem', $key->cardSystem);
-    $this->assertEquals(1, $key->cardSystem->id);
+    $this->assertEquals(1, $key->cardSystem->getId());
     $this->assertEquals('HELA', $key->cardSystem->getName());
   }
 }

@@ -98,7 +98,7 @@ final class CultureFeed_Uitpas_Association {
    */
   public function inCardSystem($cardSystemId) {
     foreach ($this->cardSystems as $cardSystem) {
-      if ($cardSystem->id == $cardSystemId) {
+      if ($cardSystem->getId() == $cardSystemId) {
         return TRUE;
       }
     }
