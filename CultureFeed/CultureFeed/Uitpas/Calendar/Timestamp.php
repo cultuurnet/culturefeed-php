@@ -2,26 +2,10 @@
 
 
 class CultureFeed_Uitpas_Calendar_Timestamp {
+  public int $date;
 
-  /**
-   * The date
-   *
-   * @var integer
-   */
-  public $date;
+  public ?string $timestart;
 
-  /**
-   * The start time
-   *
-   * @var integer
-   */
-  public $timestart;
-  
-  /**
-   * The end time
-   *
-   * @var integer
-   */
-  public $timeend;
+  public ?string $timeend;
 
 }
