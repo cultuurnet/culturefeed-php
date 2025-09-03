@@ -15,7 +15,7 @@ class CultureFeed_Uitpas_CardSystem
   /**
    * @var CultureFeed_Uitpas_DistributionKey[]
    */
-  public $distributionKeys = array();
+  public array $distributionKeys = array();
 
   public function __construct(int $id, string $name) {
     $this->id = $id;
