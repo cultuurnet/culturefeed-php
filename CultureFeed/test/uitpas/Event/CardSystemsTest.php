@@ -30,7 +30,7 @@ class CultureFeed_Uitpas_Event_CardSystemsTest extends TestCase {
     $cardSystem = reset($data->objects);
 
     $this->assertEquals(1, $cardSystem->id);
-    $this->assertEquals("UiTPAS Dender", $cardSystem->name);
+    $this->assertEquals("UiTPAS Dender", $cardSystem->getName());
 
     $this->assertContainsOnly('CultureFeed_Uitpas_DistributionKey', $cardSystem->distributionKeys);
     $this->assertCount(1, $cardSystem->distributionKeys);

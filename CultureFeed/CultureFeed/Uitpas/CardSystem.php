@@ -10,10 +10,7 @@ class CultureFeed_Uitpas_CardSystem
      */
     public $id;
 
-    /**
-     * @var string Name of the card system.
-     */
-    public $name;
+    private string $name;
 
   /**
    * @var CultureFeed_Uitpas_DistributionKey[]
@@ -38,7 +35,10 @@ class CultureFeed_Uitpas_CardSystem
     }
 
     return $card_system;
-
   }
 
+  public function getName(): string
+  {
+      return $this->name;
+  }
 }

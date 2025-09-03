@@ -50,7 +50,7 @@ class CultureFeed_Uitpas_BalieAPITest extends TestCase {
     $card_system = reset($counter->cardSystems);
 
     $this->assertEquals(1, $card_system->id);
-    $this->assertEquals('HELA', $card_system->name);
+    $this->assertEquals('HELA', $card_system->getName());
     $this->assertIsArray($card_system->groups);
     $this->assertCount(1, $card_system->groups);
     $this->assertContainsOnly('string', $card_system->groups);
@@ -82,7 +82,7 @@ class CultureFeed_Uitpas_BalieAPITest extends TestCase {
     /** @var CultureFeed_Uitpas_Counter_CardCounter $cardCounter */
     $cardCounter = reset($cardCounters);
     $this->assertInstanceOf('CultureFeed_Uitpas_CardSystem', $cardCounter->cardSystem);
-    $this->assertEquals('HELA', $cardCounter->cardSystem->name);
+    $this->assertEquals('HELA', $cardCounter->cardSystem->getName());
     $this->assertEquals(1, $cardCounter->cardSystem->id);
     $this->assertFalse($cardCounter->kansenstatuut);
     $this->assertEquals('SENT_TO_BALIE', $cardCounter->status);
@@ -90,7 +90,7 @@ class CultureFeed_Uitpas_BalieAPITest extends TestCase {
 
     $cardCounter = next($cardCounters);
     $this->assertInstanceOf('CultureFeed_Uitpas_CardSystem', $cardCounter->cardSystem);
-    $this->assertEquals('HELA', $cardCounter->cardSystem->name);
+    $this->assertEquals('HELA', $cardCounter->cardSystem->getName());
     $this->assertEquals(1, $cardCounter->cardSystem->id);
     $this->assertTrue($cardCounter->kansenstatuut);
     $this->assertEquals('SENT_TO_BALIE', $cardCounter->status);
@@ -98,7 +98,7 @@ class CultureFeed_Uitpas_BalieAPITest extends TestCase {
 
     $cardCounter = next($cardCounters);
     $this->assertInstanceOf('CultureFeed_Uitpas_CardSystem', $cardCounter->cardSystem);
-    $this->assertEquals('HELA', $cardCounter->cardSystem->name);
+    $this->assertEquals('HELA', $cardCounter->cardSystem->getName());
     $this->assertEquals(1, $cardCounter->cardSystem->id);
     $this->assertFalse($cardCounter->kansenstatuut);
     $this->assertEquals('LOCAL_STOCK', $cardCounter->status);
@@ -106,7 +106,7 @@ class CultureFeed_Uitpas_BalieAPITest extends TestCase {
 
     $cardCounter = next($cardCounters);
     $this->assertInstanceOf('CultureFeed_Uitpas_CardSystem', $cardCounter->cardSystem);
-    $this->assertEquals('HELA', $cardCounter->cardSystem->name);
+    $this->assertEquals('HELA', $cardCounter->cardSystem->getName());
     $this->assertEquals(1, $cardCounter->cardSystem->id);
     $this->assertTrue($cardCounter->kansenstatuut);
     $this->assertEquals('LOCAL_STOCK', $cardCounter->status);

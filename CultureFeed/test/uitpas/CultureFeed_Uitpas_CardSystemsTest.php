@@ -31,7 +31,7 @@ class CultureFeed_Uitpas_CardSystemsTest extends TestCase {
     $cardSystem = reset($data->objects);
 
     $this->assertEquals(1, $cardSystem->id);
-    $this->assertEquals("UiTPAS Dender", $cardSystem->name);
+    $this->assertEquals("UiTPAS Dender", $cardSystem->getName());
 
     $this->assertContainsOnly('CultureFeed_Uitpas_DistributionKey', $cardSystem->distributionKeys);
     $this->assertCount(3, $cardSystem->distributionKeys);
@@ -48,7 +48,7 @@ class CultureFeed_Uitpas_CardSystemsTest extends TestCase {
     $cardSystem = next($data->objects);
 
     $this->assertEquals(15, $cardSystem->id);
-    $this->assertEquals("UiTPAS", $cardSystem->name);
+    $this->assertEquals("UiTPAS", $cardSystem->getName());
     $this->assertEmpty($cardSystem->distributionKeys);
   }
 }
