@@ -331,9 +331,6 @@ class CultureFeed_Uitpas_Event_CultureEvent extends CultureFeed_Uitpas_ValueObje
     }
   }
 
-
-
-
   public static function createFromXML(CultureFeed_SimpleXMLElement $object): CultureFeed_Uitpas_Event_CultureEvent
   {
     $event = new CultureFeed_Uitpas_Event_CultureEvent();
@@ -380,5 +377,4 @@ class CultureFeed_Uitpas_Event_CultureEvent extends CultureFeed_Uitpas_ValueObje
 
     return $event;
   }
-
 }
