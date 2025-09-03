@@ -271,7 +271,7 @@ class CultureFeed_Uitpas_Event_CultureEvent extends CultureFeed_Uitpas_ValueObje
    *
    * @var CultureFeed_Uitpas_Event_TicketSale_Opportunity[]
    */
-  public $ticketSales;
+  public array $ticketSales;
 
   public function __construct() {
     $this->ticketSales = array();
@@ -279,10 +279,7 @@ class CultureFeed_Uitpas_Event_CultureEvent extends CultureFeed_Uitpas_ValueObje
     $this->postPriceValues = array();
   }
 
-  /**
-   * Modify an array of data for posting.
-   */
-  protected function manipulatePostData(&$data) {
+  protected function manipulatePostData(&$data): void {
     // Set the actor ID.
     $data['actorId'] = $data['organiserId'];
 
@@ -339,8 +336,8 @@ class CultureFeed_Uitpas_Event_CultureEvent extends CultureFeed_Uitpas_ValueObje
 
 
 
-  public static function createFromXML(CultureFeed_SimpleXMLElement $object) {
-
+  public static function createFromXML(CultureFeed_SimpleXMLElement $object): CultureFeed_Uitpas_Event_CultureEvent
+  {
     $event = new CultureFeed_Uitpas_Event_CultureEvent();
     $event->cdbid = $object->xpath_str('cdbid');
     $event->locationId = $object->xpath_str('locationId');
