@@ -237,7 +237,6 @@ XML;
 
     $advantages = $result->objects;
 
-    $this->assertIsArray($advantages);
     $this->assertEquals(2, count($advantages));
     $this->assertContainsOnly('CultureFeed_Uitpas_Passholder_WelcomeAdvantage', $advantages);
 
@@ -413,7 +412,6 @@ XML;
 
     $promotions = $result->objects;
 
-    $this->assertIsArray($promotions);
     $this->assertEquals(2, count($promotions));
     $this->assertContainsOnly('CultureFeed_Uitpas_Passholder_WelcomeAdvantage', $promotions);
 

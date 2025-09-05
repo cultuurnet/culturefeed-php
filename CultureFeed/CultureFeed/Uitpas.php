@@ -1,572 +1,278 @@
 <?php
 
-/**
- *
- */
 interface CultureFeed_Uitpas {
-
   const CONSUMER_REQUEST = 'ConsumerRequest';
   const USER_ACCESS_TOKEN = 'UserAccessToken';
 
-  /**
-   * @param $uitpas_number
-   * @param string $consumer_key_counter
-   * @param integer $max
-   * @param integer $start
-   *
-   * @return CultureFeed_ResultSet
-   */
-  public function getCouponsForPassholder($uitpas_number, $consumer_key_counter = NULL, $max = NULL, $start = NULL);
+  public function getCouponsForPassholder(
+      string $uitpas_number,
+      ?string $consumer_key_counter = null,
+      ?int $max = null,
+      ?int $start = null
+  ): CultureFeed_ResultSet;
+
+  public function getAssociations(
+      ?string $consumer_key_counter = null,
+      ?bool $readPermission = null,
+      ?bool $registerPermission = null
+  ): CultureFeed_ResultSet;
+
+  public function registerDistributionKeysForOrganizer(string $cdbid, array $distribution_keys): void;
+
+  public function getDistributionKeysForOrganizer(string $cdbid): CultureFeed_ResultSet;
+
+  public function getCardSystemsForOrganizer(string $cdbid): CultureFeed_ResultSet;
+
+  public function getPrice(?string $consumer_key_counter = null): CultureFeed_ResultSet;
 
   /**
-   * Get the associations.
-   *
-   * @param string $consumer_key_counter The consumer key of the counter from where the request originates
-   * @param boolean $readPermission Filter associations with read permission
-   * @param boolean $registerPermission Filter associations with register permission
-   *
-   * @return CultureFeed_ResultSet
-   */
-  public function getAssociations($consumer_key_counter = NULL, $readPermission = NULL, $registerPermission = NULL);
-
-  /**
-   * Register a set of distribution keys for an organizer. The entire set (including existing)
-   * of distribution keys must be provided.
-   *
-   * @param string $cdbid The CDBID of the organizer
-   * @param array $distribution_keys The identification of the distribution key
-   */
-  public function registerDistributionKeysForOrganizer($cdbid, $distribution_keys);
-
-  /**
-   * Get the distribution keys for a given organizer.
-   *
-   * @param string $cdbid The CDBID of the given organizer
-   * @return CultureFeed_ResultSet The set of distribution keys
-   */
-  public function getDistributionKeysForOrganizer($cdbid);
-
-  /**
-   * Get the card systems for a given organizer.
-   *
-   * @param string $cdbid The CDBID of the given organizer
-   * @return CultureFeed_ResultSet The set of card systems
-   */
-  public function getCardSystemsForOrganizer($cdbid);
-
-  /**
-   * Get the price of the UitPas.
-   *
-   * @return CultureFeed_ResultSet
-   */
-  public function getPrice($consumer_key_counter = NULL);
-
-  /**
-   * @param string $uitpas_number
-   * @param string $reason
-   * @param int $date_of_birth
-   * @param string $postal_code
-   * @param string $voucher_number
-   * @param string $consumer_key_counter
-   *
-   * @return CultureFeed_Uitpas_Passholder_UitpasPrice
-   *
    * @throws CultureFeed_ParseException
-   *   When the response XML could not be parsed.
-   *
    * @throws LogicException
-   *   When the response contains no uitpasPrice object.
    */
-  public function getPriceByUitpas($uitpas_number, $reason, $date_of_birth = null, $postal_code = null, $voucher_number = null, $consumer_key_counter = NULL);
+  public function getPriceByUitpas(
+      string $uitpas_number,
+      string $reason,
+      ?int $date_of_birth = null,
+      ?string $postal_code = null,
+      ?string $voucher_number = null,
+      ?string $consumer_key_counter = null
+  ): CultureFeed_Uitpas_Passholder_UitpasPrice;
 
   /**
-   * @param string $card_system_id
-   * @param int $date_of_birth
-   * @param string|null $postal_code
-   * @param string|null $voucher_number
-   * @param string|null $consumer_key_counter
-   *
-   * @return CultureFeed_Uitpas_Passholder_UitpasPrice
-   *
    * @throws CultureFeed_ParseException
-   *   When the response XML could not be parsed.
-   *
    * @throws LogicException
-   *   When the response contains no uitpasPrice object.
    */
-  public function getPriceForUpgrade($card_system_id, $date_of_birth, $postal_code = null, $voucher_number = null, $consumer_key_counter = null);
+  public function getPriceForUpgrade(
+      string $card_system_id,
+      int $date_of_birth,
+      ?string $postal_code = null,
+      ?string $voucher_number = null,
+      ?string $consumer_key_counter = null
+  ): CultureFeed_Uitpas_Passholder_UitpasPrice;
+
+ /**
+  * @throws CultureFeed_ParseException
+  * @throws CultureFeed_Uitpas_PassholderException
+  */
+  public function createPassholder(
+      CultureFeed_Uitpas_Passholder $passholder,
+      ?string $consumer_key_counter = null
+  ): string;
+
+  public function createMembershipForPassholder(
+   CultureFeed_Uitpas_Passholder_Membership $membership
+  ): CultureFeed_Uitpas_Response;
+
+  public function resendActivationEmail(string $uitpas_number, ?string $consumer_key_counter = null): CultureFeed_Uitpas_Response;
+
+  public function getPassholderByUitpasNumber(string $uitpas_number, ?string $consumer_key_counter = null): CultureFeed_Uitpas_Passholder;
+
+  public function identify(string $identification_number, ?string $consumer_key_counter = null): CultureFeed_Uitpas_Identity;
+
+  public function getPassholderByUser(string $user_id, ?string $consumer_key_counter = null): CultureFeed_Uitpas_Passholder;
+
+  public function searchPassholders(
+    CultureFeed_Uitpas_Passholder_Query_SearchPassholdersOptions $query,
+    string $method = CultureFeed_Uitpas::CONSUMER_REQUEST
+  ): CultureFeed_Uitpas_Passholder_ResultSet;
+
+  public function getWelcomeAdvantagesForPassholder(
+    CultureFeed_Uitpas_Passholder_Query_WelcomeAdvantagesOptions $query
+  ): CultureFeed_Uitpas_Passholder_WelcomeAdvantageResultSet;
+
+  public function checkinPassholder(CultureFeed_Uitpas_Passholder_Query_CheckInPassholderOptions $query);
+
+  public function cashInWelcomeAdvantage(
+    string $uitpas_number,
+    int $welcome_advantage_id,
+    ?string $consumer_key_counter = null
+  ): CultureFeed_Uitpas_Passholder_WelcomeAdvantage;
+
+
+  public function getPromotionPoints(
+    CultureFeed_Uitpas_Passholder_Query_SearchPromotionPointsOptions $query
+  ): CultureFeed_ResultSet;
+
+  public function getCashedInPromotionPoints(
+    CultureFeed_Uitpas_Passholder_Query_SearchCashedInPromotionPointsOptions $query
+  ): CultureFeed_ResultSet;
+
+  public function cashInPromotionPoints(
+    string $uitpas_number,
+    int $points_promotion_id,
+    string $consumer_key_counter = null
+  ): CultureFeed_Uitpas_Passholder_PointsPromotion;
+
+  public function uploadPicture(string $id, string $file_data, ?string $consumer_key_counter = null): void;
 
   /**
-   * Create a new UitPas passholder.
-   *
-   * @param CultureFeed_Uitpas_Passholder $passholder The new passholder
-   *
-   * @return string uuid
-   *   The uuid for the new passholder.
+   * @throws CultureFeed_ParseException
    */
-  public function createPassholder(CultureFeed_Uitpas_Passholder $passholder);
+  public function updatePassholder(
+    CultureFeed_Uitpas_Passholder $passholder,
+    ?string $consumer_key_counter = null
+  ): CultureFeed_Uitpas_Response;
 
-  /**
-   * Create a new membership for a UitPas passholder.
-   */
-  public function createMembershipForPassholder(CultureFeed_Uitpas_Passholder_Membership $membership);
+  public function updatePassholderCardSystemPreferences(
+    CultureFeed_Uitpas_Passholder_CardSystemPreferences $preferences
+  ): CultureFeed_Uitpas_Response;
 
-  /**
-   * Resend the activation e-mail for a passholder
-   *
-   * @param string $uitpas_number The UitPas number
-   * @param string $consumer_key_counter The consumer key of the counter from where the request originates
-   */
-  public function resendActivationEmail($uitpas_number, $consumer_key_counter = NULL);
+  public function updatePassholderOptInPreferences(
+    string $id,
+    CultureFeed_Uitpas_Passholder_OptInPreferences $preferences,
+    ?string $consumer_key_counter = null
+  ): CultureFeed_Uitpas_Passholder_OptInPreferences;
 
-  /**
-   * Get a passholder based on the UitPas number.
-   *
-   * @param string $uitpas_number The UitPas number
-   * @param string $consumer_key_counter The consumer key of the counter from where the request originates
-   *
-   * @return CultureFeed_Uitpas_Passholder
-   */
-  public function getPassholderByUitpasNumber($uitpas_number, $consumer_key_counter = NULL);
+  public function blockUitpas(string $uitpas_number, ?string $consumer_key_counter = null): CultureFeed_Uitpas_Response;
 
-  /**
-   * Get a card, with optionally a passholder, or a group pass based on a identification number.
-   *
-   * @param string $identification_number
-   *   The identification number. This can be either an UiTPAS number, chip-number, INSZ-number, or INSZ-barcode.
-   * @param string $consumer_key_counter
-   *   The consumer key of the counter from where the request originates
-   * @return CultureFeed_Uitpas_Identity
-   */
-  public function identify($identification_number, $consumer_key_counter = NULL);
+  public function searchWelcomeAdvantages(
+    CultureFeed_Uitpas_Promotion_Query_WelcomeAdvantagesOptions $query,
+    string $method = CultureFeed_Uitpas::CONSUMER_REQUEST
+  ): CultureFeed_Uitpas_Passholder_WelcomeAdvantageResultSet;
 
-  /**
-   * Get a passholder based on the user ID
-   *
-   * @param string $user_id The user ID
-   * @param string $consumer_key_counter The consumer key of the counter from where the request originates
-   *
-   * @return CultureFeed_Uitpas_Passholder
-   */
-  public function getPassholderByUser($user_id, $consumer_key_counter = NULL);
+  public function getCard(CultureFeed_Uitpas_CardInfoQuery $card_query): CultureFeed_Uitpas_CardInfo;
 
-  /**
-   * Search for passholders.
-   *
-   * @param CultureFeed_Uitpas_Passholder_Query_SearchPassholdersOptions $query The query
-   * @param string $method The request method
-   *
-   * @return CultureFeed_Uitpas_Passholder_ResultSet
-   */
-  public function searchPassholders(CultureFeed_Uitpas_Passholder_Query_SearchPassholdersOptions $query, $method = CultureFeed_Uitpas::CONSUMER_REQUEST);
+  public function getPassholderActivationLink(
+    CultureFeed_Uitpas_Passholder_Query_ActivationData $activation_data,
+    ?callable $destination_callback = null
+  ): string;
 
-  /**
-   * Get the welcome advantages for a passholder.
-   *
-   * @param CultureFeed_Uitpas_Passholder_Query_WelcomeAdvantagesOptions $query The query
-   */
-  public function getWelcomeAdvantagesForPassholder(CultureFeed_Uitpas_Passholder_Query_WelcomeAdvantagesOptions $query);
+  public function constructPassHolderActivationLink(
+    string $uid,
+    string $activation_code,
+    ?string $destination = null
+  ): string;
 
-  /**
-   * Check in a passholder.
-   *
-   * Provide either a UitPas number or chip number. You cannot provide both.
-   *
-   * @param CultureFeed_Uitpas_Passholder_Query_CheckInPassholderOptions $event The event data object
-   */
-  public function checkinPassholder(CultureFeed_Uitpas_Passholder_Query_CheckInPassholderOptions $event);
+  public function getPassholderActivationLinkChainedWithAuthorization(
+    string $uitpas_number,
+    DateTime $date_of_birth,
+    string $callback_url
+  ): string;
 
-  /**
-   * Cash in a welcome advantage.
-   *
-   * @param string $uitpas_number The UitPas number
-   * @param int $welcome_advantage_id Identification welcome advantage
-   * @param string $consumer_key_counter The consumer key of the counter from where the request originates
-   */
-  public function cashInWelcomeAdvantage($uitpas_number, $welcome_advantage_id, $consumer_key_counter = NULL);
-
-  /**
-   * Get the redeem options
-   *
-   * @param CultureFeed_Uitpas_Passholder_Query_SearchPromotionPointsOptions $query The query
-   *
-   * @return CultureFeed_ResultSet
-   */
-  public function getPromotionPoints(CultureFeed_Uitpas_Passholder_Query_SearchPromotionPointsOptions $query);
-
-  public function getCashedInPromotionPoints(CultureFeed_Uitpas_Passholder_Query_SearchCashedInPromotionPointsOptions $query);
-
-  /**
-   * Cash in promotion points for a UitPas.
-   *
-   * @param string $uitpas_number The UitPas number
-   * @param int $points_promotion_id The identification of the redeem option
-   * @param string $consumer_key_counter The name of the UitPas counter
-   */
-  public function cashInPromotionPoints($uitpas_number, $points_promotion_id, $consumer_key_counter = NULL);
-
-  /**
-   * Upload a picture for a given passholder.
-   *
-   * @param string $id The user ID of the passholder
-   * @param string $file_data The binary data of the picture
-   * @param string $consumer_key_counter The consumer key of the counter from where the request originates
-   */
-  public function uploadPicture($id, $file_data, $consumer_key_counter = NULL);
-
-  /**
-   * Update a passholder.
-   *
-   * @param CultureFeed_Uitpas_Passholder $passholder The passholder to update.
-   * 		The passholder is identified by ID. Only fields that are set will be updated.
-   */
-  public function updatePassholder(CultureFeed_Uitpas_Passholder $passholder, string $consumer_key_counter = null);
-
-  /**
-   * Update a passholder's card system preferences.
-   *
-   * @param CultureFeed_Uitpas_Passholder_CardSystemPreferences $preferences The passholder's card preferences to update.
-   *        The card system preferences are identified by user id and card system id. Only fields that are set will be updated.
-   */
-  public function updatePassholderCardSystemPreferences(CultureFeed_Uitpas_Passholder_CardSystemPreferences $preferences);
-
-  /**
-   * Update a passholder's opt-in preferences.
-   *
-   * @param string $id The user ID of the passholder
-   * @param CultureFeed_Uitpas_Passholder_OptInPreferences $preferences The passholder's opt-in preferences to update.
-   *        The opt-in preferences are identified by user id. Only fields that are set will be updated.
-   */
-  public function updatePassholderOptInPreferences($id, CultureFeed_Uitpas_Passholder_OptInPreferences $preferences);
-
-  /**
-   * Block a UitPas.
-   *
-   * @param string $uitpas_number The UitPas number
-   * @param string $consumer_key_counter The consumer key of the counter from where the request originates
-   */
-  public function blockUitpas($uitpas_number, $consumer_key_counter = NULL);
-
-  /**
-   * Search for welcome advantages.
-   *
-   * @param CultureFeed_Uitpas_Promotion_Query_WelcomeAdvantagesOptions $query The query
-   * @param string $method The request method
-   */
-  public function searchWelcomeAdvantages(CultureFeed_Uitpas_Promotion_Query_WelcomeAdvantagesOptions $query, $method = CultureFeed_Uitpas::CONSUMER_REQUEST);
-
-  /**
-   * Get info regarding a UiTPAS card based on chipNumber of uitpasNumber.
-   *
-   * @param CultureFeed_Uitpas_CardInfoQuery $card_query
-   * @return CultureFeed_Uitpas_CardInfo
-   */
-  public function getCard(CultureFeed_Uitpas_CardInfoQuery $card_query);
-
-  /**
-   * Get the activitation link for a passholder which is not activated online yet.
-   *
-   * @param CultureFeed_Uitpas_Passholder_Query_ActivationData $activation_data
-   * @param mixed $destination_callback
-   *
-   * @return string
-   */
-  public function getPassholderActivationLink(CultureFeed_Uitpas_Passholder_Query_ActivationData $activation_data, $destination_callback = NULL);
-
-  /**
-   * Constructs an activation link,
-   *
-   * @param string $uid
-   * @param string $activation_code
-   * @param string $destination
-   */
-  public function constructPassHolderActivationLink($uid, $activation_code, $destination = NULL);
-
-  /**
-   * Get the activitation link for a passholder which is not activated online yet,
-   * chained with an authorization.
-   *
-   * @param string $uitpas_number
-   * @param DateTime $date_of_birth
-   * @param string $callback_url
-   */
-  public function getPassholderActivationLinkChainedWithAuthorization($uitpas_number, DateTime $date_of_birth, $callback_url);
-
-  /**
-   * Register a ticket sale for a passholder
-   *
-   * @param string $uitpas_number The UitPas number
-   * @param string $cdbid The event CDBID
-   * @param string $consumer_key_counter The consumer key of the counter from where the request originates
-   * @param string $price_class Price class used for the ticket sale.
-   * @param string $ticket_sale_coupon_id The coupon id of the ticket sale.
-   * @param int $amount_of_tickets The amount of ticket sales to register.
-   *
-   * @return CultureFeed_Uitpas_Event_TicketSale
-   */
-  public function registerTicketSale($uitpas_number, $cdbid, $consumer_key_counter = NULL, $price_class = NULL, $ticket_sale_coupon_id = NULL, $amount_of_tickets = NULL);
-
-  /**
-   * @param CultureFeed_Uitpas_Event_Query_SearchTicketSalesOptions $query
-   * @return CultureFeed_ResultSet
-   */
-  public function searchTicketSales(CultureFeed_Uitpas_Event_Query_SearchTicketSalesOptions $query);
-
-  /**
-   * Register a new Uitpas
-   *
-   * @param CultureFeed_Uitpas_Passholder_Query_RegisterUitpasOptions $query The query
-   */
   public function registerUitpas(CultureFeed_Uitpas_Passholder_Query_RegisterUitpasOptions $query);
 
+  public function registerPassholderInCardSystem(
+    $passholderId,
+    CultureFeed_Uitpas_Passholder_Query_RegisterInCardSystemOptions $query
+  ): CultureFeed_Uitpas_Passholder;
+
   /**
-   * Registers an existing passholder in a new cardsystem.
-   *
-   * @param string $passholderId
-   * @param CultureFeed_Uitpas_Passholder_Query_RegisterInCardSystemOptions $query
-   * @return CultureFeed_Uitpas_Passholder
+   * @throws CultureFeed_ParseException
+   * @throws CultureFeed_Exception
    */
-  public function registerPassholderInCardSystem($passholderId, CultureFeed_Uitpas_Passholder_Query_RegisterInCardSystemOptions $query);
+  public function registerTicketSale(
+    string $uitpas_number,
+    string $cdbid,
+    ?string $consumer_key_counter = null,
+    ?string $price_class = null,
+    ?string $ticket_sale_coupon_id = null,
+    ?int $amount_of_tickets = null
+  ): CultureFeed_Uitpas_Event_TicketSale;
+
+  public function cancelTicketSale(string $uitpas_number, string $cdbid, ?string $consumer_key_counter = null): bool;
+
+  public function searchCheckins(
+    CultureFeed_Uitpas_Event_Query_SearchCheckinsOptions $query,
+    ?string $consumer_key_counter = null,
+    string $method = CultureFeed_Uitpas::USER_ACCESS_TOKEN
+  ): CultureFeed_ResultSet;
+
+  public function cancelTicketSaleById(int $ticketId, ?string $consumer_key_counter = null): void;
+
+  public function searchEvents(CultureFeed_Uitpas_Event_Query_SearchEventsOptions $query): CultureFeed_ResultSet;
+
+  public function searchCounters(
+    CultureFeed_Uitpas_Counter_Query_SearchCounterOptions $query,
+    string $method = CultureFeed_Uitpas::CONSUMER_REQUEST
+  ): CultureFeed_ResultSet;
+
+  public function searchPointOfSales(
+    CultureFeed_Uitpas_Counter_Query_SearchPointsOfSaleOptions $query,
+    string $method = CultureFeed_Uitpas::CONSUMER_REQUEST
+  ): CultureFeed_ResultSet;
+
+  public function searchTicketSales(CultureFeed_Uitpas_Event_Query_SearchTicketSalesOptions $query): CultureFeed_ResultSet;
+
+  public function addMemberToCounter(string $uid, ?string $consumer_key_counter = null): void;
+
+  public function removeMemberFromCounter(string $uid, ?string $consumer_key_counter = null): void;
+
+  public function getMembersForCounter(?string $consumer_key_counter = null): array;
 
   /**
-   * Cancel a ticket sale for a passholder
-   *
-   * @param string $uitpas_number The UitPas number
-   * @param string $cdbid The event CDBID
-   * @param string $consumer_key_counter The consumer key of the counter from where the request originates
-   */
-  public function cancelTicketSale($uitpas_number, $cdbid, $consumer_key_counter = NULL);
-
-  /**
-   * Cancel a ticket sale for a passholder by ticket id.
-   *
-   * @param int $ticketId The ticket id
-   * @param string $consumer_key_counter The consumer key of the counter from where the request originates
-   */
-  public function cancelTicketSaleById($ticketId, $consumer_key_counter = NULL);
-
-  /**
-   * Search for checkins
-   *
-   * @param CultureFeed_Uitpas_Event_Query_SearchCheckinsOptions $query The query
-   * @param string $consumer_key_counter Optional consumer key of the counter.
-   * @param string $method The OAuth request method, either consumer request or
-   *   user request.
-   *
-   * @return CultureFeed_ResultSet
-   */
-  public function searchCheckins(CultureFeed_Uitpas_Event_Query_SearchCheckinsOptions $query, $consumer_key_counter = NULL, $method = CultureFeed_Uitpas::USER_ACCESS_TOKEN);
-
-  /**
-   * Search for Uitpas events
-   *
-   * @param CultureFeed_Uitpas_Event_Query_SearchEventsOptions $query The query
-   *
-   * @return CultureFeed_ResultSet
-   */
-  public function searchEvents(CultureFeed_Uitpas_Event_Query_SearchEventsOptions $query);
-
-  /**
-   * Search for point of sales
-   *
-   * @param CultureFeed_Uitpas_Counter_Query_SearchPointsOfSaleOptions $query The query
-   * @param string $method The request method
-   */
-  public function searchPointOfSales(CultureFeed_Uitpas_Counter_Query_SearchPointsOfSaleOptions $query, $method = CultureFeed_Uitpas::CONSUMER_REQUEST);
-
-  public function searchCounters(CultureFeed_Uitpas_Counter_Query_SearchCounterOptions $query, $method = CultureFeed_Uitpas::CONSUMER_REQUEST);
-
-  /**
-   * Add a member to a counter.
-   *
-   * @param string $uid The Culturefeed user ID
-   * @param string $consumer_key_counter The consumer key of the counter from where the request originates
-   */
-  public function addMemberToCounter($uid, $consumer_key_counter = NULL);
-
-  public function removeMemberFromCounter($uid, $consumer_key_counter = NULL);
-
-  public function getMembersForCounter($consumer_key_counter = NULL);
-
-  /**
-   * @param string|null $consumer_key_counter
    * @return array<CultureFeed_Uitpas_Counter_CardCounter>
    */
-  public function getCardCounters($consumer_key_counter = NULL): array;
+  public function getCardCounters(?string $consumer_key_counter = NULL): array;
+
+  public function searchCountersForMember(string $uid): CultureFeed_ResultSet;
 
   /**
-   * Search for counters for a given member
-   *
-   * @param string $uid The Culturefeed user ID
-   *
-   * @return CultureFeed_ResultSet
+   * @return array<CultureFeed_Uitpas_Counter_Device>
    */
-  public function searchCountersForMember($uid);
+  public function getDevices(?string $consumer_key_counter = null, bool $show_event = false): array;
 
-  /**
-   * @param string $consumer_key_counter
-   * @param bool $show_event
-   * @return CultureFeed_Uitpas_Counter_Device[]
-   */
-  public function getDevices($consumer_key_counter = NULL, $show_event = FALSE);
+  public function getEventsForDevice(string $consumer_key_device, ?string $consumer_key_counter = null): CultureFeed_Uitpas_Counter_Device;
 
-  public function getEventsForDevice($consumer_key_device, $consumer_key_counter = NULL);
+  public function connectDeviceWithEvent(string $device_id, string $cdbid, ?string $consumer_key_counter = null): CultureFeed_Uitpas_Counter_Device;
 
-  public function connectDeviceWithEvent($device_id, $cdbid, $consumer_key_counter = NULL);
+  public function getWelcomeAdvantage(int $id, ?CultureFeed_Uitpas_Promotion_PassholderParameter $passholder = null): CultureFeed_Uitpas_Passholder_WelcomeAdvantage;
 
-  /**
-   *
-   * @param integer $id
-   * @param CultureFeed_Uitpas_Promotion_PassholderParameter $passholder
-   */
-  public function getWelcomeAdvantage($id, CultureFeed_Uitpas_Promotion_PassholderParameter $passholder = NULL);
+  public function getPointsPromotion(
+    int $id,
+    CultureFeed_Uitpas_Promotion_PassholderParameter $passholder = null
+  ): CultureFeed_Uitpas_Passholder_PointsPromotion;
 
-  /**
-   *
-   * @param integer $id
-   * @param CultureFeed_Uitpas_Promotion_PassholderParameter $passholder
-   */
-  public function getPointsPromotion($id, CultureFeed_Uitpas_Promotion_PassholderParameter $passholder = NULL);
+  public function registerEvent(CultureFeed_Uitpas_Event_CultureEvent $event): CultureFeed_Uitpas_Response;
 
-  /**
-   * Register an event.
-   *
-   * @param CultureFeed_Uitpas_Event_CultureEvent $event The event data that needs to be sent over.
-   * @return CultureFeed_Uitpas_Response
-   */
-  public function registerEvent(CultureFeed_Uitpas_Event_CultureEvent $event);
+  public function updateEvent(CultureFeed_Uitpas_Event_CultureEvent $event): CultureFeed_Uitpas_Response;
 
-  /**
-   * Update an event.
-   *
-   * @param CultureFeed_Uitpas_Event_CultureEvent $event The event data that needs to be sent over.
-   * @return CultureFeed_Uitpas_Response
-   */
-  public function updateEvent(CultureFeed_Uitpas_Event_CultureEvent $event);
+  public function getEvent(string $id): CultureFeed_Uitpas_Event_CultureEvent;
 
-  /**
-   * Get the details of an event.
-   *
-   * @param string $id
-   *   Id of the event.
-   * @return CultureFeed_Uitpas_Event_CultureEvent
-   *   Details of the event.
-   */
-  public function getEvent($id);
+  public function getCardSystemsForEvent(string $cdbid): CultureFeed_ResultSet;
 
-  /**
-   * Get the card systems for a given event.
-   *
-   * @param string $cdbid The CDBID of the given event
-   * @return CultureFeed_ResultSet The set of card systems
-   */
-  public function getCardSystemsForEvent($cdbid);
+  public function eventHasTicketSales(string $cdbid): bool;
 
-  /**
-   * @param string $cdbid
-   * @return bool
-   */
-  public function eventHasTicketSales($cdbid);
+  public function setCardSystemsForEvent(string $cdbid, array $cardSystemIds): CultureFeed_Uitpas_Response;
 
-  /**
-   * Sets card systems to the event.
-   *
-   * @param string $cdbid
-   * @param array $cardSystemIds
-   *
-   * @return CultureFeed_Uitpas_Response
-   */
-  public function setCardSystemsForEvent($cdbid, array $cardSystemIds);
+  public function addCardSystemToEvent(string $cdbid, int $cardSystemId, ?int $distributionKey = null): CultureFeed_Uitpas_Response;
 
-  /**
-   * Add a card system to the event.
-   *
-   * @param string $cdbid
-   * @param int $cardSystemId
-   * @param int|null $distributionKey
-   *   Only required for manual distribution keys.
-   *
-   * @return CultureFeed_Uitpas_Response
-   */
-  public function addCardSystemToEvent($cdbid, $cardSystemId, $distributionKey = null);
+  public function deleteCardSystemFromEvent(string $cdbid, int $cardSystemId): CultureFeed_Uitpas_Response;
 
-  /**
-   * Delete a card system from the event.
-   *
-   * @param string $cdbid
-   * @param int $cardSystemId
-   *
-   * @return CultureFeed_Uitpas_Response
-   */
-  public function deleteCardSystemFromEvent($cdbid, $cardSystemId);
+  public function getCardSystems(?string $permanent = null): array;
 
-  /**
-	 * @param string $permanent if permanent only permanent card systems need to be sent over.
-   * @return CultureFeed_Uitpas_CardSystem[]
-   */
-  public function getCardSystems($permanent);
+  public function generateFinancialOverviewReport(
+    DateTime $start_date,
+    DateTime $end_date,
+    ?string $consumer_key_counter = null
+  ): string;
 
-  /**
-   * @param DateTime $start_date
-   * @param DateTime $end_date
-   * @param string|null $consumer_key_counter
-   *
-   * @return string reportId
-   */
-  public function generateFinancialOverviewReport(DateTime $start_date, DateTime $end_date, $consumer_key_counter = NULL);
-
-  /**
-   * @param string $report_id
-   * @param string|null $consumer_key_counter
-   *
-   * @return CultureFeed_ReportStatus
-   */
   public function financialOverviewReportStatus(
-    $report_id,
-    $consumer_key_counter = NULL
-  );
+    string $report_id,
+    ?string $consumer_key_counter = NULL
+  ): CultureFeed_ReportStatus;
 
-  /**
-   * @param string $report_id
-   * @param string|null $consumer_key_counter
-   *
-   * @return mixed
-   */
   public function downloadFinancialOverviewReport(
-    $report_id,
-    $consumer_key_counter = NULL
+    string $report_id,
+    ?string $consumer_key_counter = NULL
   );
 
   /**
-   * @param string $consumer_key_counter
-   * @return CultureFeed_Uitpas_Calendar_Period[]
+   * @return array<CultureFeed_Uitpas_Calendar_Period>
+   * @throws CultureFeed_ParseException
    */
-  public function getFinancialOverviewReportPeriods($consumer_key_counter);
+  public function getFinancialOverviewReportPeriods(string $consumer_key_counter): array;
 
-  /**
-   * @param string $uid
-   * @param string $assocationId
-   * @param string|null $consumer_key_counter
-   * @return CultureFeed_Uitpas_Response
-   */
   public function deleteMembership(
-    $uid,
-    $assocationId,
-    $consumer_key_counter = NULL);
+    string $uid,
+    string $assocationId,
+    ?string $consumer_key_counter = NULL
+  ): CultureFeed_Uitpas_Response;
 
   public function getPassholderEventActions(CultureFeed_Uitpas_Passholder_Query_EventActions $query);
 
-  /**
-   * @param CultureFeed_Uitpas_Passholder_Query_ExecuteEventActions $eventActions
-   * @return CultureFeed_Uitpas_Passholder_ExecuteEventActionsResult
-   */
-  public function postPassholderEventActions(CultureFeed_Uitpas_Passholder_Query_ExecuteEventActions $eventActions);
+  public function postPassholderEventActions(
+    CultureFeed_Uitpas_Passholder_Query_ExecuteEventActions $eventActions
+  ): CultureFeed_Uitpas_Passholder_ExecuteEventActionsResult;
 
-  /**
-   * Returns a CultureFeed_Uitpas_GroupPass.
-   *
-   * @param $id
-   * @return CultureFeed_Uitpas_GroupPass
-   */
-  public function getGroupPass($id);
+  public function getGroupPass(string $id): CultureFeed_Uitpas_GroupPass;
 }
