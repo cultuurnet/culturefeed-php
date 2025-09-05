@@ -73,21 +73,13 @@ class CultureFeed_DefaultOAuthClient implements CultureFeed_OAuthClient {
     $this->endpoint = $endpoint;
   }
 
-  /**
-   * Get the consumer.
-   *
-   * @return OAuthConsumer $consumer
-   */
-  public function getConsumer() {
+  public function getConsumer(): OAuthConsumer
+  {
     return $this->consumer;
   }
 
-  /**
-   * Get the token.
-   *
-   * @return OAuthConsumer $token
-   */
-  public function getToken() {
+  public function getToken(): OAuthConsumer
+  {
     return $this->token;
   }
 

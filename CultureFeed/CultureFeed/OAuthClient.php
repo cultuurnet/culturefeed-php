@@ -4,20 +4,9 @@
  * Interface to represent a OAuth request.
  */
 interface CultureFeed_OAuthClient {
+  public function getConsumer(): OAuthConsumer;
 
-  /**
-   * Get the consumer.
-   *
-   * @return OAuthConsumer $consumer
-   */
-  public function getConsumer();
-
-  /**
-   * Get the token.
-   *
-   * @return OAuthConsumer $token
-   */
-  public function getToken();
+  public function getToken(): OAuthConsumer;
 
   /**
    * Do a GET request with only a consumer token.
