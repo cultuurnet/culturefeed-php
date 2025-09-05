@@ -108,7 +108,9 @@ class CultureFeed_Uitpas_Event_CultureEvent extends CultureFeed_Uitpas_ValueObje
 
   protected function manipulatePostData(&$data): void {
     // Set the actor ID.
-    $data['actorId'] = $data['organiserId'];
+      if (isset($data['organiserId'])) {
+          $data['actorId'] = $data['organiserId'];
+      }
 
     // These are allowed params for registering an event.
     $allowed = array();
