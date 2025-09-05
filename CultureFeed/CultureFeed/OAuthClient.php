@@ -1,8 +1,5 @@
 <?php
 
-/**
- * Interface to represent a OAuth request.
- */
 interface CultureFeed_OAuthClient
 {
     public function getConsumer(): OAuthConsumer;

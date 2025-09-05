@@ -1,8 +1,5 @@
 <?php
 
-/**
- * Class to represent a OAuth request.
- */
 class CultureFeed_DefaultOAuthClient implements CultureFeed_OAuthClient
 {
 
