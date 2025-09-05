@@ -22,49 +22,15 @@ class CultureFeed_Uitpas_Event_CultureEvent extends CultureFeed_Uitpas_ValueObje
 
   public string $cdbid;
 
-  /**
-   * The ID of the location of the event
-   *
-   * @var string
-   */
-  public $locationId;
+  public ?string $locationId;
+
+  public ?string $locationName;
+
+   public ?string $organiserId;
+
+   public string $actorId;
 
   /**
-   * The name of the location of the event
-   *
-   * @var string
-   */
-  public $locationName;
-
-  /**
-   * The organiserId cdbid van de inrichter
-   *
-   * @var string
-   */
-   public $organiserId;
-
-   /**
-   * The organiserId cdbid van de inrichter
-   * the API has an error and it needs actorId in order to register an event
-   *
-   * @var string
-   */
-   public $actorId;
-
-  /**
-   * The distribution key id(s) of the event.
-   *
-   * Historically the API docs used to indicate that this property should always
-   * be a single value, while in reality it was always allowed to be an array.
-   *
-   * When parsing from xml this property will always be a value of
-   * DistributionKey objects, containing both an id and name.
-   *
-   * When POSTing it can be a single string, specifically the id of a single
-   * distribution key. This is to maintain backwards compatibility with existing
-   * code. Alternatively it can be an array of DistributionKey objects. In that
-   * case only the id property of the DistributionKey object is required.
-   *
    * @var \CultureFeed_Uitpas_DistributionKey[]|string
    */
   public $distributionKey;
