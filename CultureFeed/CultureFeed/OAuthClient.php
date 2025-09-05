@@ -36,26 +36,11 @@ interface CultureFeed_OAuthClient {
       $has_file_upload = false
   );
 
-  /**
-   * Do a GET request with a consumer token and user token.
-   *
-   * Wrapper function around request. @see request for documentation of remaining parameters.
-   */
-  public function authenticatedGet($path, array $params = array(), $format = '');
+  public function authenticatedGet(string $path, array $params = array(), string $format = '');
 
-  /**
-   * Do a GET request with a consumer token and user token and return the response as XML.
-   *
-   * Wrapper function around request. @see request for documentation of remaining parameters.
-   */
-  public function authenticatedGetAsXml($path, array $params = array());
+  public function authenticatedGetAsXml(string $path, array $params = array());
 
-  /**
-   * Do a GET request with a consumer token and user token and return the response as JSON.
-   *
-   * Wrapper function around request. @see request for documentation of remaining parameters.
-   */
-  public function authenticatedGetAsJson($path, array $params = array());
+  public function authenticatedGetAsJson(string $path, array $params = array());
 
   /**
    * Do a POST request with a consumer token and user token.
