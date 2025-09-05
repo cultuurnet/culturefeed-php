@@ -15,19 +15,12 @@ class CultureFeed_DefaultOAuthClient implements CultureFeed_OAuthClient {
 
   protected OAuthConsumer $token;
 
-  /**
-   * Constructor for a new CultureFeed_OAuthClient instance.
-   *
-   * @param string $consumer_key
-   *   Consumer key.
-   * @param string $consumer_secret
-   *   Consumer secret.
-   * @param string $oauth_token
-   *   (optional) Token.
-   * @param string $oauth_token_secret
-   *   (optional) Token secret.
-   */
-  public function __construct($consumer_key, $consumer_secret, $oauth_token = NULL, $oauth_token_secret = NULL) {
+  public function __construct(
+      string $consumer_key,
+      string $consumer_secret,
+      string $oauth_token = null,
+      string $oauth_token_secret = null
+  ) {
     $this->signature_method = new OAuthSignatureMethod_HMAC_SHA1();
     $this->consumer = new OAuthConsumer($consumer_key, $consumer_secret);
     if (!empty($oauth_token) && !empty($oauth_token_secret)) {
