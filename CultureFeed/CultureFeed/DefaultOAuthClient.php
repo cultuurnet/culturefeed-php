@@ -154,12 +154,7 @@ class CultureFeed_DefaultOAuthClient implements CultureFeed_OAuthClient {
     return $this->authenticatedPost($path, $params, $raw_post, $has_file_upload, 'json');
   }
 
-  /**
-   * Do a DELETE request with a consumer token and user token.
-   *
-   * Wrapper function around request. @see request for documentation of remaining parameters.
-   */
-  public function authenticatedDelete($path, $params = array(), $format = '') {
+  public function authenticatedDelete(string $path, array $params = array(), string $format = '') {
     return $this->request($path, $params, 'DELETE', TRUE, $format);
   }
 

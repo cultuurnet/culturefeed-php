@@ -92,12 +92,7 @@ interface CultureFeed_OAuthClient {
    */
   public function authenticatedPostAsJson($path, array $params = array(), $raw_post = TRUE, $has_file_upload = FALSE);
 
-  /**
-   * Do a DELETE request with a consumer token and user token.
-   *
-   * Wrapper function around request. @see request for documentation of remaining parameters.
-   */
-  public function authenticatedDelete($path, $params = array(), $format = '');
+  public function authenticatedDelete(string $path, array $params = array(), string $format = '');
 
   /**
    * Do a DELETE request with a consumer token and user token and return the response as XML.
