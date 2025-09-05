@@ -1,121 +1,26 @@
 <?php
 
-/**
- * Class to represent a service consumer.
- */
-class CultureFeed_Consumer {
-
-  /**
-   * Consumer key of this consumer.
-   *
-   * @var string
-   */
-  public $consumerKey;
-
-  /**
-   * Shared secret of the consumer.
-   *
-   * @var string
-   */
-  public $consumerSecret;
-
-  /**
-   * Group IDs for the consumer.
-   *
-   * @var array
-   */
-  public $group;
-
+final class CultureFeed_Consumer {
+  public string $consumerKey;
+  public string $consumerSecret;
+  public ?array $group = null;
   public int $creationDate;
-
   public int $id;
+  public string $name;
+  public ?string $description = null;
+  public ?string $logo = null;
+  public string $status;
+  public string $domain;
+  public string $callback;
+  public ?string $searchPrefixFilterQuery = null;
+  public string $destinationAfterEmailVerification;
+  public ?array $admins = null;
+  public ?string $searchPrefix = null;
+  public ?string $apiKeySapi3 = null;
+  public ?string $searchPrefixSapi3 = null;
 
-  /**
-   * Name of the consumer.
-   *
-   * @var string
-   */
-  public $name;
-
-  /**
-   * Description of the consumer.
-   *
-   * @var string
-   */
-  public $description;
-
-  /**
-   * URL of the logo of the consumer.
-   *
-   * @var string
-   */
-  public $logo;
-
-  /**
-   * Status of the consumer.
-   *
-   * @var string
-   */
-  public $status;
-
-  /**
-   * Domain of the consumer.
-   *
-   * @var string
-   */
-  public $domain;
-
-  /**
-   * Default callback URL of the consumer.
-   *
-   * @var string
-   */
-  public $callback;
-
-  /**
-   * The search prefix filter query to use.
-   *
-   * @var string
-   */
-  public $searchPrefixFilterQuery;
-
-  /**
-   * Redirect URL after verification of an e-mail address.
-   *
-   * @var string
-   */
-  public $destinationAfterEmailVerification;
-
-  /**
-   * Admin uid's for the consumer.
-   *
-   * @var array
-   */
-  public $admins;
-
-  /**
-   * @var string|null
-   */
-  public $searchPrefix;
-
-  /**
-   * The API key for search api 3.
-   * @var string|null
-   */
-  public $apiKeySapi3;
-
-  /**
-   * @var string|null
-   */
-  public $searchPrefixSapi3;
-
-   /**
-   * Extract an array useable as data in POST requests that expect consumer info.
-   *
-   * @return array
-   *   Associative array representing the consumer object. For documentation of the structure, check the CultureFeed API documentation.
-   */
-  public function toPostData() {
+  public function toPostData(): array
+  {
     // For most properties we can rely on get_object_vars.
     $data = get_object_vars($this);
 
