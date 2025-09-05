@@ -66,19 +66,9 @@ interface CultureFeed_OAuthClient {
 
   public function authenticatedDelete(string $path, array $params = array(), string $format = '');
 
-  /**
-   * Do a DELETE request with a consumer token and user token and return the response as XML.
-   *
-   * Wrapper function around request. @see request for documentation of remaining parameters.
-   */
-  public function authenticatedDeleteAsXml($path, array $params = array());
+  public function authenticatedDeleteAsXml(string $path, array $params = array());
 
-  /**
-   * Do a DELETE request with a consumer token and user token and return the response as JSON.
-   *
-   * Wrapper function around request. @see request for documentation of remaining parameters.
-   */
-  public function authenticatedDeleteAsJson($path, array $params = array());
+  public function authenticatedDeleteAsJson(string $path, array $params = array());
 
   public function request(
       string $path,
