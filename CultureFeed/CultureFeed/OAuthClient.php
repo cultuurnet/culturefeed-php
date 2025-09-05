@@ -75,7 +75,7 @@ interface CultureFeed_OAuthClient
         bool $use_auth = true,
         string $format = 'xml',
         bool $raw_post = true, bool $has_file_upload = false
-    );
+    ): CultureFeed_HttpResponse;
 
     public function getUrl(string $path, array $query = array()): string;
 

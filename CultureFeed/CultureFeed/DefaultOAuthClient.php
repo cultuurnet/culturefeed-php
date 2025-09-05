@@ -154,17 +154,6 @@ class CultureFeed_DefaultOAuthClient implements CultureFeed_OAuthClient
         return $this->authenticatedDelete($path, $params, 'json');
     }
 
-    /**
-     * @return CultureFeed_HttpResponse
-     *   The response.
-     *
-     * @throws Exception
-     *   If an $use_auth is TRUE and no token was set.
-     * @throws CultureFeed_Exception
-     *   If an error message and code could be parsed from the response.
-     * @throws CultureFeed_HttpException
-     *   If no error message and code could be parsed from the response.
-     */
     public function request(
         string $path,
         array $params = array(),
@@ -172,8 +161,7 @@ class CultureFeed_DefaultOAuthClient implements CultureFeed_OAuthClient
         bool $use_auth = true,
         string $format = 'xml',
         bool $raw_post = true, bool $has_file_upload = false
-    )
-    {
+    ): CultureFeed_HttpResponse {
         if ($use_auth && !isset($this->token->key)) {
             throw new Exception('Trying to do an authorized request without an access token set.');
         }
