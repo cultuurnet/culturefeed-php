@@ -46,30 +46,15 @@ class CultureFeed_DefaultOAuthClient implements CultureFeed_OAuthClient {
     return $this->token;
   }
 
-  /**
-   * Do a GET request with only a consumer token.
-   *
-   * Wrapper function around request. @see request for documentation of remaining parameters.
-   */
-  public function consumerGet($path, array $params = array(), $format = '') {
+  public function consumerGet(string $path, array $params = array(), string $format = '') {
     return $this->request($path, $params, 'GET', FALSE, $format);
   }
 
-  /**
-   * Do a GET request with only a consumer token and return the response as XML.
-   *
-   * Wrapper function around request. @see request for documentation of remaining parameters.
-   */
-  public function consumerGetAsXml($path, array $params = array()) {
+  public function consumerGetAsXml(string $path, array $params = array()) {
     return $this->consumerGet($path, $params, 'xml');
   }
 
-  /**
-   * Do a GET request with only a consumer token and return the response as JSON.
-   *
-   * Wrapper function around request. @see request for documentation of remaining parameters.
-   */
-  public function consumerGetAsJson($path, array $params = array()) {
+  public function consumerGetAsJson(string $path, array $params = array()) {
     return $this->consumerGet($path, $params, 'json');
   }
 
