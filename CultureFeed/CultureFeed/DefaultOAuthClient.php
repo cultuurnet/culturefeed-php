@@ -367,15 +367,8 @@ class CultureFeed_DefaultOAuthClient implements CultureFeed_OAuthClient {
     return $url;
   }
 
-  /**
-   * Build a querystring.
-   *
-   * @param array $params
-   *   Array representation of the querystring.
-   * @return string
-   *   The querystring.
-   */
-  private static function build_query($params) {
+  private static function build_query(array $params): string
+  {
     $parts = array();
 
     foreach ($params as $key => $value) {
