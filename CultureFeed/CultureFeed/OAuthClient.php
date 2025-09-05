@@ -151,6 +151,6 @@ interface CultureFeed_OAuthClient {
    * @return string
    *   The full URL.
    */
-  public function getUrl($path, array $query = array());
+  public function getUrl(string $path, array $query = array()): string;
 
 }
