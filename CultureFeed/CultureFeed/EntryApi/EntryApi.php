@@ -307,7 +307,7 @@ class CultureFeed_EntryApi implements CultureFeed_EntryApi_IEntryApi {
    */
   public function deleteProduction($id): void {
     $result = $this->oauth_client->authenticatedDeleteAsXml('production/' . $id);
-    $xml = $this->validateResult($result, self::CODE_ITEM_DELETED);
+    $xml = $this->validateResult($result->response, self::CODE_ITEM_DELETED);
   }
 
   /**

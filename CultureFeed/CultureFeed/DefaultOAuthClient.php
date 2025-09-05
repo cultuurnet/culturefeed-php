@@ -139,17 +139,17 @@ class CultureFeed_DefaultOAuthClient implements CultureFeed_OAuthClient
         return $this->authenticatedPost($path, $params, $raw_post, $has_file_upload, 'json');
     }
 
-    public function authenticatedDelete(string $path, array $params = array(), string $format = '')
+    public function authenticatedDelete(string $path, array $params = array(), string $format = ''): CultureFeed_HttpResponse
     {
         return $this->request($path, $params, 'DELETE', TRUE, $format);
     }
 
-    public function authenticatedDeleteAsXml(string $path, array $params = array())
+    public function authenticatedDeleteAsXml(string $path, array $params = array()): CultureFeed_HttpResponse
     {
         return $this->authenticatedDelete($path, $params, 'xml');
     }
 
-    public function authenticatedDeleteAsJson(string $path, array $params = array())
+    public function authenticatedDeleteAsJson(string $path, array $params = array()): CultureFeed_HttpResponse
     {
         return $this->authenticatedDelete($path, $params, 'json');
     }

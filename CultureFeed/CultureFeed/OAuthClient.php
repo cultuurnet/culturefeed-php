@@ -62,11 +62,11 @@ interface CultureFeed_OAuthClient
         bool $has_file_upload = false
     );
 
-    public function authenticatedDelete(string $path, array $params = array(), string $format = '');
+    public function authenticatedDelete(string $path, array $params = array(), string $format = ''): CultureFeed_HttpResponse;
 
-    public function authenticatedDeleteAsXml(string $path, array $params = array());
+    public function authenticatedDeleteAsXml(string $path, array $params = array()): CultureFeed_HttpResponse;
 
-    public function authenticatedDeleteAsJson(string $path, array $params = array());
+    public function authenticatedDeleteAsJson(string $path, array $params = array()): CultureFeed_HttpResponse;
 
     public function request(
         string $path,
