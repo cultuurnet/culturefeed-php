@@ -14,26 +14,27 @@ interface CultureFeed_OAuthClient {
 
   public function consumerGetAsJson(string $path, array $params = array());
 
-  /**
-   * Do a POST request with only a consumer token.
-   *
-   * Wrapper function around request. @see request for documentation of remaining parameters.
-   */
-  public function consumerPost($path, array $params = array(), $raw_post = TRUE, $has_file_upload = FALSE, $format = '');
+  public function consumerPost(
+      string $path,
+      array $params = array(),
+      bool $raw_post = true,
+      $has_file_upload = false,
+      string $format = ''
+  );
 
-  /**
-   * Do a POST request with only a consumer token and return the response as XML.
-   *
-   * Wrapper function around request. @see request for documentation of remaining parameters.
-   */
-  public function consumerPostAsXml($path, array $params = array(), $raw_post = TRUE, $has_file_upload = FALSE);
+  public function consumerPostAsXml(
+      string $path,
+      array $params = array(),
+      $raw_post = true,
+      $has_file_upload = false
+  );
 
-  /**
-   * Do a POST request with only a consumer token and return the response as JSON.
-   *
-   * Wrapper function around request. @see request for documentation of remaining parameters.
-   */
-  public function consumerPostAsJson($path, array $params = array(), $raw_post = TRUE, $has_file_upload = FALSE);
+  public function consumerPostAsJson(
+      string $path,
+      array $params = array(),
+      $raw_post = true,
+      $has_file_upload = false
+  );
 
   /**
    * Do a GET request with a consumer token and user token.
