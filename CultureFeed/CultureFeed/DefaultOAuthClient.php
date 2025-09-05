@@ -55,21 +55,11 @@ class CultureFeed_DefaultOAuthClient implements CultureFeed_OAuthClient {
     }
   }
 
-  /**
-   * Set the HTTP request object.
-   *
-   * @param CultureFeed_HttpClient $http_client
-   */
   public function setHttpClient(CultureFeed_HttpClient $http_client): void {
     $this->http_client = $http_client;
   }
 
-  /**
-   * Set the endpoint.
-   *
-   * @param string $endpoint
-   */
-  public function setEndpoint($endpoint): void {
+  public function setEndpoint(string $endpoint): void {
     $this->endpoint = $endpoint;
   }
 
