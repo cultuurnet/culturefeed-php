@@ -234,32 +234,16 @@ class CultureFeed_Uitpas_Event_CultureEvent extends CultureFeed_Uitpas_ValueObje
    */
   public $calendar;
 
-   /**
-   * The number of points of the event
-   *
-   * @var int
-   */
-  public $numberOfPoints;
+  public int $numberOfPoints;
+
+  public ?int $gracePeriodMonths;
 
   /**
-   * The number of months grace period for buy tickets.
-   */
-  public $gracePeriodMonths;
-
-  /**
-   * The cardsystems.
-   *
    * @var CultureFeed_Uitpas_CardSystem[]
    */
+  public array $cardSystems;
 
-  public $cardSystems;
-
-  /**
-   * The description of the event
-   *
-   * @var string
-   */
-  public $description;
+  public ?string $description;
 
   /**
    * @var CultureFeed_Uitpas_Event_TicketSale_Opportunity[]
