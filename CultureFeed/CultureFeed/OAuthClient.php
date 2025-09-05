@@ -3,44 +3,45 @@
 /**
  * Interface to represent a OAuth request.
  */
-interface CultureFeed_OAuthClient {
-  public function getConsumer(): OAuthConsumer;
+interface CultureFeed_OAuthClient
+{
+    public function getConsumer(): OAuthConsumer;
 
-  public function getToken(): OAuthConsumer;
+    public function getToken(): OAuthConsumer;
 
-  public function consumerGet(string $path, array $params = array(), string $format = '');
+    public function consumerGet(string $path, array $params = array(), string $format = '');
 
-  public function consumerGetAsXml(string $path, array $params = array());
+    public function consumerGetAsXml(string $path, array $params = array());
 
-  public function consumerGetAsJson(string $path, array $params = array());
+    public function consumerGetAsJson(string $path, array $params = array());
 
-  public function consumerPost(
-      string $path,
-      array $params = array(),
-      bool $raw_post = true,
-      $has_file_upload = false,
-      string $format = ''
-  );
+    public function consumerPost(
+        string $path,
+        array $params = array(),
+        bool $raw_post = true,
+        $has_file_upload = false,
+        string $format = ''
+    );
 
-  public function consumerPostAsXml(
-      string $path,
-      array $params = array(),
-      $raw_post = true,
-      $has_file_upload = false
-  );
+    public function consumerPostAsXml(
+        string $path,
+        array $params = array(),
+        $raw_post = true,
+        $has_file_upload = false
+    );
 
-  public function consumerPostAsJson(
-      string $path,
-      array $params = array(),
-      $raw_post = true,
-      $has_file_upload = false
-  );
+    public function consumerPostAsJson(
+        string $path,
+        array $params = array(),
+        $raw_post = true,
+        $has_file_upload = false
+    );
 
-  public function authenticatedGet(string $path, array $params = array(), string $format = '');
+    public function authenticatedGet(string $path, array $params = array(), string $format = '');
 
-  public function authenticatedGetAsXml(string $path, array $params = array());
+    public function authenticatedGetAsXml(string $path, array $params = array());
 
-  public function authenticatedGetAsJson(string $path, array $params = array());
+    public function authenticatedGetAsJson(string $path, array $params = array());
 
     public function authenticatedPost(
         string $path,
@@ -50,35 +51,35 @@ interface CultureFeed_OAuthClient {
         string $format = ''
     );
 
-  public function authenticatedPostAsXml(
-      string $path,
-      array $params = array(),
-      bool $raw_post = true,
-      bool $has_file_upload = false
-  );
+    public function authenticatedPostAsXml(
+        string $path,
+        array $params = array(),
+        bool $raw_post = true,
+        bool $has_file_upload = false
+    );
 
-  public function authenticatedPostAsJson(
-      string $path,
-      array $params = array(),
-      bool $raw_post = true,
-      bool $has_file_upload = false
-  );
+    public function authenticatedPostAsJson(
+        string $path,
+        array $params = array(),
+        bool $raw_post = true,
+        bool $has_file_upload = false
+    );
 
-  public function authenticatedDelete(string $path, array $params = array(), string $format = '');
+    public function authenticatedDelete(string $path, array $params = array(), string $format = '');
 
-  public function authenticatedDeleteAsXml(string $path, array $params = array());
+    public function authenticatedDeleteAsXml(string $path, array $params = array());
 
-  public function authenticatedDeleteAsJson(string $path, array $params = array());
+    public function authenticatedDeleteAsJson(string $path, array $params = array());
 
-  public function request(
-      string $path,
-      array $params = array(),
-      string $method = 'GET',
-      bool $use_auth = true,
-      string $format = 'xml',
-      bool $raw_post = true, bool $has_file_upload = false
-  );
+    public function request(
+        string $path,
+        array $params = array(),
+        string $method = 'GET',
+        bool $use_auth = true,
+        string $format = 'xml',
+        bool $raw_post = true, bool $has_file_upload = false
+    );
 
-  public function getUrl(string $path, array $query = array()): string;
+    public function getUrl(string $path, array $query = array()): string;
 
 }
