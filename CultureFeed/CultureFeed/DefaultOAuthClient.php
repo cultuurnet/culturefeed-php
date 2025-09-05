@@ -98,30 +98,31 @@ class CultureFeed_DefaultOAuthClient implements CultureFeed_OAuthClient {
     return $this->authenticatedGet($path, $params, 'json');
   }
 
-  /**
-   * Do a POST request with a consumer token and user token.
-   *
-   * Wrapper function around request. @see request for documentation of remaining parameters.
-   */
-  public function authenticatedPost($path, array $params = array(), $raw_post = TRUE, $has_file_upload = FALSE, $format = '') {
+  public function authenticatedPost(
+      string $path,
+      array $params = array(),
+      bool $raw_post = true,
+      bool $has_file_upload = false,
+      string $format = ''
+  ) {
     return $this->request($path, $params, 'POST', TRUE, $format, $raw_post, $has_file_upload);
   }
 
-  /**
-   * Do a POST request with a consumer token and user token and return the response as XML.
-   *
-   * Wrapper function around request. @see request for documentation of remaining parameters.
-   */
-  public function authenticatedPostAsXml($path, array $params = array(), $raw_post = TRUE, $has_file_upload = FALSE) {
+  public function authenticatedPostAsXml(
+      string $path,
+      array $params = array(),
+      bool $raw_post = true,
+      bool $has_file_upload = FALSE
+  ) {
     return $this->authenticatedPost($path, $params, $raw_post, $has_file_upload, 'xml');
   }
 
-  /**
-   * Do a POST request with a consumer token and user token and return the response as JSON.
-   *
-   * Wrapper function around request. @see request for documentation of remaining parameters.
-   */
-  public function authenticatedPostAsJson($path, array $params = array(), $raw_post = TRUE, $has_file_upload = FALSE) {
+  public function authenticatedPostAsJson(
+      string $path,
+      array $params = array(),
+      bool $raw_post = true,
+      bool $has_file_upload = false
+  ) {
     return $this->authenticatedPost($path, $params, $raw_post, $has_file_upload, 'json');
   }
 

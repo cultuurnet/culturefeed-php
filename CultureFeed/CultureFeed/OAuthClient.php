@@ -42,26 +42,27 @@ interface CultureFeed_OAuthClient {
 
   public function authenticatedGetAsJson(string $path, array $params = array());
 
-  /**
-   * Do a POST request with a consumer token and user token.
-   *
-   * Wrapper function around request. @see request for documentation of remaining parameters.
-   */
-  public function authenticatedPost($path, array $params = array(), $raw_post = TRUE, $has_file_upload = FALSE, $format = '');
+    public function authenticatedPost(
+        string $path,
+        array $params = array(),
+        bool $raw_post = true,
+        bool $has_file_upload = false,
+        string $format = ''
+    );
 
-  /**
-   * Do a POST request with a consumer token and user token and return the response as XML.
-   *
-   * Wrapper function around request. @see request for documentation of remaining parameters.
-   */
-  public function authenticatedPostAsXml($path, array $params = array(), $raw_post = TRUE, $has_file_upload = FALSE);
+  public function authenticatedPostAsXml(
+      string $path,
+      array $params = array(),
+      bool $raw_post = true,
+      bool $has_file_upload = false
+  );
 
-  /**
-   * Do a POST request with a consumer token and user token and return the response as JSON.
-   *
-   * Wrapper function around request. @see request for documentation of remaining parameters.
-   */
-  public function authenticatedPostAsJson($path, array $params = array(), $raw_post = TRUE, $has_file_upload = FALSE);
+  public function authenticatedPostAsJson(
+      string $path,
+      array $params = array(),
+      bool $raw_post = true,
+      bool $has_file_upload = false
+  );
 
   public function authenticatedDelete(string $path, array $params = array(), string $format = '');
 
