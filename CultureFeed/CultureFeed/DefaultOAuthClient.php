@@ -7,33 +7,13 @@ class CultureFeed_DefaultOAuthClient implements CultureFeed_OAuthClient {
 
   protected ?CultureFeed_HttpClient $http_client = null;
 
-  /**
-   * Endpoint (full url) where the CultureFeed API resides.
-   *
-   * @var string
-   */
-  protected $endpoint = 'http://acc.uitid.be/uitid/rest/';
+  protected string $endpoint = 'http://acc.uitid.be/uitid/rest/';
 
-  /**
-   * Signature method for signing OAuth requests.
-   *
-   * @var OAuthSignatureMethod
-   */
-  protected $signature_method;
+  protected OAuthSignatureMethod $signature_method;
 
-  /**
-   * OAuth consumer token.
-   *
-   * @var OAuthConsumer
-   */
-  protected $consumer;
+  protected OAuthConsumer $consumer;
 
-  /**
-   * OAuth token (request, access, ...).
-   *
-   * @var OAuthConsumer
-   */
-  protected $token;
+  protected OAuthConsumer $token;
 
   /**
    * Constructor for a new CultureFeed_OAuthClient instance.
@@ -346,16 +326,6 @@ class CultureFeed_DefaultOAuthClient implements CultureFeed_OAuthClient {
     return $response;
   }
 
-  /**
-   * Getting the full URL based on a path and query.
-   *
-   * @param string $path
-   *   The path relative to the endpoint.
-   * @param array $query
-   *   (optional) The query string represented as an array.
-   * @return string
-   *   The full URL.
-   */
   public function getUrl(string $path, array $query = array()): string
   {
     $url =  rtrim($this->endpoint, '/') . '/' . trim($path, '/');
