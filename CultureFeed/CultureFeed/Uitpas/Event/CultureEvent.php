@@ -69,170 +69,54 @@ class CultureFeed_Uitpas_Event_CultureEvent extends CultureFeed_Uitpas_ValueObje
    */
   public $distributionKey;
 
-   /**
-   * The volume constraint added for registering an event
-   *
-   * @var integer
-   */
-   public $volumeConstraint;
+   public int $volumeConstraint;
 
-   /**
-   * date format yyyy-mm-dd added for registering an event
-   *
-   * @var string
-   */
-   public $timeConstraintFrom;
+   public string $timeConstraintFrom;
 
-   /**
-   * date format yyyy-mm-dd added for registering an event
-   *
-   * @var string
-   */
-   public $timeConstraintTo;
+   public string $timeConstraintTo;
+   public string $periodConstraintVolume;
 
-   /**
-   * added for registering an event
-   *
-   * @var string
-   */
-   public $periodConstraintVolume;
+   public string $periodConstraintType;
 
+   public bool $degressive;
 
-   /**
-    * added for registering an event
-    *
-    * One of DAY, WEEK, MONTH, QUARTER or YEAR.
-    *
-    * @var string
-    */
-   public $periodConstraintType;
+   public string $checkinPeriodConstraintType;
 
-   /**
-   * added for registering an event
-   *
-   * From API:
-   * True, indien periodConstraint degressief is.
-   * Dit is enkel mogelijk bij periodConstraintType YEAR.
-   *
-   * @var boolean
-   */
-   public $degressive;
+   public int $checkinPeriodConstraintVolume;
 
-   /**
-   * added for registering an event
-    *
-    * One of DAY, WEEK, MONTH, QUARTER or YEAR.
-   *
-   * @var string
-   */
-   public $checkinPeriodConstraintType;
+   public ?string $organiserName;
 
+   public ?string $city;
 
-   /**
-   * The checkin constraint added for registering an event
-   *
-   * @var integer
-   */
-   public $checkinPeriodConstraintVolume;
+  public bool $checkinAllowed = true;
 
+  public CultureFeed_Uitpas_Event_CheckinConstraint $checkinConstraint;
 
-   /**
-   * The organiserName van de inrichter
-   *
-   * @var string
-   */
-   public $organiserName;
+  public ?string $checkinConstraintReason;
 
-   /**
-   * The city
-   *
-   * @var string
-   */
-   public $city;
+  public ?int $checkinStartDate;
+
+  public ?int $checkinEndDate;
+
+  public ?string $buyConstraintReason;
+
+  public ?float $price;
 
   /**
-   * True if a given passholder can checkin on the event
-   *
-   * @var boolean
-   */
-  public $checkinAllowed;
-
-  /**
-   * The checkin constraint of the event
-   *
-   * @var CultureFeed_Uitpas_Event_CheckinConstraint
-   */
-  public $checkinConstraint;
-
-  /**
-   * The reason the passholder cannot check in on the event
-   *
-   * @var string
-   */
-  public $checkinConstraintReason;
-
-  /**
-   * The checkin start date.
-   *
-   * @var int
-   */
-  public $checkinStartDate;
-
-  /**
-   * The checkin end date.
-   *
-   * @var int
-   */
-  public $checkinEndDate;
-
-  /**
-   * The reason the passholder cannot buy tickets for the event
-   *
-   * @var string
-   */
-  public $buyConstraintReason;
-
-  /**
-   * The price of the event
-   *
-   * @var float
-   */
-  public $price;
-
-  /**
-   * The price names of the event
-   *
    * @var string[]
    */
-  public $postPriceNames;
+  public array $postPriceNames;
 
   /**
-   * The price values of the event
-   *
    * @var float[]
    */
-  public $postPriceValues;
+  public array $postPriceValues;
 
-  /**
-   * The tariff of the event for a given passholder
-   *
-   * @var float
-   */
-  public $tariff;
+  public ?float $tariff;
 
-  /**
-   * The title of the event
-   *
-   * @var string
-   */
-  public $title;
+  public ?string $title;
 
-  /**
-   * The calendar description of the event
-   *
-   * @var CultureFeed_Uitpas_Calendar
-   */
-  public $calendar;
+  public CultureFeed_Uitpas_Calendar $calendar;
 
   public int $numberOfPoints;
 
@@ -319,7 +203,7 @@ class CultureFeed_Uitpas_Event_CultureEvent extends CultureFeed_Uitpas_ValueObje
     $event->organiserId = $object->xpath_str('organiserId');
     $event->organiserName = $object->xpath_str('organiserName');
     $event->city = $object->xpath_str('city');
-    $event->checkinAllowed = $object->xpath_bool('checkinAllowed');
+    $event->checkinAllowed = $object->xpath_bool('checkinAllowed')!== null ? $object->xpath_bool('checkinAllowed') : true;
     $event->checkinConstraint = CultureFeed_Uitpas_Event_CheckinConstraint::createFromXML($object->xpath('checkinConstraint', false));
     $event->checkinConstraintReason = $object->xpath_str('checkinConstraintReason');
     $event->checkinStartDate = $object->xpath_time('checkinStartDate');
