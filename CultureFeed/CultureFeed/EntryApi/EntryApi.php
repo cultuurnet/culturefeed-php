@@ -231,7 +231,7 @@ class CultureFeed_EntryApi implements CultureFeed_EntryApi_IEntryApi {
   public function deleteEvent($id): void {
 
     $result = $this->oauth_client->authenticatedDeleteAsXml('event/' . $id);
-    $xml = $this->validateResult($result, self::CODE_ITEM_DELETED);
+    $xml = $this->validateResult($result->response, self::CODE_ITEM_DELETED);
 
   }
 
@@ -382,7 +382,7 @@ class CultureFeed_EntryApi implements CultureFeed_EntryApi_IEntryApi {
    */
   public function deleteActor($id): void {
     $result = $this->oauth_client->authenticatedDeleteAsXml('actor/' . $id);
-    $xml = $this->validateResult($result, self::CODE_ITEM_DELETED);
+    $xml = $this->validateResult($result->response, self::CODE_ITEM_DELETED);
   }
 
   /**
@@ -943,7 +943,7 @@ class CultureFeed_EntryApi implements CultureFeed_EntryApi_IEntryApi {
    */
   private function removeTag($type, $id, $keyword): void {
     $result = $this->oauth_client->authenticatedDeleteAsXml($type . '/' . $id . '/keywords', array('keyword' => $keyword));
-    $xml = $this->validateResult($result, self::CODE_KEYWORD_DELETED);
+    $xml = $this->validateResult($result->response, self::CODE_KEYWORD_DELETED);
   }
 
   /**
@@ -984,7 +984,7 @@ class CultureFeed_EntryApi implements CultureFeed_EntryApi_IEntryApi {
    */
   private function removeTranslation($type, $id, $lang): void {
     $result = $this->oauth_client->authenticatedDeleteAsXml($type . '/' . $id . '/translations', array('lang' => $lang));
-    $xml = $this->validateResult($result, self::CODE_TRANSLATION_WITHDRAWN);
+    $xml = $this->validateResult($result->response, self::CODE_TRANSLATION_WITHDRAWN);
   }
 
     /**
@@ -1068,7 +1068,7 @@ class CultureFeed_EntryApi implements CultureFeed_EntryApi_IEntryApi {
    */
   private function removeLink($type, $id, $link): void {
     $result = $this->oauth_client->authenticatedDeleteAsXml($type . '/' . $id . '/links', array('link' => $link));
-    $xml = $this->validateResult($result, self::CODE_LINK_WITHDRAWN);
+    $xml = $this->validateResult($result->response, self::CODE_LINK_WITHDRAWN);
   }
   
   /**
