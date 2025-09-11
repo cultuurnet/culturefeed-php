@@ -16,22 +16,22 @@ interface CultureFeed_OAuthClient
         string $path,
         array $params = array(),
         bool $raw_post = true,
-        $has_file_upload = false,
+        bool $has_file_upload = false,
         string $format = ''
     );
 
     public function consumerPostAsXml(
         string $path,
         array $params = array(),
-        $raw_post = true,
-        $has_file_upload = false
+        bool $raw_post = true,
+        bool $has_file_upload = false
     );
 
     public function consumerPostAsJson(
         string $path,
         array $params = array(),
-        $raw_post = true,
-        $has_file_upload = false
+        bool $raw_post = true,
+        bool $has_file_upload = false
     );
 
     public function authenticatedGet(string $path, array $params = array(), string $format = '');

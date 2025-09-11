@@ -66,7 +66,7 @@ class CultureFeed_DefaultOAuthClient implements CultureFeed_OAuthClient
         string $path,
         array $params = array(),
         bool $raw_post = true,
-        $has_file_upload = false,
+        bool $has_file_upload = false,
         string $format = ''
     )
     {
@@ -76,8 +76,8 @@ class CultureFeed_DefaultOAuthClient implements CultureFeed_OAuthClient
     public function consumerPostAsXml(
         string $path,
         array $params = array(),
-        $raw_post = true,
-        $has_file_upload = false
+        bool $raw_post = true,
+        bool $has_file_upload = false
     )
     {
         return $this->consumerPost($path, $params, $raw_post, $has_file_upload, 'xml');
@@ -86,8 +86,8 @@ class CultureFeed_DefaultOAuthClient implements CultureFeed_OAuthClient
     public function consumerPostAsJson(
         string $path,
         array $params = array(),
-        $raw_post = true,
-        $has_file_upload = false
+        bool $raw_post = true,
+        bool $has_file_upload = false
     )
     {
         return $this->consumerPost($path, $params, $raw_post, $has_file_upload, 'json');
