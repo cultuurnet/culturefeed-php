@@ -49,6 +49,7 @@ class CultureFeed_Uitpas_Event_CultureEventTest extends TestCase {
       array(
         'cdbid' => '9ba1b072-40ea-41b6-a66b-ac3fdf646f36',
         'locationId' => 'afcbe4cf-d873-468b-80f8-7fe583f45e5e',
+        'numberOfPoints' => 0,
         'actorId' => '5C9C73D3-E82F-E7B3-44161E6E3802E64F',
       ),
       $postData

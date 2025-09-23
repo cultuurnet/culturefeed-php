@@ -50,7 +50,8 @@ XML;
             'distributionKey' => array(
               $distributionKey200->id,
               $distributionKey201->id,
-            )
+            ),
+            'numberOfPoints' => 0,
           )
         )
       )
