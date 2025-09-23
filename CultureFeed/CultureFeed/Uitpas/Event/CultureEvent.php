@@ -101,6 +101,7 @@ class CultureFeed_Uitpas_Event_CultureEvent extends CultureFeed_Uitpas_ValueObje
   public array $ticketSales;
 
   public function __construct() {
+    $this->numberOfPoints = 0;
     $this->ticketSales = array();
     $this->postPriceNames = array();
     $this->postPriceValues = array();
