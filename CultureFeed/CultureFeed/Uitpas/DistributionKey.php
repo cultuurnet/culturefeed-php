@@ -2,7 +2,7 @@
 
 class CultureFeed_Uitpas_DistributionKey {
 
-  public string $id;
+  public int $id;
 
   public string $name;
 

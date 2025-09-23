@@ -20,11 +20,11 @@ class CultureFeed_Uitpas_EventUpdateTest extends TestCase {
     $event->locationId = 'abd76139-5b0d-42b1-ba5b-a40172e27fba';
 
     $distributionKey200 = new CultureFeed_Uitpas_DistributionKey();
-    $distributionKey200->id = '200';
+    $distributionKey200->id = 200;
     $distributionKey200->name = 'Distribution key 200';
 
     $distributionKey201 = new CultureFeed_Uitpas_DistributionKey();
-    $distributionKey201->id = '201';
+    $distributionKey201->id = 201;
     $distributionKey201->name = 'Distribution key 201';
 
     $response = <<<XML

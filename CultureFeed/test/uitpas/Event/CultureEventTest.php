@@ -17,11 +17,11 @@ class CultureFeed_Uitpas_Event_CultureEventTest extends TestCase {
     $this->assertSame('5c9c73d3-e82f-e7b3-44161e6e3802e64f', $event->organiserId);
 
     $distributionKey200 = new CultureFeed_Uitpas_DistributionKey();
-    $distributionKey200->id = '200';
+    $distributionKey200->id = 200;
     $distributionKey200->name = 'Distribution key 200';
 
     $distributionKey201 = new CultureFeed_Uitpas_DistributionKey();
-    $distributionKey201->id = '201';
+    $distributionKey201->id = 201;
     $distributionKey201->name = 'Distribution key 201';
 
     $this->assertIsArray($event->distributionKey);
@@ -70,11 +70,11 @@ class CultureFeed_Uitpas_Event_CultureEventTest extends TestCase {
     $event = new CultureFeed_Uitpas_Event_CultureEvent();
 
     $distributionKey200 = new CultureFeed_Uitpas_DistributionKey();
-    $distributionKey200->id = '200';
+    $distributionKey200->id = 200;
     $distributionKey200->name = 'Distribution key 200';
 
     $distributionKey201 = new CultureFeed_Uitpas_DistributionKey();
-    $distributionKey201->id = '201';
+    $distributionKey201->id = 201;
     $distributionKey201->name = 'Distribution key 201';
 
     $event->distributionKey = array(
