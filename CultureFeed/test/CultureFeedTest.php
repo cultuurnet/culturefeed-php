@@ -1,23 +1,26 @@
 <?php
 
+use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\TestCase;
+
 /**
  * @file
  * Testing methods for the culturefeed class.
  */
 
-class CultureFeed_CultureFeedTest extends PHPUnit_Framework_TestCase {
+class CultureFeed_CultureFeedTest extends TestCase {
 
   /**
-   * @var Culturefeed
+   * @var CultureFeed
    */
   protected $cultureFeed;
 
   /**
-   * @var CultureFeed_OAuthClient|PHPUnit_Framework_MockObject_MockObject
+   * @var CultureFeed_OAuthClient&MockObject
    */
   protected $oauthClient;
 
-  public function setUp() {
+  public function setUp(): void {
     parent::setUp();
 
     $this->oauthClient = $this->createMock('CultureFeed_OAuthClient');
@@ -35,7 +38,7 @@ class CultureFeed_CultureFeedTest extends PHPUnit_Framework_TestCase {
     $method,
     $identifier,
     $expectedPath
-  ) {
+  ): void {
     $xml = file_get_contents(__DIR__ . '/data/consumer_with_api_key_sapi3.xml');
 
     $this->oauthClient->expects($this->once())
@@ -59,7 +62,7 @@ class CultureFeed_CultureFeedTest extends PHPUnit_Framework_TestCase {
     $method,
     $identifier,
     $expectedPath
-  ) {
+  ): void {
     $xml = file_get_contents(__DIR__ . '/data/consumer_without_sapi3_properties.xml');
 
     $this->oauthClient->expects($this->once())
@@ -84,7 +87,7 @@ class CultureFeed_CultureFeedTest extends PHPUnit_Framework_TestCase {
     $method,
     $identifier,
     $expectedPath
-  ) {
+  ): void {
     $xml = file_get_contents(__DIR__ . '/data/consumer_with_empty_sapi3_properties.xml');
 
     $this->oauthClient->expects($this->once())
@@ -109,7 +112,7 @@ class CultureFeed_CultureFeedTest extends PHPUnit_Framework_TestCase {
     $method,
     $identifier,
     $expectedPath
-  ) {
+  ): void {
     $xml = file_get_contents(__DIR__ . '/data/consumer_with_api_key_sapi3.xml');
 
     $this->oauthClient->expects($this->once())
@@ -134,7 +137,7 @@ class CultureFeed_CultureFeedTest extends PHPUnit_Framework_TestCase {
     $method,
     $identifier,
     $expectedPath
-  ) {
+  ): void {
     $xml = file_get_contents(__DIR__ . '/data/consumer_with_search_prefix_sapi3.xml');
 
     $this->oauthClient->expects($this->once())
@@ -170,7 +173,7 @@ class CultureFeed_CultureFeedTest extends PHPUnit_Framework_TestCase {
   /**
    * Test the handling of a succesfull user light call.
    */
-  public function testGetUserLightId() {
+  public function testGetUserLightId(): void {
 
     $success_xml = file_get_contents(dirname(__FILE__) . '/data/user_light_success.xml');
 
@@ -189,9 +192,8 @@ class CultureFeed_CultureFeedTest extends PHPUnit_Framework_TestCase {
 
   /**
    * Test the handling of an empty xml when calling user light.
-   * @expectedException Culturefeed_ParseException
    */
-  public function testGetUserLightIdEmptyXmlParseException() {
+  public function testGetUserLightIdEmptyXmlParseException(): void {
 
     $without_uid_xml = file_get_contents(dirname(__FILE__) . '/data/user_light_without_uid.xml');
 
@@ -203,15 +205,16 @@ class CultureFeed_CultureFeedTest extends PHPUnit_Framework_TestCase {
       )
       ->will($this->returnValue($without_uid_xml));
 
+    $this->expectException(CultureFeed_ParseException::class);
+
     $this->cultureFeed->getUserLightId('test@test.be', '');
 
   }
 
   /**
    * Test the handling of an invalid xml when calling user light.
-   * @expectedException Culturefeed_ParseException
    */
-  public function testGetUserLightInvalidXmlParseException() {
+  public function testGetUserLightInvalidXmlParseException(): void {
 
     $invalid_xml = file_get_contents(dirname(__FILE__) . '/data/user_light_invalid_xml.xml');
 
@@ -223,14 +226,16 @@ class CultureFeed_CultureFeedTest extends PHPUnit_Framework_TestCase {
       )
       ->will($this->returnValue($invalid_xml));
 
-    $this->cultureFeed->getUserLightId('test@test.be', '');
+      $this->expectException(CultureFeed_ParseException::class);
+
+      $this->cultureFeed->getUserLightId('test@test.be', '');
 
   }
 
   /**
    * Test the subscribing to mailing when authenticated
    */
-  public function testSubscribeToMailingAuthenticated() {
+  public function testSubscribeToMailingAuthenticated(): void {
 
     $subscribe_to_mailing_xml = file_get_contents(dirname(__FILE__) . '/data/subscribe_to_mailing_success.xml');
 
@@ -242,14 +247,14 @@ class CultureFeed_CultureFeedTest extends PHPUnit_Framework_TestCase {
       )
     ->will($this->returnValue($subscribe_to_mailing_xml));
 
-    $this->cultureFeed->subscribeToMailing(1, 3);
+    $this->cultureFeed->subscribeToMailing('1', '3');
 
   }
 
   /**
    * Test the subscribing to mailing as anonymous user.
    */
-  public function testSubscribeToMailingConsumer() {
+  public function testSubscribeToMailingConsumer(): void {
 
     $subscribe_to_mailing_xml = file_get_contents(dirname(__FILE__) . '/data/subscribe_to_mailing_success.xml');
 
@@ -261,13 +266,13 @@ class CultureFeed_CultureFeedTest extends PHPUnit_Framework_TestCase {
       )
     ->will($this->returnValue($subscribe_to_mailing_xml));
 
-    $this->cultureFeed->subscribeToMailing(1, 3, FALSE);
+    $this->cultureFeed->subscribeToMailing('1', '3', FALSE);
   }
 
   /**
    * Test the error code handling
    */
-  public function testSubscribeToMailingErrorCodeHandling() {
+  public function testSubscribeToMailingErrorCodeHandling(): void {
 
     $subscribe_to_mailing_xml = file_get_contents(dirname(__FILE__) . '/data/subscribe_to_mailing_error.xml');
 
@@ -279,15 +284,17 @@ class CultureFeed_CultureFeedTest extends PHPUnit_Framework_TestCase {
       )
     ->will($this->returnValue($subscribe_to_mailing_xml));
 
-    $this->setExpectedException('CultureFeed_InvalidCodeException', 'errormessage');
-    $this->cultureFeed->subscribeToMailing(1, 3);
+    $this->expectException(CultureFeed_InvalidCodeException::class);
+    $this->expectExceptionMessage('errormessage');
+
+    $this->cultureFeed->subscribeToMailing('1', '3');
 
   }
 
   /**
    * Test the unsubscribing of a mailing list as authenticated user.
    */
-  public function testUnSubscribeFromMailingAuthenticated() {
+  public function testUnSubscribeFromMailingAuthenticated(): void {
 
     $unsubscribe_from_mailing_xml = file_get_contents(dirname(__FILE__) . '/data/unsubscribe_from_mailing_success.xml');
 
@@ -299,13 +306,13 @@ class CultureFeed_CultureFeedTest extends PHPUnit_Framework_TestCase {
       )
       ->will($this->returnValue($unsubscribe_from_mailing_xml));
 
-    $this->cultureFeed->unSubscribeFromMailing(1, 3);
+    $this->cultureFeed->unSubscribeFromMailing('1', '3');
   }
 
   /**
    * Test the unsubscribing of a mailing list as anonymous user.
    */
-  public function testUnSubscribeFromMailingConsumer() {
+  public function testUnSubscribeFromMailingConsumer(): void {
 
     $unsubscribe_from_mailing_xml = file_get_contents(dirname(__FILE__) . '/data/unsubscribe_from_mailing_success.xml');
 
@@ -317,14 +324,14 @@ class CultureFeed_CultureFeedTest extends PHPUnit_Framework_TestCase {
       )
       ->will($this->returnValue($unsubscribe_from_mailing_xml));
 
-    $this->cultureFeed->unSubscribeFromMailing(1, 3, FALSE);
+    $this->cultureFeed->unSubscribeFromMailing('1', '3', FALSE);
 
   }
 
   /**
    * Test the error code handling
    */
-  public function testUnSubscribeFromMailingErrorCodeHandling() {
+  public function testUnSubscribeFromMailingErrorCodeHandling(): void {
 
     $subscribe_to_mailing_xml = file_get_contents(dirname(__FILE__) . '/data/subscribe_to_mailing_error.xml');
 
@@ -336,15 +343,17 @@ class CultureFeed_CultureFeedTest extends PHPUnit_Framework_TestCase {
       )
     ->will($this->returnValue($subscribe_to_mailing_xml));
 
-    $this->setExpectedException('CultureFeed_InvalidCodeException', 'errormessage');
-    $this->cultureFeed->unsubscribeFromMailing(1, 3);
+    $this->expectException(CultureFeed_InvalidCodeException::class);
+    $this->expectExceptionMessage('errormessage');
+
+    $this->cultureFeed->unsubscribeFromMailing('1', '3');
 
   }
 
   /**
    * Test searching users.
    */
-  public function testSearchUsers() {
+  public function testSearchUsers(): void {
     $query = new CultureFeed_SearchUsersQuery();
     $query->name = 'john';
     $query->mboxIncludePrivate = true;

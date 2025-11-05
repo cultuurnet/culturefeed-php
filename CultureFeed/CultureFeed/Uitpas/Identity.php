@@ -1,15 +1,12 @@
 <?php
 
-class CultureFeed_Uitpas_Identity extends CultureFeed_Uitpas_ValueObject {
+final class CultureFeed_Uitpas_Identity extends CultureFeed_Uitpas_ValueObject {
   /**
    * @var \CultureFeed_Uitpas_Passholder_Card
    */
   public $card;
 
-  /**
-   * @var \CultureFeed_Uitpas_Passholder
-   */
-  public $passHolder;
+  public ?CultureFeed_Uitpas_Passholder $passHolder = null;
 
   /**
    * @var \CultureFeed_Uitpas_GroupPass

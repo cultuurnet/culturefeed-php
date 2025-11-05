@@ -1,11 +1,14 @@
 <?php
 
-class CultureFeed_Uitpas_EventDetailTest extends PHPUnit_Framework_TestCase {
+use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\TestCase;
+
+class CultureFeed_Uitpas_EventDetailTest extends TestCase {
 
   /**
    * Test retrieval of the details of an event.
    */
-  public function testGetEvent() {
+  public function testGetEvent(): void {
     $response = <<<XML
 <response>
     <cdbid>e642dc9e-4682-4846-ac61-97a9a0cd38a2</cdbid>
@@ -25,7 +28,7 @@ class CultureFeed_Uitpas_EventDetailTest extends PHPUnit_Framework_TestCase {
 </response>
 XML;
 
-    /* @var $oauth_client_stub PHPUnit_Framework_MockObject_MockObject|CultureFeed_OAuthClient */
+    /* @var $oauth_client_stub CultureFeed_OAuthClient&MockObject */
     $oauth_client_stub = $this->createMock('CultureFeed_OAuthClient');
     $oauth_client_stub
       ->expects($this->once())

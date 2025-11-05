@@ -257,7 +257,7 @@ class CultureFeed_Activity {
   /**
    * The details of the content where the activity is occurred. Currently only
    * for contentType Event.
-   * @var ActivityEventDetails $contentDetails
+   * @var Culturefeed_ActivityEventDetails|Culturefeed_ActivityProductionDetails $contentDetails
    */
   public $contentDetails;
 
@@ -274,8 +274,8 @@ class CultureFeed_Activity {
    * to the /search api will use the predefined names.
    * This method maps the two with intention easy the usage.
    *
-   * @param Integer $type
-   * @return String $activity type.
+   * @param int $id
+   * @return string
    */
   public static function getNameById($id) {
 
@@ -284,23 +284,23 @@ class CultureFeed_Activity {
     switch ($id) {
 
       case self::TYPE_RECOMMEND:
-        $name = \CultuurNet\Search\ActivityStatsExtendedEntity::ACTIVITY_COUNT_RECOMMEND;
+        $name = 'recommend';
         break;
 
       case self::TYPE_LIKE:
-        $name = \CultuurNet\Search\ActivityStatsExtendedEntity::ACTIVITY_COUNT_LIKE;
+        $name = 'like';
         break;
 
       case self::TYPE_COMMENT:
-        $name = \CultuurNet\Search\ActivityStatsExtendedEntity::ACTIVITY_COUNT_COMMENT;
+        $name = 'comment';
         break;
 
       case self::TYPE_IK_GA:
-        $name = \CultuurNet\Search\ActivityStatsExtendedEntity::ACTIVITY_COUNT_ATTEND;
+        $name = 'attend';
         break;
 
       case self::TYPE_FACEBOOK:
-        $name = \CultuurNet\Search\ActivityStatsExtendedEntity::ACTIVITY_COUNT_FACEBOOK_SHARE;
+        $name = 'facebook_share';
         break;
 
     }

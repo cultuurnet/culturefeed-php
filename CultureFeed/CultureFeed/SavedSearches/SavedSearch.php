@@ -76,7 +76,7 @@ class CultureFeed_SavedSearches_SavedSearch {
    * @throws InvalidArgumentException
    *   When an invalid frequency value is given.
    */
-  public function setFrequency($frequency) {
+  public function setFrequency($frequency): void {
     if (!self::validateFrequency($frequency)) {
       throw new InvalidArgumentException('Invalid value for frequency: ' . $frequency);
     }

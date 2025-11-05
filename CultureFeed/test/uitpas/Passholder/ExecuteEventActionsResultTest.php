@@ -1,13 +1,16 @@
 <?php
+
+use PHPUnit\Framework\TestCase;
+
 /**
  * @file
  */
 
-class CultureFeed_Uitpas_Passholder_ExecuteEventActionsResultTest extends PHPUnit_Framework_TestCase {
+class CultureFeed_Uitpas_Passholder_ExecuteEventActionsResultTest extends TestCase {
 
   protected $dataDir;
 
-  protected function setUp() {
+  protected function setUp(): void {
     $this->dataDir = dirname(__FILE__) . '/data/eventactions';
   }
 
@@ -21,7 +24,7 @@ class CultureFeed_Uitpas_Passholder_ExecuteEventActionsResultTest extends PHPUni
     return CultureFeed_Uitpas_Passholder_ExecuteEventActionsResult::createFromXML($xml_element);
   }
 
-  public function testCreateFromXML() {
+  public function testCreateFromXML(): void {
     $result = $this->loadSample('post.xml');
 
     $expectedPassholder = new CultureFeed_Uitpas_Passholder();
@@ -51,7 +54,7 @@ class CultureFeed_Uitpas_Passholder_ExecuteEventActionsResultTest extends PHPUni
 
     $passholderCardSystemData = new CultureFeed_Uitpas_Passholder_CardSystemSpecific();
     $passholderCardSystemData->cardSystem = new CultureFeed_Uitpas_CardSystem();
-    $passholderCardSystemData->cardSystem->id = '1';
+    $passholderCardSystemData->cardSystem->id = 1;
     $passholderCardSystemData->cardSystem->name = 'UiTPAS Regio Aalst';
 
     $passholderCardSystemData->currentCard = new CultureFeed_Uitpas_Passholder_Card();
@@ -75,7 +78,7 @@ class CultureFeed_Uitpas_Passholder_ExecuteEventActionsResultTest extends PHPUni
     $expectedActions = array();
 
     $expectedBuyTicketResultAction =
-      new CultureFeed_Uitpas_Passholder_ExecuteEventActionsResultAction();
+      new Culturefeed_Uitpas_Passholder_ExecuteEventActionsResultAction();
     $expectedBuyTicketResultAction->actionType =
       $expectedBuyTicketResultAction::TYPE_BUYTICKET;
     $expectedBuyTicketResultAction->buyTicketResponse =

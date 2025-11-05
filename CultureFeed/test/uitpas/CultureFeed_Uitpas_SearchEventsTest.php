@@ -1,15 +1,18 @@
 <?php
+
+use PHPUnit\Framework\TestCase;
+
 /**
  * @file
  * PHPUnit test for searching events.
  */
 
-class CultureFeed_Uitpas_SearchEventsTest extends PHPUnit_Framework_TestCase {
+class CultureFeed_Uitpas_SearchEventsTest extends TestCase {
 
   /**
    * Test the searching events.
    */
-  public function testSearchEvents() {
+  public function testSearchEvents(): void {
     $oauth_client_stub = $this->createMock('CultureFeed_OAuthClient');
 
     $get_xml = file_get_contents(dirname(__FILE__) . '/data/events/searchresults.xml');
@@ -136,7 +139,7 @@ class CultureFeed_Uitpas_SearchEventsTest extends PHPUnit_Framework_TestCase {
    * @param string $type
    * @param int $volume
    */
-  private function assertPeriodConstraint($object, $type, $volume) {
+  private function assertPeriodConstraint($object, $type, $volume): void {
     $this->assertInstanceOf('CultureFeed_Uitpas_PeriodConstraint', $object);
     $this->assertEquals($type, $object->type);
     $this->assertEquals($volume, $object->volume);
@@ -148,7 +151,7 @@ class CultureFeed_Uitpas_SearchEventsTest extends PHPUnit_Framework_TestCase {
    * @param float $price
    * @param float|null $tariff
    */
-  private function assertPriceClass($object, $name, $price, $tariff = null) {
+  private function assertPriceClass($object, $name, $price, $tariff = null): void {
     $this->assertInstanceOf('CultureFeed_Uitpas_Event_PriceClass', $object);
     $this->assertEquals($name, $object->name);
     $this->assertEquals($price, $object->price);

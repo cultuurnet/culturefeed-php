@@ -11,17 +11,17 @@ class Mock_OAuthDataStore extends OAuthDataStore {
 
 	function __construct() {
 		$this->consumer = new OAuthConsumer("key", "secret", NULL);
-		$this->request_token = new OAuthToken("requestkey", "requestsecret", 1);
-		$this->access_token = new OAuthToken("accesskey", "accesssecret", 1);
+		$this->request_token = new OAuthToken("requestkey", "requestsecret");
+		$this->access_token = new OAuthToken("accesskey", "accesssecret");
 		$this->nonce = "nonce";
 	}
 
-	function lookup_consumer($consumer_key) {
+	function lookup_consumer($consumer_key): ?string {
 		if ($consumer_key == $this->consumer->key) return $this->consumer;
 		return NULL;
 	}
 
-	function lookup_token($consumer, $token_type, $token) {
+	function lookup_token($consumer, $token_type, $token): ?string {
 		$token_attrib = $token_type . "_token";
 		if ($consumer->key == $this->consumer->key
 			&& $token == $this->$token_attrib->key) {
@@ -30,7 +30,7 @@ class Mock_OAuthDataStore extends OAuthDataStore {
 		return NULL;
 	}
 
-	function lookup_nonce($consumer, $token, $nonce, $timestamp) {
+	function lookup_nonce($consumer, $token, $nonce, $timestamp): ?string {
 		if ($consumer->key == $this->consumer->key
 			&& (($token && $token->key == $this->request_token->key)
 				|| ($token && $token->key == $this->access_token->key))
@@ -40,14 +40,14 @@ class Mock_OAuthDataStore extends OAuthDataStore {
 		return NULL;
 	}
 
-	function new_request_token($consumer, $callback = null) {
+	function new_request_token($consumer, $callback = null): ?string {
 		if ($consumer->key == $this->consumer->key) {
 			return $this->request_token;
 		}
 		return NULL;
 	}
 
-	function new_access_token($token, $consumer, $verifier = null) {
+	function new_access_token($token, $consumer, $verifier = null): ?string {
 		if ($consumer->key == $this->consumer->key
 			&& $token->key == $this->request_token->key) {
 			return $this->access_token;

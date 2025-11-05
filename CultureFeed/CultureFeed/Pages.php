@@ -24,7 +24,7 @@ interface CultureFeed_Pages {
    * @param bool $mboxIncludePrivate
    *   Include the user mbox (consumer needs additional permission).
    *
-   * @return \CultureFeed_ResultSet
+   * @return CultureFeed_Pages_UserList
    */
   public function getUserList($id, $roles = array(), $use_auth = TRUE, $mboxIncludePrivate = FALSE);
 
@@ -37,7 +37,7 @@ interface CultureFeed_Pages {
 
   /**
    * Update a page.
-   * @param Integer $id
+   * @param string $id
    *   The page ID.
    * @param array $params
    *   Params to update the page.
@@ -46,14 +46,14 @@ interface CultureFeed_Pages {
 
   /**
    * Remove a page.
-   * @param Integer $id
+   * @param string $id
    *   The page ID of the page to remove (set invisible).
    */
   public function removePage($id);
 
   /**
    * Publish a page.
-   * @param Integer $id
+   * @param string $id
    *   The page ID of the page to publish (set visible).
    */
   public function publishPage($id);
@@ -92,7 +92,7 @@ interface CultureFeed_Pages {
 
   /**
    * Change the permissions for a page.
-   * @param Integer $id
+   * @param string $id
    *   The page ID of the page to remove (set invisible).
    * @param array $params
    *   Params of permissions keys to set. E.g. allowMembers, allowComments, ...
@@ -188,7 +188,7 @@ interface CultureFeed_Pages {
    *   The page ID where the timeline is requested for.
    * @param string $dateFrom
    *   ISO Date to set the startdate of the timeline. (optional)
-   * @param string $type
+   * @param array $activityTypes
    *   Type of activities to show. (optional)
    * @return CultureFeed_ResultSet
    *   CultureFeed_ResultSet where the objects are of the CultureFeed_Activity type.

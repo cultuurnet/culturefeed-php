@@ -26,19 +26,9 @@ class CultureFeed_Consumer {
    */
   public $group;
 
-  /**
-   * Creation date of this consumer represented as a UNIX timestamp.
-   *
-   * @var integer
-   */
-  public $creationDate;
+  public int $creationDate;
 
-  /**
-   * ID of the consumer.
-   *
-   * @var integer
-   */
-  public $id;
+  public int $id;
 
   /**
    * Name of the consumer.
@@ -102,6 +92,11 @@ class CultureFeed_Consumer {
    * @var array
    */
   public $admins;
+
+  /**
+   * @var string|null
+   */
+  public $searchPrefix;
 
   /**
    * The API key for search api 3.

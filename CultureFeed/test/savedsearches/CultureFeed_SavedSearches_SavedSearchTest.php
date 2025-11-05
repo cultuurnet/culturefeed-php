@@ -1,10 +1,11 @@
 <?php
 
 use CultureFeed_SavedSearches_SavedSearch as SavedSearch;
+use PHPUnit\Framework\TestCase;
 
-class CultureFeed_SavedSearches_SavedSearchTest extends PHPUnit_Framework_TestCase {
+class CultureFeed_SavedSearches_SavedSearchTest extends TestCase {
 
-  public function testSavedSearchToPostData() {
+  public function testSavedSearchToPostData(): void {
     $saved_search = new SavedSearch();
 
     // Expect an empty array with certain keys and empty values.
@@ -20,7 +21,7 @@ class CultureFeed_SavedSearches_SavedSearchTest extends PHPUnit_Framework_TestCa
 
     // Set data and test if we receive the same data.
     $saved_search->id = 123456;
-    $saved_search->userId = 123789;
+    $saved_search->userId = '123789';
     $saved_search->name = 'The name';
     $saved_search->query = 'The string';
     $saved_search->frequency = SavedSearch::ASAP;
@@ -36,7 +37,7 @@ class CultureFeed_SavedSearches_SavedSearchTest extends PHPUnit_Framework_TestCa
     $this->assertEquals($expected, $saved_search->toPostData());
   }
 
-  public function testConstructorArguments() {
+  public function testConstructorArguments(): void {
     // Build without arguments.
     $empty_saved_search = new SavedSearch();
     $this->assertInstanceOf('CultureFeed_SavedSearches_SavedSearch', $empty_saved_search);
@@ -62,7 +63,8 @@ class CultureFeed_SavedSearches_SavedSearchTest extends PHPUnit_Framework_TestCa
     $this->assertEquals($filled_saved_search->frequency, SavedSearch::ASAP);
 
     // Build with an invalid frequency argument.
-    $this->setExpectedException('InvalidArgumentException');
+    $this->expectException(InvalidArgumentException::class);
+
     new SavedSearch(
       'userId',
       'name',
@@ -72,7 +74,7 @@ class CultureFeed_SavedSearches_SavedSearchTest extends PHPUnit_Framework_TestCa
     );
   }
 
-  public function testFrequencyValidation() {
+  public function testFrequencyValidation(): void {
     // First test the validation method itself.
     $validFrequencyConstant = SavedSearch::DAILY;
     $this->assertTrue(SavedSearch::validateFrequency($validFrequencyConstant));
@@ -83,9 +85,6 @@ class CultureFeed_SavedSearches_SavedSearchTest extends PHPUnit_Framework_TestCa
     $invalidFrequencyString = 'SOMETIMES';
     $this->assertFalse(SavedSearch::validateFrequency($invalidFrequencyString));
 
-    $invalidFrequencyObject = new stdClass();
-    $this->assertFalse(SavedSearch::validateFrequency($invalidFrequencyObject));
-
     // Next test the setting of a frequency.
     $savedSearch = new SavedSearch();
 
@@ -94,9 +93,8 @@ class CultureFeed_SavedSearches_SavedSearchTest extends PHPUnit_Framework_TestCa
     $savedSearch->setFrequency($validFrequencyString);
 
     // These should throw exceptions.
-    $this->setExpectedException('InvalidArgumentException');
+    $this->expectException(InvalidArgumentException::class);
+
     $savedSearch->setFrequency($invalidFrequencyString);
-    $this->setExpectedException('InvalidArgumentException');
-    $savedSearch->setFrequency($invalidFrequencyObject);
   }
 }

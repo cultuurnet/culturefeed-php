@@ -167,7 +167,7 @@ class CultureFeed_Pages_Default implements CultureFeed_Pages {
   /**
    * @see CultureFeed_Pages::removeImage()
    */
-  public function removeImage($id) {
+  public function removeImage($id): void {
     $result = $this->oauth_client->authenticatedPostAsXml('page/' . $id . '/image/remove');
     $xmlElement = $this->validateResult($result, CultureFeed_Pages_Default::IMAGE_REMOVED);
   }
@@ -186,7 +186,7 @@ class CultureFeed_Pages_Default implements CultureFeed_Pages {
   /**
    * @see CultureFeed_Pages::removeCover()
    */
-  public function removeCover($id) {
+  public function removeCover($id): void {
     $result = $this->oauth_client->authenticatedPostAsXml('page/' . $id . '/cover/remove');
     $xmlElement = $this->validateResult($result, CultureFeed_Pages_Default::COVER_REMOVED);
   }
@@ -277,7 +277,7 @@ class CultureFeed_Pages_Default implements CultureFeed_Pages {
   /**
    * @see CultureFeed_Pages::addMember()
    */
-  public function addMember($id, $userId, $params = array()) {
+  public function addMember($id, $userId, $params = array()): void {
 
     $params['userId'] = $userId;
 
@@ -290,7 +290,7 @@ class CultureFeed_Pages_Default implements CultureFeed_Pages {
   /**
    * @see CultureFeed_Pages::updateMember()
    */
-  public function updateMember($id, $userId, array $params) {
+  public function updateMember($id, $userId, array $params): void {
 
     $params['userId'] = $userId;
 
@@ -302,7 +302,7 @@ class CultureFeed_Pages_Default implements CultureFeed_Pages {
   /**
    * @see CultureFeed_Pages::removeMember()
    */
-  public function removeMember($id, $userId) {
+  public function removeMember($id, $userId): void {
 
     $result = $this->oauth_client->authenticatedPostAsXml('page/' . $id . '/member/remove', array('userId' => $userId));
     $this->validateResult($result, CultureFeed_Pages_Default::CODE_ACTION_SUCCEEDED);
@@ -312,7 +312,7 @@ class CultureFeed_Pages_Default implements CultureFeed_Pages {
   /**
    * @see CultureFeed_Pages::follow()
    */
-  public function follow($id, array $params = array()) {
+  public function follow($id, array $params = array()): void {
 
     $result = $this->oauth_client->authenticatedPostAsXml('page/' . $id . '/follow', $params);
     $this->validateResult($result, CultureFeed_Pages_Default::CODE_ACTION_SUCCEEDED);
@@ -322,7 +322,7 @@ class CultureFeed_Pages_Default implements CultureFeed_Pages {
   /**
    * @see CultureFeed_Pages::defollow()
    */
-  public function defollow($id, $userId, array $params = array()) {
+  public function defollow($id, $userId, array $params = array()): void {
 
     $params['userId'] = $userId;
 
@@ -333,7 +333,7 @@ class CultureFeed_Pages_Default implements CultureFeed_Pages {
   /**
    * @see CultureFeed_Pages::addAdmin()
    */
-  public function addAdmin($id, $userId, $params = array()) {
+  public function addAdmin($id, $userId, $params = array()): void {
 
     $data = array(
       'userId' => $userId
@@ -349,7 +349,7 @@ class CultureFeed_Pages_Default implements CultureFeed_Pages {
   /**
    * @see CultureFeed_Pages::updateAdmin()
    */
-  public function updateAdmin($id, $userId, array $params) {
+  public function updateAdmin($id, $userId, array $params): void {
 
     $params['userId'] = $userId;
 
@@ -361,7 +361,7 @@ class CultureFeed_Pages_Default implements CultureFeed_Pages {
   /**
    * @see CultureFeed_Pages::removeAdmin()
    */
-  public function removeAdmin($id, $userId) {
+  public function removeAdmin($id, $userId): void {
 
     $result = $this->oauth_client->authenticatedPostAsXml('page/' . $id . '/admin/remove', array('userId' => $userId));
     $this->validateResult($result, CultureFeed_Pages_Default::CODE_ACTION_SUCCEEDED);
@@ -380,7 +380,7 @@ class CultureFeed_Pages_Default implements CultureFeed_Pages {
   /**
    * @see CultureFeed_Pages::removeValidatedAdmin()
    */
-  public function removeValidatedAdmin($id) {
+  public function removeValidatedAdmin($id): void {
     $result = $this->oauth_client->authenticatedPostAsXml('page/' . $id . '/validatedadmin/remove');
     $this->validateResult($result, CultureFeed_Pages_Default::CODE_ACTION_SUCCEEDED);
   }

@@ -1,6 +1,6 @@
 <?php
 
-class CultureFeed_Uitpas_CardInfo {
+final class CultureFeed_Uitpas_CardInfo {
 
   /**
    * @var CultureFeed_Uitpas_CardSystem

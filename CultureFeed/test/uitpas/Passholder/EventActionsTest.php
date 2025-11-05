@@ -1,13 +1,16 @@
 <?php
+
+use PHPUnit\Framework\TestCase;
+
 /**
  * @file
  */
 
-class CultureFeed_Uitpas_Passholder_EventActionsTest extends PHPUnit_Framework_TestCase {
+class CultureFeed_Uitpas_Passholder_EventActionsTest extends TestCase {
 
   protected $dataDir;
 
-  protected function setUp() {
+  protected function setUp(): void {
     $this->dataDir = dirname(__FILE__) . '/data/eventactions';
   }
 
@@ -18,7 +21,7 @@ class CultureFeed_Uitpas_Passholder_EventActionsTest extends PHPUnit_Framework_T
     return $event_actions;
   }
 
-  public function testCreateFromXML() {
+  public function testCreateFromXML(): void {
     $event_actions = $this->loadEventActions('get.xml');
 
     $this->assertInstanceOf('CultureFeed_Uitpas_Passholder_EventActions', $event_actions);
@@ -31,7 +34,6 @@ class CultureFeed_Uitpas_Passholder_EventActionsTest extends PHPUnit_Framework_T
     /* @var CultureFeed_Uitpas_Passholder_CardSystemSpecific $card_system_specific */
     $card_system_specific = reset($event_actions->passholder->cardSystemSpecific);
 
-    $this->assertInternalType('string', $card_system_specific->currentCard->uitpasNumber);
     $this->assertEquals('0930000150316', $card_system_specific->currentCard->uitpasNumber);
     $this->assertEquals('ACTIVE', $card_system_specific->currentCard->status);
     $this->assertEquals(TRUE, $card_system_specific->kansenStatuut);
@@ -91,7 +93,7 @@ class CultureFeed_Uitpas_Passholder_EventActionsTest extends PHPUnit_Framework_T
     $this->assertEquals(CultureFeed_Uitpas_Passholder_Query_SearchPromotionPointsOptions::FILTER_POSSIBLE, $pointsPromotion->cashInState);
   }
 
-  public function testGetPartialEvent() {
+  public function testGetPartialEvent(): void {
     $event_actions = $this->loadEventActions('get.xml');
     $partial_event = $event_actions->getPartialEvent();
 

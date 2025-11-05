@@ -169,7 +169,7 @@ class CultureFeed_Uitpas_Default implements CultureFeed_Uitpas {
    * @param string $cdbid The CDBID of the organizer
    * @param array $distribution_keys The identification of the distribution key
    */
-  public function registerDistributionKeysForOrganizer($cdbid, $distribution_keys) {
+  public function registerDistributionKeysForOrganizer($cdbid, $distribution_keys): void {
     $this->oauth_client->consumerPostAsXml('uitpas/distributionkey/organiser/' . $cdbid, $distribution_keys);
   }
 
@@ -268,8 +268,8 @@ class CultureFeed_Uitpas_Default implements CultureFeed_Uitpas {
    * Create a new UitPas passholder.
    *
    * @param CultureFeed_Uitpas_Passholder $passholder The new passholder
-   * @param null $consumer_key_counter
-   * @return Passholder user ID
+   * @param ?string $consumer_key_counter
+   * @return string
    * @throws \CultureFeed_ParseException
    * @throws \CultureFeed_Uitpas_PassholderException
    */
@@ -303,7 +303,7 @@ class CultureFeed_Uitpas_Default implements CultureFeed_Uitpas {
   /**
    * Create a new membership for a UitPas passholder.
    *
-   * @param CultureFeed_Uitpas_Membership $membership The membership object of the UitPas passholder
+   * @param CultureFeed_Uitpas_Passholder_Membership $membership The membership object of the UitPas passholder
    */
   public function createMembershipForPassholder(CultureFeed_Uitpas_Passholder_Membership $membership) {
     $data = $membership->toPostData();
@@ -430,10 +430,10 @@ class CultureFeed_Uitpas_Default implements CultureFeed_Uitpas {
     );
 
     try {
-      $xml = new CultureFeed_SimpleXMLElement($result);
+      $xml = new CultureFeed_SimpleXMLElement($result->response);
     }
     catch (Exception $e) {
-      throw new CultureFeed_ParseException($result);
+      throw new CultureFeed_ParseException($result->response);
     }
 
     $response = CultureFeed_Uitpas_Response::createFromXML($xml->xpath('/response', false));
@@ -454,7 +454,7 @@ class CultureFeed_Uitpas_Default implements CultureFeed_Uitpas {
    *   When the returned payload is not valid XML.
    */
   private function consumerPostWithSimpleResponse($path, $data) {
-    if (is_object($data) && $data instanceof CultureFeed_Uitpas_ValueObject) {
+    if ($data instanceof CultureFeed_Uitpas_ValueObject) {
       $data = $data->toPostData();
     }
 
@@ -667,7 +667,6 @@ class CultureFeed_Uitpas_Default implements CultureFeed_Uitpas {
    * Provide either a UitPas number or chip number. You cannot provide both.
    *
    * @param CultureFeed_Uitpas_Passholder_Query_CheckInPassholderOptions $query The event data object
-   * @return The total amount of points of the user
    */
   public function checkinPassholder(CultureFeed_Uitpas_Passholder_Query_CheckInPassholderOptions $query) {
     $data = $query->toPostData();
@@ -824,7 +823,7 @@ class CultureFeed_Uitpas_Default implements CultureFeed_Uitpas {
    * @param string $file_data The binary data of the picture
    * @param string $consumer_key_counter The consumer key of the counter from where the request originates
    */
-  public function uploadPicture($id, $file_data, $consumer_key_counter = NULL) {
+  public function uploadPicture($id, $file_data, $consumer_key_counter = NULL): void {
     $data = array(
       'picture' => $file_data,
     );
@@ -841,7 +840,7 @@ class CultureFeed_Uitpas_Default implements CultureFeed_Uitpas {
      *
      * @param CultureFeed_Uitpas_Passholder $passholder The passholder to update.
      *     The passholder is identified by ID. Only fields that are set will be updated.
-     * @param null $consumer_key_counter
+     * @param string $consumer_key_counter
      * @return \CultureFeed_Uitpas_Response
      * @throws \CultureFeed_ParseException
      */
@@ -1036,8 +1035,11 @@ class CultureFeed_Uitpas_Default implements CultureFeed_Uitpas {
 
   public function getPassholderActivationLinkChainedWithAuthorization($uitpas_number, DateTime $date_of_birth, $callback_url) {
     $c = $this->culturefeed;
+    $activation_data = new CultureFeed_Uitpas_Passholder_Query_ActivationData();
+    $activation_data->uitpasNumber = $uitpas_number;
+    $activation_data->dob = $date_of_birth;
 
-    $link = $this->getPassholderActivationLink($uitpas_number, $date_of_birth, function () use ($c, $callback_url) {
+    $link = $this->getPassholderActivationLink($activation_data, function () use ($c, $callback_url) {
       $token = $c->getRequestToken($callback_url);
 
       $auth_url = $c->getUrlAuthorize($token, $callback_url, CultureFeed::AUTHORIZE_TYPE_REGULAR, TRUE);
@@ -1169,7 +1171,7 @@ class CultureFeed_Uitpas_Default implements CultureFeed_Uitpas {
   /**
    * {@inheritdoc}
    */
-  public function cancelTicketSaleById($ticketId, $consumer_key_counter = NULL) {
+  public function cancelTicketSaleById($ticketId, $consumer_key_counter = NULL): void {
     $data = array();
 
     if ($consumer_key_counter) {
@@ -1369,7 +1371,7 @@ class CultureFeed_Uitpas_Default implements CultureFeed_Uitpas {
    * @param string $uid The Culturefeed user ID
    * @param string $consumer_key_counter The consumer key of the counter from where the request originates
    */
-  public function addMemberToCounter($uid, $consumer_key_counter = NULL) {
+  public function addMemberToCounter($uid, $consumer_key_counter = NULL): void {
     $data = array(
       'uid' => $uid,
     );
@@ -1381,7 +1383,7 @@ class CultureFeed_Uitpas_Default implements CultureFeed_Uitpas {
     $this->oauth_client->authenticatedPost('uitpas/balie/member', $data);
   }
 
-  public function removeMemberFromCounter($uid, $consumer_key_counter = NULL) {
+  public function removeMemberFromCounter($uid, $consumer_key_counter = NULL): void {
     $data = array(
       'uid' => $uid,
     );
@@ -1396,7 +1398,7 @@ class CultureFeed_Uitpas_Default implements CultureFeed_Uitpas {
   /**
    * {@inheritdoc}
    */
-  public function getCardCounters($consumer_key_counter = NULL) {
+  public function getCardCounters($consumer_key_counter = NULL): array {
     $data = array();
 
     if ($consumer_key_counter) {

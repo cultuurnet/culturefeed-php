@@ -1,8 +1,10 @@
 <?php
 
-class CultureFeed_Uitpas_Event_CultureEventTest extends PHPUnit_Framework_TestCase {
+use PHPUnit\Framework\TestCase;
 
-  public function testCreateFromXml() {
+class CultureFeed_Uitpas_Event_CultureEventTest extends TestCase {
+
+  public function testCreateFromXml(): void {
     $event = CultureFeed_Uitpas_Event_CultureEvent::createFromXML(
       new CultureFeed_SimpleXMLElement(
         file_get_contents(__DIR__ . '/../data/events/event.xml')
@@ -22,7 +24,7 @@ class CultureFeed_Uitpas_Event_CultureEventTest extends PHPUnit_Framework_TestCa
     $distributionKey201->id = '201';
     $distributionKey201->name = 'Distribution key 201';
 
-    $this->assertInternalType('array', $event->distributionKey);
+    $this->assertIsArray($event->distributionKey);
     $this->assertCount(2, $event->distributionKey);
     $this->assertEquals(
       array(
@@ -34,7 +36,7 @@ class CultureFeed_Uitpas_Event_CultureEventTest extends PHPUnit_Framework_TestCa
   }
 
 
-  public function testToPostDataBasicProperties() {
+  public function testToPostDataBasicProperties(): void {
     $event = new CultureFeed_Uitpas_Event_CultureEvent();
 
     $event->cdbid = '9ba1b072-40ea-41b6-a66b-ac3fdf646f36';
@@ -53,7 +55,7 @@ class CultureFeed_Uitpas_Event_CultureEventTest extends PHPUnit_Framework_TestCa
     );
   }
 
-  public function testToPostDataWithDistributionKeyAsString() {
+  public function testToPostDataWithDistributionKeyAsString(): void {
     $event = new CultureFeed_Uitpas_Event_CultureEvent();
 
     $event->distributionKey = '200';
@@ -64,7 +66,7 @@ class CultureFeed_Uitpas_Event_CultureEventTest extends PHPUnit_Framework_TestCa
     $this->assertSame('200', $postData['distributionKey']);
   }
 
-  public function testToPostDataWithDistributionKeysAsArrayOfObjects() {
+  public function testToPostDataWithDistributionKeysAsArrayOfObjects(): void {
     $event = new CultureFeed_Uitpas_Event_CultureEvent();
 
     $distributionKey200 = new CultureFeed_Uitpas_DistributionKey();
@@ -92,7 +94,7 @@ class CultureFeed_Uitpas_Event_CultureEventTest extends PHPUnit_Framework_TestCa
     );
   }
 
-  public function testPostDataPriceNamesAndValues() {
+  public function testPostDataPriceNamesAndValues(): void {
     $event = new CultureFeed_Uitpas_Event_CultureEvent();
 
     $event->postPriceNames = array(
@@ -107,14 +109,22 @@ class CultureFeed_Uitpas_Event_CultureEventTest extends PHPUnit_Framework_TestCa
 
     $postData = $event->toPostData();
 
-    $this->assertArraySubset(
+    $this->assertEquals(
       array(
         'price.name.1' => 'price 1',
         'price.value.1' => 10.5,
         'price.name.2' => 'price 2',
         'price.value.2' => 11.6
       ),
-      $postData
+      array_intersect_key(
+        $postData,
+        array(
+          'price.name.1' => true,
+          'price.value.1' => true,
+          'price.name.2' => true,
+          'price.value.2' => true
+        )
+      )
     );
   }
 }

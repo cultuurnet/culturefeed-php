@@ -20,7 +20,7 @@ class CultureFeed_Uitpas_Passholder_Query_EventActions extends CultureFeed_Uitpa
    */
   public $includeProfilePicture;
 
-  public function manipulatePostData(&$data) {
+  public function manipulatePostData(&$data): void {
     if (isset($data['autocheckin'])) {
       $data['autocheckin'] = $data['autocheckin'] ? 'true' : 'false';
     }

@@ -1,11 +1,14 @@
 <?php
+
+use PHPUnit\Framework\TestCase;
+
 /**
  * @file
  */
 
-class CultureFeed_Uitpas_GroupPassAPITest extends PHPUnit_Framework_TestCase {
+class CultureFeed_Uitpas_GroupPassAPITest extends TestCase {
 
-  public function testGetGroupPass() {
+  public function testGetGroupPass(): void {
     $oauth_client_stub = $this->createMock('CultureFeed_OAuthClient');
 
     $xml = file_get_contents(dirname(__FILE__) . '/data/grouppass/groupPass.xml');
@@ -30,22 +33,18 @@ class CultureFeed_Uitpas_GroupPassAPITest extends PHPUnit_Framework_TestCase {
     $this->assertEquals(0, $pass->availableTickets);
     $this->assertEquals(false, $pass->kansenStatuut);
     $this->assertEquals(false, $pass->expired);
-    $this->assertInternalType('array', $pass->ticketSaleCoupons);
 
     $coupon = reset($pass->ticketSaleCoupons);
 
     $this->assertInstanceOf('CultureFeed_Uitpas_SaleCoupon', $coupon);
-    $this->assertInternalType('array', $coupon->buyConstraint);
     $this->assertEquals('ABSOLUTE', $coupon->buyConstraint['periodType']);
     $this->assertEquals(50, $coupon->buyConstraint['periodVolume']);
     $this->assertEquals('bon voor groep id AB', $coupon->description);
-    $this->assertInternalType('array', $coupon->exchangeConstraint);
     $this->assertEquals('ABSOLUTE', $coupon->exchangeConstraint['periodType']);
     $this->assertEquals(50, $coupon->exchangeConstraint['periodVolume']);
     $this->assertEquals(false, $coupon->expired);
     $this->assertEquals(14, $coupon->id);
     $this->assertEquals('AB groepsbon', $coupon->name);
-    $this->assertInternalType('array', $coupon->remainingTotal);
     $this->assertEquals('ABSOLUTE', $coupon->remainingTotal['periodType']);
     $this->assertEquals(50, $coupon->remainingTotal['periodVolume']);
     $this->assertEquals(1475359200, $coupon->validFrom);

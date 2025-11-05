@@ -1,6 +1,6 @@
 <?php
 
-class CultureFeed_Uitpas_PassholderException extends CultureFeed_Exception {
+final class CultureFeed_Uitpas_PassholderException extends CultureFeed_Exception {
 
   /**
    * @var CultureFeed_Uitpas_CardInfo[]
@@ -28,7 +28,7 @@ class CultureFeed_Uitpas_PassholderException extends CultureFeed_Exception {
       $exception->cardSystemLinks = array();
       foreach ($xml->xpath('cardSystemLinks/cardSystemLink') as $cardSystemLink) {
         $cardSystemId = $cardSystemLink->xpath_int('cardSystem/id', FALSE);
-        $exception->cardSystemLinks[$cardSystemId] = CultureFeed_Uitpas_CardInfo::createFromXml($cardSystemLink, FALSE);
+        $exception->cardSystemLinks[$cardSystemId] = CultureFeed_Uitpas_CardInfo::createFromXml($cardSystemLink);
       }
       $exception->userId = $xml->xpath_str('/response/userId');
 

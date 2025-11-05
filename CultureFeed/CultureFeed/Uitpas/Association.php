@@ -1,6 +1,6 @@
 <?php
 
-class CultureFeed_Uitpas_Association {
+final class CultureFeed_Uitpas_Association {
 
   /**
    * ID of the association.

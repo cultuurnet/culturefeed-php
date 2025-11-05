@@ -17,7 +17,7 @@ interface CultureFeed_HttpClient {
    *   The HTTP method.
    * @param string $post_data
    *   In case of a POST request, specify the post data a string.
-   * @return CultureFeed_HTTPResponse
+   * @return CultureFeed_HttpResponse
    *   The response.
    */
   public function request($url, $http_headers = array(), $method = 'GET', $post_data = '');

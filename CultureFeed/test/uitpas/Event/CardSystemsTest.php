@@ -1,10 +1,13 @@
 <?php
 
-class CultureFeed_Uitpas_Event_CardSystemsTest extends PHPUnit_Framework_TestCase {
+use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\TestCase;
+
+class CultureFeed_Uitpas_Event_CardSystemsTest extends TestCase {
   const EVENTCDBID = "47B6FA21-ACB1-EA8F-2C231182C7DD0A19";
 
-  public function testGetCardSystemsForEvent() {
-    /** @var CultureFeed_OAuthClient|PHPUnit_Framework_MockObject_MockObject $oauth_client_stub */
+  public function testGetCardSystemsForEvent(): void {
+    /** @var CultureFeed_OAuthClient&MockObject $oauth_client_stub */
     $oauth_client_stub = $this->createMock('CultureFeed_OAuthClient');
 
     $get_xml = file_get_contents(dirname(__FILE__) . '/../data/cultureevent/getCardSystems.xml');
@@ -39,7 +42,7 @@ class CultureFeed_Uitpas_Event_CardSystemsTest extends PHPUnit_Framework_TestCas
   /**
    * Test the registering of an event.
    */
-  public function testAddCardSystemToEvent() {
+  public function testAddCardSystemToEvent(): void {
 
     $response = <<<XML
 <?xml version="1.0" encoding="utf-8" ?>
@@ -76,7 +79,7 @@ class CultureFeed_Uitpas_Event_CardSystemsTest extends PHPUnit_Framework_TestCas
 </response>
 XML;
 
-    /** @var CultureFeed_OAuthClient|PHPUnit_Framework_MockObject_MockObject $oauth_client_stub */
+    /** @var CultureFeed_OAuthClient&MockObject $oauth_client_stub */
     $oauth_client_stub = $this->createMock('CultureFeed_OAuthClient');
     $oauth_client_stub
       ->expects($this->once())
@@ -94,7 +97,7 @@ XML;
     $this->assertNull($response->message);
   }
 
-  public function testDeleteCardSystemFromEvent() {
+  public function testDeleteCardSystemFromEvent(): void {
 
     $response = <<<XML
 <?xml version="1.0" encoding="utf-8" ?>
@@ -106,7 +109,7 @@ XML;
 
     $cardSystemId = 1;
 
-    /** @var CultureFeed_OAuthClient|PHPUnit_Framework_MockObject_MockObject $oauth_client_stub */
+    /** @var CultureFeed_OAuthClient&MockObject $oauth_client_stub */
     $oauth_client_stub = $this->createMock('CultureFeed_OAuthClient');
     $oauth_client_stub
       ->expects($this->once())
@@ -117,7 +120,7 @@ XML;
         'DELETE',
         FALSE
       )
-      ->willReturn($response);
+      ->willReturn(new CultureFeed_HttpResponse(200, $response));
 
     $cf = new CultureFeed($oauth_client_stub);
 

@@ -5,7 +5,7 @@ class CultureFeed_Uitpas_DistributionKey {
   /**
    * ID of the association.
    *
-   * @var int
+   * @var string
    */
   public $id;
 
@@ -62,7 +62,7 @@ class CultureFeed_Uitpas_DistributionKey {
     $distribution_key->name = $object->xpath_str('name');
     $distribution_key->conditions = array();
     foreach ($object->xpath('conditions/condition') as $condition) {
-      $distribution_key->conditions[] = CultureFeed_Uitpas_DistributionKey_Condition::createFromXML($condition, FALSE);
+      $distribution_key->conditions[] = CultureFeed_Uitpas_DistributionKey_Condition::createFromXML($condition);
     }
     foreach ($object->xpath('priceClasses/priceClass') as $priceClass) {
       $distribution_key->priceClasses[] = CultureFeed_Uitpas_Event_PriceClass::createFromXML($priceClass);

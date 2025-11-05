@@ -11,10 +11,12 @@
  * http://wiki.oauth.net/TestCases
  */
 
+use PHPUnit\Framework\TestCase;
+
 require_once dirname(__FILE__) . '/common.php';
 
-class OAuthRequestTest extends PHPUnit_Framework_TestCase {	
-	public function testCanGetSingleParameter() {
+class OAuthRequestTest extends TestCase {
+	public function testCanGetSingleParameter(): void {
 		// Yes, a awesomely boring test.. But if this doesn't work, the other tests is unreliable
 		$request = new OAuthRequest('', '', array('test'=>'foo'));
 		$this->assertEquals( 'foo', $request->get_parameter('test'), 'Failed to read back parameter');
@@ -28,7 +30,7 @@ class OAuthRequestTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals( 'baz', $request->get_parameter('bar'), 'Failed to read back parameter');
 	}
 	
-	public function testGetAllParameters() {
+	public function testGetAllParameters(): void {
 		// Yes, a awesomely boring test.. But if this doesn't work, the other tests is unreliable
 		$request = new OAuthRequest('', '', array('test'=>'foo'));
 		$this->assertEquals( array('test'=>'foo'), $request->get_parameters(), 'Failed to read back parameters');
@@ -40,7 +42,7 @@ class OAuthRequestTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals( array('test'=>array('foo', 'bar')), $request->get_parameters(), 'Failed to read back parameters');
 	}
 	
-	public function testSetParameters() {
+	public function testSetParameters(): void {
 		$request = new OAuthRequest('', '');
 		$this->assertEquals( NULL, $request->get_parameter('test'), 'Failed to assert that non-existing parameter is NULL');
 
@@ -54,7 +56,7 @@ class OAuthRequestTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals( 'bar', $request->get_parameter('test'), 'Failed to set single-entry parameter');
 	}
 	
-	public function testUnsetParameter() {
+	public function testUnsetParameter(): void {
 		$request = new OAuthRequest('', '');
 		$this->assertEquals( NULL, $request->get_parameter('test'));
 
@@ -65,7 +67,7 @@ class OAuthRequestTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals( NULL, $request->get_parameter('test'), 'Failed to unset parameter');
 	}
 	
-	public function testCreateRequestFromConsumerAndToken() {
+	public function testCreateRequestFromConsumerAndToken(): void {
 		$cons = new OAuthConsumer('key', 'kd94hf93k423kf44');
 		$token = new OAuthToken('token', 'pfkkdhi9sl3r4s00');
 		
@@ -92,23 +94,23 @@ class OAuthRequestTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals('bar', $request->get_parameter('foo'));
 	}
 	
-	public function testBuildRequestFromPost() {
+	public function testBuildRequestFromPost(): void {
 		OAuthTestUtils::build_request('POST', 'http://testbed/test', 'foo=bar&baz=blargh');
 		$this->assertEquals(array('foo'=>'bar','baz'=>'blargh'), OAuthRequest::from_request()->get_parameters(), 'Failed to parse POST parameters');
 	}
 	
-	public function testBuildRequestFromGet() {
+	public function testBuildRequestFromGet(): void {
 		OAuthTestUtils::build_request('GET', 'http://testbed/test?foo=bar&baz=blargh');		
 		$this->assertEquals(array('foo'=>'bar','baz'=>'blargh'), OAuthRequest::from_request()->get_parameters(), 'Failed to parse GET parameters');
 	}
 
-	public function testBuildRequestFromHeader() {
+	public function testBuildRequestFromHeader(): void {
 		$test_header = 'OAuth realm="",oauth_foo=bar,oauth_baz="bla,rgh"';
 		OAuthTestUtils::build_request('POST', 'http://testbed/test', '', $test_header);
 		$this->assertEquals(array('oauth_foo'=>'bar','oauth_baz'=>'bla,rgh'), OAuthRequest::from_request()->get_parameters(), 'Failed to split auth-header correctly');
 	}
 	
-	public function testHasProperParameterPriority() {
+	public function testHasProperParameterPriority(): void {
 		$test_header = 'OAuth realm="",oauth_foo=header';
 		OAuthTestUtils::build_request('POST', 'http://testbed/test?oauth_foo=get', 'oauth_foo=post', $test_header);
 		$this->assertEquals('header', OAuthRequest::from_request()->get_parameter('oauth_foo'), 'Loaded parameters in with the wrong priorities');		
@@ -120,7 +122,7 @@ class OAuthRequestTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals('get', OAuthRequest::from_request()->get_parameter('oauth_foo'), 'Loaded parameters in with the wrong priorities');				
 	}
 	
-	public function testNormalizeHttpMethod() {
+	public function testNormalizeHttpMethod(): void {
 		OAuthTestUtils::build_request('POST', 'http://testbed/test');
 		$this->assertEquals('POST', OAuthRequest::from_request()->get_normalized_http_method(), 'Failed to normalize HTTP method: POST');
 
@@ -134,7 +136,7 @@ class OAuthRequestTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals('PUT', OAuthRequest::from_request()->get_normalized_http_method(), 'Failed to normalize HTTP method: PUT');
 	}
 	
-	public function testNormalizeParameters() {
+	public function testNormalizeParameters(): void {
 		// This is mostly repeats of OAuthUtilTest::testParseParameters & OAuthUtilTest::TestBuildHttpQuery
 
 		// Tests taken from
@@ -158,7 +160,7 @@ class OAuthRequestTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals( 'a=1&c=hi%20there&f=25&f=50&f=a&z=p&z=t', OAuthRequest::from_request()->get_signable_parameters());
 	}
 	
-	public function testNormalizeHttpUrl() {
+	public function testNormalizeHttpUrl(): void {
 		OAuthTestUtils::build_request('POST', 'http://example.com');
 		$this->assertEquals('http://example.com', OAuthRequest::from_request()->get_normalized_http_url());
 		
@@ -184,7 +186,7 @@ class OAuthRequestTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals('http://example.com', OAuthRequest::from_request()->get_normalized_http_url());
 	}
 	
-	public function testBuildPostData() {
+	public function testBuildPostData(): void {
 		OAuthTestUtils::build_request('POST', 'http://example.com');
 		$this->assertEquals('', OAuthRequest::from_request()->to_postdata());
 
@@ -195,7 +197,7 @@ class OAuthRequestTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals('foo=bar', OAuthRequest::from_request()->to_postdata());	
 	}
 	
-	public function testBuildUrl() {
+	public function testBuildUrl(): void {
 		OAuthTestUtils::build_request('POST', 'http://example.com');
 		$this->assertEquals('http://example.com', OAuthRequest::from_request()->to_url());
 
@@ -206,7 +208,7 @@ class OAuthRequestTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals('http://example.com?foo=bar', OAuthRequest::from_request()->to_url());	
 	}
 
-	public function testConvertToString() {
+	public function testConvertToString(): void {
 		OAuthTestUtils::build_request('POST', 'http://example.com');
 		$this->assertEquals('http://example.com', (string) OAuthRequest::from_request());
 
@@ -217,7 +219,7 @@ class OAuthRequestTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals('http://example.com?foo=bar', (string) OAuthRequest::from_request());	
 	}
 	
-	public function testBuildHeader() {
+	public function testBuildHeader(): void {
 		OAuthTestUtils::build_request('POST', 'http://example.com');
 		$this->assertEquals('Authorization: OAuth', OAuthRequest::from_request()->to_header());
 		$this->assertEquals('Authorization: OAuth realm="test"', OAuthRequest::from_request()->to_header('test'));
@@ -238,13 +240,14 @@ class OAuthRequestTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals('Authorization: OAuth realm="test",oauth_foo="bar",oauth_baz="bla%2Crgh"', OAuthRequest::from_request()->to_header('test'));
 	}
 	
-	public function testWontBuildHeaderWithArrayInput() {
-		$this->setExpectedException('OAuthException');
+	public function testWontBuildHeaderWithArrayInput(): void {
+		$this->expectException(OAuthException::class);
+
 		OAuthTestUtils::build_request('POST', 'http://example.com', 'oauth_foo=bar&oauth_foo=baz');
 		OAuthRequest::from_request()->to_header();
 	}
 
-	public function testBuildBaseString() {
+	public function testBuildBaseString(): void {
 		OAuthTestUtils::build_request('POST', 'http://testbed/test', 'n=v');
 		$this->assertEquals('POST&http%3A%2F%2Ftestbed%2Ftest&n%3Dv', OAuthRequest::from_request()->get_signature_base_string());
 		
@@ -275,7 +278,7 @@ class OAuthRequestTest extends PHPUnit_Framework_TestCase {
 							OAuthRequest::from_request()->get_signature_base_string());
 	}
 
-	public function testBuildSignature() {
+	public function testBuildSignature(): void {
 		$params  = 'file=vacation.jpg&size=original&oauth_version=1.0&oauth_consumer_key=dpf43f3p2l4k3l03';
 		$params .= '&oauth_token=nnch734d00sl2jdk&oauth_timestamp=1191242096&oauth_nonce=kllo9940pd9333jh';
 		$params .= '&oauth_signature=ignored&oauth_signature_method=HMAC-SHA1';
@@ -292,7 +295,7 @@ class OAuthRequestTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals('kd94hf93k423kf44&pfkkdhi9sl3r4s00', $r->build_signature($plaintext, $cons, $token));
 	}
 
-	public function testSign() {
+	public function testSign(): void {
 		$params  = 'file=vacation.jpg&size=original&oauth_version=1.0&oauth_consumer_key=dpf43f3p2l4k3l03';
 		$params .= '&oauth_token=nnch734d00sl2jdk&oauth_timestamp=1191242096&oauth_nonce=kllo9940pd9333jh';
 		$params .= '&oauth_signature=__ignored__&oauth_signature_method=HMAC-SHA1';

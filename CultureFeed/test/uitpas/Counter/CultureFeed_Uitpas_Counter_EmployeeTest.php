@@ -1,6 +1,8 @@
 <?php
 
-class CultureFeed_Uitpas_Counter_EmployeeTest extends PHPUnit_Framework_TestCase {
+use PHPUnit\Framework\TestCase;
+
+class CultureFeed_Uitpas_Counter_EmployeeTest extends TestCase {
 
   /**
    * @var CultureFeed_Uitpas_Counter_Employee
@@ -17,7 +19,7 @@ class CultureFeed_Uitpas_Counter_EmployeeTest extends PHPUnit_Framework_TestCase
    */
   protected $groups;
 
-  public function setUp() {
+  public function setUp(): void {
     $cardSystem1 = new \CultureFeed_Uitpas_Counter_EmployeeCardSystem();
     $cardSystem1->permissions = array(
       'permission1',
@@ -62,7 +64,7 @@ class CultureFeed_Uitpas_Counter_EmployeeTest extends PHPUnit_Framework_TestCase
     );
   }
 
-  public function testJsonEncoding() {
+  public function testJsonEncoding(): void {
     $json = json_encode($this->employee);
     $decoded = json_decode($json);
 
@@ -70,13 +72,13 @@ class CultureFeed_Uitpas_Counter_EmployeeTest extends PHPUnit_Framework_TestCase
     $this->assertEquals($this->groups, $decoded->groups);
   }
 
-  public function testGetPermissionsFromCardSystems() {
+  public function testGetPermissionsFromCardSystems(): void {
     $this->assertEquals($this->permissions, $this->employee->getPermissionsFromCardSystems());
     $emptyEmployee = new CultureFeed_Uitpas_Counter_Employee();
     $this->assertEquals(array(), $emptyEmployee->getPermissionsFromCardSystems());
   }
 
-  public function testGetGroupsFromCardSystems() {
+  public function testGetGroupsFromCardSystems(): void {
     $this->assertEquals($this->groups, $this->employee->getGroupsFromCardSystems());
     $emptyEmployee = new CultureFeed_Uitpas_Counter_Employee();
     $this->assertEquals(array(), $emptyEmployee->getGroupsFromCardSystems());

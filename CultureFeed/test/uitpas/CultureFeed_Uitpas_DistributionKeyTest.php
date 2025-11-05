@@ -1,10 +1,12 @@
 <?php
 
-class CultureFeed_Uitpas_DistributionKeyTest extends PHPUnit_Framework_TestCase {
+use PHPUnit\Framework\TestCase;
+
+class CultureFeed_Uitpas_DistributionKeyTest extends TestCase {
 
   const ORGANIZERCDBID = "47B6FA21-ACB1-EA8F-2C231182C7DD0A19";
 
-  public function testGetDistributionKeysForOrganizer() {
+  public function testGetDistributionKeysForOrganizer(): void {
     $oauth_client_stub = $this->createMock('CultureFeed_OAuthClient');
 
     $get_xml = file_get_contents(dirname(__FILE__) . '/data/distributionkey/get.xml');

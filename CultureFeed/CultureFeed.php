@@ -105,29 +105,20 @@ class CultureFeed implements ICultureFeed {
   /**
    * CultureFeed Uitpas instance.
    *
-   * @var CultureFeed_Uitpas
+   * @var ?CultureFeed_Uitpas
    */
   protected $uitpas;
 
-  /**
-   * Culturefeed pages instance.
-   *
-   * @var CultureFeed_Pages
-   */
-  protected $pages;
+  protected ?CultureFeed_Pages $pages = null;
+
+  protected ?CultureFeed_Messages $messages = null;
+
+  protected ?CultureFeed_SavedSearches $savedSearches = null;
 
   /**
-   * Culturefeed messages instance.
-   *
-   * @var CultureFeed_Messages
+   * @var OAuthConsumer
    */
-  protected $messages;
-
-  /**
-   * Culturefeed saved searches instance.
-   * @var Culturefeed_SavedSearches
-   */
-  protected $savedSearches;
+  protected $oAuthConsumer;
 
   /**
    * Get the consumer.
@@ -184,7 +175,7 @@ class CultureFeed implements ICultureFeed {
       throw new CultureFeed_ParseException($response, 'token');
     }
 
-    $this->token = new OAuthConsumer($token['oauth_token'], $token['oauth_token_secret']);
+    $this->oAuthConsumer = new OAuthConsumer($token['oauth_token'], $token['oauth_token_secret']);
 
     return $token;
   }
@@ -194,7 +185,7 @@ class CultureFeed implements ICultureFeed {
    *
    * The object should be initialized with the consumer token.
    *
-   * @param string $token
+   * @param array $token
    *   A request token fetched with getRequestToken.
    * @param string $callback
    *   (optional) The URL of the page to redirect the user back to after authorization has been handled on provider.
@@ -267,7 +258,7 @@ class CultureFeed implements ICultureFeed {
       throw new CultureFeed_ParseException($response, 'token');
     }
 
-    $this->token = new OAuthConsumer($token['oauth_token'], $token['oauth_token_secret']);
+    $this->oAuthConsumer = new OAuthConsumer($token['oauth_token'], $token['oauth_token_secret']);
 
     return $token;
   }
@@ -380,7 +371,7 @@ class CultureFeed implements ICultureFeed {
    * @param array $fields
    *   If this parameters is not empty, only the properties specified in this array will be updated on the API.
    */
-  public function updateUser(CultureFeed_User $user, $fields = array()) {
+  public function updateUser(CultureFeed_User $user, $fields = array()): void {
     $data = $user->toPostData($fields);
 
     $id = $data['id'];
@@ -398,7 +389,7 @@ class CultureFeed implements ICultureFeed {
    * @param string $id
    *   ID of the user who is deleted.
    */
-  public function deleteUser($id) {
+  public function deleteUser($id): void {
     $this->oauth_client->authenticatedGetAsXml('user/' . $id . '/delete');
   }
 
@@ -541,7 +532,7 @@ class CultureFeed implements ICultureFeed {
    * @param string|CultureFeed_FileUpload $file_data
    *   Binary data of the file to upload, or a CultureFeed_FileUpload object.
    */
-  public function uploadUserDepiction($id, $file_data) {
+  public function uploadUserDepiction($id, $file_data): void {
     $this->oauth_client->authenticatedPostAsXml('user/' . $id . '/upload_depiction', array('depiction' => $file_data), TRUE, TRUE);
   }
 
@@ -550,7 +541,7 @@ class CultureFeed implements ICultureFeed {
    * @param string $id
    *   ID of the user to remove depiction for.
    */
-  public function removeUserDepiction($id) {
+  public function removeUserDepiction($id): void {
     $this->oauth_client->authenticatedPostAsXml('user/' . $id . '/depiction/remove');
   }
 
@@ -562,7 +553,7 @@ class CultureFeed implements ICultureFeed {
    * @param string $id
    *   ID of the user who requests the confirmation e-mail to be resent.
    */
-  public function resendMboxConfirmationForUser($id) {
+  public function resendMboxConfirmationForUser($id): void {
     $this->oauth_client->authenticatedPostAsXml('user/' . $id . '/resend_mbox_confirmation');
   }
 
@@ -578,7 +569,7 @@ class CultureFeed implements ICultureFeed {
    *   The array is indexed by the field name. Values are the privacy status.
    *   Possible values for the privacy status are represented in the PRIVACY_* constants.
    */
-  public function updateUserPrivacy($id, CultureFeed_UserPrivacyConfig $privacy_config) {
+  public function updateUserPrivacy($id, CultureFeed_UserPrivacyConfig $privacy_config): void {
     $data = $privacy_config->toPostData();
 
     $this->oauth_client->authenticatedPostAsXml('user/' . $id . '/privacy', $data);
@@ -617,10 +608,10 @@ class CultureFeed implements ICultureFeed {
    *
    * @param string $user_id
    *   ID of the user who requests the revoke.
-   * @param integer id
+   * @param integer $consumer_id
    *   ID of the service consumer that needs to be revoked.
    */
-  public function revokeUserServiceConsumer($user_id, $consumer_id) {
+  public function revokeUserServiceConsumer($user_id, $consumer_id): void {
     $this->oauth_client->authenticatedPostAsXml('user/' . $user_id . '/serviceconsumers/' . $consumer_id . '/revoke');
   }
 
@@ -634,7 +625,7 @@ class CultureFeed implements ICultureFeed {
    * @param CultureFeed_OnlineAccount $account
    *   The account settings to update.
    */
-  public function updateUserOnlineAccount($id, CultureFeed_OnlineAccount $account) {
+  public function updateUserOnlineAccount($id, CultureFeed_OnlineAccount $account): void {
     $data = $account->toPostData();
 
     $this->oauth_client->authenticatedPostAsXml('user/' . $id . '/onlineaccount/update', $data);
@@ -652,7 +643,7 @@ class CultureFeed implements ICultureFeed {
    * @param string $account_name
    *   Account name of the account to delete.
    */
-  public function deleteUserOnlineAccount($id, $account_type, $account_name) {
+  public function deleteUserOnlineAccount($id, $account_type, $account_name): void {
     $data = array(
       'accountName' => $account_name,
       'accountType' => $account_type,
@@ -665,7 +656,7 @@ class CultureFeed implements ICultureFeed {
     /**
      * {@inheritdoc}
      */
-  public function postToSocial($id, $account_name, $account_type, $message, $image = NULL, $link = NULL)  {
+  public function postToSocial($id, $account_name, $account_type, $message, $image = NULL, $link = NULL): void  {
 
     $data = array(
       'accountName' => $account_name,
@@ -741,7 +732,7 @@ class CultureFeed implements ICultureFeed {
    * @param string $id
    *   ID of the activity to update.
    */
-  public function updateActivity($id, $private) {
+  public function updateActivity($id, $private): void {
     $data = array('private' => $private ? 'true' : 'false');
 
     $this->oauth_client->authenticatedPostAsXml('activity/' . $id, $data);
@@ -789,7 +780,7 @@ class CultureFeed implements ICultureFeed {
    *
    * @param CultureFeed_SearchActivitiesQuery $query
    *   The query.
-   * @return CultureFeed_Activity[]
+   * @return CultureFeed_ResultSet
    *   The activities.
    *
    * @throws CultureFeed_ParseException
@@ -1118,8 +1109,6 @@ class CultureFeed implements ICultureFeed {
     $object = $xml->xpath('/response/template');
 
     return self::parseTemplate($object[0]);
-
-    throw new CultureFeed_ParseException($result);
   }
 
   /**
@@ -1132,8 +1121,8 @@ class CultureFeed implements ICultureFeed {
    * @param array $fields
    *   If this parameters is not empty, only the properties specified in this array will be updated on the API.
    */
-  public function updateTemplate(CultureFeed_Template $template, $fields = array()) {
-    $data = $template->toPostData($fields);
+  public function updateTemplate(CultureFeed_Template $template, $fields = array()): void {
+    $data = $template->toPostData();
 
     $id = $data['id'];
 
@@ -1147,7 +1136,7 @@ class CultureFeed implements ICultureFeed {
    *
    *  The object should be initialized with the consumer token and user access token of the user who is acted upon.
    *
-   * @return CultureFeed_Template[]
+   * @return CultureFeed_ResultSet
    *   List of templates.
    *
    * @throws CultureFeed_ParseException
@@ -1176,7 +1165,7 @@ class CultureFeed implements ICultureFeed {
    * @param string $id
    *   ID of the template to delete.
    */
-  public function deleteTemplate($id) {
+  public function deleteTemplate($id): void {
     $this->oauth_client->authenticatedPostAsXml('mailing/template/' . $id . '/delete');
   }
 
@@ -1208,8 +1197,6 @@ class CultureFeed implements ICultureFeed {
     $object = $xml->xpath('/response/mailing');
 
     return self::parseMailing($object[0]);
-
-    throw new CultureFeed_ParseException($result);
   }
 
   /**
@@ -1243,8 +1230,6 @@ class CultureFeed implements ICultureFeed {
     $object = $xml->xpath('/response/mailing');
 
     return self::parseMailing($object[0]);
-
-    throw new CultureFeed_ParseException($result);
   }
 
   /**
@@ -1257,8 +1242,8 @@ class CultureFeed implements ICultureFeed {
    * @param array $fields
    *   If this parameters is not empty, only the properties specified in this array will be updated on the API.
    */
-  public function updateMailing(CultureFeed_Mailing $mailing, $fields = array()) {
-    $data = $mailing->toPostData($fields);
+  public function updateMailing(CultureFeed_Mailing $mailing, $fields = array()): void {
+    $data = $mailing->toPostData();
 
     $id = $data['id'];
     unset($data['id']);
@@ -1276,7 +1261,7 @@ class CultureFeed implements ICultureFeed {
    * @param string $id
    *   ID of the mailing to disable.
    */
-  public function disableMailing($id) {
+  public function disableMailing($id): void {
     $this->oauth_client->authenticatedPostAsXml('mailing/' . $id . '/disable');
   }
 
@@ -1288,7 +1273,7 @@ class CultureFeed implements ICultureFeed {
    * @param string $id
    *   ID of the mailing to delete.
    */
-  public function deleteMailing($id) {
+  public function deleteMailing($id): void {
     $this->oauth_client->authenticatedPostAsXml('mailing/v2/' . $id . '/delete');
   }
 
@@ -1300,7 +1285,7 @@ class CultureFeed implements ICultureFeed {
    * @param CultureFeed_SearchMailingsQuery $query
    *   The query.
    *
-   * @return CultureFeed_Mailing[]
+   * @return CultureFeed_ResultSet
    *   List of mailings.
    *
    * @throws CultureFeed_ParseException
@@ -1333,7 +1318,7 @@ class CultureFeed implements ICultureFeed {
    * @param string $mailing_id
    *   ID of the mailing to subscribe to.
    */
-  public function sendTestMailing($user_id, $mailing_id) {
+  public function sendTestMailing($user_id, $mailing_id): void {
     $this->oauth_client->authenticatedPostAsXml('mailing/' . $mailing_id . '/test', array('userId' => $user_id));
   }
 
@@ -1345,7 +1330,7 @@ class CultureFeed implements ICultureFeed {
    * @param string $id
    *   ID of the mailing to send.
    */
-  public function sendMailing($id) {
+  public function sendMailing($id): void {
     $this->oauth_client->authenticatedPostAsXml('mailing/' . $id . '/send');
   }
 
@@ -1357,7 +1342,7 @@ class CultureFeed implements ICultureFeed {
    * @param CultureFeed_SearchMailingsQuery $query
    *   The query.
    *
-   * @return CultureFeed_Mailing[]
+   * @return CultureFeed_ResultSet
    *   List of mailings.
    *
    * @throws CultureFeed_ParseException
@@ -1385,12 +1370,12 @@ class CultureFeed implements ICultureFeed {
    *
    * @param string $user_id
    *   ID from user that needs to be subscribed.
-   * @param string
+   * @param string $mailing_id
    *   ID of the mailing to subscribe to.
    * @param bool $use_auth
    *   Using a consumer request for this method is only available for a few consumers who have the ‘Use Light UiTID permission.
    */
-  public function subscribeToMailing($user_id, $mailing_id, $use_auth = TRUE) {
+  public function subscribeToMailing($user_id, $mailing_id, $use_auth = TRUE): void {
     if ($use_auth) {
       $result = $this->oauth_client->authenticatedPostAsXml('mailing/v2/' . $mailing_id . '/subscribe', array('userId' => $user_id));
     }
@@ -1409,12 +1394,12 @@ class CultureFeed implements ICultureFeed {
    *
    * @param string $user_id
    *   ID from user that needs to be unsubscribed.
-   * @param string
+   * @param string $mailing_id
    *   ID of the mailing to unsubscribe from.
    * @param bool $use_auth
    *   Using a consumer request for this method is only available for a few consumers who have the ‘Use Light UiTID permission.
    */
-  public function unsubscribeFromMailing($user_id, $mailing_id, $use_auth = TRUE) {
+  public function unsubscribeFromMailing($user_id, $mailing_id, $use_auth = TRUE): void {
     if ($use_auth) {
       $result = $this->oauth_client->authenticatedPostAsXml('mailing/v2/' . $mailing_id . '/unsubscribe', array('userId' => $user_id));
     }
@@ -1434,7 +1419,7 @@ class CultureFeed implements ICultureFeed {
    * @param bool $use_auth
    *   Using a consumer request for this method is only available for a few consumers who have the ‘Use Light UiTID permission.
    *
-   * @return CultureFeed_Mailing[]
+   * @return CultureFeed_ResultSet
    *   List of mailings.
    *
    * @throws CultureFeed_ParseException
@@ -1571,7 +1556,7 @@ class CultureFeed implements ICultureFeed {
    *   Evaluation for the recommendation.
    *   Possible values are represented in the RECOMMENDATION_EVALUATION_* constants.
    */
-  public function evaluateRecommendation($id, $evaluation) {
+  public function evaluateRecommendation($id, $evaluation): void {
     $data = array('evaluation' => $evaluation);
 
     $this->oauth_client->authenticatedPostAsXml('recommendation/evaluate/' . $id, $data);
@@ -1582,11 +1567,11 @@ class CultureFeed implements ICultureFeed {
    *
    * @param string $userId
    *   User Id to get the notifications for.
-   * @param string dateFrom
+   * @param string $dateFrom
    *   ISO Date to set the startdate of the timeline. (optional)
    *
    * @throws CultureFeed_ParseException
-   * @return CultureFeed_ResultSet
+   * @return array
    */
   public function getNotificationsCount($userId, $dateFrom = NULL) {
 
@@ -1606,7 +1591,7 @@ class CultureFeed implements ICultureFeed {
     $notifications_count = array();
     $total = $xmlElement->xpath('/response/total');
     if (!$total) {
-      return array();
+      return [];
     }
 
     foreach ($total as $count) {
@@ -1809,7 +1794,7 @@ class CultureFeed implements ICultureFeed {
    * @todo clarify if $start and $max are obligatory or optional
    *
    * Enter description here ...
-   * @param unknown_type $start
+   * @param int $start
    */
   public function getServiceConsumers($start = 0, $max = NULL, $filters = array()) {
     $query = array('start' => $start);
@@ -1873,7 +1858,7 @@ class CultureFeed implements ICultureFeed {
    *
    * @param CultureFeed_Consumer $consumer
    */
-  public function updateServiceConsumer(CultureFeed_Consumer $consumer) {
+  public function updateServiceConsumer(CultureFeed_Consumer $consumer): void {
     $data = $consumer->toPostData();
 
     unset($data['id']);
@@ -1914,7 +1899,7 @@ class CultureFeed implements ICultureFeed {
    * @param CultureFeed_Consumer $consumer
    * @param int $permissionGroup
    */
-  public function addUitpasPermission(CultureFeed_Consumer $consumer, $permissionGroup) {
+  public function addUitpasPermission(CultureFeed_Consumer $consumer, $permissionGroup): void {
     $params = ['group' =>  $permissionGroup];
     $this->oauth_client->consumerPostAsXML('uitpas/consumerpermission/' . $consumer->consumerKey, $params);
   }
@@ -1922,7 +1907,7 @@ class CultureFeed implements ICultureFeed {
   /**
    * {@inheritdoc}
    */
-  public function addServiceConsumerAdmin($consumerKey, $uid) {
+  public function addServiceConsumerAdmin($consumerKey, $uid): void {
 
     $data = [
       'uid' => $uid,
@@ -1975,7 +1960,7 @@ class CultureFeed implements ICultureFeed {
   /**
    * Returns the SavedSearches object.
    *
-   * @return CultureFeed_SavedSearches_Default
+   * @return CultureFeed_SavedSearches
    */
   public function savedSearches() {
 

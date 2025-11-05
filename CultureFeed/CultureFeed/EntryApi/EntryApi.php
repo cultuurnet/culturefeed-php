@@ -73,6 +73,11 @@ class CultureFeed_EntryApi implements CultureFeed_EntryApi_IEntryApi {
   private $cdbXmlVersion;
 
   /**
+   * @var CultureFeed_OAuthClient
+   */
+  private $oauth_client;
+
+  /**
    * Constructor for a new CultureFeed_EntryApi instance.
    *
    * @param CultureFeed_OAuthClient $oauth_client
@@ -205,7 +210,7 @@ class CultureFeed_EntryApi implements CultureFeed_EntryApi_IEntryApi {
    * @param CultureFeed_Cdb_Item_Event $event
    *   The event to update.
    */
-  public function updateEvent(CultureFeed_Cdb_Item_Event $event) {
+  public function updateEvent(CultureFeed_Cdb_Item_Event $event): void {
 
     $cdb = new CultureFeed_Cdb_Default($this->cdbXmlVersion);
     $cdb->addItem($event);
@@ -223,7 +228,7 @@ class CultureFeed_EntryApi implements CultureFeed_EntryApi_IEntryApi {
    * @param string $id
    *   ID from the event.
    */
-  public function deleteEvent($id) {
+  public function deleteEvent($id): void {
 
     $result = $this->oauth_client->authenticatedDeleteAsXml('event/' . $id);
     $xml = $this->validateResult($result, self::CODE_ITEM_DELETED);
@@ -236,7 +241,7 @@ class CultureFeed_EntryApi implements CultureFeed_EntryApi_IEntryApi {
    * @param string $id
    *   ID of the production to load.
    *
-   * @return CultureFeed_Cdb_Item_Event
+   * @return CultureFeed_Cdb_Item_Production
    * @throws CultureFeed_ParseException
    */
   public function getProduction($id) {
@@ -286,7 +291,7 @@ class CultureFeed_EntryApi implements CultureFeed_EntryApi_IEntryApi {
    * @param CultureFeed_Cdb_Item_Production $production
    *   The production to update.
    */
-  public function updateProduction(CultureFeed_Cdb_Item_Production $production) {
+  public function updateProduction(CultureFeed_Cdb_Item_Production $production): void {
     $cdb = new CultureFeed_Cdb_Default($this->cdbXmlVersion);
     $cdb->addItem($production);
 
@@ -300,7 +305,7 @@ class CultureFeed_EntryApi implements CultureFeed_EntryApi_IEntryApi {
    * @param string $id
    *   ID from the production.
    */
-  public function deleteProduction($id) {
+  public function deleteProduction($id): void {
     $result = $this->oauth_client->authenticatedDeleteAsXml('production/' . $id);
     $xml = $this->validateResult($result, self::CODE_ITEM_DELETED);
   }
@@ -361,7 +366,7 @@ class CultureFeed_EntryApi implements CultureFeed_EntryApi_IEntryApi {
    * @param CultureFeed_Cdb_Item_Actor $actor
    *   The actor to update.
    */
-  public function updateActor(CultureFeed_Cdb_Item_Actor $actor) {
+  public function updateActor(CultureFeed_Cdb_Item_Actor $actor): void {
     $cdb = new CultureFeed_Cdb_Default($this->cdbXmlVersion);
     $cdb->addItem($actor);
 
@@ -375,7 +380,7 @@ class CultureFeed_EntryApi implements CultureFeed_EntryApi_IEntryApi {
    * @param string $id
    *   ID from the actor.
    */
-  public function deleteActor($id) {
+  public function deleteActor($id): void {
     $result = $this->oauth_client->authenticatedDeleteAsXml('actor/' . $id);
     $xml = $this->validateResult($result, self::CODE_ITEM_DELETED);
   }
@@ -385,11 +390,11 @@ class CultureFeed_EntryApi implements CultureFeed_EntryApi_IEntryApi {
    *
    * @param CultureFeed_Cdb_Item_Event $event
    *   Event where the tags will be added to.
-   * @param string[]|CultureFeed_Cdb_Data_Keyword[] $keywords
+   * @param array<string>|array<CultureFeed_Cdb_Data_Keyword> $keywords
    *   Tags to add, each tag being either a scalar string or a
    *   CultureFeed_Cdb_Data_Keyword object.
    */
-  public function addTagToEvent(CultureFeed_Cdb_Item_Event $event, $keywords) {
+  public function addTagToEvent(CultureFeed_Cdb_Item_Event $event, $keywords): void {
     $this->addTags('event', $event->getCdbId(), $keywords);
   }
 
@@ -401,7 +406,7 @@ class CultureFeed_EntryApi implements CultureFeed_EntryApi_IEntryApi {
    * @param array $keywords
    *   Tags to add.
    */
-  public function addTagToProduction(CultureFeed_Cdb_Item_Production $production, $keywords) {
+  public function addTagToProduction(CultureFeed_Cdb_Item_Production $production, $keywords): void {
     $this->addTags('production', $production->getCdbId(), $keywords);
   }
 
@@ -413,7 +418,7 @@ class CultureFeed_EntryApi implements CultureFeed_EntryApi_IEntryApi {
    * @param array $keywords
    *   Tags to add.
    */
-  public function addTagToActor(CultureFeed_Cdb_Item_Actor $actor, $keywords) {
+  public function addTagToActor(CultureFeed_Cdb_Item_Actor $actor, $keywords): void {
     $this->addTags('actor', $actor->getCdbId(), $keywords);
   }
 
@@ -431,7 +436,7 @@ class CultureFeed_EntryApi implements CultureFeed_EntryApi_IEntryApi {
    * @param String $longDescription
    *   Long description of the translation.
    */
-  public function addTranslationToEvent(CultureFeed_Cdb_Item_Event $event, $lang, $title = '', $shortDescription = '', $longDescription = '') {
+  public function addTranslationToEvent(CultureFeed_Cdb_Item_Event $event, $lang, $title = '', $shortDescription = '', $longDescription = ''): void {
     $this->addTranslation('event', $event->getCdbId(), $lang, $title, $shortDescription, $longDescription);
   }
 
@@ -449,7 +454,7 @@ class CultureFeed_EntryApi implements CultureFeed_EntryApi_IEntryApi {
    * @param String $longDescription
    *   Long description of the translation.
    */
-  public function addTranslationToActor(CultureFeed_Cdb_Item_Actor $actor, $lang, $title = '', $shortDescription = '', $longDescription = '') {
+  public function addTranslationToActor(CultureFeed_Cdb_Item_Actor $actor, $lang, $title = '', $shortDescription = '', $longDescription = ''): void {
     $this->addTranslation('actor', $actor->getCdbId(), $lang, $title, $shortDescription, $longDescription);
   }
 
@@ -467,7 +472,7 @@ class CultureFeed_EntryApi implements CultureFeed_EntryApi_IEntryApi {
    * @param String $longDescription
    *   Long description of the translation.
    */
-  public function addTranslationToProduction(CultureFeed_Cdb_Item_Production $production, $lang, $title = '', $shortDescription = '', $longDescription = '') {
+  public function addTranslationToProduction(CultureFeed_Cdb_Item_Production $production, $lang, $title = '', $shortDescription = '', $longDescription = ''): void {
     $this->addTranslation('production', $production->getCdbId(), $lang, $title, $shortDescription, $longDescription);
   }
 
@@ -496,7 +501,7 @@ class CultureFeed_EntryApi implements CultureFeed_EntryApi_IEntryApi {
     $copyright = '',
     $subBrand = '',
     $description = ''
-  ) {
+  ): void {
     $this->addLink(
       'production',
       $production->getCdbId(),
@@ -527,7 +532,7 @@ class CultureFeed_EntryApi implements CultureFeed_EntryApi_IEntryApi {
     $copyright = '',
     $subBrand = '',
     $description = ''
-  ) {
+  ): void {
     $this->addCollaborationLink(
       'production',
       $production->getCdbId(),
@@ -569,7 +574,7 @@ class CultureFeed_EntryApi implements CultureFeed_EntryApi_IEntryApi {
         $copyright = '',
         $subBrand = '',
         $description = ''
-    ) {
+    ): void {
 
         $this->addLink(
             'event',
@@ -602,7 +607,7 @@ class CultureFeed_EntryApi implements CultureFeed_EntryApi_IEntryApi {
     $copyright = '',
     $subBrand = '',
     $description = ''
-  ) {
+  ): void {
     $this->addCollaborationLink(
       'event',
       $event->getCdbId(),
@@ -641,7 +646,7 @@ class CultureFeed_EntryApi implements CultureFeed_EntryApi_IEntryApi {
     $copyright = '',
     $subBrand = '',
     $description = ''
-  ) {
+  ): void {
     $this->addLink(
       'actor',
       $actor->getCdbId(),
@@ -672,7 +677,7 @@ class CultureFeed_EntryApi implements CultureFeed_EntryApi_IEntryApi {
     $copyright = '',
     $subBrand = '',
     $description = ''
-  ) {
+  ): void {
     $this->addCollaborationLink(
       'actor',
       $actor->getCdbId(),
@@ -693,7 +698,7 @@ class CultureFeed_EntryApi implements CultureFeed_EntryApi_IEntryApi {
    * @param string $keyword
    *   Tag to remove.
    */
-  public function removeTagFromEvent(CultureFeed_Cdb_Item_Event $event, $keyword) {
+  public function removeTagFromEvent(CultureFeed_Cdb_Item_Event $event, $keyword): void {
     $this->removeTag('event', $event->getCdbId(), $keyword);
   }
 
@@ -705,7 +710,7 @@ class CultureFeed_EntryApi implements CultureFeed_EntryApi_IEntryApi {
    * @param string $keyword
    *   Tag to remove.
    */
-  public function removeTagFromProduction(CultureFeed_Cdb_Item_Production $production, $keyword) {
+  public function removeTagFromProduction(CultureFeed_Cdb_Item_Production $production, $keyword): void {
     $this->removeTag('production', $production->getCdbId(), $keyword);
   }
 
@@ -717,7 +722,7 @@ class CultureFeed_EntryApi implements CultureFeed_EntryApi_IEntryApi {
    * @param string $keyword
    *   Tag to remove.
    */
-  public function removeTagFromActor(CultureFeed_Cdb_Item_Actor $actor, $keyword) {
+  public function removeTagFromActor(CultureFeed_Cdb_Item_Actor $actor, $keyword): void {
     $this->removeTag('actor', $actor->getCdbId(), $keyword);
   }
 
@@ -729,7 +734,7 @@ class CultureFeed_EntryApi implements CultureFeed_EntryApi_IEntryApi {
    * @param string $lang
    *   Language of the translation to remove.
    */
-  public function removeTranslationFromEvent(CultureFeed_Cdb_Item_Event $event, $lang) {
+  public function removeTranslationFromEvent(CultureFeed_Cdb_Item_Event $event, $lang): void {
     $this->removeTranslation('event', $event->getCdbId(), $lang);
   }
 
@@ -741,7 +746,7 @@ class CultureFeed_EntryApi implements CultureFeed_EntryApi_IEntryApi {
    * @param string $lang
    *   Language of the translation to remove.
    */
-  public function removeTranslationFromActor(CultureFeed_Cdb_Item_Actor $actor, $lang) {
+  public function removeTranslationFromActor(CultureFeed_Cdb_Item_Actor $actor, $lang): void {
     $this->removeTranslation('actor', $actor->getCdbId(), $lang);
   }
 
@@ -753,7 +758,7 @@ class CultureFeed_EntryApi implements CultureFeed_EntryApi_IEntryApi {
    * @param string $lang
    *   Language of the translation to remove.
    */
-  public function removeTranslationFromProduction(CultureFeed_Cdb_Item_Production $production, $lang) {
+  public function removeTranslationFromProduction(CultureFeed_Cdb_Item_Production $production, $lang): void {
     $this->removeTranslation('production', $production->getCdbId(), $lang);
   }
 
@@ -765,7 +770,7 @@ class CultureFeed_EntryApi implements CultureFeed_EntryApi_IEntryApi {
    * @param string $link
    *   Link to remove.
    */
-  public function removeLinkFromEvent(CultureFeed_Cdb_Item_Event $event, $link) {
+  public function removeLinkFromEvent(CultureFeed_Cdb_Item_Event $event, $link): void {
     $this->removeLink('event', $event->getCdbId(), $link);
   }
 
@@ -777,7 +782,7 @@ class CultureFeed_EntryApi implements CultureFeed_EntryApi_IEntryApi {
    * @param string $link
    *   Link to remove.
    */
-  public function removeLinkFromProduction(CultureFeed_Cdb_Item_Production $production, $link) {
+  public function removeLinkFromProduction(CultureFeed_Cdb_Item_Production $production, $link): void {
     $this->removeLink('production', $production->getCdbId(), $link);
   }
 
@@ -789,7 +794,7 @@ class CultureFeed_EntryApi implements CultureFeed_EntryApi_IEntryApi {
    * @param string $link
    *   Link to remove.
    */
-  public function removeLinkFromActor(CultureFeed_Cdb_Item_Actor $actor, $link) {
+  public function removeLinkFromActor(CultureFeed_Cdb_Item_Actor $actor, $link): void {
     $this->removeLink('actor', $actor->getCdbId(), $link);
   }
 
@@ -856,7 +861,7 @@ class CultureFeed_EntryApi implements CultureFeed_EntryApi_IEntryApi {
    * @param string[]|CultureFeed_Cdb_Data_Keyword[] $keywords
    *   Keywords to add.
    */
-  private function addTags($type, $id, $keywords) {
+  private function addTags($type, $id, $keywords): void {
     $keywords = $this->keywordsAsObjects($keywords);
     $visibles = array();
     $values = array();
@@ -914,12 +919,12 @@ class CultureFeed_EntryApi implements CultureFeed_EntryApi_IEntryApi {
   /**
    * Validates that the keyword is of a proper type.
    *
-   * @param string|CultureFeed_Cdb_Data_Keyword $keyword
+   * @param mixed $keyword
    *
    * @return void
    * @throws InvalidArgumentException
    */
-  private function validateKeyword($keyword) {
+  private function validateKeyword($keyword): void {
     if (!is_string($keyword) &&
         !$keyword instanceof CultureFeed_Cdb_Data_Keyword) {
       throw new InvalidArgumentException('Unexpected value for keyword, given: ' . gettype($keyword));
@@ -936,7 +941,7 @@ class CultureFeed_EntryApi implements CultureFeed_EntryApi_IEntryApi {
    * @param string $keyword
    *   Tag to remove.
    */
-  private function removeTag($type, $id, $keyword) {
+  private function removeTag($type, $id, $keyword): void {
     $result = $this->oauth_client->authenticatedDeleteAsXml($type . '/' . $id . '/keywords', array('keyword' => $keyword));
     $xml = $this->validateResult($result, self::CODE_KEYWORD_DELETED);
   }
@@ -957,7 +962,7 @@ class CultureFeed_EntryApi implements CultureFeed_EntryApi_IEntryApi {
    * @param String $longDescription
    *   Long description of the translation.
    */
-  private function addTranslation($type, $id, $lang, $title = '', $shortDescription = '', $longDescription = '') {
+  private function addTranslation($type, $id, $lang, $title = '', $shortDescription = '', $longDescription = ''): void {
     $result = $this->oauth_client->authenticatedPostAsXml($type . '/' . $id . '/translations', array(
       'lang' => $lang,
       'title' => $title,
@@ -977,7 +982,7 @@ class CultureFeed_EntryApi implements CultureFeed_EntryApi_IEntryApi {
    * @param String $lang
    *   Language to add.
    */
-  private function removeTranslation($type, $id, $lang) {
+  private function removeTranslation($type, $id, $lang): void {
     $result = $this->oauth_client->authenticatedDeleteAsXml($type . '/' . $id . '/translations', array('lang' => $lang));
     $xml = $this->validateResult($result, self::CODE_TRANSLATION_WITHDRAWN);
   }
@@ -1014,7 +1019,7 @@ class CultureFeed_EntryApi implements CultureFeed_EntryApi_IEntryApi {
         $copyright = '',
         $subBrand = '',
         $description = ''
-    ) {
+    ): void {
 
         $result = $this->oauth_client->authenticatedPostAsXml($type . '/' . $id . '/links', array(
             'link' => $link,
@@ -1037,7 +1042,7 @@ class CultureFeed_EntryApi implements CultureFeed_EntryApi_IEntryApi {
       $copyright = '',
       $subBrand = '',
       $description = ''
-    )
+    ): void
     {
       $result = $this->oauth_client->authenticatedPostAsXml($type . '/' . $id . '/links', array(
         'plaintext' => $plainText,
@@ -1061,7 +1066,7 @@ class CultureFeed_EntryApi implements CultureFeed_EntryApi_IEntryApi {
    * @param String $link
    *   Link itself.
    */
-  private function removeLink($type, $id, $link) {
+  private function removeLink($type, $id, $link): void {
     $result = $this->oauth_client->authenticatedDeleteAsXml($type . '/' . $id . '/links', array('link' => $link));
     $xml = $this->validateResult($result, self::CODE_LINK_WITHDRAWN);
   }
@@ -1103,7 +1108,7 @@ class CultureFeed_EntryApi implements CultureFeed_EntryApi_IEntryApi {
    *
    * @param string $result
    *   Result from the request.
-   * @param string $valid_status_code
+   * @param string|array $valid_status_code
    *   Status code if this is a valid request.
    * @return CultureFeed_SimpleXMLElement The parsed xml.
    *

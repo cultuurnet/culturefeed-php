@@ -1,20 +1,22 @@
 <?php
 
+use PHPUnit\Framework\TestCase;
+
 require_once 'common.php';
 require_once 'Mock_OAuthBaseStringRequest.php';
 
-class OAuthSignatureMethodHmacSha1Test extends PHPUnit_Framework_TestCase {
+class OAuthSignatureMethodHmacSha1Test extends TestCase {
 	private $method;
 	
-	public function setUp() {
+	public function setUp(): void {
 		$this->method = new OAuthSignatureMethod_HMAC_SHA1();
 	}
 	
-	public function testIdentifyAsHmacSha1() {
+	public function testIdentifyAsHmacSha1(): void {
 		$this->assertEquals('HMAC-SHA1', $this->method->get_name());
 	}
 	
-	public function testBuildSignature() {
+	public function testBuildSignature(): void {
 		// Tests taken from http://wiki.oauth.net/TestCases section 9.2 ("HMAC-SHA1")
 		$request  = new Mock_OAuthBaseStringRequest('bs');
 		$consumer = new OAuthConsumer('__unused__', 'cs');
@@ -34,7 +36,7 @@ class OAuthSignatureMethodHmacSha1Test extends PHPUnit_Framework_TestCase {
 		$this->assertEquals('tR3+Ty81lMeYAr/Fid0kMTYa/WM=', $this->method->build_signature( $request, $consumer, $token) );
 	}
 	
-	public function testVerifySignature() {
+	public function testVerifySignature(): void {
 		// Tests taken from http://wiki.oauth.net/TestCases section 9.2 ("HMAC-SHA1")
 		$request   = new Mock_OAuthBaseStringRequest('bs');
 		$consumer  = new OAuthConsumer('__unused__', 'cs');

@@ -75,7 +75,7 @@ class CultureFeed_SimpleXMLElement extends SimpleXMLElement {
    * @param string $path
    * @param bool $multiple
    *
-   * @return CultureFeed_SimpleXMLElement|CultureFeed_SimpleXMLElement[]
+   * @return array<CultureFeed_SimpleXMLElement>|false|null|CultureFeed_SimpleXMLElement
    */
   #[\ReturnTypeWillChange]
   public function xpath($path, $multiple = true) {
@@ -94,9 +94,9 @@ class CultureFeed_SimpleXMLElement extends SimpleXMLElement {
    * @param string $cast_function
    * @param string $path
    *   The XPath query.
-   * @param string $multiple
+   * @param bool $multiple
    *   Does the query direct to a path where multiple values are possible?
-   * @return array|undefined
+   * @return array|mixed|null
    *   In case $multiple is TRUE, an array is returned with the type casted elements.
    *   In case $multiple is FALSE, the result of the XPath query is casted using the $cast_function and type depends on type of that function.
    *   In case no nodes were found with the query, NULL is returned.
@@ -129,8 +129,8 @@ class CultureFeed_SimpleXMLElement extends SimpleXMLElement {
 
   /**
    * Return the value from a simple xml object and cast it using a type casting function.
-   * @param unknown_type $cast_function
-   * @param unknown_type $object
+   * @param callable $cast_function
+   * @param object $object
    */
   private function xpath_object_value($cast_function, $object) {
 

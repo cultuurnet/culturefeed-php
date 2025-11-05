@@ -20,14 +20,14 @@ class CultureFeed_Uitpas_Event_Query_SearchEventsOptions extends CultureFeed_Uit
   /**
    * Begin date
    *
-   * @var integer
+   * @var integer|string
    */
   public $startDate;
 
   /**
    * End date
    *
-   * @var integer
+   * @var integer|string
    */
   public $endDate;
 
@@ -144,7 +144,7 @@ class CultureFeed_Uitpas_Event_Query_SearchEventsOptions extends CultureFeed_Uit
   /**
    * Read the data from a array and set the variables
    */
-  public function readValues($values) {
+  public function readValues($values): void {
     foreach($values as $k => $v) {
       $this->$k = $v;
     }
@@ -161,7 +161,7 @@ class CultureFeed_Uitpas_Event_Query_SearchEventsOptions extends CultureFeed_Uit
   /**
    * Read from a querystring
    */
-   public function readQueryString( $str ) {
+   public function readQueryString( $str ): void {
      $values = array();
      parse_str(urldecode($str) , $values);
      $this->readValues( $values );

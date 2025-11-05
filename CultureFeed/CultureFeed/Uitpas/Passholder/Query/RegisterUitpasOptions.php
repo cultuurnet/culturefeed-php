@@ -10,7 +10,7 @@ class CultureFeed_Uitpas_Passholder_Query_RegisterUitpasOptions extends CultureF
   /**
    * The identification of the passholder
    *
-   * @var unknown_type
+   * @var string
    */
   public $uid;
 

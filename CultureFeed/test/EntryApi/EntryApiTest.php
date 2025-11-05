@@ -1,9 +1,13 @@
 <?php
+
+use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\TestCase;
+
 /**
  * @file
  */
 
-class CultureFeed_EntryApiTest extends PHPUnit_Framework_TestCase {
+class CultureFeed_EntryApiTest extends TestCase {
 
   /**
    * @var CultureFeed_EntryApi
@@ -11,7 +15,7 @@ class CultureFeed_EntryApiTest extends PHPUnit_Framework_TestCase {
   protected $entry;
 
   /**
-   * @var CultureFeed_OAuthClient|PHPUnit_Framework_MockObject_MockObject
+   * @var CultureFeed_OAuthClient&MockObject
    */
   protected $oauthClient;
 
@@ -20,7 +24,7 @@ class CultureFeed_EntryApiTest extends PHPUnit_Framework_TestCase {
    */
   protected $event;
 
-  public function setUp() {
+  public function setUp(): void {
 
     $this->oauthClient = $this->createMock('CultureFeed_OAuthClient');
     $this->entry = new CultureFeed_EntryApi($this->oauthClient);
@@ -29,7 +33,7 @@ class CultureFeed_EntryApiTest extends PHPUnit_Framework_TestCase {
     $this->event->setCdbId('xyz');
   }
 
-  public function testAddTagToEventWithKeywordsAsStrings() {
+  public function testAddTagToEventWithKeywordsAsStrings(): void {
     $keywords = array(
       'foo',
       'bar',
@@ -49,7 +53,7 @@ class CultureFeed_EntryApiTest extends PHPUnit_Framework_TestCase {
     $this->entry->addTagToEvent($this->event, $keywords);
   }
 
-  public function testAddTagToEventWithKeywordsMixedAsObjectsAndStrings() {
+  public function testAddTagToEventWithKeywordsMixedAsObjectsAndStrings(): void {
     $keywords = array(
       new CultureFeed_Cdb_Data_Keyword('foo', true),
       new CultureFeed_Cdb_Data_Keyword('bar', false),
@@ -82,11 +86,11 @@ class CultureFeed_EntryApiTest extends PHPUnit_Framework_TestCase {
   /**
    * @dataProvider invalidKeywordProvider
    *
-   * @param array $keywords
+   * @param string|CultureFeed_Cdb_Data_Keyword $keyword
    */
-  public function testAddTagToEventWithInvalidKeywords($keyword) {
+  public function testAddTagToEventWithInvalidKeywords($keyword): void {
     $keywords = array($keyword);
-    $this->setExpectedException('InvalidArgumentException');
+    $this->expectException(InvalidArgumentException::class);
     $this->entry->addTagToEvent($this->event, $keywords);
   }
 
@@ -94,7 +98,7 @@ class CultureFeed_EntryApiTest extends PHPUnit_Framework_TestCase {
     return file_get_contents(__DIR__ . '/samples/rsp-keywords-created.xml');
   }
 
-    public function testAddLinkToEvent() {
+    public function testAddLinkToEvent(): void {
 
         $lang = 'nl';
         $link = 'http://tools.uitdatabank.be';
@@ -119,7 +123,7 @@ class CultureFeed_EntryApiTest extends PHPUnit_Framework_TestCase {
         $this->entry->addLinkToEvent($this->event, $link, $link_type, $lang);
     }
 
-    public function testAddCollaborationLinkToEvent() {
+    public function testAddCollaborationLinkToEvent(): void {
 
         $copyright = 'copyright';
         $description = 'description';

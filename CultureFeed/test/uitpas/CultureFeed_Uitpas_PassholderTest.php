@@ -1,15 +1,18 @@
 <?php
+
+use PHPUnit\Framework\TestCase;
+
 /**
  *
  */
-class CultureFeed_Uitpas_PassholderTest extends PHPUnit_Framework_TestCase {
+class CultureFeed_Uitpas_PassholderTest extends TestCase {
 
   /**
    * @var CultureFeed_Uitpas_Passholder
    */
   protected $passholder;
 
-  public function setUp() {
+  public function setUp(): void {
     $this->passholder = new CultureFeed_Uitpas_Passholder();
 
     $this->passholder->schoolConsumerKey = '111';
@@ -18,7 +21,7 @@ class CultureFeed_Uitpas_PassholderTest extends PHPUnit_Framework_TestCase {
     $this->passholder->street = '';
   }
 
-  public function testToPostData() {
+  public function testToPostData(): void {
     $postData = $this->passholder->toPostData();
 
     $this->assertArrayNotHasKey('street', $postData);
@@ -30,7 +33,7 @@ class CultureFeed_Uitpas_PassholderTest extends PHPUnit_Framework_TestCase {
     $this->assertEquals($this->passholder->gender, $postData['gender']);
 
     $this->assertArrayHasKey('kansenStatuut', $postData);
-    $this->assertInternalType('string', $postData['kansenStatuut']);
+    $this->assertIsString($postData['kansenStatuut']);
     $this->assertEquals('false', $postData['kansenStatuut']);
 
     $this->passholder->kansenStatuut = TRUE;
@@ -38,11 +41,11 @@ class CultureFeed_Uitpas_PassholderTest extends PHPUnit_Framework_TestCase {
     $postData = $this->passholder->toPostData();
 
     $this->assertArrayHasKey('kansenStatuut', $postData);
-    $this->assertInternalType('string', $postData['kansenStatuut']);
+    $this->assertIsString($postData['kansenStatuut']);
     $this->assertEquals('true', $postData['kansenStatuut']);
   }
 
-  public function testToPostDataDropsEmptyPropertiesByDefault() {
+  public function testToPostDataDropsEmptyPropertiesByDefault(): void {
     $this->passholder->schoolConsumerKey = '';
 
     $postData = $this->passholder->toPostData();
@@ -50,7 +53,7 @@ class CultureFeed_Uitpas_PassholderTest extends PHPUnit_Framework_TestCase {
     $this->assertArrayNotHasKey('schoolConsumerKey', $postData);
   }
 
-  public function testKeepEmptySchoolConsumerKeyWhenSpecified() {
+  public function testKeepEmptySchoolConsumerKeyWhenSpecified(): void {
     $this->passholder->schoolConsumerKey = '';
     $this->passholder->toPostDataKeepEmptySchoolConsumerKey();
 
@@ -68,7 +71,7 @@ class CultureFeed_Uitpas_PassholderTest extends PHPUnit_Framework_TestCase {
     $this->assertArrayNotHasKey('schoolConsumerKey', $postData);
   }
 
-  public function testKeepEmptySecondNameWhenSpecified() {
+  public function testKeepEmptySecondNameWhenSpecified(): void {
       $this->passholder->secondName = '';
       $this->passholder->toPostDataKeepEmptySecondName();
 
@@ -86,7 +89,7 @@ class CultureFeed_Uitpas_PassholderTest extends PHPUnit_Framework_TestCase {
       $this->assertArrayNotHasKey('secondName', $postData);
   }
 
-  public function testKeepEmptyContactInformationWhenSpecified() {
+  public function testKeepEmptyContactInformationWhenSpecified(): void {
       $this->passholder->email = '';
       $this->passholder->telephone = '';
       $this->passholder->gsm = '';
@@ -116,7 +119,7 @@ class CultureFeed_Uitpas_PassholderTest extends PHPUnit_Framework_TestCase {
       $this->assertArrayNotHasKey('gsm', $postData);
   }
 
-  public function testKeepEmptyRemarksWhenSpecified() {
+  public function testKeepEmptyRemarksWhenSpecified(): void {
       $this->passholder->moreInfo = '';
       $this->passholder->toPostDataKeepEmptyMoreInfo();
 
@@ -134,7 +137,7 @@ class CultureFeed_Uitpas_PassholderTest extends PHPUnit_Framework_TestCase {
       $this->assertArrayNotHasKey('moreInfo', $postData);
   }
 
-  public function testCreateFromXML() {
+  public function testCreateFromXML(): void {
     $xml = file_get_contents(dirname(__FILE__) . '/data/passholder.xml');
     $simple_xml = new CultureFeed_SimpleXMLElement($xml);
 
@@ -142,7 +145,6 @@ class CultureFeed_Uitpas_PassholderTest extends PHPUnit_Framework_TestCase {
 
     $this->assertInstanceOf('CultureFeed_Uitpas_Passholder', $passholder);
 
-    $this->assertInternalType('array', $passholder->cardSystemSpecific);
     $this->assertCount(2, $passholder->cardSystemSpecific);
 
     $keys = array_keys($passholder->cardSystemSpecific);
@@ -172,7 +174,6 @@ class CultureFeed_Uitpas_PassholderTest extends PHPUnit_Framework_TestCase {
     $this->assertEquals('Backend', $passholder->secondName);
     $this->assertEquals('FEMALE', $passholder->gender);
     $this->assertEquals('62cb6cc2a58d1b23d85b5993894c2fcd2d55ed01c0f6ff1f4f0ee87ac2b83dd9', $passholder->inszNumberHash);
-    $this->assertInternalType('array', $passholder->memberships);
     $this->assertCount(0, $passholder->memberships);
     $this->assertEquals('Tester', $passholder->name);
     $this->assertEquals(2, $passholder->numberOfCheckins);
@@ -192,7 +193,7 @@ class CultureFeed_Uitpas_PassholderTest extends PHPUnit_Framework_TestCase {
     $this->assertEquals(FALSE, $passholder->verified);
   }
 
-  public function testCreateFromXMLWithMemberships() {
+  public function testCreateFromXMLWithMemberships(): void {
     $xml = file_get_contents(dirname(__FILE__) . '/data/passholder.memberships.xml');
     $simple_xml = new CultureFeed_SimpleXMLElement($xml);
 
@@ -200,7 +201,6 @@ class CultureFeed_Uitpas_PassholderTest extends PHPUnit_Framework_TestCase {
 
     $this->assertInstanceOf('CultureFeed_Uitpas_Passholder', $passholder);
 
-    $this->assertInternalType('array', $passholder->memberships);
     $this->assertCount(1, $passholder->memberships);
 
     /** @var CultureFeed_Uitpas_Passholder_Membership $membership */
@@ -215,7 +215,7 @@ class CultureFeed_Uitpas_PassholderTest extends PHPUnit_Framework_TestCase {
     $this->assertSame('Chiro Jongens', $membership->association->name);
   }
 
-  public function testOptinPreferencesToPostData() {
+  public function testOptinPreferencesToPostData(): void {
     $this->passholder->schoolConsumerKey = '';
 
     $postData = $this->passholder->toPostData();

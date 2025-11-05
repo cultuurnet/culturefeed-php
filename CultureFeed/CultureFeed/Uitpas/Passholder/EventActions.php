@@ -15,10 +15,7 @@ class CultureFeed_Uitpas_Passholder_EventActions {
    */
   public $eventCheckin;
 
-  /**
-   * @var CultureFeed_Uitpas_Passholder_EventBuyTicket
-   */
-  public $eventBuyTicket;
+  public ?CultureFeed_Uitpas_Passholder_EventBuyTicket $eventBuyTicket = null;
 
   /**
    * @var CultureFeed_Uitpas_Passholder_PointsPromotionResultSet

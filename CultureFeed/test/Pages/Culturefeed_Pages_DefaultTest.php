@@ -1,19 +1,22 @@
 <?php
 
+use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\TestCase;
+
 /**
  * @file
  * Testing methods for the Pages_Default class.
  */
 
-class CultureFeed_Pages_DefaultTest extends PHPUnit_Framework_TestCase {
+class CultureFeed_Pages_DefaultTest extends TestCase {
 
   /**
-   * @var Culturefeed
+   * @var CultureFeed
    */
   protected $cultureFeed;
 
   /**
-   * @var CultureFeed_OAuthClient|PHPUnit_Framework_MockObject_MockObject
+   * @var CultureFeed_OAuthClient&MockObject
    */
   protected $oauthClient;
 
@@ -22,7 +25,7 @@ class CultureFeed_Pages_DefaultTest extends PHPUnit_Framework_TestCase {
    */
   protected $pages;
 
-  public function setUp() {
+  public function setUp(): void {
     parent::setUp();
 
     $this->oauthClient = $this->createMock('CultureFeed_OAuthClient');
@@ -33,7 +36,7 @@ class CultureFeed_Pages_DefaultTest extends PHPUnit_Framework_TestCase {
   /**
    * Test the modifying of a page
    */
-  public function testModifyPage() {
+  public function testModifyPage(): void {
 
     $modified_xml = file_get_contents(dirname(__FILE__) . '/data/page_modified.xml');
 
@@ -46,8 +49,7 @@ class CultureFeed_Pages_DefaultTest extends PHPUnit_Framework_TestCase {
     ->will($this->returnValue($modified_xml));
 
     $uid = $this->pages->updatePage('f412b8a3-8b12-44bc-9a0a-c74ec0e88e98', array('name' => 'test'));
-//    $this->assertEquals($uid, 'f412b8a3-8b12-44bc-9a0a-c74ec0e88e98');
-
+    $this->assertEquals($uid, 'f412b8a3-8b12-44bc-9a0a-c74ec0e88e98');
   }
 
 }

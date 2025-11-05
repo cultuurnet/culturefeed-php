@@ -1,11 +1,14 @@
 <?php
+
+use PHPUnit\Framework\TestCase;
+
 /**
  * @file
  */
 
-class CultureFeed_Uitpas_AssociationAPITest extends PHPUnit_Framework_TestCase {
+class CultureFeed_Uitpas_AssociationAPITest extends TestCase {
 
-  public function testGetAssociations() {
+  public function testGetAssociations(): void {
     $oauth_client_stub = $this->createMock('CultureFeed_OAuthClient');
 
     $balie_consumer_key = 'e52efb7f-2eab-47a5-9cf3-9e7413ffd942';
@@ -27,7 +30,6 @@ class CultureFeed_Uitpas_AssociationAPITest extends PHPUnit_Framework_TestCase {
     $this->assertInstanceOf('CultureFeed_ResultSet', $result);
     $this->assertEquals(3, $result->total);
 
-    $this->assertInternalType('array', $result->objects);
     $this->assertCount(3, $result->objects);
     $this->assertContainsOnly('CultureFeed_Uitpas_Association', $result->objects);
 

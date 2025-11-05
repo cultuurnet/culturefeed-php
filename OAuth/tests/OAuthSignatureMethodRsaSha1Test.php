@@ -1,21 +1,23 @@
 <?php
 
+use PHPUnit\Framework\TestCase;
+
 require_once 'common.php';
 require_once 'Mock_OAuthBaseStringRequest.php';
 require_once 'Mock_OAuthSignatureMethod_RSA_SHA1.php';
 
-class OAuthSignatureMethodRsaSha1Test extends PHPUnit_Framework_TestCase {
+class OAuthSignatureMethodRsaSha1Test extends TestCase {
 	private $method;
 	
-	public function setUp() {
+	public function setUp(): void {
 		$this->method = new Mock_OAuthSignatureMethod_RSA_SHA1();
 	}
 	
-	public function testIdentifyAsRsaSha1() {
+	public function testIdentifyAsRsaSha1(): void {
 		$this->assertEquals('RSA-SHA1', $this->method->get_name());
 	}
 	
-	public function testBuildSignature() {
+	public function testBuildSignature(): void {
 		if( ! function_exists('openssl_get_privatekey') ) {
 			$this->markTestSkipped('OpenSSL not available, can\'t test RSA-SHA1 functionality');
 		}
@@ -28,7 +30,7 @@ class OAuthSignatureMethodRsaSha1Test extends PHPUnit_Framework_TestCase {
 		$this->assertEquals($signature, $this->method->build_signature( $request, $consumer, $token) );
 	}
 	
-	public function testVerifySignature() {
+	public function testVerifySignature(): void {
 		if( ! function_exists('openssl_get_privatekey') ) {
 			$this->markTestSkipped('OpenSSL not available, can\'t test RSA-SHA1 functionality');
 		}

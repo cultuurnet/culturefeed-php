@@ -16,6 +16,8 @@ if (!class_exists('OAuthConsumer')) {
 
     public $secret;
 
+    public $callback_url;
+
     function __construct($key, $secret, $callback_url = NULL) {
       $this->key = $key;
       $this->secret = $secret;
@@ -143,7 +145,7 @@ if (!class_exists('OAuthSignatureMethod_HMAC_SHA1')) {
 
       $key_parts = [
         $consumer->secret,
-        ($token) ? $token->secret : ""
+        !empty($token->secret) ? $token->secret : ""
       ];
 
       $key_parts = OAuthUtil::urlencode_rfc3986($key_parts);
@@ -178,7 +180,7 @@ if (!class_exists('OAuthSignatureMethod_PLAINTEXT')) {
     public function build_signature($request, $consumer, $token) {
       $key_parts = [
         $consumer->secret,
-        ($token) ? $token->secret : ""
+          !empty($token->secret) ? $token->secret : ""
       ];
 
       $key_parts = OAuthUtil::urlencode_rfc3986($key_parts);
@@ -357,7 +359,7 @@ if (!class_exists('OAuthRequest')) {
       return new OAuthRequest($http_method, $http_url, $parameters);
     }
 
-    public function set_parameter($name, $value, $allow_duplicates = TRUE) {
+    public function set_parameter($name, $value, $allow_duplicates = TRUE): void {
       if ($allow_duplicates && isset($this->parameters[$name])) {
         // We have already added parameter(s) with this name, so add to the list
         if (is_scalar($this->parameters[$name])) {
@@ -381,7 +383,7 @@ if (!class_exists('OAuthRequest')) {
       return $this->parameters;
     }
 
-    public function unset_parameter($name) {
+    public function unset_parameter($name): void {
       unset($this->parameters[$name]);
     }
 
@@ -504,7 +506,7 @@ if (!class_exists('OAuthRequest')) {
     }
 
 
-    public function sign_request($signature_method, $consumer, $token) {
+    public function sign_request($signature_method, $consumer, $token): void {
       $this->set_parameter(
         "oauth_signature_method",
         $signature_method->get_name(),
@@ -553,7 +555,7 @@ if (!class_exists('OAuthServer')) {
       $this->data_store = $data_store;
     }
 
-    public function add_signature_method($signature_method) {
+    public function add_signature_method($signature_method): void {
       $this->signature_methods[$signature_method->get_name()] =
         $signature_method;
     }
@@ -697,7 +699,7 @@ if (!class_exists('OAuthServer')) {
      * all-in-one function to check the signature on a request
      * should guess the signature method appropriately
      */
-    private function check_signature($request, $consumer, $token) {
+    private function check_signature($request, $consumer, $token): void {
       // this should probably be in a different method
       $timestamp = $request instanceof OAuthRequest
         ? $request->get_parameter('oauth_timestamp')
@@ -727,7 +729,7 @@ if (!class_exists('OAuthServer')) {
     /**
      * check that the timestamp is new enough
      */
-    private function check_timestamp($timestamp) {
+    private function check_timestamp($timestamp): void {
       if (!$timestamp) {
         throw new OAuthException(
           'Missing timestamp parameter. The parameter is required'
@@ -746,7 +748,7 @@ if (!class_exists('OAuthServer')) {
     /**
      * check that the nonce is not repeated
      */
-    private function check_nonce($consumer, $token, $nonce, $timestamp) {
+    private function check_nonce($consumer, $token, $nonce, $timestamp): void {
       if (!$nonce) {
         throw new OAuthException(
           'Missing nonce parameter. The parameter is required'
@@ -771,29 +773,25 @@ if (!class_exists('OAuthServer')) {
 if (!class_exists('OAuthDataStore')) {
   class OAuthDataStore {
 
-    function lookup_consumer($consumer_key) {
-      // implement me
+    function lookup_consumer($consumer_key): ?string {
+      throw new OAuthException("Not implemented: lookup_consumer");
     }
 
-    function lookup_token($consumer, $token_type, $token) {
-      // implement me
+    function lookup_token($consumer, $token_type, $token): ?string {
+      throw new OAuthException("Not implemented: lookup_consumer");
     }
 
-    function lookup_nonce($consumer, $token, $nonce, $timestamp) {
-      // implement me
+    function lookup_nonce($consumer, $token, $nonce, $timestamp): ?string {
+      throw new OAuthException("Not implemented: lookup_consumer");
     }
 
-    function new_request_token($consumer, $callback = NULL) {
-      // return a new token attached to this consumer
+    function new_request_token($consumer, $callback = NULL): ?string {
+      throw new OAuthException("Not implemented: lookup_consumer");
     }
 
-    function new_access_token($token, $consumer, $verifier = NULL) {
-      // return a new access token attached to this consumer
-      // for the user associated with this token if the request token
-      // is authorized
-      // should also invalidate the request token
+    function new_access_token($token, $consumer, $verifier = NULL): ?string {
+      throw new OAuthException("Not implemented: lookup_consumer");
     }
-
   }
 }
 

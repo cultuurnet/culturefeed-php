@@ -41,7 +41,7 @@ class CultureFeed_Uitpas_Passholder_UitpasPrice extends CultureFeed_Uitpas_Value
   /**
    * The age range the price is valid for
    *
-   * @param CultureFeed_Uitpas_Passholder_AgeRange
+   * @var CultureFeed_Uitpas_Passholder_AgeRange
    */
   public $ageRange;
 

@@ -9,12 +9,7 @@ class CultureFeed_Uitpas_Response {
    */
   public $code;
 
-  /**
-   * The response message
-   *
-   * @var string
-   */
-  public $message;
+  public ?string $message;
 
   public static function createFromXML(CultureFeed_SimpleXMLElement $object) {
     $response = new CultureFeed_Uitpas_Response();

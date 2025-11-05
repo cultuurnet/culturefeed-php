@@ -183,9 +183,9 @@ interface ICultureFeed {
    *
    * @param int $id
    *   ID of the user to push to his social account.
-   * @param string $accountName
+   * @param string $account_name
    *   ID of the social account
-   * @param string $accountType
+   * @param string $account_type
    *   type of social account (twitter/facebook)
    * @param string $message
    *   message to post to social account
