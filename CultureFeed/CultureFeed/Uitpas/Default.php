@@ -430,10 +430,10 @@ class CultureFeed_Uitpas_Default implements CultureFeed_Uitpas {
     );
 
     try {
-      $xml = new CultureFeed_SimpleXMLElement($result->response);
+      $xml = new CultureFeed_SimpleXMLElement($result);
     }
     catch (Exception $e) {
-      throw new CultureFeed_ParseException($result->response);
+      throw new CultureFeed_ParseException($result);
     }
 
     $response = CultureFeed_Uitpas_Response::createFromXML($xml->xpath('/response', false));

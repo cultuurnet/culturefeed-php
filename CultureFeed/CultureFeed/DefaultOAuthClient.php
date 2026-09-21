@@ -244,8 +244,8 @@ class CultureFeed_DefaultOAuthClient implements CultureFeed_OAuthClient {
    *   Possible values are 'xml', 'json' and '' for default response (depending on request).
    * @param bool $raw_post
    *   Should the post data (passed via $params) be passed as is ($raw_post TRUE) or should the OAuth params be added?
-   * @return CultureFeed_HttpResponse
-   *   The response.
+   * @return string
+   *   The response body.
    *
    * @throws Exception
    *   If an $use_auth is TRUE and no token was set.
@@ -361,7 +361,7 @@ class CultureFeed_DefaultOAuthClient implements CultureFeed_OAuthClient {
     }
 
     // In case the HTTP response status is 200, we return the response.
-    return $response;
+    return $response->response;
   }
 
   /**

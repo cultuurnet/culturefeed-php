@@ -101,6 +101,7 @@ class CultureFeed_Uitpas_Counter_Employee extends CultureFeed_Uitpas_ValueObject
    * @return mixed data which can be serialized by json_encode,
    * which is a value of any type other than a resource.
    */
+  #[\ReturnTypeWillChange]
   public function jsonSerialize() {
     $counterEmployee = (array) $this;
 
