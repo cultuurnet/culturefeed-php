@@ -142,8 +142,8 @@ interface CultureFeed_OAuthClient {
    *   Possible values are 'xml', 'json' and '' for default response (depending on request).
    * @param bool $raw_post
    *   Should the post data (passed via $params) be passed as is ($raw_post TRUE) or should the OAuth params be added?
-   * @return CultureFeed_HttpResponse
-   *   The response.
+   * @return string
+   *   The response body.
    *
    * @throws CultureFeed_Exception
    *   If an error message and code could be parsed from the response.
