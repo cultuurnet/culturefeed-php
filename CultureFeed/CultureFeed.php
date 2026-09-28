@@ -1215,7 +1215,8 @@ class CultureFeed implements ICultureFeed {
    */
   public function createMailing(CultureFeed_Mailing $mailing) {
     $mailing->template = $mailing->template_id;
-    unset($mailing->template_id);
+    // toPostData() runs array_filter, so a null is dropped exactly like an unset property was.
+    $mailing->template_id = null;
     $data = $mailing->toPostData();
 
     $result = $this->oauth_client->authenticatedPostAsXml('mailing/v2', $data);
