@@ -167,14 +167,14 @@ abstract class CultureFeed_ICultureFeedDecoratorBase implements ICultureFeed
 
     public function getRecommendationsForEvent(
         $id,
-        CultureFeed_RecommendationsQuery $query = null
+        ?CultureFeed_RecommendationsQuery $query = null
     ) {
         return $this->realCultureFeed->getRecommendationsForEvent($id, $query);
     }
 
     public function getRecommendationsForUser(
         $id,
-        CultureFeed_RecommendationsQuery $query = null
+        ?CultureFeed_RecommendationsQuery $query = null
     ) {
         return $this->realCultureFeed->getRecommendationsForUser($id, $query);
     }

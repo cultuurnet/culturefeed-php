@@ -220,7 +220,7 @@ interface CultureFeed_Uitpas {
    * @param CultureFeed_Uitpas_Passholder $passholder The passholder to update.
    * 		The passholder is identified by ID. Only fields that are set will be updated.
    */
-  public function updatePassholder(CultureFeed_Uitpas_Passholder $passholder, string $consumer_key_counter = null);
+  public function updatePassholder(CultureFeed_Uitpas_Passholder $passholder, ?string $consumer_key_counter = null);
 
   /**
    * Update a passholder's card system preferences.
@@ -419,14 +419,14 @@ interface CultureFeed_Uitpas {
    * @param integer $id
    * @param CultureFeed_Uitpas_Promotion_PassholderParameter $passholder
    */
-  public function getWelcomeAdvantage($id, CultureFeed_Uitpas_Promotion_PassholderParameter $passholder = NULL);
+  public function getWelcomeAdvantage($id, ?CultureFeed_Uitpas_Promotion_PassholderParameter $passholder = NULL);
 
   /**
    *
    * @param integer $id
    * @param CultureFeed_Uitpas_Promotion_PassholderParameter $passholder
    */
-  public function getPointsPromotion($id, CultureFeed_Uitpas_Promotion_PassholderParameter $passholder = NULL);
+  public function getPointsPromotion($id, ?CultureFeed_Uitpas_Promotion_PassholderParameter $passholder = NULL);
 
   /**
    * Register an event.

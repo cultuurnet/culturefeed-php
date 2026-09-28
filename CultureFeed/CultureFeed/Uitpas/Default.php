@@ -1560,7 +1560,7 @@ class CultureFeed_Uitpas_Default implements CultureFeed_Uitpas {
    * (non-PHPdoc)
    * @see CultureFeed_Uitpas::getWelcomeAdvantage()
    */
-  public function getWelcomeAdvantage($id, CultureFeed_Uitpas_Promotion_PassholderParameter $passholder = NULL) {
+  public function getWelcomeAdvantage($id, ?CultureFeed_Uitpas_Promotion_PassholderParameter $passholder = NULL) {
     $path = 'uitpas/promotion/welcomeAdvantage/' . $id;
 
     $params = array();
@@ -1583,7 +1583,7 @@ class CultureFeed_Uitpas_Default implements CultureFeed_Uitpas {
     return $advantage;
   }
 
-  public function getPointsPromotion($id, CultureFeed_Uitpas_Promotion_PassholderParameter $passholder = NULL) {
+  public function getPointsPromotion($id, ?CultureFeed_Uitpas_Promotion_PassholderParameter $passholder = NULL) {
     $path = 'uitpas/promotion/pointsPromotion/' . $id;
 
     $params = array();

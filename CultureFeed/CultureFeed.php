@@ -1490,7 +1490,7 @@ class CultureFeed implements ICultureFeed {
    * @throws CultureFeed_ParseException
    *   If the result could not be parsed.
    */
-  public function getRecommendationsForUser($id, CultureFeed_RecommendationsQuery $query = NULL) {
+  public function getRecommendationsForUser($id, ?CultureFeed_RecommendationsQuery $query = NULL) {
     $data = array();
 
     if ($query) {
@@ -1524,7 +1524,7 @@ class CultureFeed implements ICultureFeed {
    * @throws CultureFeed_ParseException
    *   If the result could not be parsed.
    */
-  public function getRecommendationsForEvent($id, CultureFeed_RecommendationsQuery $query = NULL) {
+  public function getRecommendationsForEvent($id, ?CultureFeed_RecommendationsQuery $query = NULL) {
     $data = array();
 
     if ($query) {

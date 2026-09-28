@@ -15,7 +15,7 @@ class CultureFeed_Uitpas_EndDate {
    */
   private $date;
 
-  public function __construct(DateTime $date = NULL, $isFixed = TRUE) {
+  public function __construct(?DateTime $date = NULL, $isFixed = TRUE) {
     $this->date = $date;
     $this->fixed = $isFixed;
   }
