@@ -19,7 +19,7 @@ class CultureFeed_Mailing {
 
   /**
    * Template id of the associated template.
-   * @var int
+   * @var int|null
    */
   public $template_id;
 

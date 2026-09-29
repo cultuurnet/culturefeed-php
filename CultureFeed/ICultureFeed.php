@@ -104,9 +104,9 @@ interface ICultureFeed {
 
   public function getTopEvents($type, $max = 5);
 
-  public function getRecommendationsForUser($id, CultureFeed_RecommendationsQuery $query = NULL);
+  public function getRecommendationsForUser($id, ?CultureFeed_RecommendationsQuery $query = NULL);
 
-  public function getRecommendationsForEvent($id, CultureFeed_RecommendationsQuery $query = NULL);
+  public function getRecommendationsForEvent($id, ?CultureFeed_RecommendationsQuery $query = NULL);
 
   public function evaluateRecommendation($id, $evaluation);
 
